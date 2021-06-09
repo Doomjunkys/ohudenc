@@ -21,7 +21,7 @@
   </properties>
   <!--子模块 -->
   <modules>
-    <!-- <module>../com.egridcloud.udf.core</module> -->
+    <module>udf-core-starter</module>
   </modules>
   <!-- 依赖管理 -->
   <dependencyManagement>
