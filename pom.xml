@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <!-- mavne坐标 -->
+  <groupId>com.egridcloud.udf</groupId>
+  <artifactId>udf-parent</artifactId>
+  <version>1.0</version>
+  <packaging>pom</packaging>
+  <name>udf-parent</name>
+  <url>http://www.egridcloud.com</url>
+  <!-- 公共参数 -->
+  <properties>
+    <udf-parent.version>1.0</udf-parent.version>
+    <springboot.version>1.5.2.RELEASE</springboot.version>
+    <springcloud.version>Dalston.RELEASE</springcloud.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <java.version>1.8</java.version>
+    <maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
+    <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+  </properties>
+  <!--子模块 -->
+  <modules>
+    <!-- <module>../com.egridcloud.udf.core</module> -->
+  </modules>
+  <!-- 依赖管理 -->
+  <dependencyManagement>
+    <dependencies>
+      <!-- spring boot -->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${springboot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <!-- spring cloud -->
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>${springcloud.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <!-- 构建 -->
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+          <encoding>${project.build.sourceEncoding}</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>${maven-source-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  <!-- 分发管理 -->
+  <distributionManagement>
+    <!-- 公司内网仓库-snapshot -->
+    <snapshotRepository>
+      <id>snapshot</id>
+      <url>http://192.168.1.11:8081/nexus/content/repositories/snapshots/</url>
+    </snapshotRepository>
+    <!-- 公司内网仓库-release -->
+    <repository>
+      <id>release</id>
+      <url>http://192.168.1.11:8081/nexus/content/repositories/releases/</url>
+    </repository>
+  </distributionManagement>
+  <!-- 依赖仓库 -->
+  <repositories>
+    <!-- 指定中央仓库(id为central,覆盖默认的中央库设置) -->
+    <repository>
+      <id>central</id>
+      <name>Nexus aliyun</name>
+      <layout>default</layout>
+      <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+    </repository>
+    <!-- 指定公司内网仓库 -->
+    <!-- <repository>
+      <id>egridcloud-nexus</id>
+      <name>Nexus egridcloud</name>
+      <layout>default</layout>
+      <url>http://192.168.1.11:8081/nexus/content/groups/public/</url>
+    </repository> -->
+  </repositories>
+  <!-- 插件仓库 -->
+  <pluginRepositories>
+    <!-- 指定中央仓库(id为central,覆盖默认的中央库设置) -->
+    <pluginRepository>
+      <id>central</id>
+      <name>Nexus aliyun</name>
+      <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+      <layout>default</layout>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </pluginRepository>
+    <!-- 指定公司内网仓库 -->
+    <!-- <pluginRepository>
+      <id>egridcloud-nexus</id>
+      <name>Nexus egridcloud</name>
+      <url>http://192.168.1.11:8081/nexus/content/groups/public/</url>
+      <layout>default</layout>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </pluginRepository> -->
+  </pluginRepositories>
+</project>
