@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <!-- maven坐标 -->
+  <artifactId>udf-demo</artifactId>
+  <name>udf-demo</name>
+  <packaging>jar</packaging>
+  <url>http://www.egridcloud.com</url>
+  <!-- 父依赖 -->
+  <parent>
+    <groupId>com.egridcloud.udf</groupId>
+    <artifactId>udf-starter</artifactId>
+    <version>1.0</version>
+  </parent>
+   <!-- 参数 -->
+  <properties>
+    <server.port>8080</server.port>
+  </properties>
+  <!-- 依赖 -->
+  <dependencies>
+    <!-- udf-starter-core udf核心包-->
+    <dependency>
+      <groupId>com.egridcloud.udf</groupId>
+      <artifactId>udf-starter-core</artifactId>
+    </dependency>
+  </dependencies>
+  <!-- 构建 -->
+  <build>
+    <resources>
+      <resource>
+        <directory>${project.basedir}/src/main/resources/</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>${springboot.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

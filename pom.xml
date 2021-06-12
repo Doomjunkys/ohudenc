@@ -4,14 +4,14 @@
   <modelVersion>4.0.0</modelVersion>
   <!-- mavne坐标 -->
   <groupId>com.egridcloud.udf</groupId>
-  <artifactId>udf-parent</artifactId>
+  <artifactId>udf-starter</artifactId>
   <version>1.0</version>
   <packaging>pom</packaging>
-  <name>udf-parent</name>
+  <name>udf-starter</name>
   <url>http://www.egridcloud.com</url>
   <!-- 公共参数 -->
   <properties>
-    <udf-parent.version>1.0</udf-parent.version>
+    <udf-starter.version>1.0</udf-starter.version>
     <springboot.version>1.5.2.RELEASE</springboot.version>
     <springcloud.version>Dalston.RELEASE</springcloud.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -21,8 +21,29 @@
   </properties>
   <!--子模块 -->
   <modules>
-    <module>udf-core-starter</module>
+    <module>udf-starter-core</module>
+    <module>udf-demo</module>
   </modules>
+  <!-- 环境 -->
+  <profiles>
+    <!-- 开发 -->
+    <profile>
+      <id>dev</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <profiles.activation>dev</profiles.activation>
+      </properties>
+    </profile>
+    <!-- qa -->
+    <profile>
+      <id>qa</id>
+      <properties>
+        <profiles.activation>qa</profiles.activation>
+      </properties>
+    </profile>
+  </profiles>
   <!-- 依赖管理 -->
   <dependencyManagement>
     <dependencies>
@@ -41,6 +62,12 @@
         <version>${springcloud.version}</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <!-- udf-core-starter -->
+      <dependency>
+        <groupId>com.egridcloud.udf</groupId>
+        <artifactId>udf-starter-core</artifactId>
+        <version>${udf-starter.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -75,15 +102,15 @@
   <!-- 分发管理 -->
   <distributionManagement>
     <!-- 公司内网仓库-snapshot -->
-    <snapshotRepository>
+    <!-- <snapshotRepository>
       <id>snapshot</id>
       <url>http://192.168.1.11:8081/nexus/content/repositories/snapshots/</url>
-    </snapshotRepository>
+    </snapshotRepository> -->
     <!-- 公司内网仓库-release -->
-    <repository>
+    <!-- <repository>
       <id>release</id>
       <url>http://192.168.1.11:8081/nexus/content/repositories/releases/</url>
-    </repository>
+    </repository> -->
   </distributionManagement>
   <!-- 依赖仓库 -->
   <repositories>

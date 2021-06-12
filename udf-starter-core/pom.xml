@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <!-- maven坐标 -->
+  <artifactId>udf-starter-core</artifactId>
+  <name>udf-starter-core</name>
+  <packaging>jar</packaging>
+  <url>http://www.egridcloud.com</url>
+  <!-- 父依赖 -->
+  <parent>
+    <groupId>com.egridcloud.udf</groupId>
+    <artifactId>udf-starter</artifactId>
+    <version>1.0</version>
+  </parent>
+  <!-- 依赖 -->
+  <dependencies>
+    <!-- springboot web -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-aop</artifactId>
+    </dependency>
+    <!-- springboot actuator -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+    <!-- springboot configuration-processor -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <!-- spring-cloud-starter-config 分布式配置-客户端 -->
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-config</artifactId>
+    </dependency>
+    <!-- spring-cloud-starter-eureka 服务发现-客户端 -->
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-eureka</artifactId>
+    </dependency>
+    <!-- spring-cloud-starter-ribbon 服务发现-负载均衡 -->
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-ribbon</artifactId>
+    </dependency>
+    <!-- spring-cloud-starter-feign 服务发现-声明式web service客户端(包括负载均衡) -->
+    <!-- <dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-starter-feign</artifactId> </dependency> -->
+    <!-- spring-cloud-starter-hystrix 断路器 -->
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-hystrix</artifactId>
+    </dependency>
+  </dependencies>
+</project>
