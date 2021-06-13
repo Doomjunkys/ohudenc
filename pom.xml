@@ -22,28 +22,7 @@
   <!--子模块 -->
   <modules>
     <module>udf-starter-core</module>
-    <module>udf-demo</module>
   </modules>
-  <!-- 环境 -->
-  <profiles>
-    <!-- 开发 -->
-    <profile>
-      <id>dev</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <properties>
-        <profiles.activation>dev</profiles.activation>
-      </properties>
-    </profile>
-    <!-- qa -->
-    <profile>
-      <id>qa</id>
-      <properties>
-        <profiles.activation>qa</profiles.activation>
-      </properties>
-    </profile>
-  </profiles>
   <!-- 依赖管理 -->
   <dependencyManagement>
     <dependencies>
@@ -102,15 +81,10 @@
   <!-- 分发管理 -->
   <distributionManagement>
     <!-- 公司内网仓库-snapshot -->
-    <!-- <snapshotRepository>
-      <id>snapshot</id>
-      <url>http://192.168.1.11:8081/nexus/content/repositories/snapshots/</url>
-    </snapshotRepository> -->
+    <!-- <snapshotRepository> <id>snapshot</id> <url>http://192.168.1.11:8081/nexus/content/repositories/snapshots/</url> 
+      </snapshotRepository> -->
     <!-- 公司内网仓库-release -->
-    <!-- <repository>
-      <id>release</id>
-      <url>http://192.168.1.11:8081/nexus/content/repositories/releases/</url>
-    </repository> -->
+    <!-- <repository> <id>release</id> <url>http://192.168.1.11:8081/nexus/content/repositories/releases/</url> </repository> -->
   </distributionManagement>
   <!-- 依赖仓库 -->
   <repositories>
@@ -122,12 +96,8 @@
       <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
     </repository>
     <!-- 指定公司内网仓库 -->
-    <!-- <repository>
-      <id>egridcloud-nexus</id>
-      <name>Nexus egridcloud</name>
-      <layout>default</layout>
-      <url>http://192.168.1.11:8081/nexus/content/groups/public/</url>
-    </repository> -->
+    <!-- <repository> <id>egridcloud-nexus</id> <name>Nexus egridcloud</name> <layout>default</layout> <url>http://192.168.1.11:8081/nexus/content/groups/public/</url> 
+      </repository> -->
   </repositories>
   <!-- 插件仓库 -->
   <pluginRepositories>
@@ -145,17 +115,8 @@
       </snapshots>
     </pluginRepository>
     <!-- 指定公司内网仓库 -->
-    <!-- <pluginRepository>
-      <id>egridcloud-nexus</id>
-      <name>Nexus egridcloud</name>
-      <url>http://192.168.1.11:8081/nexus/content/groups/public/</url>
-      <layout>default</layout>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </pluginRepository> -->
+    <!-- <pluginRepository> <id>egridcloud-nexus</id> <name>Nexus egridcloud</name> <url>http://192.168.1.11:8081/nexus/content/groups/public/</url> 
+      <layout>default</layout> <releases> <enabled>true</enabled> </releases> <snapshots> <enabled>true</enabled> </snapshots> 
+      </pluginRepository> -->
   </pluginRepositories>
 </project>
