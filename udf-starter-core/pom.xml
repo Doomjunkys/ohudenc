@@ -39,6 +39,17 @@
       <artifactId>spring-boot-configuration-processor</artifactId>
       <optional>true</optional>
     </dependency>
+    <!-- swagger2 -->
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger2</artifactId>
+      <version>${springfox-swagger2.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger-ui</artifactId>
+      <version>${springfox-swagger-ui.version}</version>
+    </dependency>
     <!-- spring-cloud-starter-config 分布式配置-客户端 -->
     <dependency>
       <groupId>org.springframework.cloud</groupId>
