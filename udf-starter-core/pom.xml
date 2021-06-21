@@ -65,12 +65,12 @@
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-ribbon</artifactId>
     </dependency>
-    <!-- spring-cloud-starter-feign 服务发现-声明式web service客户端(包括负载均衡) -->
-    <!-- <dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-starter-feign</artifactId> </dependency> -->
     <!-- spring-cloud-starter-hystrix 断路器 -->
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-hystrix</artifactId>
     </dependency>
+    <!-- spring-cloud-starter-feign 服务发现-声明式web service客户端(包括负载均衡) -->
+    <!-- <dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-starter-feign</artifactId> </dependency> -->
   </dependencies>
 </project>
