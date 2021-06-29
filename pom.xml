@@ -20,10 +20,13 @@
     <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
     <springfox-swagger2.version>2.6.1</springfox-swagger2.version>
     <springfox-swagger-ui.version>2.6.1</springfox-swagger-ui.version>
+    <commons-collections4.version>4.1</commons-collections4.version>
+    <commons-lang3.version>3.5</commons-lang3.version>
   </properties>
   <!--子模块 -->
   <modules>
     <module>udf-starter-core</module>
+    <module>udf-starter-rms</module>
   </modules>
   <!-- 依赖管理 -->
   <dependencyManagement>
@@ -48,6 +51,12 @@
       <dependency>
         <groupId>com.egridcloud.udf</groupId>
         <artifactId>udf-starter-core</artifactId>
+        <version>${udf-starter.version}</version>
+      </dependency>
+      <!-- udf-core-starter -->
+      <dependency>
+        <groupId>com.egridcloud.udf</groupId>
+        <artifactId>udf-starter-rms</artifactId>
         <version>${udf-starter.version}</version>
       </dependency>
     </dependencies>
