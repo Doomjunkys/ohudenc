@@ -50,6 +50,11 @@ public class Constant {
   public static final String PURVIEW_DISABLED = "disabled";
 
   /**
+   * 描述 : http头
+   */
+  public static final String HTTP = "http://";
+
+  /**
    * 描述 : 私有化构造函数
    *
    */

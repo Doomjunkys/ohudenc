@@ -45,7 +45,7 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
    * 描述 : 配置
    */
   @Autowired
-  private RmsConfig rmsConfig;
+  private RmsProperties rmsProperties;
 
   /**
    * 描述 : 环境变量
@@ -73,9 +73,9 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
     //判断环境(开发环境无需校验)
     if (!DEV_PROFILES.equals(env.getProperty("spring.profiles.active"))) {
       //判断systemTag是否有效
-      if (this.rmsConfig.getAuthorization().containsKey(rmsApplicationName)) {
+      if (this.rmsProperties.getAuthorization().containsKey(rmsApplicationName)) {
         //获得secret
-        String secret = this.rmsConfig.getAuthorization().get(rmsApplicationName).getSecret();
+        String secret = this.rmsProperties.getAuthorization().get(rmsApplicationName).getSecret();
         //计算sign
         String sign = Constant.sign(rmsApplicationName, secret);
         //比较sign
@@ -83,9 +83,9 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
           throw new AuthException("sign Validation failed");
         }
         //比较接口编号的有效性
-        if (rmsConfig.getService().containsKey(rmsServiceCode)) {
+        if (rmsProperties.getService().containsKey(rmsServiceCode)) {
           //获得服务元数据
-          PathMate pathMate = rmsConfig.getService().get(rmsServiceCode);
+          PathMate pathMate = rmsProperties.getService().get(rmsServiceCode);
           //比较url和method
           if (!pathMate.getUri().equals(url) || !pathMate.getMethod().equals(method)) {
             throw new AuthException("url and method verification error");
@@ -94,7 +94,7 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
           throw new AuthException("service code not exist");
         }
         //比较是否有调用接口的权限
-        AuthMate authMate = rmsConfig.getAuthorization().get(rmsApplicationName);
+        AuthMate authMate = rmsProperties.getAuthorization().get(rmsApplicationName);
         if (authMate.getPurview().indexOf(Constant.PURVIEW_ALL) == -1) {
           if (authMate.getPurview().indexOf(Constant.PURVIEW_DISABLED) != -1 //NOSONAR
               || authMate.getPurview().indexOf(rmsServiceCode) == -1) {

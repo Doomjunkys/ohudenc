@@ -7,7 +7,6 @@
 package com.egridcloud.udf.core;
 
 import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -56,17 +55,6 @@ public class BaseApplication {
    */
   @Bean(name = "externalRestTemplate")
   public RestTemplate externalRestTemplate() {
-    return new RestTemplate();
-  }
-
-  /**
-   * 描述 : restTemplate
-   *
-   * @return restTemplate
-   */
-  @Bean
-  @LoadBalanced
-  RestTemplate restTemplate() {
     return new RestTemplate();
   }
 
