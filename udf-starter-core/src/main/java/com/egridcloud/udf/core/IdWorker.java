@@ -103,7 +103,7 @@ public class IdWorker {
   public IdWorker() {
     this.datacenterId = getDatacenterId(maxDatacenterId);
     this.workerId = getWorkerId(maxWorkerId);
-    LOGGER.info("datacenterId:{1},workerId:{2}", maxDatacenterId, maxWorkerId);
+    LOGGER.info("datacenterId:{},workerId:{}", maxDatacenterId, maxWorkerId);
   }
 
   /**
@@ -124,7 +124,7 @@ public class IdWorker {
     }
     this.workerId = workerId;
     this.datacenterId = datacenterId;
-    LOGGER.info("datacenterId:{1},workerId:{2}", maxDatacenterId, maxWorkerId);
+    LOGGER.info("datacenterId:{},workerId:{}", maxDatacenterId, maxWorkerId);
   }
 
   /**
