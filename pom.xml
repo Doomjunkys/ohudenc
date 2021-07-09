@@ -27,6 +27,7 @@
   <modules>
     <module>udf-starter-core</module>
     <module>udf-starter-rms</module>
+    <module>udf-starter-cors</module>
   </modules>
   <!-- 依赖管理 -->
   <dependencyManagement>
@@ -47,16 +48,22 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-      <!-- udf-core-starter -->
+      <!-- udf-starter-core -->
       <dependency>
         <groupId>com.egridcloud.udf</groupId>
         <artifactId>udf-starter-core</artifactId>
         <version>${udf-starter.version}</version>
       </dependency>
-      <!-- udf-core-starter -->
+      <!-- udf-starter-rms -->
       <dependency>
         <groupId>com.egridcloud.udf</groupId>
         <artifactId>udf-starter-rms</artifactId>
+        <version>${udf-starter.version}</version>
+      </dependency>
+      <!-- udf-starter-cors -->
+      <dependency>
+        <groupId>com.egridcloud.udf</groupId>
+        <artifactId>udf-starter-cors</artifactId>
         <version>${udf-starter.version}</version>
       </dependency>
     </dependencies>
