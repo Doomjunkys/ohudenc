@@ -21,7 +21,7 @@ import com.egridcloud.udf.rms.mate.PathMate;
  *
  */
 @Component
-@ConfigurationProperties(prefix = "com.egridcloud.rms.config")
+@ConfigurationProperties(prefix = "com.egridcloud.rms.properties")
 public class RmsProperties {
 
   /**
