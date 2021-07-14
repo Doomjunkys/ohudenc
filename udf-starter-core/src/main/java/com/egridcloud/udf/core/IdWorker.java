@@ -103,7 +103,7 @@ public class IdWorker {
   public IdWorker() {
     this.datacenterId = getDatacenterId(maxDatacenterId);
     this.workerId = getWorkerId(maxWorkerId);
-    LOGGER.info("datacenterId:{},workerId:{}", maxDatacenterId, maxWorkerId);
+    LOGGER.info("datacenterId:{},workerId:{}", this.datacenterId, this.workerId);
   }
 
   /**
