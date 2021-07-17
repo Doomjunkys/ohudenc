@@ -6,8 +6,11 @@
  */
 package com.egridcloud.udf.core;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * 描述 : 系统配置
@@ -17,26 +20,31 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @ConfigurationProperties(prefix = "com.egridcloud.application.config")
+@Validated
 public class ApplicationConfig {
 
   /**
    * 描述 : 是否输出异常堆栈
    */
+  @NotNull
   private boolean outputExceptionStackTrace = false;
 
   /**
    * 描述 : 编码
    */
+  @NotNull
   private String encoding = "UTF-8";
 
   /**
    * 描述 : 时区
    */
+  @NotNull
   private String timeZone = "Asia/Shanghai";
 
   /**
    * 描述 : 日期格式
    */
+  @NotNull
   private String dateFormat = "yyyy-MM-dd'T'HH:mm:ss:SSSZ";
 
   /**

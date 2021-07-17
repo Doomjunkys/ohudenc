@@ -6,10 +6,13 @@
  */
 package com.egridcloud.udf.rms;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -23,11 +26,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  */
 @Configuration
 @ConfigurationProperties(prefix = "com.egridcloud.rms.config")
+@Validated
 public class RmsConfig {
 
   /**
    * 描述 : rms扫描路径
    */
+  @NotNull
   private String rmsPathPatterns;
 
   /**

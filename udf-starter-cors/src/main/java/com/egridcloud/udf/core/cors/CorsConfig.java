@@ -9,11 +9,14 @@ package com.egridcloud.udf.core.cors;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.validation.constraints.NotNull;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.CollectionUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.servlet.config.annotation.CorsRegistration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -27,11 +30,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  */
 @Configuration
 @ConfigurationProperties(prefix = "com.egridcloud.cors")
+@Validated
 public class CorsConfig {
 
   /**
    * 描述 : 跨域信息
    */
+  @NotNull
   private Map<String, CorsRegistrationConfig> config;
 
   /**
