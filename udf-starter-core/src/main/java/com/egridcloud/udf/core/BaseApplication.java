@@ -10,6 +10,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.client.RestTemplate;
@@ -37,6 +38,7 @@ public class BaseApplication {
    * @return xssObjectMapper
    */
   @Bean
+  @Primary
   public ObjectMapper xssObjectMapper(Jackson2ObjectMapperBuilder builder) {
     //解析器
     ObjectMapper objectMapper = builder.createXmlMapper(false).build();

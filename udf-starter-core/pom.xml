@@ -33,6 +33,11 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
+    <!-- spring-boot-actuator-docs -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-actuator-docs</artifactId>
+    </dependency>
     <!-- springboot configuration-processor -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
