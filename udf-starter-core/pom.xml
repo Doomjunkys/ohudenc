@@ -44,6 +44,11 @@
       <artifactId>spring-boot-configuration-processor</artifactId>
       <optional>true</optional>
     </dependency>
+    <!-- jolokia-core -->
+    <dependency>
+      <groupId>org.jolokia</groupId>
+      <artifactId>jolokia-core</artifactId>
+    </dependency>
     <!-- swagger2 -->
     <dependency>
       <groupId>io.springfox</groupId>

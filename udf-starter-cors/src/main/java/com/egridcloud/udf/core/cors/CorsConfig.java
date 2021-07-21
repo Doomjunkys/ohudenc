@@ -23,7 +23,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
- * 描述 : CorsConfig
+ * 描述 : CorsConfig ( another way @see EndpointCorsProperties.java )
  *
  * @author Administrator
  *
