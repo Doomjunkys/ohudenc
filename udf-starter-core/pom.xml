@@ -44,6 +44,11 @@
       <artifactId>spring-boot-configuration-processor</artifactId>
       <optional>true</optional>
     </dependency>
+    <!-- spring-retry -->
+    <dependency>
+      <groupId>org.springframework.retry</groupId>
+      <artifactId>spring-retry</artifactId>
+    </dependency>
     <!-- jolokia-core -->
     <dependency>
       <groupId>org.jolokia</groupId>

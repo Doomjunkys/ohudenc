@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.client.RestTemplate;
 
@@ -29,6 +30,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 @ComponentScan(basePackages = { "com.egridcloud" })
 @EnableAsync
 @RefreshScope
+@EnableRetry
 public class BaseApplication {
 
   /**
