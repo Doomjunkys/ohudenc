@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 
 import com.egridcloud.udf.core.xss.XssStringJsonSerializer;
@@ -31,6 +32,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 @EnableAsync
 @RefreshScope
 @EnableRetry
+@EnableScheduling
 public class BaseApplication {
 
   /**
