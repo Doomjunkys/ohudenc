@@ -28,6 +28,7 @@
     <module>udf-starter-core</module>
     <module>udf-starter-rms</module>
     <module>udf-starter-cors</module>
+    <module>udf-starter-amqp-rabbitmq</module>
   </modules>
   <!-- 依赖管理 -->
   <dependencyManagement>

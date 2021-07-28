@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <!-- maven坐标 -->
+  <artifactId>udf-starter-amqp-rabbitmq</artifactId>
+  <name>udf-starter-amqp-rabbitmq</name>
+  <packaging>jar</packaging>
+  <url>http://www.egridcloud.com</url>
+  <!-- 父依赖 -->
+  <parent>
+    <groupId>com.egridcloud.udf</groupId>
+    <artifactId>udf-starter</artifactId>
+    <version>1.0</version>
+  </parent>
+  <!-- 依赖 -->
+  <dependencies>
+    <!-- udf-core-starter -->
+    <dependency>
+      <groupId>com.egridcloud.udf</groupId>
+      <artifactId>udf-starter-core</artifactId>
+    </dependency>
+    <!-- spring-boot-starter-amqp -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-amqp</artifactId>
+    </dependency>
+  </dependencies>
+</project>
