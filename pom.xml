@@ -67,6 +67,12 @@
         <artifactId>udf-starter-cors</artifactId>
         <version>${udf-starter.version}</version>
       </dependency>
+      <!-- udf-starter-amqp-rabbitmq -->
+      <dependency>
+        <groupId>com.egridcloud.udf</groupId>
+        <artifactId>udf-starter-amqp-rabbitmq</artifactId>
+        <version>${udf-starter.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
   <!-- 构建 -->
