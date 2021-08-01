@@ -20,6 +20,11 @@
       <groupId>com.egridcloud.udf</groupId>
       <artifactId>udf-starter-core</artifactId>
     </dependency>
+    <!-- spring-cloud-starter-bus-amqp 消息总线 -->
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-bus-amqp</artifactId>
+    </dependency>
     <!-- spring-boot-starter-amqp -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
