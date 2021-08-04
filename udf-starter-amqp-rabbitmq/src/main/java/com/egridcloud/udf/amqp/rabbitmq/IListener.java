@@ -4,7 +4,7 @@
  * Created by wangkang
  * Copyright (C) 2016 egridcloud.com, All rights reserved.
  */
-package com.egridcloud.udf.core.amqp;
+package com.egridcloud.udf.amqp.rabbitmq;
 
 /**
  * 描述 : IListener

@@ -21,8 +21,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
-import com.egridcloud.udf.core.amqp.IListener;
-import com.egridcloud.udf.core.amqp.Message;
 import com.egridcloud.udf.core.exception.SystemRuntimeException;
 
 /**
@@ -46,7 +44,7 @@ public class ListenerAspect {
    */
   @Pointcut("execution(void com.egridcloud..*.process(..)) "
       + "and @annotation(org.springframework.amqp.rabbit.annotation.RabbitListener) "
-      + "and this(com.egridcloud.udf.core.amqp.IListener)")
+      + "and this(com.egridcloud.udf.amqp.rabbitmq.IListener)")
   public void listenerAspect() {
     LOGGER.debug("ListenerAspect.listenerAspect");
   }

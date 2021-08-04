@@ -12,8 +12,6 @@ import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.egridcloud.udf.core.amqp.Message;
-
 /**
  * 描述 : Amqp
  *
@@ -30,8 +28,8 @@ public class Amqp {
   private AmqpTemplate amqpTemplate;
 
   /**
-   * 描述 : Convert a Java object to an Amqp Message and send it to a specific
-   * exchange with a specific routing key.
+   * 描述 : Convert a Java object to an Amqp Message and send it to a specific exchange with a
+   * specific routing key.
    * 
    * @param <T> 任意类型
    *
