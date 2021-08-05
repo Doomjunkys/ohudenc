@@ -48,6 +48,11 @@ public class ApplicationConfig {
   private String dateFormat = "yyyy-MM-dd'T'HH:mm:ss:SSSZ";
 
   /**
+   * 描述 : 线程池属性
+   */
+  private TaskExecutePoolProperties taskExecutePoolProperties;
+
+  /**
    * 描述 : 获取timeZone
    *
    * @return the timeZone
@@ -117,6 +122,177 @@ public class ApplicationConfig {
    */
   public void setOutputExceptionStackTrace(boolean outputExceptionStackTrace) {
     this.outputExceptionStackTrace = outputExceptionStackTrace;
+  }
+
+  /**
+   * 描述 : 获取taskExecutePoolProperties
+   *
+   * @return the taskExecutePoolProperties
+   */
+  public TaskExecutePoolProperties getTaskExecutePoolProperties() {
+    return taskExecutePoolProperties;
+  }
+
+  /**
+   * 描述 : 设置taskExecutePoolProperties
+   *
+   * @param taskExecutePoolProperties the taskExecutePoolProperties to set
+   */
+  public void setTaskExecutePoolProperties(TaskExecutePoolProperties taskExecutePoolProperties) {
+    this.taskExecutePoolProperties = taskExecutePoolProperties;
+  }
+
+  /**
+   * 描述 : 线程池配置
+   *
+   * @author Administrator
+   *
+   */
+  public static class TaskExecutePoolProperties {
+
+    /**
+     * 描述 : 常量
+     */
+    private final Integer keepAliveSecondsValue = 60;
+
+    /**
+     * 描述 : 默认线程池大小(默认:1)
+     */
+    private Integer corePoolSize = 1;
+
+    /**
+     * 描述 : 最大线程池大小(默认:Integer.MAX_VALUE)
+     */
+    private Integer maxPoolSize = Integer.MAX_VALUE;
+
+    /**
+     * 描述 : 队列容量(默认:Integer.MAX_VALUE)
+     */
+    private Integer queueCapacity = Integer.MAX_VALUE;
+
+    /**
+     * 描述 : 线程池存活时间
+     */
+    private Integer keepAliveSeconds = keepAliveSecondsValue;
+
+    /**
+     * 描述 : 线程优先级
+     */
+    private Integer threadPriority = Thread.NORM_PRIORITY;
+
+    /**
+     * 描述 : 线程名称
+     */
+    private String threadNamePrefix = "defaultTaskAsyncPool";
+
+    /**
+     * 描述 : 获取corePoolSize
+     *
+     * @return the corePoolSize
+     */
+    public Integer getCorePoolSize() {
+      return corePoolSize;
+    }
+
+    /**
+     * 描述 : 设置corePoolSize
+     *
+     * @param corePoolSize the corePoolSize to set
+     */
+    public void setCorePoolSize(Integer corePoolSize) {
+      this.corePoolSize = corePoolSize;
+    }
+
+    /**
+     * 描述 : 获取maxPoolSize
+     *
+     * @return the maxPoolSize
+     */
+    public Integer getMaxPoolSize() {
+      return maxPoolSize;
+    }
+
+    /**
+     * 描述 : 设置maxPoolSize
+     *
+     * @param maxPoolSize the maxPoolSize to set
+     */
+    public void setMaxPoolSize(Integer maxPoolSize) {
+      this.maxPoolSize = maxPoolSize;
+    }
+
+    /**
+     * 描述 : 获取queueCapacity
+     *
+     * @return the queueCapacity
+     */
+    public Integer getQueueCapacity() {
+      return queueCapacity;
+    }
+
+    /**
+     * 描述 : 设置queueCapacity
+     *
+     * @param queueCapacity the queueCapacity to set
+     */
+    public void setQueueCapacity(Integer queueCapacity) {
+      this.queueCapacity = queueCapacity;
+    }
+
+    /**
+     * 描述 : 获取keepAliveSeconds
+     *
+     * @return the keepAliveSeconds
+     */
+    public Integer getKeepAliveSeconds() {
+      return keepAliveSeconds;
+    }
+
+    /**
+     * 描述 : 设置keepAliveSeconds
+     *
+     * @param keepAliveSeconds the keepAliveSeconds to set
+     */
+    public void setKeepAliveSeconds(Integer keepAliveSeconds) {
+      this.keepAliveSeconds = keepAliveSeconds;
+    }
+
+    /**
+     * 描述 : 获取threadPriority
+     *
+     * @return the threadPriority
+     */
+    public Integer getThreadPriority() {
+      return threadPriority;
+    }
+
+    /**
+     * 描述 : 设置threadPriority
+     *
+     * @param threadPriority the threadPriority to set
+     */
+    public void setThreadPriority(Integer threadPriority) {
+      this.threadPriority = threadPriority;
+    }
+
+    /**
+     * 描述 : 获取threadNamePrefix
+     *
+     * @return the threadNamePrefix
+     */
+    public String getThreadNamePrefix() {
+      return threadNamePrefix;
+    }
+
+    /**
+     * 描述 : 设置threadNamePrefix
+     *
+     * @param threadNamePrefix the threadNamePrefix to set
+     */
+    public void setThreadNamePrefix(String threadNamePrefix) {
+      this.threadNamePrefix = threadNamePrefix;
+    }
+
   }
 
 }
