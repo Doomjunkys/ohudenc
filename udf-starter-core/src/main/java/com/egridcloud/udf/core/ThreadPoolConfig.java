@@ -12,9 +12,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
-import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
 /**
  * 描述 : ThreadPoolConfig
@@ -48,22 +46,6 @@ public class ThreadPoolConfig {
     executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
     executor.initialize();
     return executor;
-  }
-
-  /**
-   * 描述 : 默认线程池
-   *
-   * @param defaultThreadPool 默认线程池
-   * @return SchedulingConfigurer
-   */
-  @Bean
-  public SchedulingConfigurer configureTasks(Executor defaultThreadPool) {
-    return new SchedulingConfigurer() { //NOSONAR
-      @Override
-      public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
-        taskRegistrar.setScheduler(defaultThreadPool);
-      }
-    };
   }
 
 }
