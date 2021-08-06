@@ -50,7 +50,25 @@ public class ApplicationConfig {
   /**
    * 描述 : 线程池属性
    */
-  private TaskExecutePoolProperties taskExecutePoolProperties;
+  private ThreadPoolProperties threadPool;
+
+  /**
+   * 描述 : 获取threadPool
+   *
+   * @return the threadPool
+   */
+  public ThreadPoolProperties getThreadPool() {
+    return threadPool;
+  }
+
+  /**
+   * 描述 : 设置threadPool
+   *
+   * @param threadPool the threadPool to set
+   */
+  public void setThreadPool(ThreadPoolProperties threadPool) {
+    this.threadPool = threadPool;
+  }
 
   /**
    * 描述 : 获取timeZone
@@ -125,55 +143,17 @@ public class ApplicationConfig {
   }
 
   /**
-   * 描述 : 获取taskExecutePoolProperties
-   *
-   * @return the taskExecutePoolProperties
-   */
-  public TaskExecutePoolProperties getTaskExecutePoolProperties() {
-    return taskExecutePoolProperties;
-  }
-
-  /**
-   * 描述 : 设置taskExecutePoolProperties
-   *
-   * @param taskExecutePoolProperties the taskExecutePoolProperties to set
-   */
-  public void setTaskExecutePoolProperties(TaskExecutePoolProperties taskExecutePoolProperties) {
-    this.taskExecutePoolProperties = taskExecutePoolProperties;
-  }
-
-  /**
    * 描述 : 线程池配置
    *
    * @author Administrator
    *
    */
-  public static class TaskExecutePoolProperties {
-
-    /**
-     * 描述 : 常量
-     */
-    private final Integer keepAliveSecondsValue = 60;
+  public static class ThreadPoolProperties {
 
     /**
      * 描述 : 默认线程池大小(默认:1)
      */
-    private Integer corePoolSize = 1;
-
-    /**
-     * 描述 : 最大线程池大小(默认:Integer.MAX_VALUE)
-     */
-    private Integer maxPoolSize = Integer.MAX_VALUE;
-
-    /**
-     * 描述 : 队列容量(默认:Integer.MAX_VALUE)
-     */
-    private Integer queueCapacity = Integer.MAX_VALUE;
-
-    /**
-     * 描述 : 线程池存活时间
-     */
-    private Integer keepAliveSeconds = keepAliveSecondsValue;
+    private Integer poolSize = 1;
 
     /**
      * 描述 : 线程优先级
@@ -183,78 +163,24 @@ public class ApplicationConfig {
     /**
      * 描述 : 线程名称
      */
-    private String threadNamePrefix = "defaultTaskAsyncPool";
+    private String threadNamePrefix = "defaultThreadPool";
 
     /**
-     * 描述 : 获取corePoolSize
+     * 描述 : 获取poolSize
      *
-     * @return the corePoolSize
+     * @return the poolSize
      */
-    public Integer getCorePoolSize() {
-      return corePoolSize;
+    public Integer getPoolSize() {
+      return poolSize;
     }
 
     /**
-     * 描述 : 设置corePoolSize
+     * 描述 : 设置poolSize
      *
-     * @param corePoolSize the corePoolSize to set
+     * @param poolSize the poolSize to set
      */
-    public void setCorePoolSize(Integer corePoolSize) {
-      this.corePoolSize = corePoolSize;
-    }
-
-    /**
-     * 描述 : 获取maxPoolSize
-     *
-     * @return the maxPoolSize
-     */
-    public Integer getMaxPoolSize() {
-      return maxPoolSize;
-    }
-
-    /**
-     * 描述 : 设置maxPoolSize
-     *
-     * @param maxPoolSize the maxPoolSize to set
-     */
-    public void setMaxPoolSize(Integer maxPoolSize) {
-      this.maxPoolSize = maxPoolSize;
-    }
-
-    /**
-     * 描述 : 获取queueCapacity
-     *
-     * @return the queueCapacity
-     */
-    public Integer getQueueCapacity() {
-      return queueCapacity;
-    }
-
-    /**
-     * 描述 : 设置queueCapacity
-     *
-     * @param queueCapacity the queueCapacity to set
-     */
-    public void setQueueCapacity(Integer queueCapacity) {
-      this.queueCapacity = queueCapacity;
-    }
-
-    /**
-     * 描述 : 获取keepAliveSeconds
-     *
-     * @return the keepAliveSeconds
-     */
-    public Integer getKeepAliveSeconds() {
-      return keepAliveSeconds;
-    }
-
-    /**
-     * 描述 : 设置keepAliveSeconds
-     *
-     * @param keepAliveSeconds the keepAliveSeconds to set
-     */
-    public void setKeepAliveSeconds(Integer keepAliveSeconds) {
-      this.keepAliveSeconds = keepAliveSeconds;
+    public void setPoolSize(Integer poolSize) {
+      this.poolSize = poolSize;
     }
 
     /**
