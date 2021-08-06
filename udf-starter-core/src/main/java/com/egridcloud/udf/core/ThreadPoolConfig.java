@@ -53,14 +53,15 @@ public class ThreadPoolConfig {
   /**
    * 描述 : 默认线程池
    *
+   * @param defaultThreadPool 默认线程池
    * @return SchedulingConfigurer
    */
   @Bean
-  public SchedulingConfigurer configureTasks() {
+  public SchedulingConfigurer configureTasks(Executor defaultThreadPool) {
     return new SchedulingConfigurer() { //NOSONAR
       @Override
       public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
-        taskRegistrar.setScheduler(defaultThreadPool());
+        taskRegistrar.setScheduler(defaultThreadPool);
       }
     };
   }
