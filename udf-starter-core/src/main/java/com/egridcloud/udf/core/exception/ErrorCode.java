@@ -26,6 +26,10 @@ public enum ErrorCode {
    */
   PARAMETER_VALID_ERROR("parameter check error"),
   /**
+   * 描述 : 方法不允许
+   */
+  METHOD_NOT_ALLOWED("method not allowed"),
+  /**
    * 描述 : 资源不存在
    */
   NO_RESOURCE_FOUND("resource does not exist"),

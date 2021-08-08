@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -164,6 +165,26 @@ public class ExceptionMapping {
         returnMessage, applicationConfig.isOutputExceptionStackTrace(), noHandlerFoundException);
     em.setNoResourceFoundMessage(new NoResourceFoundMessage(noHandlerFoundException));
     LOGGER.error(em.getId(), noHandlerFoundException);
+    return new RestResponse<>(returnCode, returnMessage, em);
+  }
+
+  /**
+   * 描述 : 捕获httpRequestMethodNotSupportedException异常(方法不允许)
+   *
+   * @param httpRequestMethodNotSupportedException 异常
+   * @return 错误信息
+   */
+  @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
+  @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+  @ResponseBody
+  public RestResponse<ErrorMessage> httpRequestMethodNotSupportedException(
+      HttpRequestMethodNotSupportedException httpRequestMethodNotSupportedException) {
+    String returnCode = ErrorCode.METHOD_NOT_ALLOWED.name();
+    String returnMessage = ErrorCode.METHOD_NOT_ALLOWED.value();
+    ErrorMessage em = ExceptionMapping.buildErrorMessage(HttpStatus.METHOD_NOT_ALLOWED.value(),
+        returnCode, returnMessage, applicationConfig.isOutputExceptionStackTrace(),
+        httpRequestMethodNotSupportedException);
+    LOGGER.error(em.getId(), httpRequestMethodNotSupportedException);
     return new RestResponse<>(returnCode, returnMessage, em);
   }
 
