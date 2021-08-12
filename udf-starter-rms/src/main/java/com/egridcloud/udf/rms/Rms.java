@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import com.egridcloud.udf.core.RestResponse;
-import com.egridcloud.udf.core.exception.SystemRuntimeException;
+import com.egridcloud.udf.core.exception.PermissionException;
 import com.egridcloud.udf.rms.mate.AuthMate;
 import com.egridcloud.udf.rms.mate.PathMate;
 
@@ -123,15 +123,13 @@ public class Rms {
     //获取路径元数据
     PathMate pathMate = rmsProperties.getService().get(springApplicationName);
     //判断路径访问权限
-    if (authMate.getPurview() != null) {
+    if (!authMate.getAll()) {
       if (authMate.getDisabled()) {
-        throw new SystemRuntimeException(springApplicationName + " is disabled");
+        throw new PermissionException(springApplicationName + " is disabled");
       }
-      if (!authMate.getAll() && authMate.getPurview().indexOf(serviceCode) == -1) {
-        throw new SystemRuntimeException(serviceCode + " no access");
+      if (authMate.getPurview().indexOf(serviceCode) == -1) {
+        throw new PermissionException("no access to this servoceCode : " + serviceCode);
       }
-    } else {
-      throw new SystemRuntimeException(springApplicationName + " purview is null");
     }
     StringBuilder url = new StringBuilder(Constant.HTTP);
     url.append(rmsProperties.getService().get(pathMate.getApplicationName()));

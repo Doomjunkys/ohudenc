@@ -87,7 +87,7 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
         if (!authMate.getAll()) {
           //判断是否禁止调用所有服务权限
           if (authMate.getDisabled()) {
-            throw new PermissionException("all services are disabled");
+            throw new PermissionException(rmsApplicationName + " is disabled");
           }
           //判断是否有调用该服务的权限
           if (authMate.getPurview().indexOf(rmsServiceCode) != -1) {
@@ -103,7 +103,7 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
               throw new AuthException("service code not exist");
             }
           } else {
-            throw new PermissionException("no access to this url : " + url + ", method : " + method);
+            throw new PermissionException("no access to this servoceCode : " + rmsServiceCode);
           }
         }
       } else {
