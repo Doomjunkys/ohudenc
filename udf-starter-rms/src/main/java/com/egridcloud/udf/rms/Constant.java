@@ -40,16 +40,6 @@ public class Constant {
   public static final String DATA_FORMAT = "yyyy-MM-dd'T'HH";
 
   /**
-   * 描述 : 所有权限
-   */
-  public static final String PURVIEW_ALL = "all";
-
-  /**
-   * 描述 : 禁用权限
-   */
-  public static final String PURVIEW_DISABLED = "disabled";
-
-  /**
    * 描述 : http头
    */
   public static final String HTTP = "http://";

@@ -62,13 +62,12 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
     String rmsServiceCode = request.getHeader(Constant.HEADER_SERVICE_CODE_CODE);
     String url = request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE).toString();
     String method = request.getMethod();
-    LOGGER.info("rmsApplicationName:{},rmsSign:{},rmsServiceCode:{},url:{},method:{}",
-        rmsApplicationName, rmsSign, rmsServiceCode, url, method);
+    LOGGER.info("rmsApplicationName:{},rmsSign:{},rmsServiceCode:{},url:{},method:{}", rmsApplicationName, rmsSign,
+        rmsServiceCode, url, method);
     //判断是否缺少认证信息
     if (StringUtils.isBlank(rmsApplicationName) || StringUtils.isBlank(rmsSign)
         || StringUtils.isBlank(rmsServiceCode)) {
-      throw new AuthException(
-          "missing required authentication parameters (rmsApplicationName , rmsSign)");
+      throw new AuthException("missing required authentication parameters (rmsApplicationName , rmsSign)");
     }
     //判断环境(开发环境无需校验)
     if (!DEV_PROFILES.equals(env.getProperty("spring.profiles.active"))) {
@@ -82,24 +81,29 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
         if (!rmsSign.equals(sign)) {
           throw new AuthException("sign Validation failed");
         }
-        //比较接口编号的有效性
-        if (rmsProperties.getService().containsKey(rmsServiceCode)) {
-          //获得服务元数据
-          PathMate pathMate = rmsProperties.getService().get(rmsServiceCode);
-          //比较url和method
-          if (!pathMate.getUri().equals(url) || !pathMate.getMethod().equals(method)) {
-            throw new AuthException("url and method verification error");
-          }
-        } else {
-          throw new AuthException("service code not exist");
-        }
         //比较是否有调用接口的权限
         AuthMate authMate = rmsProperties.getAuthorization().get(rmsApplicationName);
-        if (authMate.getPurview().indexOf(Constant.PURVIEW_ALL) == -1) {
-          if (authMate.getPurview().indexOf(Constant.PURVIEW_DISABLED) != -1 //NOSONAR
-              || authMate.getPurview().indexOf(rmsServiceCode) == -1) {
-            throw new PermissionException(
-                "no access to this url : " + url + ", method : " + method);
+        //判断是否有调用所有服务的权限
+        if (!authMate.getAll()) {
+          //判断是否禁止调用所有服务权限
+          if (authMate.getDisabled()) {
+            throw new PermissionException("all services are disabled");
+          }
+          //判断是否有调用该服务的权限
+          if (authMate.getPurview().indexOf(rmsServiceCode) != -1) {
+            //比较接口编号和服务设定的有效性
+            if (rmsProperties.getService().containsKey(rmsServiceCode)) {
+              //获得服务元数据
+              PathMate pathMate = rmsProperties.getService().get(rmsServiceCode);
+              //比较url和method
+              if (!pathMate.getUri().equals(url) || !pathMate.getMethod().equals(method)) {
+                throw new AuthException("url and method verification error");
+              }
+            } else {
+              throw new AuthException("service code not exist");
+            }
+          } else {
+            throw new PermissionException("no access to this url : " + url + ", method : " + method);
           }
         }
       } else {
@@ -117,8 +121,8 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
   }
 
   @Override
-  public void afterCompletion(HttpServletRequest request, HttpServletResponse response,
-      Object handler, Exception ex) throws Exception {
+  public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+      throws Exception {
     LOGGER.debug("SystemTagAuthHandlerInterceptor.afterCompletion");
   }
 

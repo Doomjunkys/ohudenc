@@ -6,9 +6,6 @@
  */
 package com.egridcloud.udf.rms;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,8 +66,7 @@ public class Rms {
    * @param <O> 输出类型
    * @return 服务结果
    */
-  public <I, O> RestResponse<O> call(String serviceCode, I input, String uriParam,
-      Object... uriVariables) {
+  public <I, O> RestResponse<O> call(String serviceCode, I input, String uriParam, Object... uriVariables) {
     //构建请求路径
     String path = getRmsUrl(serviceCode);
     //获得请求方法
@@ -85,8 +81,8 @@ public class Rms {
     HttpEntity<I> requestEntity = new HttpEntity<>(input, httpHeaders);
     //请求并且返回
     LOGGER.info("rms url : {} , method : {} ", path, method);
-    return restTemplate.exchange(path, HttpMethod.resolve(method), requestEntity,
-        new ParameterizedTypeReference<RestResponse<O>>() {
+    return restTemplate
+        .exchange(path, HttpMethod.resolve(method), requestEntity, new ParameterizedTypeReference<RestResponse<O>>() {
         }, uriVariables).getBody();
   }
 
@@ -128,12 +124,10 @@ public class Rms {
     PathMate pathMate = rmsProperties.getService().get(springApplicationName);
     //判断路径访问权限
     if (authMate.getPurview() != null) {
-      String[] purviewArray = authMate.getPurview().split(",");
-      List<String> purviewList = Arrays.asList(purviewArray);
-      if (purviewList.contains(Constant.PURVIEW_DISABLED)) {
+      if (authMate.getDisabled()) {
         throw new SystemRuntimeException(springApplicationName + " is disabled");
       }
-      if (!purviewList.contains(Constant.PURVIEW_ALL) && !purviewList.contains(serviceCode)) {
+      if (!authMate.getAll() && authMate.getPurview().indexOf(serviceCode) == -1) {
         throw new SystemRuntimeException(serviceCode + " no access");
       }
     } else {

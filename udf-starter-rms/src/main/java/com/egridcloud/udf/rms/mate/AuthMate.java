@@ -25,6 +25,52 @@ public class AuthMate {
   private String purview;
 
   /**
+   * 描述 : 所有服务的调用权限(优先判定)
+   */
+  private Boolean all = false;
+
+  /**
+   * 描述 : 禁止服务调用
+   */
+  private Boolean disabled = false;
+
+  /**
+   * 描述 : 获取all
+   *
+   * @return the all
+   */
+  public Boolean getAll() {
+    return all;
+  }
+
+  /**
+   * 描述 : 设置all
+   *
+   * @param all the all to set
+   */
+  public void setAll(Boolean all) {
+    this.all = all;
+  }
+
+  /**
+   * 描述 : 获取disabled
+   *
+   * @return the disabled
+   */
+  public Boolean getDisabled() {
+    return disabled;
+  }
+
+  /**
+   * 描述 : 设置disabled
+   *
+   * @param disabled the disabled to set
+   */
+  public void setDisabled(Boolean disabled) {
+    this.disabled = disabled;
+  }
+
+  /**
    * 描述 : 获取secret
    *
    * @return the secret
