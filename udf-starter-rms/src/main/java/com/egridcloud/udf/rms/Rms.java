@@ -18,7 +18,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import com.egridcloud.udf.core.RestResponse;
 import com.egridcloud.udf.core.exception.PermissionException;
 import com.egridcloud.udf.rms.mate.AuthMate;
 import com.egridcloud.udf.rms.mate.PathMate;
@@ -66,7 +65,7 @@ public class Rms {
    * @param <O> 输出类型
    * @return 服务结果
    */
-  public <I, O> RestResponse<O> call(String serviceCode, I input, String uriParam, Object... uriVariables) {
+  public <I, O> O call(String serviceCode, I input, String uriParam, Object... uriVariables) {
     //构建请求路径
     String path = getRmsUrl(serviceCode);
     //获得请求方法
@@ -81,9 +80,8 @@ public class Rms {
     HttpEntity<I> requestEntity = new HttpEntity<>(input, httpHeaders);
     //请求并且返回
     LOGGER.info("rms url : {} , method : {} ", path, method);
-    return restTemplate
-        .exchange(path, HttpMethod.resolve(method), requestEntity, new ParameterizedTypeReference<RestResponse<O>>() {
-        }, uriVariables).getBody();
+    return restTemplate.exchange(path, HttpMethod.resolve(method), requestEntity, new ParameterizedTypeReference<O>() {
+    }, uriVariables).getBody();
   }
 
   /**
