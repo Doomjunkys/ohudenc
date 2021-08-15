@@ -129,7 +129,7 @@ public class Rms {
         throw new PermissionException("no access to this servoceCode : " + serviceCode);
       }
     }
-    StringBuilder url = new StringBuilder(Constant.HTTP);
+    StringBuilder url = new StringBuilder(pathMate.getIsHttps() ? Constant.HTTPS : Constant.HTTP);
     url.append(rmsProperties.getService().get(pathMate.getApplicationName()));
     url.append(pathMate.getUri());
     return url.toString();

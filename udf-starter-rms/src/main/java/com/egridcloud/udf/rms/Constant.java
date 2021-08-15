@@ -45,6 +45,11 @@ public class Constant {
   public static final String HTTP = "http://";
 
   /**
+   * 描述 : https头
+   */
+  public static final String HTTPS = "https://";
+
+  /**
    * 描述 : 私有化构造函数
    *
    */

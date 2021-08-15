@@ -30,6 +30,29 @@ public class PathMate {
   private String method;
 
   /**
+   * 描述 : 是否HTTPS
+   */
+  private Boolean isHttps = false;
+
+  /**
+   * 描述 : 获取isHttps
+   *
+   * @return the isHttps
+   */
+  public Boolean getIsHttps() {
+    return isHttps;
+  }
+
+  /**
+   * 描述 : 设置isHttps
+   *
+   * @param isHttps the isHttps to set
+   */
+  public void setIsHttps(Boolean isHttps) {
+    this.isHttps = isHttps;
+  }
+
+  /**
    * 描述 : 获取applicationName
    *
    * @return the applicationName
