@@ -19,7 +19,6 @@
     <maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
     <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
     <springfox-swagger2.version>2.6.1</springfox-swagger2.version>
-    <springfox-swagger-ui.version>2.6.1</springfox-swagger-ui.version>
     <commons-collections4.version>4.1</commons-collections4.version>
     <commons-lang3.version>3.5</commons-lang3.version>
   </properties>
