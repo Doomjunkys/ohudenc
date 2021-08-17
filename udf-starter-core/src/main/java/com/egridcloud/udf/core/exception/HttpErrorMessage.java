@@ -1,5 +1,5 @@
 /**
- * HttpServerErrorMessage.java
+ * HttpErrorMessage.java
  * Created at 2016-11-05
  * Created by wangkang
  * Copyright (C) 2016 egridcloud.com, All rights reserved.
@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.RestClientResponseException;
 
 import com.egridcloud.udf.core.RestResponse;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -27,12 +27,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author wangkang
  *
  */
-public class HttpServerErrorMessage implements Serializable {
+public class HttpErrorMessage implements Serializable {
 
   /**
    * 描述 : 日志
    */
-  private static final Logger LOGGER = LoggerFactory.getLogger(HttpServerErrorMessage.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(HttpErrorMessage.class);
 
   /**
    * 描述 : ID
@@ -67,20 +67,20 @@ public class HttpServerErrorMessage implements Serializable {
   /**
    * 描述 : 构造函数
    *
-   * @param httpServerErrorException httpServerErrorException
+   * @param restClientResponseException restClientResponseException
    * @param xssObjectMapper xssObjectMapper
    */
-  public HttpServerErrorMessage(HttpServerErrorException httpServerErrorException,
+  public HttpErrorMessage(RestClientResponseException restClientResponseException,
       ObjectMapper xssObjectMapper) {
-    rawStatusCode = httpServerErrorException.getRawStatusCode();
-    responseHeaders = httpServerErrorException.getResponseHeaders();
-    statusCode = httpServerErrorException.getStatusCode();
-    statusText = httpServerErrorException.getStatusText();
+    rawStatusCode = restClientResponseException.getRawStatusCode();
+    responseHeaders = restClientResponseException.getResponseHeaders();
+    statusCode = HttpStatus.valueOf(rawStatusCode);
+    statusText = restClientResponseException.getStatusText();
     try {
       JavaType javaType = xssObjectMapper.getTypeFactory()
           .constructParametricType(RestResponse.class, ErrorMessage.class);
-      responseBody =
-          xssObjectMapper.readValue(httpServerErrorException.getResponseBodyAsString(), javaType);
+      responseBody = xssObjectMapper
+          .readValue(restClientResponseException.getResponseBodyAsString(), javaType);
     } catch (JsonParseException e) {
       LOGGER.error("JsonParseException:", e);
     } catch (JsonMappingException e1) {

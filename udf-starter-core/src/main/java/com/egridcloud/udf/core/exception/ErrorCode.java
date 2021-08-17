@@ -20,7 +20,7 @@ public enum ErrorCode {
   /**
    * 描述 : http服务错误
    */
-  HTTP_SERVER_ERROR("http server error"),
+  HTTP_ERROR("http error"),
   /**
    * 描述 : 参数校验错误
    */

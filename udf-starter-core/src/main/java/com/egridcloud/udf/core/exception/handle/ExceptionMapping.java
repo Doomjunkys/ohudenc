@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.egridcloud.udf.core.ApplicationConfig;
@@ -27,7 +27,7 @@ import com.egridcloud.udf.core.RestResponse;
 import com.egridcloud.udf.core.exception.AuthException;
 import com.egridcloud.udf.core.exception.ErrorCode;
 import com.egridcloud.udf.core.exception.ErrorMessage;
-import com.egridcloud.udf.core.exception.HttpServerErrorMessage;
+import com.egridcloud.udf.core.exception.HttpErrorMessage;
 import com.egridcloud.udf.core.exception.NoResourceFoundMessage;
 import com.egridcloud.udf.core.exception.ParameterValidErrorMessage;
 import com.egridcloud.udf.core.exception.ParameterValidException;
@@ -127,24 +127,24 @@ public class ExceptionMapping {
   }
 
   /**
-   * 描述 : 捕获HttpServerErrorException异常(http服务异常)
+   * 描述 : 捕获RestClientResponseException异常(http服务异常)
    *
-   * @param httpServerErrorException 异常
+   * @param restClientResponseException 异常
    * @return 错误信息
    */
-  @ExceptionHandler(value = HttpServerErrorException.class)
+  @ExceptionHandler(value = RestClientResponseException.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   @ResponseBody
-  public RestResponse<ErrorMessage> httpServerErrorException(
-      HttpServerErrorException httpServerErrorException) {
-    String returnCode = ErrorCode.HTTP_SERVER_ERROR.name();
-    String returnMessage = ErrorCode.HTTP_SERVER_ERROR.value();
+  public RestResponse<ErrorMessage> restClientResponseException(
+      RestClientResponseException restClientResponseException) {
+    String returnCode = ErrorCode.HTTP_ERROR.name();
+    String returnMessage = ErrorCode.HTTP_ERROR.value();
     ErrorMessage em = ExceptionMapping.buildErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR.value(),
         returnCode, returnMessage, applicationConfig.isOutputExceptionStackTrace(),
-        httpServerErrorException);
+        restClientResponseException);
     em.setHttpServerErrorMessage(
-        new HttpServerErrorMessage(httpServerErrorException, xssObjectMapper));
-    LOGGER.error(em.getId(), httpServerErrorException);
+        new HttpErrorMessage(restClientResponseException, xssObjectMapper));
+    LOGGER.error(em.getId(), restClientResponseException);
     return new RestResponse<>(returnCode, returnMessage, em);
   }
 
