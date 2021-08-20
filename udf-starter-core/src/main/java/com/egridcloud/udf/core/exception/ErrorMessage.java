@@ -74,24 +74,24 @@ public class ErrorMessage implements Serializable {
   /**
    * 描述 : http服务错误
    */
-  private HttpErrorMessage httpServerErrorMessage;
+  private HttpErrorMessage httpErrorMessage;
 
   /**
-   * 描述 : 获取httpServerErrorMessage
+   * 描述 : 获取httpErrorMessage
    *
-   * @return the httpServerErrorMessage
+   * @return the httpErrorMessage
    */
-  public HttpErrorMessage getHttpServerErrorMessage() {
-    return httpServerErrorMessage;
+  public HttpErrorMessage getHttpErrorMessage() {
+    return httpErrorMessage;
   }
 
   /**
-   * 描述 : 设置httpServerErrorMessage
+   * 描述 : 设置httpErrorMessage
    *
-   * @param httpServerErrorMessage the httpServerErrorMessage to set
+   * @param httpErrorMessage the httpErrorMessage to set
    */
-  public void setHttpServerErrorMessage(HttpErrorMessage httpServerErrorMessage) {
-    this.httpServerErrorMessage = httpServerErrorMessage;
+  public void setHttpErrorMessage(HttpErrorMessage httpErrorMessage) {
+    this.httpErrorMessage = httpErrorMessage;
   }
 
   /**

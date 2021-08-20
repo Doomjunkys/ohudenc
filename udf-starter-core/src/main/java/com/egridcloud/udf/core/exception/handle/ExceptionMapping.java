@@ -142,8 +142,7 @@ public class ExceptionMapping {
     ErrorMessage em = ExceptionMapping.buildErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR.value(),
         returnCode, returnMessage, applicationConfig.isOutputExceptionStackTrace(),
         restClientResponseException);
-    em.setHttpServerErrorMessage(
-        new HttpErrorMessage(restClientResponseException, xssObjectMapper));
+    em.setHttpErrorMessage(new HttpErrorMessage(restClientResponseException, xssObjectMapper));
     LOGGER.error(em.getId(), restClientResponseException);
     return new RestResponse<>(returnCode, returnMessage, em);
   }
