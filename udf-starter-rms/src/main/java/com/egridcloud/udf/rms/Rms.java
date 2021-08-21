@@ -6,6 +6,9 @@
  */
 package com.egridcloud.udf.rms;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +18,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -61,11 +65,13 @@ public class Rms {
    * @param input 输入参数
    * @param uriParam uri参数
    * @param uriVariables rest参数
+   * @param responseType 返回类型
    * @param <I> 输入类型
    * @param <O> 输出类型
    * @return 服务结果
    */
-  public <I, O> O call(String serviceCode, I input, String uriParam, Object... uriVariables) {
+  public <I, O> ResponseEntity<O> call(String serviceCode, I input, String uriParam, Map<String, ?> uriVariables,
+      ParameterizedTypeReference<O> responseType) {
     //构建请求路径
     String path = getRmsUrl(serviceCode);
     //获得请求方法
@@ -80,8 +86,8 @@ public class Rms {
     HttpEntity<I> requestEntity = new HttpEntity<>(input, httpHeaders);
     //请求并且返回
     LOGGER.info("rms url : {} , method : {} ", path, method);
-    return restTemplate.exchange(path, HttpMethod.resolve(method), requestEntity, new ParameterizedTypeReference<O>() {
-    }, uriVariables).getBody();
+    return restTemplate.exchange(path, HttpMethod.resolve(method), requestEntity, responseType,
+        uriVariables != null ? uriVariables : new HashMap<String, String>());
   }
 
   /**
