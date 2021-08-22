@@ -64,14 +64,14 @@ public class Rms {
    * @param serviceCode 服务代码
    * @param input 输入参数
    * @param uriParam uri参数
-   * @param uriVariables rest参数
    * @param responseType 返回类型
+   * @param uriVariables rest参数
    * @param <I> 输入类型
    * @param <O> 输出类型
    * @return 服务结果
    */
-  public <I, O> ResponseEntity<O> call(String serviceCode, I input, String uriParam, Map<String, ?> uriVariables,
-      ParameterizedTypeReference<O> responseType) {
+  public <I, O> ResponseEntity<O> call(String serviceCode, I input, String uriParam,
+      ParameterizedTypeReference<O> responseType, Map<String, ?> uriVariables) {
     //构建请求路径
     String path = getRmsUrl(serviceCode);
     //获得请求方法
