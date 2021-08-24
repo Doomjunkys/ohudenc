@@ -30,6 +30,10 @@ public enum ErrorCode {
    */
   METHOD_NOT_ALLOWED("method not allowed"),
   /**
+   * 描述 : Http媒体类型不可接受
+   */
+  HTTP_MEDIA_TYPE_NOT_ACCEPTABLE("Http Media Type Not Acceptable"),
+  /**
    * 描述 : 资源不存在
    */
   NO_RESOURCE_FOUND("resource does not exist"),

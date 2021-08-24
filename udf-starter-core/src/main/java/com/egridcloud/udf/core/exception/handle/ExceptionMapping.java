@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -136,6 +137,20 @@ public class ExceptionMapping {
   public RestResponse<String> httpRequestMethodNotSupportedException(
       HttpRequestMethodNotSupportedException exception) {
     return new RestResponse<>(ErrorCode.METHOD_NOT_ALLOWED, buildError(exception));
+  }
+
+  /**
+   * 描述 : 捕获HttpMediaTypeNotAcceptableException异常(Http媒体类型不可接受)
+   *
+   * @param exception 异常
+   * @return 错误信息
+   */
+  @ExceptionHandler(value = HttpMediaTypeNotAcceptableException.class)
+  @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+  @ResponseBody
+  public RestResponse<String> httpMediaTypeNotAcceptableException(
+      HttpMediaTypeNotAcceptableException exception) {
+    return new RestResponse<>(ErrorCode.HTTP_MEDIA_TYPE_NOT_ACCEPTABLE, buildError(exception));
   }
 
   /**
