@@ -11,8 +11,8 @@ import java.util.Map;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import com.egridcloud.udf.rms.mate.AuthMate;
-import com.egridcloud.udf.rms.mate.PathMate;
+import com.egridcloud.udf.rms.mate.ApplicationMate;
+import com.egridcloud.udf.rms.mate.ServiceMate;
 
 /**
  * 描述 : Config
@@ -27,24 +27,19 @@ public class RmsProperties {
   /**
    * 描述 : 应用清单(应用名称 : 应用地址)
    */
-  private Map<String, String> application;
+  private Map<String, ApplicationMate> application;
 
   /**
    * 描述 : 服务路径(服务编号 : 服务元数据)
    */
-  private Map<String, PathMate> service;
-
-  /**
-   * 描述 : 认证(应用名称 : 权限元数据)
-   */
-  private Map<String, AuthMate> authorization;
+  private Map<String, ServiceMate> service;
 
   /**
    * 描述 : 获取application
    *
    * @return the application
    */
-  public Map<String, String> getApplication() {
+  public Map<String, ApplicationMate> getApplication() {
     return application;
   }
 
@@ -53,7 +48,7 @@ public class RmsProperties {
    *
    * @param application the application to set
    */
-  public void setApplication(Map<String, String> application) {
+  public void setApplication(Map<String, ApplicationMate> application) {
     this.application = application;
   }
 
@@ -62,7 +57,7 @@ public class RmsProperties {
    *
    * @return the service
    */
-  public Map<String, PathMate> getService() {
+  public Map<String, ServiceMate> getService() {
     return service;
   }
 
@@ -71,26 +66,8 @@ public class RmsProperties {
    *
    * @param service the service to set
    */
-  public void setService(Map<String, PathMate> service) {
+  public void setService(Map<String, ServiceMate> service) {
     this.service = service;
-  }
-
-  /**
-   * 描述 : 获取authorization
-   *
-   * @return the authorization
-   */
-  public Map<String, AuthMate> getAuthorization() {
-    return authorization;
-  }
-
-  /**
-   * 描述 : 设置authorization
-   *
-   * @param authorization the authorization to set
-   */
-  public void setAuthorization(Map<String, AuthMate> authorization) {
-    this.authorization = authorization;
   }
 
 }

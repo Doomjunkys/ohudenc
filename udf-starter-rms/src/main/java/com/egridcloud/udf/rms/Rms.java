@@ -22,9 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import com.egridcloud.udf.core.exception.PermissionException;
-import com.egridcloud.udf.rms.mate.AuthMate;
-import com.egridcloud.udf.rms.mate.PathMate;
+import com.egridcloud.udf.rms.mate.ServiceMate;
 
 /**
  * 描述 : 远程服务
@@ -97,7 +95,7 @@ public class Rms {
    * @return 请求头
    */
   private HttpHeaders buildSystemTagHeaders(String serviceCode) {
-    String secret = rmsProperties.getAuthorization().get(springApplicationName).getSecret();
+    String secret = rmsProperties.getApplication().get(springApplicationName).getSecret();
     HttpHeaders headers = new HttpHeaders();
     headers.add(Constant.HEADER_RMS_APPLICATION_NAME_CODE, springApplicationName);
     headers.add(Constant.HEADER_RMS_SIGN_CODE, Constant.sign(springApplicationName, secret));
@@ -122,22 +120,12 @@ public class Rms {
    * @return url
    */
   private String getRmsUrl(String serviceCode) {
-    //获得认证元数据
-    AuthMate authMate = rmsProperties.getAuthorization().get(springApplicationName);
-    //获取路径元数据
-    PathMate pathMate = rmsProperties.getService().get(springApplicationName);
-    //判断路径访问权限
-    if (!authMate.getAll()) {
-      if (authMate.getDisabled()) {
-        throw new PermissionException(springApplicationName + " is disabled");
-      }
-      if (authMate.getPurview().indexOf(serviceCode) == -1) {
-        throw new PermissionException("no access to this servoceCode : " + serviceCode);
-      }
-    }
-    StringBuilder url = new StringBuilder(pathMate.getIsHttps() ? Constant.HTTPS : Constant.HTTP);
-    url.append(rmsProperties.getService().get(pathMate.getApplicationName()));
-    url.append(pathMate.getUri());
+    //获取服务元数据
+    ServiceMate serviceMate = rmsProperties.getService().get(serviceCode);
+    //构建请求路径
+    StringBuilder url = new StringBuilder(serviceMate.getIsHttps() ? Constant.HTTPS : Constant.HTTP);
+    url.append(rmsProperties.getApplication().get(serviceMate.getApplicationName()).getServiceId());
+    url.append(serviceMate.getUri());
     return url.toString();
   }
 

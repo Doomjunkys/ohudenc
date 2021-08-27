@@ -1,5 +1,5 @@
 /**
- * AuthMate.java
+ * ApplicationMate.java
  * Created at 2016-12-22
  * Created by Administrator
  * Copyright (C) 2016 egridcloud.com, All rights reserved.
@@ -7,12 +7,17 @@
 package com.egridcloud.udf.rms.mate;
 
 /**
- * 描述 : Auth元数据
+ * 描述 : Application元数据
  *
  * @author Administrator
  *
  */
-public class AuthMate {
+public class ApplicationMate {
+
+  /**
+   * 描述 : 服务ID
+   */
+  private String serviceId;
 
   /**
    * 描述 : 私钥
@@ -33,6 +38,24 @@ public class AuthMate {
    * 描述 : 禁止服务调用
    */
   private Boolean disabled = false;
+
+  /**
+   * 描述 : 获取serviceId
+   *
+   * @return the serviceId
+   */
+  public String getServiceId() {
+    return serviceId;
+  }
+
+  /**
+   * 描述 : 设置serviceId
+   *
+   * @param serviceId the serviceId to set
+   */
+  public void setServiceId(String serviceId) {
+    this.serviceId = serviceId;
+  }
 
   /**
    * 描述 : 获取all

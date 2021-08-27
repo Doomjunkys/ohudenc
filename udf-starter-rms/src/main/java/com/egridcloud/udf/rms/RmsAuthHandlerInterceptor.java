@@ -20,8 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.egridcloud.udf.core.exception.AuthException;
 import com.egridcloud.udf.core.exception.PermissionException;
-import com.egridcloud.udf.rms.mate.AuthMate;
-import com.egridcloud.udf.rms.mate.PathMate;
+import com.egridcloud.udf.rms.mate.ApplicationMate;
+import com.egridcloud.udf.rms.mate.ServiceMate;
 
 /**
  * 描述 : SystemTagAuthHandlerInterceptor
@@ -72,9 +72,9 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
     //判断环境(开发环境无需校验)
     if (!DEV_PROFILES.equals(env.getProperty("spring.profiles.active"))) {
       //判断systemTag是否有效
-      if (this.rmsProperties.getAuthorization().containsKey(rmsApplicationName)) {
+      if (this.rmsProperties.getApplication().containsKey(rmsApplicationName)) {
         //获得secret
-        String secret = this.rmsProperties.getAuthorization().get(rmsApplicationName).getSecret();
+        String secret = this.rmsProperties.getApplication().get(rmsApplicationName).getSecret();
         //计算sign
         String sign = Constant.sign(rmsApplicationName, secret);
         //比较sign
@@ -82,25 +82,25 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
           throw new AuthException("sign Validation failed");
         }
         //比较是否有调用接口的权限
-        AuthMate authMate = rmsProperties.getAuthorization().get(rmsApplicationName);
+        ApplicationMate applicationMate = rmsProperties.getApplication().get(rmsApplicationName);
         //判断是否有调用所有服务的权限
-        if (!authMate.getAll()) {
+        if (!applicationMate.getAll()) {
           //判断是否禁止调用所有服务权限
-          if (authMate.getDisabled()) {
+          if (applicationMate.getDisabled()) {
             throw new PermissionException(rmsApplicationName + " is disabled");
           }
           //判断是否有调用该服务的权限
-          if (authMate.getPurview().indexOf(rmsServiceCode) != -1) {
+          if (applicationMate.getPurview().indexOf(rmsServiceCode) != -1) {
             //比较接口编号和服务设定的有效性
             if (rmsProperties.getService().containsKey(rmsServiceCode)) {
               //获得服务元数据
-              PathMate pathMate = rmsProperties.getService().get(rmsServiceCode);
+              ServiceMate serviceMate = rmsProperties.getService().get(rmsServiceCode);
               //比较url和method
-              if (!pathMate.getUri().equals(url) || !pathMate.getMethod().equals(method)) {
-                throw new AuthException("url and method verification error");
+              if (!serviceMate.getUri().equals(url) || !serviceMate.getMethod().equals(method)) {
+                throw new PermissionException("url and method verification error");
               }
             } else {
-              throw new AuthException("service code not exist");
+              throw new PermissionException("service code not exist");
             }
           } else {
             throw new PermissionException("no access to this servoceCode : " + rmsServiceCode);

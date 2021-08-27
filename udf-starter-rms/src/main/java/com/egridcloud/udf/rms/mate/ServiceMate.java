@@ -1,5 +1,5 @@
 /**
- * PathMate.java
+ * ServiceMate.java
  * Created at 2016-12-22
  * Created by Administrator
  * Copyright (C) 2016 egridcloud.com, All rights reserved.
@@ -7,12 +7,12 @@
 package com.egridcloud.udf.rms.mate;
 
 /**
- * 描述 : path元数据
+ * 描述 : service元数据
  *
  * @author Administrator
  *
  */
-public class PathMate {
+public class ServiceMate {
 
   /**
    * 描述 : 应用名称
