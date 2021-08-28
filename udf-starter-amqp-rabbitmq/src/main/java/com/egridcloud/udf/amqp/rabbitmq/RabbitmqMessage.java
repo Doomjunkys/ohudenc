@@ -22,7 +22,7 @@ import java.util.UUID;
  * 
  * 
  */
-public class Message<T> implements Serializable {
+public class RabbitmqMessage<T> implements Serializable {
 
   /**
    * 
@@ -37,6 +37,16 @@ public class Message<T> implements Serializable {
    * 
    */
   private String id;
+
+  /**
+   * 发送者
+   */
+  private String sender;
+
+  /**
+   * 描述 : 生产者编号
+   */
+  private String producerCode;
 
   /**
    * 描述 : 交换机
@@ -79,7 +89,7 @@ public class Message<T> implements Serializable {
    * 描述 : 构造函数
    *
    */
-  public Message() {
+  public RabbitmqMessage() {
     super();
   }
 
@@ -89,13 +99,49 @@ public class Message<T> implements Serializable {
    * @param header 消息头
    * @param body 消息体
    */
-  public Message(Map<String, String> header, T body) {
+  public RabbitmqMessage(Map<String, String> header, T body) {
     super();
     this.id = UUID.randomUUID().toString();
     this.createDate = new Date();
     this.timestamp = createDate.getTime();
     this.header = header;
     this.body = body;
+  }
+
+  /**
+   * 描述 : 获取producerCode
+   *
+   * @return the producerCode
+   */
+  public String getProducerCode() {
+    return producerCode;
+  }
+
+  /**
+   * 描述 : 设置producerCode
+   *
+   * @param producerCode the producerCode to set
+   */
+  public void setProducerCode(String producerCode) {
+    this.producerCode = producerCode;
+  }
+
+  /**
+   * 描述 : 获取sender
+   *
+   * @return the sender
+   */
+  public String getSender() {
+    return sender;
+  }
+
+  /**
+   * 描述 : 设置sender
+   *
+   * @param sender the sender to set
+   */
+  public void setSender(String sender) {
+    this.sender = sender;
   }
 
   /**

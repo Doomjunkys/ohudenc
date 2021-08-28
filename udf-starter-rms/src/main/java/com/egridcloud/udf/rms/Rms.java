@@ -22,6 +22,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import com.egridcloud.udf.core.exception.PermissionException;
+import com.egridcloud.udf.rms.mate.ApplicationMate;
 import com.egridcloud.udf.rms.mate.ServiceMate;
 
 /**
@@ -70,6 +72,8 @@ public class Rms {
    */
   public <I, O> ResponseEntity<O> call(String serviceCode, I input, String uriParam,
       ParameterizedTypeReference<O> responseType, Map<String, ?> uriVariables) {
+    //客户端权限验证
+    verification(serviceCode);
     //构建请求路径
     String path = getRmsUrl(serviceCode);
     //获得请求方法
@@ -104,6 +108,23 @@ public class Rms {
   }
 
   /**
+   * 描述 : 客户端验证
+   *
+   * @param serviceCode 服务代码
+   */
+  private void verification(String serviceCode) {
+    ApplicationMate applicationMate = rmsProperties.getApplication().get(springApplicationName);
+    if (!applicationMate.getAll()) {
+      if (applicationMate.getDisabled()) {
+        throw new PermissionException(springApplicationName + " is disabled");
+      }
+      if (applicationMate.getPurview().indexOf(serviceCode) == -1) {
+        throw new PermissionException("no access to this servoceCode : " + serviceCode);
+      }
+    }
+  }
+
+  /**
    * 描述 : 获得请求方法
    *
    * @param serviceCode 服务代码
@@ -124,7 +145,7 @@ public class Rms {
     ServiceMate serviceMate = rmsProperties.getService().get(serviceCode);
     //构建请求路径
     StringBuilder url = new StringBuilder(serviceMate.getIsHttps() ? Constant.HTTPS : Constant.HTTP);
-    url.append(rmsProperties.getApplication().get(serviceMate.getApplicationName()).getServiceId());
+    url.append(rmsProperties.getApplication().get(serviceMate.getOwner()).getServiceId());
     url.append(serviceMate.getUri());
     return url.toString();
   }

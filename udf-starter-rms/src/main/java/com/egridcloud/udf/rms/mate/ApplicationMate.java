@@ -40,6 +40,29 @@ public class ApplicationMate {
   private Boolean disabled = false;
 
   /**
+   * 描述 : 描述
+   */
+  private String description;
+
+  /**
+   * 描述 : 获取description
+   *
+   * @return the description
+   */
+  public String getDescription() {
+    return description;
+  }
+
+  /**
+   * 描述 : 设置description
+   *
+   * @param description the description to set
+   */
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  /**
    * 描述 : 获取serviceId
    *
    * @return the serviceId

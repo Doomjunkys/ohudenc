@@ -17,7 +17,7 @@ public class ServiceMate {
   /**
    * 描述 : 应用名称
    */
-  private String applicationName;
+  private String owner;
 
   /**
    * 描述 : 地址
@@ -33,6 +33,29 @@ public class ServiceMate {
    * 描述 : 是否HTTPS
    */
   private Boolean isHttps = false;
+
+  /**
+   * 描述 : 描述
+   */
+  private String description;
+
+  /**
+   * 描述 : 获取description
+   *
+   * @return the description
+   */
+  public String getDescription() {
+    return description;
+  }
+
+  /**
+   * 描述 : 设置description
+   *
+   * @param description the description to set
+   */
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
   /**
    * 描述 : 获取isHttps
@@ -53,21 +76,21 @@ public class ServiceMate {
   }
 
   /**
-   * 描述 : 获取applicationName
+   * 描述 : 获取owner
    *
-   * @return the applicationName
+   * @return the owner
    */
-  public String getApplicationName() {
-    return applicationName;
+  public String getOwner() {
+    return owner;
   }
 
   /**
-   * 描述 : 设置applicationName
+   * 描述 : 设置owner
    *
-   * @param applicationName the applicationName to set
+   * @param owner the owner to set
    */
-  public void setApplicationName(String applicationName) {
-    this.applicationName = applicationName;
+  public void setOwner(String owner) {
+    this.owner = owner;
   }
 
   /**
