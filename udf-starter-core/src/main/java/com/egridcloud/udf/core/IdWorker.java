@@ -6,6 +6,10 @@
  */
 package com.egridcloud.udf.core;
 
+import java.io.IOException;
+import java.lang.management.ManagementFactory;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -193,6 +197,56 @@ public class IdWorker {
    */
   protected long getDatacenterId(long maxDatacenterIdparam) {
     return Math.abs(UUID.randomUUID().toString().hashCode() % maxDatacenterIdparam);
+  }
+
+  /**
+   * 描述 : 获取机器ID(备用,docker容器中有问题)
+   *
+   * @param datacenterIdparam datacenterIdparam
+   * @param maxWorkerIdparam maxWorkerIdparam
+   * @return 机器ID
+   */
+  protected long getWorkerIdBack(long datacenterIdparam, long maxWorkerIdparam) {
+    final int numbera = 0xffff;
+    StringBuilder mpid = new StringBuilder();
+    mpid.append(datacenterIdparam);
+    String name = ManagementFactory.getRuntimeMXBean().getName();
+    if (!name.isEmpty()) {
+      //GET jvmPid
+      mpid.append(name.split("@")[0]);
+    }
+    //MAC + PID 的 hashcode 获取16个低位
+    return (mpid.toString().hashCode() & numbera) % (maxWorkerIdparam + 1);
+  }
+
+  /**
+   * 描述 : 获取数据中心ID(备用,docker容器中有问题)
+   *
+   * @param maxDatacenterIdparam maxDatacenterIdparam
+   * @return 数据中心ID
+   */
+  protected long getDatacenterIdBack(long maxDatacenterIdparam) {
+    final int numbera = 0x000000FF;
+    final int numberb = 0x0000FF00;
+    final int number2 = 2;
+    final int number6 = 6;
+    final int number8 = 8;
+    long id = 0L;
+    try {
+      InetAddress ip = InetAddress.getLocalHost();
+      NetworkInterface network = NetworkInterface.getByInetAddress(ip);
+      if (network == null) {
+        id = 1L;
+      } else {
+        byte[] mac = network.getHardwareAddress();
+        id = ((numbera & (long) mac[mac.length - 1])
+            | (numberb & (((long) mac[mac.length - number2]) << number8))) >> number6;
+        id = id % (maxDatacenterIdparam + 1);
+      }
+    } catch (IOException e) {
+      throw new SystemRuntimeException(e);
+    }
+    return id;
   }
 
 }
