@@ -213,12 +213,12 @@ public class ExceptionMapping {
    */
   private ErrorResult buildError(Exception exception) {
     ErrorResult error = new ErrorResult();
-    error.setExceptionType(exception.getClass().getName());
-    error.setExceptionMessage(ExceptionUtils.getMessage(exception));
+    error.setType(exception.getClass().getName());
+    error.setMessage(ExceptionUtils.getMessage(exception));
     if (applicationConfig.isOutputExceptionStackTrace()) {
-      error.setExceptionStackTrace(ExceptionUtils.getStackTrace(exception));
+      error.setStackTrace(ExceptionUtils.getStackTrace(exception));
     }
-    error.setExceptionDate(new Date());
+    error.setDate(new Date());
     LOGGER.error(exception.getClass().getName(), exception);
     return error;
   }

@@ -27,96 +27,96 @@ public class ErrorResult implements Serializable {
    * 描述 : 异常时间
    */
   @ApiModelProperty(value = "异常时间", required = true, dataType = "date")
-  private Date exceptionDate;
+  private Date date;
 
   /**
    * 描述 : 异常类名
    */
   @ApiModelProperty(value = "异常类名", required = true, dataType = "string")
-  private String exceptionType;
+  private String type;
 
   /**
    * 描述 : 异常信息
    */
   @ApiModelProperty(value = "异常信息", required = true, dataType = "string")
-  private String exceptionMessage;
+  private String message;
 
   /**
    * 描述 : 详细异常堆栈信息
    */
   @ApiModelProperty(value = "异常堆栈", required = true, dataType = "string")
-  private String exceptionStackTrace;
+  private String stackTrace;
 
   /**
-   * 描述 : 获取exceptionDate
+   * 描述 : 获取date
    *
-   * @return the exceptionDate
+   * @return the date
    */
-  public Date getExceptionDate() {
-    return exceptionDate;
+  public Date getDate() {
+    return date;
   }
 
   /**
-   * 描述 : 设置exceptionDate
+   * 描述 : 设置date
    *
-   * @param exceptionDate the exceptionDate to set
+   * @param date the date to set
    */
-  public void setExceptionDate(Date exceptionDate) {
-    this.exceptionDate = exceptionDate;
+  public void setDate(Date date) {
+    this.date = date;
   }
 
   /**
-   * 描述 : 获取exceptionType
+   * 描述 : 获取type
    *
-   * @return the exceptionType
+   * @return the type
    */
-  public String getExceptionType() {
-    return exceptionType;
+  public String getType() {
+    return type;
   }
 
   /**
-   * 描述 : 设置exceptionType
+   * 描述 : 设置type
    *
-   * @param exceptionType the exceptionType to set
+   * @param type the type to set
    */
-  public void setExceptionType(String exceptionType) {
-    this.exceptionType = exceptionType;
+  public void setType(String type) {
+    this.type = type;
   }
 
   /**
-   * 描述 : 获取exceptionMessage
+   * 描述 : 获取message
    *
-   * @return the exceptionMessage
+   * @return the message
    */
-  public String getExceptionMessage() {
-    return exceptionMessage;
+  public String getMessage() {
+    return message;
   }
 
   /**
-   * 描述 : 设置exceptionMessage
+   * 描述 : 设置message
    *
-   * @param exceptionMessage the exceptionMessage to set
+   * @param message the message to set
    */
-  public void setExceptionMessage(String exceptionMessage) {
-    this.exceptionMessage = exceptionMessage;
+  public void setMessage(String message) {
+    this.message = message;
   }
 
   /**
-   * 描述 : 获取exceptionStackTrace
+   * 描述 : 获取stackTrace
    *
-   * @return the exceptionStackTrace
+   * @return the stackTrace
    */
-  public String getExceptionStackTrace() {
-    return exceptionStackTrace;
+  public String getStackTrace() {
+    return stackTrace;
   }
 
   /**
-   * 描述 : 设置exceptionStackTrace
+   * 描述 : 设置stackTrace
    *
-   * @param exceptionStackTrace the exceptionStackTrace to set
+   * @param stackTrace the stackTrace to set
    */
-  public void setExceptionStackTrace(String exceptionStackTrace) {
-    this.exceptionStackTrace = exceptionStackTrace;
+  public void setStackTrace(String stackTrace) {
+    this.stackTrace = stackTrace;
   }
 
 }
