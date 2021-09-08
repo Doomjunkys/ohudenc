@@ -6,13 +6,20 @@
  */
 package com.egridcloud.udf.rms.mate;
 
+import java.io.Serializable;
+
 /**
  * 描述 : Application元数据
  *
  * @author Administrator
  *
  */
-public class ApplicationMate {
+public class ApplicationMate implements Serializable {
+
+  /**
+   * 描述 : ID
+   */
+  private static final long serialVersionUID = 1L;
 
   /**
    * 描述 : 服务ID

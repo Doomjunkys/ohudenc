@@ -6,13 +6,20 @@
  */
 package com.egridcloud.udf.amqp.rabbitmq.mate;
 
+import java.io.Serializable;
+
 /**
  * 描述 : SubscriberMate
  *
  * @author Administrator
  *
  */
-public class SubscriberMate {
+public class SubscriberMate implements Serializable {
+
+  /**
+   * 描述 : ID
+   */
+  private static final long serialVersionUID = 1L;
 
   /**
    * 描述 : 权限列表

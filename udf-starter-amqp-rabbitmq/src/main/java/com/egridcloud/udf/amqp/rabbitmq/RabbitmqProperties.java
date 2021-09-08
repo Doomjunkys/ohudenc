@@ -6,6 +6,7 @@
  */
 package com.egridcloud.udf.amqp.rabbitmq;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -24,12 +25,17 @@ import com.egridcloud.udf.amqp.rabbitmq.mate.SubscriberMate;
  */
 @Component
 @ConfigurationProperties(prefix = "com.egridcloud.rabbitmq.properties")
-public class RabbitmqProperties {
+public class RabbitmqProperties implements Serializable {
 
   /**
    * 描述 : 死信后缀
    */
   public static final String DEAD_LETTER_SUFFIX = ".dlx";
+
+  /**
+   * 描述 : ID
+   */
+  private static final long serialVersionUID = 1L;
 
   /**
    * 描述 : 发布者 ( key:应用名称 )

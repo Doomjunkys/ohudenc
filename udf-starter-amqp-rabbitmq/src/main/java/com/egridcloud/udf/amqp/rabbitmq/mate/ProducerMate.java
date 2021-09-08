@@ -6,13 +6,20 @@
  */
 package com.egridcloud.udf.amqp.rabbitmq.mate;
 
+import java.io.Serializable;
+
 /**
  * 描述 : ProducerMate
  *
  * @author Administrator
  *
  */
-public class ProducerMate {
+public class ProducerMate implements Serializable {
+
+  /**
+   * 描述 : ID
+   */
+  private static final long serialVersionUID = 1L;
 
   /**
    * 描述 : 应用名称

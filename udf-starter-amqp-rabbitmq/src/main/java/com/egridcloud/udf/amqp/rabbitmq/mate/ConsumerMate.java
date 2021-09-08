@@ -6,13 +6,20 @@
  */
 package com.egridcloud.udf.amqp.rabbitmq.mate;
 
+import java.io.Serializable;
+
 /**
  * 描述 : ConsumerMate
  *
  * @author Administrator
  *
  */
-public class ConsumerMate {
+public class ConsumerMate implements Serializable {
+
+  /**
+   * 描述 : ID
+   */
+  private static final long serialVersionUID = 1L;
 
   /**
    * 描述 : 应用名称

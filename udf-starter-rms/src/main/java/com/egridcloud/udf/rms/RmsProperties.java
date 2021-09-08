@@ -6,6 +6,7 @@
  */
 package com.egridcloud.udf.rms;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -22,7 +23,12 @@ import com.egridcloud.udf.rms.mate.ServiceMate;
  */
 @Component
 @ConfigurationProperties(prefix = "com.egridcloud.rms.properties")
-public class RmsProperties {
+public class RmsProperties implements Serializable {
+
+  /**
+   * 描述 : ID
+   */
+  private static final long serialVersionUID = 1L;
 
   /**
    * 描述 : 应用清单(应用名称 : 应用地址)
