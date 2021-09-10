@@ -22,7 +22,7 @@ import com.egridcloud.udf.rms.RmsProperties;
  *
  */
 @RestController
-@RequestMapping("service/rms")
+@RequestMapping("rms")
 public class RmsController {
 
   /**

@@ -21,7 +21,7 @@ import com.egridcloud.udf.core.RestResponse;
  *
  */
 @RestController
-@RequestMapping("service/rabbitmq")
+@RequestMapping("rabbitmq")
 public class RabbitmqController {
 
   /**
