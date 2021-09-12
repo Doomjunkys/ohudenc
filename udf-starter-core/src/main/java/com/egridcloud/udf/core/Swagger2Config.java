@@ -28,7 +28,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @Configuration
 @EnableSwagger2
-public class Swagger2Config extends WebMvcConfigurerAdapter {
+public class Swagger2Config {
 
   /**
    * 描述 : 系统版本
@@ -42,12 +42,22 @@ public class Swagger2Config extends WebMvcConfigurerAdapter {
   @Value("${info.build.name}")
   private String projectName;
 
-  @Override
-  public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("swagger-ui.html")
-        .addResourceLocations("classpath:/META-INF/resources/");
-    registry.addResourceHandler("/webjars/**")
-        .addResourceLocations("classpath:/META-INF/resources/webjars/");
+  /**
+   * 描述 : addResourceHandlers
+   *
+   * @return WebMvcConfigurerAdapter
+   */
+  @Bean
+  public WebMvcConfigurerAdapter addResourceHandlers() {
+    return new WebMvcConfigurerAdapter() {
+      @Override
+      public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html")
+            .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**")
+            .addResourceLocations("classpath:/META-INF/resources/webjars/");
+      }
+    };
   }
 
   /**
