@@ -12,8 +12,8 @@
   <!-- 公共参数 -->
   <properties>
     <udf-starter.version>1.0</udf-starter.version>
-    <springboot.version>1.5.2.RELEASE</springboot.version>
-    <springcloud.version>Dalston.RELEASE</springcloud.version>
+    <springboot.version>1.5.3.RELEASE</springboot.version>
+    <springcloud.version>Dalston.SR1</springcloud.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
     <maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
