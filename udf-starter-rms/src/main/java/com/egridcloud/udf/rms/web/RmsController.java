@@ -15,12 +15,15 @@ import com.egridcloud.udf.core.RestResponse;
 import com.egridcloud.udf.rms.RmsConfig;
 import com.egridcloud.udf.rms.RmsProperties;
 
+import springfox.documentation.annotations.ApiIgnore;
+
 /**
  * 描述 : RmsController
  *
  * @author Administrator
  *
  */
+@ApiIgnore
 @RestController
 @RequestMapping("rms")
 public class RmsController {

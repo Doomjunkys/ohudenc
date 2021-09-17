@@ -14,12 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.egridcloud.udf.amqp.rabbitmq.RabbitmqProperties;
 import com.egridcloud.udf.core.RestResponse;
 
+import springfox.documentation.annotations.ApiIgnore;
+
 /**
  * 描述 : RabbitmqController
  *
  * @author Administrator
  *
  */
+@ApiIgnore
 @RestController
 @RequestMapping("rabbitmq")
 public class RabbitmqController {
