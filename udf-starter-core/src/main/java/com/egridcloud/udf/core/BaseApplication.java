@@ -6,11 +6,14 @@
  */
 package com.egridcloud.udf.core;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Primary;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -36,6 +39,12 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 public class BaseApplication {
 
   /**
+   * 描述 : applicationConfig
+   */
+  @Autowired
+  private ApplicationConfig applicationConfig;
+
+  /**
    * 描述 : xssObjectMapper
    *
    * @param builder builder
@@ -57,11 +66,24 @@ public class BaseApplication {
   /**
    * 描述 : externalRestTemplate
    *
+   * @param requestFactory requestFactory
    * @return RestTemplate
    */
   @Bean(name = "externalRestTemplate")
-  public RestTemplate externalRestTemplate() {
-    return new RestTemplate();
+  public RestTemplate externalRestTemplate(ClientHttpRequestFactory requestFactory) {
+    return new RestTemplate(requestFactory);
+  }
+
+  /**
+   * 描述 : requestFactory
+   *
+   * @return ClientHttpRequestFactory
+   */
+  @Bean
+  public ClientHttpRequestFactory requestFactory() {
+    SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+    requestFactory.setBufferRequestBody(applicationConfig.getBufferRequestBody());
+    return requestFactory;
   }
 
   /**

@@ -53,6 +53,30 @@ public class ApplicationConfig {
   private ThreadPoolProperties threadPool;
 
   /**
+   * 描述 : 如有大文件通过restTemplate传输,请设置为false
+   */
+  @NotNull
+  private Boolean bufferRequestBody = true;
+
+  /**
+   * 描述 : 获取bufferRequestBody
+   *
+   * @return the bufferRequestBody
+   */
+  public Boolean getBufferRequestBody() {
+    return bufferRequestBody;
+  }
+
+  /**
+   * 描述 : 设置bufferRequestBody
+   *
+   * @param bufferRequestBody the bufferRequestBody to set
+   */
+  public void setBufferRequestBody(Boolean bufferRequestBody) {
+    this.bufferRequestBody = bufferRequestBody;
+  }
+
+  /**
    * 描述 : 获取threadPool
    *
    * @return the threadPool
