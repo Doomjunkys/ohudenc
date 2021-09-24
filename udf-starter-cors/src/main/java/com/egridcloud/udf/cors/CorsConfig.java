@@ -4,7 +4,7 @@
  * Created by Administrator
  * Copyright (C) 2016 egridcloud.com, All rights reserved.
  */
-package com.egridcloud.udf.core.cors;
+package com.egridcloud.udf.cors;
 
 import java.util.Iterator;
 import java.util.Map;
