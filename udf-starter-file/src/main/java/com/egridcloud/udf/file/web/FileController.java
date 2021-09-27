@@ -6,11 +6,14 @@
  */
 package com.egridcloud.udf.file.web;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.egridcloud.udf.core.RestResponse;
+import com.egridcloud.udf.file.domain.FileInfo;
 import com.egridcloud.udf.file.service.FileService;
 
 /**
@@ -29,8 +32,9 @@ public class FileController implements IFileController {
   private FileService fileService;
 
   @Override
-  public RestResponse<String> upload(String pathCode, Boolean cover, MultipartFile file) {
-    return new RestResponse<>(pathCode);
+  public RestResponse<FileInfo> upload(String pathCode, MultipartFile file)
+      throws IllegalStateException, IOException {
+    return new RestResponse<>(fileService.upload(pathCode, file));
   }
 
 }

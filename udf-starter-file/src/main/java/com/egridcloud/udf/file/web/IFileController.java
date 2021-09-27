@@ -6,11 +6,14 @@
  */
 package com.egridcloud.udf.file.web;
 
+import java.io.IOException;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.egridcloud.udf.core.RestResponse;
+import com.egridcloud.udf.file.domain.FileInfo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -32,9 +35,10 @@ public interface IFileController {
    * 描述 : 上传文件
    *
    * @param pathCode 路径代码
-   * @param cover 是否覆盖
    * @param file 文件
-   * @return 结果
+   * @return
+   * @throws IllegalStateException 异常
+   * @throws IOException 异常
    */
   @ApiOperation(value = "FILE_1", notes = "上传文件")
   @ApiImplicitParams({
@@ -46,11 +50,10 @@ public interface IFileController {
           required = true, dataType = "string"),
       @ApiImplicitParam(paramType = "form", name = "pathCode", value = "路径代码", required = true,
           dataType = "string"),
-      @ApiImplicitParam(paramType = "form", name = "cover", value = "是否覆盖", required = true,
-          dataType = "boolean"),
       @ApiImplicitParam(paramType = "form", name = "file", value = "文件", required = true,
           dataType = "__file") })
   @RequestMapping(value = "upload", method = RequestMethod.POST)
-  public RestResponse<String> upload(String pathCode, Boolean cover, MultipartFile file);
+  public RestResponse<FileInfo> upload(String pathCode, MultipartFile file)
+      throws IllegalStateException, IOException;
 
 }
