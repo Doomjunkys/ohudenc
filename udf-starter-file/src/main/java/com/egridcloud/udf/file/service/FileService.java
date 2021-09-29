@@ -104,6 +104,10 @@ public class FileService {
    * @param file 文件
    */
   public void verification(String pathCode, MultipartFile file) {
+    //验证根路径是否配置
+    if (fileProperties.getRootPath() == null) {
+      throw new FileException("rootPath not defined");
+    }
     //验证pathCode是否存在
     if (!fileProperties.getPath().containsKey(pathCode)) {
       throw new FileException("pathCode : " + pathCode + " not defined");

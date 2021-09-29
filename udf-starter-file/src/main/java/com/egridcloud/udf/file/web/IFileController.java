@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.egridcloud.udf.core.RestResponse;
+import com.egridcloud.udf.file.FileProperties;
 import com.egridcloud.udf.file.domain.FileInfo;
 
 import io.swagger.annotations.Api;
@@ -30,6 +31,22 @@ import io.swagger.annotations.ApiOperation;
     protocols = "http")
 @RequestMapping(value = "/service/file")
 public interface IFileController {
+
+  /**
+   * 描述 : 文件配置
+   *
+   * @return 文件配置
+   */
+  @ApiOperation(value = "FILE_2", notes = "文件配置")
+  @ApiImplicitParams({
+      @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称",
+          required = true, dataType = "string"),
+      @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true,
+          dataType = "string"),
+      @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号",
+          required = true, dataType = "string") })
+  @RequestMapping(value = "properties", method = RequestMethod.GET)
+  public RestResponse<FileProperties> properties();
 
   /**
    * 描述 : 上传文件

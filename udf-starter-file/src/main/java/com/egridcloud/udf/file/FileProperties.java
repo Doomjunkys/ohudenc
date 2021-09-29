@@ -9,11 +9,8 @@ package com.egridcloud.udf.file;
 import java.io.Serializable;
 import java.util.Map;
 
-import javax.validation.constraints.NotNull;
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.annotation.Validated;
 
 import com.egridcloud.udf.file.mate.PathMate;
 
@@ -25,7 +22,6 @@ import com.egridcloud.udf.file.mate.PathMate;
  */
 @Component
 @ConfigurationProperties(prefix = "com.egridcloud.file.properties")
-@Validated
 public class FileProperties implements Serializable {
 
   /**
@@ -36,7 +32,6 @@ public class FileProperties implements Serializable {
   /**
    * 描述 : 根路径
    */
-  @NotNull
   private String rootPath;
 
   /**

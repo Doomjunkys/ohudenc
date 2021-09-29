@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.egridcloud.udf.core.RestResponse;
+import com.egridcloud.udf.file.FileProperties;
 import com.egridcloud.udf.file.domain.FileInfo;
 import com.egridcloud.udf.file.service.FileService;
 
@@ -26,6 +27,12 @@ import com.egridcloud.udf.file.service.FileService;
 public class FileController implements IFileController {
 
   /**
+   * 描述 : fileProperties
+   */
+  @Autowired
+  private FileProperties fileProperties;
+
+  /**
    * 描述 : fileService
    */
   @Autowired
@@ -35,6 +42,11 @@ public class FileController implements IFileController {
   public RestResponse<FileInfo> upload(String pathCode, MultipartFile file)
       throws IllegalStateException, IOException {
     return new RestResponse<>(fileService.upload(pathCode, file));
+  }
+
+  @Override
+  public RestResponse<FileProperties> properties() {
+    return new RestResponse<>(fileProperties);
   }
 
 }
