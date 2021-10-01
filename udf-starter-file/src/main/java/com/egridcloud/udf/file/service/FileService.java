@@ -45,11 +45,11 @@ public class FileService {
   /**
    * 描述 : 上传文件
    *
-   * @param pathCode
-   * @param file
-   * @return
-   * @throws IOException
-   * @throws IllegalStateException
+   * @param pathCode 路径代码
+   * @param file 文件
+   * @return 结果
+   * @throws IllegalStateException 异常
+   * @throws IOException 异常
    */
   public FileInfo upload(String pathCode, MultipartFile file)
       throws IllegalStateException, IOException {

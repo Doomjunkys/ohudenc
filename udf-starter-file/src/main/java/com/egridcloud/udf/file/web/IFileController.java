@@ -53,7 +53,7 @@ public interface IFileController {
    *
    * @param pathCode 路径代码
    * @param file 文件
-   * @return
+   * @return 结果
    * @throws IllegalStateException 异常
    * @throws IOException 异常
    */
