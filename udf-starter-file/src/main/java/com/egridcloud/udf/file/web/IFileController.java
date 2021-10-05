@@ -8,6 +8,8 @@ package com.egridcloud.udf.file.web;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -69,8 +71,28 @@ public interface IFileController {
           dataType = "string"),
       @ApiImplicitParam(paramType = "form", name = "file", value = "文件", required = true,
           dataType = "__file") })
-  @RequestMapping(value = "upload", method = RequestMethod.POST)
+  @RequestMapping(method = RequestMethod.POST)
   public RestResponse<FileInfo> upload(String pathCode, MultipartFile file)
       throws IllegalStateException, IOException;
+
+  /**
+   * 描述 : 通过文件ID访问文件
+   *
+   * @param fileId 文件ID
+   * @param response 响应对象
+   * @throws IOException 异常
+   */
+  @ApiOperation(value = "FILE_3", notes = "通过相对路径访问文件")
+  @ApiImplicitParams({
+      @ApiImplicitParam(paramType = "query", name = "rmsApplicationName", value = "rms应用名称",
+          required = true, dataType = "string"),
+      @ApiImplicitParam(paramType = "query", name = "rmsSign", value = "rms认证秘钥", required = true,
+          dataType = "string"),
+      @ApiImplicitParam(paramType = "query", name = "rmsServiceCode", value = "rms接口编号",
+          required = true, dataType = "string"),
+      @ApiImplicitParam(paramType = "query", name = "fileId", value = "文件ID", required = true,
+          dataType = "string") })
+  @RequestMapping(method = RequestMethod.GET)
+  public void load(String fileId, HttpServletResponse response) throws IOException;
 
 }

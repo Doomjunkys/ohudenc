@@ -8,6 +8,7 @@ package com.egridcloud.udf.file.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -84,6 +85,8 @@ public class FileService {
     //获得base64文件ID(通过文件相对路径计算获得)
     String fileId = new String(
         Base64.encodeBase64(fileInfo.getRelativePath().getBytes(applicationConfig.getEncoding())));
+    //使用url转码处理特殊字符
+    fileId = URLEncoder.encode(fileId, applicationConfig.getEncoding());
     fileInfo.setId(fileId);
     //获得文件对象(目录)
     File dest = new File(absolutePath);

@@ -58,16 +58,26 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
       Object handler) {
     //获取认证信息
     String rmsApplicationName = request.getHeader(Constant.HEADER_RMS_APPLICATION_NAME_CODE);
+    if (StringUtils.isBlank(rmsApplicationName)) {
+      rmsApplicationName = request.getParameter(Constant.HEADER_RMS_APPLICATION_NAME_CODE);
+    }
     String rmsSign = request.getHeader(Constant.HEADER_RMS_SIGN_CODE);
+    if (StringUtils.isBlank(rmsSign)) {
+      rmsSign = request.getParameter(Constant.HEADER_RMS_SIGN_CODE);
+    }
     String rmsServiceCode = request.getHeader(Constant.HEADER_SERVICE_CODE_CODE);
+    if (StringUtils.isBlank(rmsServiceCode)) {
+      rmsServiceCode = request.getParameter(Constant.HEADER_SERVICE_CODE_CODE);
+    }
     String url = request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE).toString();
     String method = request.getMethod();
-    LOGGER.info("rmsApplicationName:{},rmsSign:{},rmsServiceCode:{},url:{},method:{}", rmsApplicationName, rmsSign,
-        rmsServiceCode, url, method);
+    LOGGER.info("rmsApplicationName:{},rmsSign:{},rmsServiceCode:{},url:{},method:{}",
+        rmsApplicationName, rmsSign, rmsServiceCode, url, method);
     //判断是否缺少认证信息
     if (StringUtils.isBlank(rmsApplicationName) || StringUtils.isBlank(rmsSign)
         || StringUtils.isBlank(rmsServiceCode)) {
-      throw new AuthException("missing required authentication parameters (rmsApplicationName , rmsSign)");
+      throw new AuthException(
+          "missing required authentication parameters (rmsApplicationName , rmsSign)");
     }
     //判断环境(开发环境无需校验)
     if (!DEV_PROFILES.equals(env.getProperty("spring.profiles.active"))) {
@@ -121,8 +131,8 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
   }
 
   @Override
-  public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
-      throws Exception {
+  public void afterCompletion(HttpServletRequest request, HttpServletResponse response,
+      Object handler, Exception ex) throws Exception {
     LOGGER.debug("SystemTagAuthHandlerInterceptor.afterCompletion");
   }
 
