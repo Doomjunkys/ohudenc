@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.egridcloud.udf.core.ApplicationConfig;
 import com.egridcloud.udf.file.FileException;
 import com.egridcloud.udf.file.FileProperties;
+import com.egridcloud.udf.file.IFileListener;
 import com.egridcloud.udf.file.domain.FileInfo;
 
 /**
@@ -42,6 +43,12 @@ public class FileService {
    */
   @Autowired
   private ApplicationConfig applicationConfig;
+
+  /**
+   * 描述 : fileListener
+   */
+  @Autowired(required = false)
+  private IFileListener fileListener;
 
   /**
    * 描述 : 上传文件
@@ -96,6 +103,10 @@ public class FileService {
     dest = new File(absoluteFilePath);
     //保存
     file.transferTo(dest);
+    //触发监听器
+    if (fileListener != null) {
+      fileListener.uploaded(fileInfo);
+    }
     //返回
     return fileInfo;
   }
