@@ -8,12 +8,14 @@ package com.egridcloud.udf.file.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.activation.FileTypeMap;
+
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -49,6 +51,44 @@ public class FileService {
    */
   @Autowired(required = false)
   private IFileListener fileListener;
+
+  /**
+   * 描述 : 返回文件信息
+   *
+   * @param fileId 文件ID
+   * @return 文件信息
+   * @throws IOException 异常
+   */
+  public FileInfo getFileInfo(String fileId) throws IOException {
+    //返回对象
+    FileInfo result = new FileInfo();
+    result.setId(fileId);
+    //获得相对路径
+    String relativeFilePath =
+        new String(Base64.decodeBase64(result.getId().getBytes(applicationConfig.getEncoding())));
+    result.setRelativePath(relativeFilePath);
+    //获得rootPath
+    String rootPath = fileProperties.getRootPath();
+    //拼接绝对路径(目录)
+    String absolutePath = rootPath + relativeFilePath;
+    //获得资源对象
+    FileSystemResource fsr = new FileSystemResource(absolutePath);
+    //判断资源是否存在
+    if (!fsr.exists()) {
+      throw new FileException("file : " + relativeFilePath + " does not exist");
+    }
+    //获得contentType
+    String contentType = FileTypeMap.getDefaultFileTypeMap().getContentType(fsr.getFile());
+    result.setContentType(contentType);
+    //获得文件名称
+    String fileName = fsr.getFilename();
+    result.setName(fileName);
+    //获得文件长度
+    Long size = fsr.contentLength();
+    result.setSize(size);
+    //返回
+    return result;
+  }
 
   /**
    * 描述 : 上传文件
@@ -92,8 +132,6 @@ public class FileService {
     //获得base64文件ID(通过文件相对路径计算获得)
     String fileId = new String(
         Base64.encodeBase64(fileInfo.getRelativePath().getBytes(applicationConfig.getEncoding())));
-    //使用url转码处理特殊字符
-    fileId = URLEncoder.encode(fileId, applicationConfig.getEncoding());
     fileInfo.setId(fileId);
     //获得文件对象(目录)
     File dest = new File(absolutePath);

@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -82,17 +83,37 @@ public interface IFileController {
    * @param response 响应对象
    * @throws IOException 异常
    */
-  @ApiOperation(value = "FILE_3", notes = "通过相对路径访问文件")
+  @ApiOperation(value = "FILE_3", notes = "通过文件ID访问文件")
   @ApiImplicitParams({
-      @ApiImplicitParam(paramType = "query", name = "rmsApplicationName", value = "rms应用名称",
+      @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称",
           required = true, dataType = "string"),
-      @ApiImplicitParam(paramType = "query", name = "rmsSign", value = "rms认证秘钥", required = true,
+      @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true,
           dataType = "string"),
-      @ApiImplicitParam(paramType = "query", name = "rmsServiceCode", value = "rms接口编号",
+      @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号",
           required = true, dataType = "string"),
-      @ApiImplicitParam(paramType = "query", name = "fileId", value = "文件ID", required = true,
+      @ApiImplicitParam(paramType = "path", name = "fileId", value = "文件ID", required = true,
           dataType = "string") })
-  @RequestMapping(method = RequestMethod.GET)
-  public void load(String fileId, HttpServletResponse response) throws IOException;
+  @RequestMapping(value = "{fileId}", method = RequestMethod.GET)
+  public void load(@PathVariable String fileId, HttpServletResponse response) throws IOException;
+
+  /**
+   * 描述 : 通过文件ID访问文件
+   *
+   * @param fileId 文件ID
+   * @return 文件信息
+   * @throws IOException 异常
+   */
+  @ApiOperation(value = "FILE_4", notes = "通过文件ID获得文件信息")
+  @ApiImplicitParams({
+      @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称",
+          required = true, dataType = "string"),
+      @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true,
+          dataType = "string"),
+      @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号",
+          required = true, dataType = "string"),
+      @ApiImplicitParam(paramType = "path", name = "fileId", value = "文件ID", required = true,
+          dataType = "string") })
+  @RequestMapping(value = "info/{fileId}", method = RequestMethod.GET)
+  public RestResponse<FileInfo> info(@PathVariable String fileId) throws IOException;
 
 }

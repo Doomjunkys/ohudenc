@@ -144,7 +144,8 @@ public class Rms {
     //获取服务元数据
     ServiceMate serviceMate = rmsProperties.getService().get(serviceCode);
     //构建请求路径
-    StringBuilder url = new StringBuilder(serviceMate.getIsHttps() ? Constant.HTTPS : Constant.HTTP);
+    StringBuilder url =
+        new StringBuilder(serviceMate.getIsHttps() ? Constant.HTTPS : Constant.HTTP);
     url.append(rmsProperties.getApplication().get(serviceMate.getOwner()).getServiceId());
     url.append(serviceMate.getUri());
     return url.toString();

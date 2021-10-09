@@ -10,18 +10,16 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import javax.activation.FileTypeMap;
 import javax.servlet.http.HttpServletResponse;
 
-import org.bouncycastle.util.encoders.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.egridcloud.udf.core.ApplicationConfig;
 import com.egridcloud.udf.core.RestResponse;
-import com.egridcloud.udf.file.FileException;
 import com.egridcloud.udf.file.FileProperties;
 import com.egridcloud.udf.file.domain.FileInfo;
 import com.egridcloud.udf.file.service.FileService;
@@ -65,8 +63,13 @@ public class FileController implements IFileController {
   }
 
   @Override
-  public void load(String fileId, HttpServletResponse response) throws IOException {
+  public void load(@PathVariable String fileId, HttpServletResponse response) throws IOException {
     this.loadFile(fileId, response);
+  }
+
+  @Override
+  public RestResponse<FileInfo> info(@PathVariable String fileId) throws IOException {
+    return new RestResponse<>(this.fileService.getFileInfo(fileId));
   }
 
   /**
@@ -76,26 +79,20 @@ public class FileController implements IFileController {
    * @param response 响应对象
    * @throws IOException IOException
    */
-  private void loadFile(String fileId, HttpServletResponse response) throws IOException {
-    //获得相对路径
-    String relativeFilePath =
-        new String(Base64.decode(fileId.getBytes(applicationConfig.getEncoding())));
+  private void loadFile(@PathVariable String fileId, HttpServletResponse response)
+      throws IOException {
+    //获得文件信息
+    FileInfo fileInfo = this.fileService.getFileInfo(fileId);
+    //设置response
+    response.setContentLengthLong(fileInfo.getSize());
+    response.setCharacterEncoding(applicationConfig.getEncoding());
+    response.setContentType(fileInfo.getContentType());
     //获得rootPath
     String rootPath = fileProperties.getRootPath();
     //拼接绝对路径(目录)
-    String absolutePath = rootPath + relativeFilePath;
+    String absolutePath = rootPath + fileInfo.getRelativePath();
     //获得资源对象
     FileSystemResource fsr = new FileSystemResource(absolutePath);
-    //判断资源是否存在
-    if (!fsr.exists()) {
-      throw new FileException("file :" + relativeFilePath + " does not exist");
-    }
-    //获得contentType
-    String contentType = FileTypeMap.getDefaultFileTypeMap().getContentType(fsr.getFile());
-    //设置response
-    response.setContentLengthLong(fsr.contentLength());
-    response.setCharacterEncoding(applicationConfig.getEncoding());
-    response.setContentType(contentType);
     //输出文件
     final int buffInt = 1024;
     byte[] buff = new byte[buffInt];
