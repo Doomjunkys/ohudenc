@@ -26,8 +26,10 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.egridcloud.udf.core.RestResponse;
+import com.egridcloud.udf.mail.MailException;
 import com.egridcloud.udf.mail.MailProperties;
 import com.egridcloud.udf.mail.domain.AttachmentInfo;
+import com.egridcloud.udf.mail.domain.InlineInfo;
 import com.egridcloud.udf.mail.domain.MailInfo;
 import com.egridcloud.udf.mail.vo.file.FileInfo;
 import com.egridcloud.udf.rms.Rms;
@@ -66,7 +68,7 @@ public class MailService {
    * @throws MessagingException 异常
    */
   @Async
-  public void send(MailInfo mailInfo) throws MessagingException {
+  public void send(MailInfo mailInfo) throws MessagingException { //NOSONAR
     //创建消息
     MimeMessage message = mailSender.createMimeMessage();
     //判断是否有附件
@@ -94,6 +96,30 @@ public class MailService {
     //邮件回执
     if (StringUtils.isNotBlank(mailInfo.getReplyTo())) {
       helper.setReplyTo(mailInfo.getReplyTo());
+    }
+    //处理静态资源
+    if (CollectionUtils.isNotEmpty(mailInfo.getInlines())) {
+      for (InlineInfo inlineInfo : mailInfo.getInlines()) {
+        //判空
+        if (StringUtils.isBlank(inlineInfo.getFileId())
+            || StringUtils.isBlank(inlineInfo.getName())) {
+          throw new MailException("inlineInfo fileid and name are not be null");
+        }
+        //获得必要参数
+        String fileId = inlineInfo.getFileId();
+        String name = inlineInfo.getName();
+        //构造参数
+        Map<String, String> uriVariables = new HashMap<>();
+        uriVariables.put("fileId", fileId);
+        //获得文件
+        ResponseEntity<byte[]> file =
+            rms.call("FILE_3", null, null, new ParameterizedTypeReference<byte[]>() {
+            }, uriVariables);
+        //构造resource
+        ByteArrayResource bar = new ByteArrayResource(file.getBody());
+        //添加静态资源
+        helper.addInline(name, bar);
+      }
     }
     //处理附件
     if (CollectionUtils.isNotEmpty(mailInfo.getAttachments())) {
