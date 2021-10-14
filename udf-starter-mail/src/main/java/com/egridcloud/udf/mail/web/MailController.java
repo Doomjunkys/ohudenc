@@ -6,8 +6,6 @@
  */
 package com.egridcloud.udf.mail.web;
 
-import java.util.UUID;
-
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 
@@ -45,14 +43,10 @@ public class MailController implements IMailController {
       throw new ParameterValidException(ErrorCode.PARAMETER_VALID_ERROR.value(),
           result.getAllErrors());
     }
-    //生成ID
-    String id = UUID.randomUUID().toString();
-    //设置ID
-    mailInfo.setId(id);
     //发送
     mailService.send(mailInfo);
     //返回
-    return new RestResponse<>(id);
+    return new RestResponse<>();
   }
 
 }

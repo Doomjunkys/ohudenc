@@ -29,12 +29,6 @@ public class MailInfo implements Serializable {
   private static final long serialVersionUID = 1L;
 
   /**
-   * 描述 : 邮件ID
-   */
-  @ApiModelProperty(value = "邮件ID", required = true, dataType = "string")
-  private String id;
-
-  /**
    * 描述 : 接收地址
    */
   @ApiModelProperty(value = "接收地址", required = true, dataType = "string")
@@ -96,24 +90,6 @@ public class MailInfo implements Serializable {
    */
   @ApiModelProperty(value = "静态资源列表", required = false, dataType = "object")
   private List<InlineInfo> inlines;
-
-  /**
-   * 描述 : 获取id
-   *
-   * @return the id
-   */
-  public String getId() {
-    return id;
-  }
-
-  /**
-   * 描述 : 设置id
-   *
-   * @param id the id to set
-   */
-  public void setId(String id) {
-    this.id = id;
-  }
 
   /**
    * 描述 : 获取inlines
