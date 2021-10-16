@@ -22,7 +22,6 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.egridcloud.udf.core.RestResponse;
@@ -67,7 +66,6 @@ public class MailService {
    * @param mailInfo 邮件信息
    * @throws MessagingException 异常
    */
-  @Async
   public void send(MailInfo mailInfo) throws MessagingException { //NOSONAR
     //创建消息
     MimeMessage message = mailSender.createMimeMessage();

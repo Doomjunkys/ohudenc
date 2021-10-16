@@ -6,6 +6,7 @@
  */
 package com.egridcloud.udf.core.exception.handle;
 
+import java.io.IOException;
 import java.util.Date;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -31,6 +32,7 @@ import com.egridcloud.udf.core.exception.ParameterValidException;
 import com.egridcloud.udf.core.exception.PermissionException;
 import com.egridcloud.udf.core.exception.SystemException;
 import com.egridcloud.udf.core.exception.SystemRuntimeException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * 描述 : 全局异常处理
@@ -51,6 +53,12 @@ public class ExceptionMapping {
    */
   @Autowired
   private ApplicationConfig applicationConfig;
+
+  /**
+   * 描述 : objectMapper
+   */
+  @Autowired
+  private ObjectMapper objectMapper;
 
   /**
    * 描述 : 构造函数
@@ -104,12 +112,21 @@ public class ExceptionMapping {
    *
    * @param exception 异常
    * @return 错误信息
+   * @throws IOException 异常
    */
   @ExceptionHandler(value = RestClientResponseException.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   @ResponseBody
-  public RestResponse<String> restClientResponseException(RestClientResponseException exception) {
-    return new RestResponse<>(ErrorCode.HTTP_ERROR, buildError(exception));
+  public RestResponse<String> restClientResponseException(RestClientResponseException exception)
+      throws IOException {
+    //获得错误
+    ErrorResult errorResult = buildError(exception);
+    //获得子错误
+    RestResponse<String> child = objectMapper.readValue(exception.getResponseBodyAsString(),
+        objectMapper.getTypeFactory().constructParametricType(RestResponse.class, String.class));
+    //设置子错误
+    errorResult.setChild(child);
+    return new RestResponse<>(ErrorCode.HTTP_ERROR, errorResult);
   }
 
   /**

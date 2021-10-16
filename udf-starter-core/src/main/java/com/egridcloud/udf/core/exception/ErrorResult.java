@@ -9,6 +9,8 @@ package com.egridcloud.udf.core.exception;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.egridcloud.udf.core.RestResponse;
+
 import io.swagger.annotations.ApiModelProperty;
 
 /**
@@ -46,6 +48,30 @@ public class ErrorResult implements Serializable {
    */
   @ApiModelProperty(value = "异常堆栈", required = true, dataType = "string")
   private String stackTrace;
+
+  /**
+   * 描述 : 子异常
+   */
+  @ApiModelProperty(value = "子异常", required = true, dataType = "object")
+  private RestResponse<String> child;
+
+  /**
+   * 描述 : 获取child
+   *
+   * @return the child
+   */
+  public RestResponse<String> getChild() {
+    return child;
+  }
+
+  /**
+   * 描述 : 设置child
+   *
+   * @param child the child to set
+   */
+  public void setChild(RestResponse<String> child) {
+    this.child = child;
+  }
 
   /**
    * 描述 : 获取date
