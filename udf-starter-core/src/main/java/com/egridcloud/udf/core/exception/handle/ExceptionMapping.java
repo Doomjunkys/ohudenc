@@ -126,6 +126,7 @@ public class ExceptionMapping {
         objectMapper.getTypeFactory().constructParametricType(RestResponse.class, String.class));
     //设置子错误
     errorResult.setChild(child);
+    //返回
     return new RestResponse<>(ErrorCode.HTTP_ERROR, errorResult);
   }
 
