@@ -9,6 +9,7 @@ package com.egridcloud.udf.core.exception.handle;
 import java.io.IOException;
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -122,10 +123,14 @@ public class ExceptionMapping {
     //获得错误
     ErrorResult errorResult = buildError(exception);
     //获得子错误
-    RestResponse<String> child = objectMapper.readValue(exception.getResponseBodyAsString(),
-        objectMapper.getTypeFactory().constructParametricType(RestResponse.class, String.class));
-    //设置子错误
-    errorResult.setChild(child);
+    String result = exception.getResponseBodyAsString();
+    if (StringUtils.isNotBlank(result)) {
+      //解析子错误
+      RestResponse<String> child = objectMapper.readValue(exception.getResponseBodyAsString(),
+          objectMapper.getTypeFactory().constructParametricType(RestResponse.class, String.class));
+      //设置子错误
+      errorResult.setChild(child);
+    }
     //返回
     return new RestResponse<>(ErrorCode.HTTP_ERROR, errorResult);
   }
