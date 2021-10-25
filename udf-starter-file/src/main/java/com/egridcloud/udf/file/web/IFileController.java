@@ -10,7 +10,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.egridcloud.udf.core.RestResponse;
 import com.egridcloud.udf.file.FileProperties;
 import com.egridcloud.udf.file.domain.FileInfo;
+import com.egridcloud.udf.file.domain.FileParam;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -90,11 +91,10 @@ public interface IFileController {
       @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true,
           dataType = "string"),
       @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号",
-          required = true, dataType = "string"),
-      @ApiImplicitParam(paramType = "path", name = "fileId", value = "文件ID", required = true,
-          dataType = "string") })
-  @RequestMapping(value = "{fileId}", method = RequestMethod.GET)
-  public void load(@PathVariable String fileId, HttpServletResponse response) throws IOException;
+          required = true, dataType = "string") })
+  @RequestMapping(value = "download", method = RequestMethod.POST)
+  public void download(@RequestBody FileParam fileParam, HttpServletResponse response)
+      throws IOException;
 
   /**
    * 描述 : 通过文件ID访问文件
@@ -110,10 +110,8 @@ public interface IFileController {
       @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true,
           dataType = "string"),
       @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号",
-          required = true, dataType = "string"),
-      @ApiImplicitParam(paramType = "path", name = "fileId", value = "文件ID", required = true,
-          dataType = "string") })
-  @RequestMapping(value = "info/{fileId}", method = RequestMethod.GET)
-  public RestResponse<FileInfo> info(@PathVariable String fileId) throws IOException;
+          required = true, dataType = "string") })
+  @RequestMapping(value = "info", method = RequestMethod.POST)
+  public RestResponse<FileInfo> info(@RequestBody FileParam fileParam) throws IOException;
 
 }

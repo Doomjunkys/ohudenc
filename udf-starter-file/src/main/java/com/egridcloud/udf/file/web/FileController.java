@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +22,7 @@ import com.egridcloud.udf.core.ApplicationConfig;
 import com.egridcloud.udf.core.RestResponse;
 import com.egridcloud.udf.file.FileProperties;
 import com.egridcloud.udf.file.domain.FileInfo;
+import com.egridcloud.udf.file.domain.FileParam;
 import com.egridcloud.udf.file.service.FileService;
 
 /**
@@ -63,13 +64,14 @@ public class FileController implements IFileController {
   }
 
   @Override
-  public void load(@PathVariable String fileId, HttpServletResponse response) throws IOException {
-    this.loadFile(fileId, response);
+  public void download(@RequestBody FileParam fileParam, HttpServletResponse response)
+      throws IOException {
+    this.loadFile(fileParam.getId(), response);
   }
 
   @Override
-  public RestResponse<FileInfo> info(@PathVariable String fileId) throws IOException {
-    return new RestResponse<>(this.fileService.getFileInfo(fileId));
+  public RestResponse<FileInfo> info(@RequestBody FileParam fileParam) throws IOException {
+    return new RestResponse<>(this.fileService.getFileInfo(fileParam.getId()));
   }
 
   /**
@@ -79,8 +81,7 @@ public class FileController implements IFileController {
    * @param response 响应对象
    * @throws IOException IOException
    */
-  private void loadFile(@PathVariable String fileId, HttpServletResponse response)
-      throws IOException {
+  private void loadFile(String fileId, HttpServletResponse response) throws IOException {
     //获得文件信息
     FileInfo fileInfo = this.fileService.getFileInfo(fileId);
     //设置response

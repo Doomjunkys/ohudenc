@@ -7,8 +7,6 @@
 package com.egridcloud.udf.mail.service;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -31,6 +29,7 @@ import com.egridcloud.udf.mail.domain.AttachmentInfo;
 import com.egridcloud.udf.mail.domain.InlineInfo;
 import com.egridcloud.udf.mail.domain.MailInfo;
 import com.egridcloud.udf.mail.vo.file.FileInfo;
+import com.egridcloud.udf.mail.vo.file.FileParam;
 import com.egridcloud.udf.rms.Rms;
 
 /**
@@ -107,12 +106,12 @@ public class MailService {
         String fileId = inlineInfo.getFileId();
         String name = inlineInfo.getName();
         //构造参数
-        Map<String, String> uriVariables = new HashMap<>();
-        uriVariables.put("fileId", fileId);
+        FileParam fileParam = new FileParam();
+        fileParam.setId(fileId);
         //获得文件
         ResponseEntity<byte[]> file =
-            rms.call("FILE_3", null, null, new ParameterizedTypeReference<byte[]>() {
-            }, uriVariables);
+            rms.call("FILE_3", fileParam, null, new ParameterizedTypeReference<byte[]>() {
+            }, null);
         //构造resource
         ByteArrayResource bar = new ByteArrayResource(file.getBody());
         //添加静态资源
@@ -127,16 +126,16 @@ public class MailService {
           String fileId = attachment.getFileId();
           String name = attachment.getName();
           //构造参数
-          Map<String, String> uriVariables = new HashMap<>();
-          uriVariables.put("fileId", fileId);
+          FileParam fileParam = new FileParam();
+          fileParam.setId(fileId);
           //获得文件信息
-          ResponseEntity<RestResponse<FileInfo>> fileInfo = rms.call("FILE_4", null, null,
+          ResponseEntity<RestResponse<FileInfo>> fileInfo = rms.call("FILE_4", fileParam, null,
               new ParameterizedTypeReference<RestResponse<FileInfo>>() {
-              }, uriVariables);
+              }, null);
           //获得文件
           ResponseEntity<byte[]> file =
-              rms.call("FILE_3", null, null, new ParameterizedTypeReference<byte[]>() {
-              }, uriVariables);
+              rms.call("FILE_3", fileParam, null, new ParameterizedTypeReference<byte[]>() {
+              }, null);
           //构造resource
           ByteArrayResource bar = new ByteArrayResource(file.getBody());
           //判断附件名称
