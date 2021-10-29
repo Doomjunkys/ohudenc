@@ -14,6 +14,7 @@ import java.util.Date;
 import javax.activation.FileTypeMap;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
@@ -60,6 +61,10 @@ public class FileService {
    * @throws IOException 异常
    */
   public FileInfo getFileInfo(String fileId) throws IOException {
+    //判断fileId是否为空
+    if (StringUtils.isBlank(fileId)) {
+      throw new FileException("fileId can not be empty");
+    }
     //返回对象
     FileInfo result = new FileInfo();
     result.setId(fileId);
