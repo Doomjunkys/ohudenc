@@ -70,7 +70,7 @@ public class MailService {
     MimeMessage message = mailSender.createMimeMessage();
     //判断是否有附件
     boolean multipart = CollectionUtils.isEmpty(mailInfo.getAttachments()) ? false : true;
-    //构造消息mailInfo
+    //构造消息
     MimeMessageHelper helper = new MimeMessageHelper(message, multipart);
     //必要字段
     helper.setFrom(mailProperties.getFrom());
