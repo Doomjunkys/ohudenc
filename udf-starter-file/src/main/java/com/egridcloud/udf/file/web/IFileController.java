@@ -73,7 +73,7 @@ public interface IFileController {
           dataType = "string"),
       @ApiImplicitParam(paramType = "form", name = "file", value = "文件", required = true,
           dataType = "__file") })
-  @RequestMapping(method = RequestMethod.POST)
+  @RequestMapping(value = "upload", method = RequestMethod.POST)
   public RestResponse<FileInfo> upload(String pathCode, MultipartFile file)
       throws IllegalStateException, IOException;
 
