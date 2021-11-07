@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.egridcloud.udf.core.RestResponse;
-import com.egridcloud.udf.mail.domain.MailInfo;
+import com.egridcloud.udf.core.domain.mail.MailInfo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

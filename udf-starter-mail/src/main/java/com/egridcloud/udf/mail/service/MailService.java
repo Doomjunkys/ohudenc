@@ -23,13 +23,13 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.egridcloud.udf.core.RestResponse;
+import com.egridcloud.udf.core.domain.file.FileInfo;
+import com.egridcloud.udf.core.domain.file.FileParam;
+import com.egridcloud.udf.core.domain.mail.AttachmentInfo;
+import com.egridcloud.udf.core.domain.mail.InlineInfo;
+import com.egridcloud.udf.core.domain.mail.MailInfo;
 import com.egridcloud.udf.mail.MailException;
 import com.egridcloud.udf.mail.MailProperties;
-import com.egridcloud.udf.mail.domain.AttachmentInfo;
-import com.egridcloud.udf.mail.domain.InlineInfo;
-import com.egridcloud.udf.mail.domain.MailInfo;
-import com.egridcloud.udf.mail.vo.file.FileInfo;
-import com.egridcloud.udf.mail.vo.file.FileParam;
 import com.egridcloud.udf.rms.Rms;
 
 /**

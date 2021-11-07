@@ -4,7 +4,7 @@
  * Created by Administrator
  * Copyright (C) 2016 egridcloud.com, All rights reserved.
  */
-package com.egridcloud.udf.mail.vo.file;
+package com.egridcloud.udf.core.domain.file;
 
 import java.io.Serializable;
 

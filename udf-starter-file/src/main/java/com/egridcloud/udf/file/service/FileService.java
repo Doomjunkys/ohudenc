@@ -21,9 +21,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.egridcloud.udf.core.ApplicationConfig;
+import com.egridcloud.udf.core.domain.file.FileInfo;
 import com.egridcloud.udf.file.FileException;
 import com.egridcloud.udf.file.FileProperties;
-import com.egridcloud.udf.file.domain.FileInfo;
 
 /**
  * 描述 : FileService

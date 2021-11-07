@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.egridcloud.udf.core.RestResponse;
+import com.egridcloud.udf.core.domain.file.FileInfo;
+import com.egridcloud.udf.core.domain.file.FileParam;
 import com.egridcloud.udf.file.FileProperties;
-import com.egridcloud.udf.file.domain.FileInfo;
-import com.egridcloud.udf.file.domain.FileParam;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.egridcloud.udf.core.RestResponse;
+import com.egridcloud.udf.core.domain.mail.MailInfo;
 import com.egridcloud.udf.core.exception.ErrorCode;
 import com.egridcloud.udf.core.exception.ParameterValidException;
-import com.egridcloud.udf.mail.domain.MailInfo;
 import com.egridcloud.udf.mail.service.MailService;
 
 /**
