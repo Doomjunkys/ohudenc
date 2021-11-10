@@ -21,6 +21,7 @@
     <springfox-swagger2.version>2.7.0</springfox-swagger2.version>
     <commons-collections4.version>4.1</commons-collections4.version>
     <commons-lang3.version>3.5</commons-lang3.version>
+    <quartz.version>2.2.3</quartz.version>
   </properties>
   <!--子模块 -->
   <modules>
@@ -30,6 +31,7 @@
     <module>udf-starter-amqp-rabbitmq</module>
     <module>udf-starter-file</module>
     <module>udf-starter-mail</module>
+	<module>udf-starter-scheduler</module>
   </modules>
   <!-- 依赖管理 -->
   <dependencyManagement>
@@ -84,6 +86,12 @@
       <dependency>
         <groupId>com.egridcloud.udf</groupId>
         <artifactId>udf-starter-mail</artifactId>
+        <version>${udf-starter.version}</version>
+      </dependency>
+	  <!-- udf-starter-scheduler -->
+      <dependency>
+        <groupId>com.egridcloud.udf</groupId>
+        <artifactId>udf-starter-scheduler</artifactId>
         <version>${udf-starter.version}</version>
       </dependency>
     </dependencies>
