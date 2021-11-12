@@ -11,6 +11,9 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.quartz.JobListener;
+import org.quartz.SchedulerListener;
+import org.quartz.TriggerListener;
 import org.quartz.spi.JobFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
@@ -19,6 +22,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
+
+import com.egridcloud.udf.scheduler.listener.JobDetailListener;
+import com.egridcloud.udf.scheduler.listener.SchListener;
+import com.egridcloud.udf.scheduler.listener.TriggerDetailListener;
 
 /**
  * 描述 : SchedulerConfig
@@ -54,12 +61,16 @@ public class SchedulerConfig {
    * @param dataSource dataSource
    * @param jobFactory jobFactory
    * @param quartzProperties quartzProperties
+   * @param schListener schListener
+   * @param jobDetailListener jobDetailListener
+   * @param triggerDetailListener triggerDetailListener
    * @return SchedulerFactoryBean
    * @throws IOException IOException
    */
   @Bean
   public SchedulerFactoryBean schedulerFactoryBean(DataSource dataSource, JobFactory jobFactory,
-      Properties quartzProperties) throws IOException {
+      Properties quartzProperties, SchedulerListener schListener, JobListener jobDetailListener,
+      TriggerListener triggerDetailListener) throws IOException {
     SchedulerFactoryBean factory = new SchedulerFactoryBean();
     factory.setDataSource(dataSource);
     factory.setJobFactory(jobFactory);
@@ -70,6 +81,10 @@ public class SchedulerConfig {
     factory.setStartupDelay(schedulerProperties.getStartupDelay());
     factory.setApplicationContextSchedulerContextKey(
         schedulerProperties.getApplicationContextSchedulerContextKey());
+    //添加监听器
+    factory.setSchedulerListeners(schListener);
+    factory.setGlobalJobListeners(jobDetailListener);
+    factory.setGlobalTriggerListeners(triggerDetailListener);
     //返回
     return factory;
   }
@@ -87,6 +102,36 @@ public class SchedulerConfig {
         .setLocation(new ClassPathResource(schedulerProperties.getQuartzPropertiesPath()));
     propertiesFactoryBean.afterPropertiesSet();
     return propertiesFactoryBean.getObject();
+  }
+
+  /**
+   * 描述 : schListener
+   *
+   * @return SchedulerListener
+   */
+  @Bean(name = "schListener")
+  public SchedulerListener schListener() {
+    return new SchListener();
+  }
+
+  /**
+   * 描述 : jobDetailListener
+   *
+   * @return JobListener
+   */
+  @Bean(name = "jobDetailListener")
+  public JobListener jobDetailListener() {
+    return new JobDetailListener();
+  }
+
+  /**
+   * 描述 : triggerDetailListener
+   *
+   * @return TriggerListener
+   */
+  @Bean(name = "triggerDetailListener")
+  public TriggerListener triggerDetailListener() {
+    return new TriggerDetailListener();
   }
 
 }

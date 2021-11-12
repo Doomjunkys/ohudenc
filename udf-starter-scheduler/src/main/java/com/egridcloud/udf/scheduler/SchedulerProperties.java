@@ -24,6 +24,18 @@ import org.springframework.validation.annotation.Validated;
 public class SchedulerProperties {
 
   /**
+   * 描述 : 是否记录日志
+   */
+  @NotNull
+  private Boolean logFlag = true;
+
+  /**
+   * 描述 : 是否记录详细日志
+   */
+  @NotNull
+  private Boolean logDetailFlag = false;
+
+  /**
    * 描述 : 是否自动启动
    */
   @NotNull
@@ -142,6 +154,42 @@ public class SchedulerProperties {
    */
   public void setQuartzPropertiesPath(String quartzPropertiesPath) {
     this.quartzPropertiesPath = quartzPropertiesPath;
+  }
+
+  /**
+   * 描述 : 获取logFlag
+   *
+   * @return the logFlag
+   */
+  public Boolean getLogFlag() {
+    return logFlag;
+  }
+
+  /**
+   * 描述 : 设置logFlag
+   *
+   * @param logFlag the logFlag to set
+   */
+  public void setLogFlag(Boolean logFlag) {
+    this.logFlag = logFlag;
+  }
+
+  /**
+   * 描述 : 获取logDetailFlag
+   *
+   * @return the logDetailFlag
+   */
+  public Boolean getLogDetailFlag() {
+    return logDetailFlag;
+  }
+
+  /**
+   * 描述 : 设置logDetailFlag
+   *
+   * @param logDetailFlag the logDetailFlag to set
+   */
+  public void setLogDetailFlag(Boolean logDetailFlag) {
+    this.logDetailFlag = logDetailFlag;
   }
 
 }
