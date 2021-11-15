@@ -21,4 +21,10 @@ public interface ISchedulerLog {
    */
   public void save(String log);
 
+  /**
+   * 描述 : 清理日志
+   *
+   */
+  public void clearScheduledLog();
+
 }

@@ -30,4 +30,10 @@ public interface ITriggerLog {
    */
   public void delete(String fireInstanceId);
 
+  /**
+   * 描述 : 清理日志
+   *
+   */
+  public void clearScheduledTriggerLog();
+
 }
