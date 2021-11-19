@@ -10,7 +10,6 @@ import org.quartz.DisallowConcurrentExecution;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-import com.egridcloud.udf.scheduler.AbstractBaseJob;
 import com.egridcloud.udf.scheduler.ITriggerLog;
 
 /**

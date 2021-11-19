@@ -4,7 +4,7 @@
  * Created by Administrator
  * Copyright (C) 2016 egridcloud.com, All rights reserved.
  */
-package com.egridcloud.udf.scheduler;
+package com.egridcloud.udf.scheduler.job;
 
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
