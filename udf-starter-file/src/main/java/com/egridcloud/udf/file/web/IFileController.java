@@ -80,7 +80,7 @@ public interface IFileController {
   /**
    * 描述 : 通过文件ID访问文件
    *
-   * @param fileId 文件ID
+   * @param fileParam 文件参数
    * @param response 响应对象
    * @throws IOException 异常
    */
@@ -99,7 +99,7 @@ public interface IFileController {
   /**
    * 描述 : 通过文件ID访问文件
    *
-   * @param fileId 文件ID
+   * @param fileParam 文件参数
    * @return 文件信息
    * @throws IOException 异常
    */
