@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 
 import com.egridcloud.udf.core.exception.SystemException;
 import com.egridcloud.udf.scheduler.ITriggerLog;
-import com.egridcloud.udf.scheduler.SchedulerProperties;
+import com.egridcloud.udf.scheduler.SchedulerConfig;
 import com.egridcloud.udf.scheduler.domain.ScheduledTriggerLog;
 
 /**
@@ -36,10 +36,10 @@ import com.egridcloud.udf.scheduler.domain.ScheduledTriggerLog;
 public class TriggerListenerService {
 
   /**
-   * 描述 : schedulerProperties
+   * 描述 : schedulerConfig
    */
   @Autowired
-  private SchedulerProperties schedulerProperties;
+  private SchedulerConfig schedulerConfig;
 
   /**
    * 描述 : triggerLog
@@ -92,7 +92,7 @@ public class TriggerListenerService {
   public void saveTriggerFired(JobExecutionContext context) throws SchedulerException {
 
     // 是否记录执行历史(true记录,false不记录) , 是否详细记录执行历史(true记录,false不记录)
-    if (!this.schedulerProperties.getLogFlag() || !this.schedulerProperties.getLogDetailFlag()) {
+    if (!this.schedulerConfig.getLogFlag() || !this.schedulerConfig.getLogDetailFlag()) {
       return;
     }
 
@@ -146,7 +146,7 @@ public class TriggerListenerService {
     boolean vetoed = false;
 
     // 是否记录执行历史(true记录,false不记录) , 是否详细记录执行历史(true记录,false不记录)
-    if (!this.schedulerProperties.getLogFlag() || !this.schedulerProperties.getLogDetailFlag()) {
+    if (!this.schedulerConfig.getLogFlag() || !this.schedulerConfig.getLogDetailFlag()) {
       return vetoed;
     }
 
@@ -197,7 +197,7 @@ public class TriggerListenerService {
   public void saveJobToBeExecuted(JobExecutionContext context) throws SchedulerException {
 
     // 是否记录执行历史(true记录,false不记录) , 是否详细记录执行历史(true记录,false不记录)
-    if (!this.schedulerProperties.getLogFlag() || !this.schedulerProperties.getLogDetailFlag()) {
+    if (!this.schedulerConfig.getLogFlag() || !this.schedulerConfig.getLogDetailFlag()) {
       return;
     }
 
@@ -308,7 +308,7 @@ public class TriggerListenerService {
     }
 
     // 是否记录执行历史(true记录,false不记录) , 是否详细记录执行历史(true记录,false不记录)
-    if (!this.schedulerProperties.getLogFlag() || !this.schedulerProperties.getLogDetailFlag()) {
+    if (!this.schedulerConfig.getLogFlag() || !this.schedulerConfig.getLogDetailFlag()) {
       return;
     }
 
@@ -377,7 +377,7 @@ public class TriggerListenerService {
     }
 
     // 是否记录执行历史(true记录,false不记录)
-    if (!this.schedulerProperties.getLogFlag()) {
+    if (!this.schedulerConfig.getLogFlag()) {
       return;
     }
 
