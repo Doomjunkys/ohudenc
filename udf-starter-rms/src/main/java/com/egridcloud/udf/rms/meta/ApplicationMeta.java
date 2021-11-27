@@ -1,20 +1,20 @@
 /**
- * ApplicationMate.java
+ * ApplicationMeta.java
  * Created at 2016-12-22
  * Created by Administrator
  * Copyright (C) 2016 egridcloud.com, All rights reserved.
  */
-package com.egridcloud.udf.rms.mate;
+package com.egridcloud.udf.rms.meta;
 
 import java.io.Serializable;
 
 /**
- * 描述 : Application元数据
+ * 描述 : ApplicationMeta
  *
  * @author Administrator
  *
  */
-public class ApplicationMate implements Serializable {
+public class ApplicationMeta implements Serializable {
 
   /**
    * 描述 : ID

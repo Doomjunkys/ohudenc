@@ -20,8 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.egridcloud.udf.core.exception.AuthException;
 import com.egridcloud.udf.core.exception.PermissionException;
-import com.egridcloud.udf.rms.mate.ApplicationMate;
-import com.egridcloud.udf.rms.mate.ServiceMate;
+import com.egridcloud.udf.rms.meta.ApplicationMeta;
+import com.egridcloud.udf.rms.meta.ServiceMeta;
 
 /**
  * 描述 : SystemTagAuthHandlerInterceptor
@@ -76,24 +76,23 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
     //获取请求方法
     String method = request.getMethod();
     //日志
-    LOGGER.info("rmsApplicationName:{},rmsSign:{},rmsServiceCode:{},url:{},method:{}",
-        rmsApplicationName, rmsSign, rmsServiceCode, url, method);
+    LOGGER.info("rmsApplicationName:{},rmsSign:{},rmsServiceCode:{},url:{},method:{}", rmsApplicationName, rmsSign,
+        rmsServiceCode, url, method);
     //判断环境(开发环境无需校验)
     if (!DEV_PROFILES.equals(env.getProperty("spring.profiles.active"))) {
       //判断是否缺少认证信息
       if (StringUtils.isBlank(rmsApplicationName) || StringUtils.isBlank(rmsSign)
           || StringUtils.isBlank(rmsServiceCode)) {
-        throw new AuthException(
-            "missing required authentication parameters (rmsApplicationName , rmsSign)");
+        throw new AuthException("missing required authentication parameters (rmsApplicationName , rmsSign)");
       }
       //判断systemTag是否有效
       if (!this.rmsProperties.getApplication().containsKey(rmsApplicationName)) {
         throw new AuthException("unrecognized systemTag:" + rmsApplicationName);
       }
       //获得应用元数据
-      ApplicationMate applicationMate = rmsProperties.getApplication().get(rmsApplicationName);
+      ApplicationMeta applicationMeta = rmsProperties.getApplication().get(rmsApplicationName);
       //获得secret
-      String secret = applicationMate.getSecret();
+      String secret = applicationMeta.getSecret();
       //计算sign
       String sign = Constant.sign(rmsApplicationName, secret);
       //比较sign
@@ -101,13 +100,13 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
         throw new AuthException("sign Validation failed");
       }
       //判断是否有调用所有服务的权限
-      if (!applicationMate.getAll()) {
+      if (!applicationMeta.getAll()) {
         //判断是否禁止调用所有服务权限
-        if (applicationMate.getDisabled()) {
+        if (applicationMeta.getDisabled()) {
           throw new PermissionException(rmsApplicationName + " is disabled");
         }
         //判断是否有调用该服务的权限
-        if (applicationMate.getPurview().indexOf(rmsServiceCode) == -1) {
+        if (applicationMeta.getPurview().indexOf(rmsServiceCode) == -1) {
           throw new PermissionException("no access to this servoceCode : " + rmsServiceCode);
         }
         //判断服务元数据是否存在
@@ -115,9 +114,9 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
           throw new PermissionException("service code not exist");
         }
         //获得服务元数据
-        ServiceMate serviceMate = rmsProperties.getService().get(rmsServiceCode);
+        ServiceMeta serviceMeta = rmsProperties.getService().get(rmsServiceCode);
         //比较url和method的有效性
-        if (!serviceMate.getUri().equals(url) || !serviceMate.getMethod().equals(method)) {
+        if (!serviceMeta.getUri().equals(url) || !serviceMeta.getMethod().equals(method)) {
           throw new PermissionException("url and method verification error");
         }
       }
@@ -133,8 +132,8 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
   }
 
   @Override
-  public void afterCompletion(HttpServletRequest request, HttpServletResponse response,
-      Object handler, Exception ex) throws Exception {
+  public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+      throws Exception {
     LOGGER.debug("SystemTagAuthHandlerInterceptor.afterCompletion");
   }
 

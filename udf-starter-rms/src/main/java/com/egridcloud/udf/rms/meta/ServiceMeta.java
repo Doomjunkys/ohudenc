@@ -1,20 +1,20 @@
 /**
- * ServiceMate.java
+ * ServiceMeta.java
  * Created at 2016-12-22
  * Created by Administrator
  * Copyright (C) 2016 egridcloud.com, All rights reserved.
  */
-package com.egridcloud.udf.rms.mate;
+package com.egridcloud.udf.rms.meta;
 
 import java.io.Serializable;
 
 /**
- * 描述 : service元数据
+ * 描述 : ServiceMeta
  *
  * @author Administrator
  *
  */
-public class ServiceMate implements Serializable {
+public class ServiceMeta implements Serializable {
 
   /**
    * 描述 : ID

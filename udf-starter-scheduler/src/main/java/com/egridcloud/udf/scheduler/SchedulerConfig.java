@@ -128,7 +128,7 @@ public class SchedulerConfig {
    * @return SchedulerFactoryBean
    * @throws IOException IOException
    */
-  @Bean
+  @Bean("clusterQuartzScheduler")
   public SchedulerFactoryBean schedulerFactoryBean(DataSource dataSource, JobFactory jobFactory,
       Properties quartzProperties, SchedulerListener schListener, JobListener jobDetailListener,
       TriggerListener triggerDetailListener,

@@ -1,10 +1,10 @@
 /**
- * SimpleTriggerMate.java
+ * TriggerMeta.java
  * Created at 2017-06-02
  * Created by Administrator
  * Copyright (C) 2016 egridcloud.com, All rights reserved.
  */
-package com.egridcloud.udf.scheduler.mate;
+package com.egridcloud.udf.scheduler.meta;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,12 +13,12 @@ import java.util.Map;
 import org.quartz.Trigger;
 
 /**
- * 描述 : SimpleTriggerMate.java
+ * 描述 : TriggerMeta.java
  *
  * @author Administrator
  *
  */
-public class TriggerMate implements Serializable {
+public class TriggerMeta implements Serializable {
 
   /**
    * 描述 : ID

@@ -11,9 +11,9 @@ import java.util.Map;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import com.egridcloud.udf.scheduler.mate.CronTriggerMate;
-import com.egridcloud.udf.scheduler.mate.JobDetailMate;
-import com.egridcloud.udf.scheduler.mate.SimpleTriggerMate;
+import com.egridcloud.udf.scheduler.meta.CronTriggerMeta;
+import com.egridcloud.udf.scheduler.meta.JobDetailMeta;
+import com.egridcloud.udf.scheduler.meta.SimpleTriggerMeta;
 
 /**
  * 描述 : SchedulerProperties
@@ -26,31 +26,36 @@ import com.egridcloud.udf.scheduler.mate.SimpleTriggerMate;
 public class SchedulerProperties {
 
   /**
-   * 描述 : 组别 ( key : 组别代码 , value : 组别描述 )
+   * 描述 : 作业组别 ( key : 组别代码 , value : 组别描述 )
    */
-  private Map<String, String> group;
+  private Map<String, String> jobGroup;
+
+  /**
+   * 描述 : 触发器组别 ( key : 组别代码 , value : 组别描述 )
+   */
+  private Map<String, String> triggerGroup;
 
   /**
    * 描述 : 作业 ( kety : 作业代码[jobCode] )
    */
-  private Map<String, JobDetailMate> jobDetail;
+  private Map<String, JobDetailMeta> jobDetail;
 
   /**
    * 描述 : 简单触发器 ( key: 触发器代码[simpleTriggerCode] )
    */
-  private Map<String, SimpleTriggerMate> simpleTrigger;
+  private Map<String, SimpleTriggerMeta> simpleTrigger;
 
   /**
    * 描述 : cron触发器 (key : 触发器代码[cronTriggerCode])
    */
-  private Map<String, CronTriggerMate> cronTrigger;
+  private Map<String, CronTriggerMeta> cronTrigger;
 
   /**
    * 描述 : 获取cronTrigger
    *
    * @return the cronTrigger
    */
-  public Map<String, CronTriggerMate> getCronTrigger() {
+  public Map<String, CronTriggerMeta> getCronTrigger() {
     return cronTrigger;
   }
 
@@ -59,7 +64,7 @@ public class SchedulerProperties {
    *
    * @param cronTrigger the cronTrigger to set
    */
-  public void setCronTrigger(Map<String, CronTriggerMate> cronTrigger) {
+  public void setCronTrigger(Map<String, CronTriggerMeta> cronTrigger) {
     this.cronTrigger = cronTrigger;
   }
 
@@ -68,7 +73,7 @@ public class SchedulerProperties {
    *
    * @return the simpleTrigger
    */
-  public Map<String, SimpleTriggerMate> getSimpleTrigger() {
+  public Map<String, SimpleTriggerMeta> getSimpleTrigger() {
     return simpleTrigger;
   }
 
@@ -77,26 +82,44 @@ public class SchedulerProperties {
    *
    * @param simpleTrigger the simpleTrigger to set
    */
-  public void setSimpleTrigger(Map<String, SimpleTriggerMate> simpleTrigger) {
+  public void setSimpleTrigger(Map<String, SimpleTriggerMeta> simpleTrigger) {
     this.simpleTrigger = simpleTrigger;
   }
 
   /**
-   * 描述 : 获取group
+   * 描述 : 获取jobGroup
    *
-   * @return the group
+   * @return the jobGroup
    */
-  public Map<String, String> getGroup() {
-    return group;
+  public Map<String, String> getJobGroup() {
+    return jobGroup;
   }
 
   /**
-   * 描述 : 设置group
+   * 描述 : 设置jobGroup
    *
-   * @param group the group to set
+   * @param jobGroup the jobGroup to set
    */
-  public void setGroup(Map<String, String> group) {
-    this.group = group;
+  public void setJobGroup(Map<String, String> jobGroup) {
+    this.jobGroup = jobGroup;
+  }
+
+  /**
+   * 描述 : 获取triggerGroup
+   *
+   * @return the triggerGroup
+   */
+  public Map<String, String> getTriggerGroup() {
+    return triggerGroup;
+  }
+
+  /**
+   * 描述 : 设置triggerGroup
+   *
+   * @param triggerGroup the triggerGroup to set
+   */
+  public void setTriggerGroup(Map<String, String> triggerGroup) {
+    this.triggerGroup = triggerGroup;
   }
 
   /**
@@ -104,7 +127,7 @@ public class SchedulerProperties {
    *
    * @return the jobDetail
    */
-  public Map<String, JobDetailMate> getJobDetail() {
+  public Map<String, JobDetailMeta> getJobDetail() {
     return jobDetail;
   }
 
@@ -113,7 +136,7 @@ public class SchedulerProperties {
    *
    * @param jobDetail the jobDetail to set
    */
-  public void setJobDetail(Map<String, JobDetailMate> jobDetail) {
+  public void setJobDetail(Map<String, JobDetailMeta> jobDetail) {
     this.jobDetail = jobDetail;
   }
 

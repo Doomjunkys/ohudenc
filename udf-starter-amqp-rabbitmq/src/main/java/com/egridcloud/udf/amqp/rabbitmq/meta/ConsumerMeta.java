@@ -1,20 +1,20 @@
 /**
- * ConsumerMate.java
+ * ConsumerMeta.java
  * Created at 2017-05-23
  * Created by Administrator
  * Copyright (C) 2016 egridcloud.com, All rights reserved.
  */
-package com.egridcloud.udf.amqp.rabbitmq.mate;
+package com.egridcloud.udf.amqp.rabbitmq.meta;
 
 import java.io.Serializable;
 
 /**
- * 描述 : ConsumerMate
+ * 描述 : ConsumerMeta
  *
  * @author Administrator
  *
  */
-public class ConsumerMate implements Serializable {
+public class ConsumerMeta implements Serializable {
 
   /**
    * 描述 : ID

@@ -14,8 +14,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import com.egridcloud.udf.amqp.rabbitmq.mate.ConsumerMate;
-import com.egridcloud.udf.amqp.rabbitmq.mate.SubscriberMate;
+import com.egridcloud.udf.amqp.rabbitmq.meta.ConsumerMeta;
+import com.egridcloud.udf.amqp.rabbitmq.meta.SubscriberMeta;
 import com.egridcloud.udf.core.exception.PermissionException;
 
 /**
@@ -66,21 +66,21 @@ public class RabbitmqListenerAuthAspect extends RabbitmqListenerBaseAspect {
    * @param message message
    */
   private void verification(String consumerCode, RabbitmqMessage<?> message) {
-    //获得subscriberMate
-    SubscriberMate subscriberMate = rabbitmqProperties.getSubscriber().get(springApplicationName);
-    //获得consumerMate
-    ConsumerMate consumerMate = rabbitmqProperties.getConsumer().get(consumerCode);
+    //获得subscriberMeta
+    SubscriberMeta subscriberMeta = rabbitmqProperties.getSubscriber().get(springApplicationName);
+    //获得consumerMeta
+    ConsumerMeta consumerMeta = rabbitmqProperties.getConsumer().get(consumerCode);
     //判断订阅者是否有此consumerCode的权限
-    if (subscriberMate != null) {
-      if (subscriberMate.getPurview().indexOf(consumerCode) == -1) {
+    if (subscriberMeta != null) {
+      if (subscriberMeta.getPurview().indexOf(consumerCode) == -1) {
         throw new PermissionException("no access to this consumerCode  : " + consumerCode);
       }
     } else {
       throw new PermissionException("Subscriber:" + springApplicationName + " not definition");
     }
     //判断此consumerCode的权限
-    if (consumerMate != null) {
-      if (message.getProducerCode().equals(consumerMate.getProducer())) {
+    if (consumerMeta != null) {
+      if (message.getProducerCode().equals(consumerMeta.getProducer())) {
         throw new PermissionException(
             "no access to this ProducerCode  : " + message.getProducerCode());
       }

@@ -1,20 +1,20 @@
 /**
- * PublisherMate.java
+ * SubscriberMeta.java
  * Created at 2017-05-23
  * Created by Administrator
  * Copyright (C) 2016 egridcloud.com, All rights reserved.
  */
-package com.egridcloud.udf.amqp.rabbitmq.mate;
+package com.egridcloud.udf.amqp.rabbitmq.meta;
 
 import java.io.Serializable;
 
 /**
- * 描述 : PublisherMate
+ * 描述 : SubscriberMeta
  *
  * @author Administrator
  *
  */
-public class PublisherMate implements Serializable {
+public class SubscriberMeta implements Serializable {
 
   /**
    * 描述 : ID

@@ -1,20 +1,20 @@
 /**
- * PathMate.java
+ * PathMeta.java
  * Created at 2017-05-26
  * Created by Administrator
  * Copyright (C) 2016 egridcloud.com, All rights reserved.
  */
-package com.egridcloud.udf.file.mate;
+package com.egridcloud.udf.file.meta;
 
 import java.io.Serializable;
 
 /**
- * 描述 : PathMate
+ * 描述 : PathMeta
  *
  * @author Administrator
  *
  */
-public class PathMate implements Serializable {
+public class PathMeta implements Serializable {
 
   /**
    * 描述 : ID

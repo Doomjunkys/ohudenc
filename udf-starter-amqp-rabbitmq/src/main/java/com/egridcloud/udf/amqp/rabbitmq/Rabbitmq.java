@@ -13,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.egridcloud.udf.amqp.rabbitmq.mate.ProducerMate;
-import com.egridcloud.udf.amqp.rabbitmq.mate.PublisherMate;
+import com.egridcloud.udf.amqp.rabbitmq.meta.ProducerMeta;
+import com.egridcloud.udf.amqp.rabbitmq.meta.PublisherMeta;
 import com.egridcloud.udf.core.exception.PermissionException;
 
 /**
@@ -90,16 +90,16 @@ public class Rabbitmq {
    * @param producerCode producerCode
    */
   private void verification(String producerCode) {
-    PublisherMate publisherMate = rabbitmqProperties.getPublisher().get(springApplicationName);
-    ProducerMate producerMate = rabbitmqProperties.getProducer().get(producerCode);
-    if (publisherMate != null) {
-      if (publisherMate.getPurview().indexOf(producerCode) == -1) {
+    PublisherMeta publisherMeta = rabbitmqProperties.getPublisher().get(springApplicationName);
+    ProducerMeta producerMeta = rabbitmqProperties.getProducer().get(producerCode);
+    if (publisherMeta != null) {
+      if (publisherMeta.getPurview().indexOf(producerCode) == -1) {
         throw new PermissionException("no access to this producerCode  : " + producerCode);
       }
     } else {
       throw new PermissionException("Publisher:" + springApplicationName + " not definition");
     }
-    if (producerMate == null) {
+    if (producerMeta == null) {
       throw new PermissionException("Producer:" + producerCode + " not definition");
     }
   }

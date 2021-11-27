@@ -1,20 +1,20 @@
 /**
- * CronTriggerMate.java
+ * CronTriggerMeta.java
  * Created at 2017-06-02
  * Created by Administrator
  * Copyright (C) 2016 egridcloud.com, All rights reserved.
  */
-package com.egridcloud.udf.scheduler.mate;
+package com.egridcloud.udf.scheduler.meta;
 
 import java.io.Serializable;
 
 /**
- * 描述 : CronTriggerMate.java
+ * 描述 : CronTriggerMeta.java
  *
  * @author Administrator
  *
  */
-public class CronTriggerMate extends TriggerMate implements Serializable {
+public class CronTriggerMeta extends TriggerMeta implements Serializable {
 
   /**
    * 描述 : ID

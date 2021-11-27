@@ -12,7 +12,7 @@ import java.util.Map;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import com.egridcloud.udf.file.mate.PathMate;
+import com.egridcloud.udf.file.meta.PathMeta;
 
 /**
  * 描述 : Config
@@ -37,7 +37,7 @@ public class FileProperties implements Serializable {
   /**
    * 描述 : 文件路径 ( key : pathCode )
    */
-  private Map<String, PathMate> path;
+  private Map<String, PathMeta> path;
 
   /**
    * 描述 : 获取rootPath
@@ -62,7 +62,7 @@ public class FileProperties implements Serializable {
    *
    * @return the path
    */
-  public Map<String, PathMate> getPath() {
+  public Map<String, PathMeta> getPath() {
     return path;
   }
 
@@ -71,7 +71,7 @@ public class FileProperties implements Serializable {
    *
    * @param path the path to set
    */
-  public void setPath(Map<String, PathMate> path) {
+  public void setPath(Map<String, PathMeta> path) {
     this.path = path;
   }
 

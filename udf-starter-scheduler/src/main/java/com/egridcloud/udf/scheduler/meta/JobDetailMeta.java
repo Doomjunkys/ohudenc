@@ -1,21 +1,21 @@
 /**
- * JobDetailMate.java
+ * JobDetailMeta.java
  * Created at 2017-06-02
  * Created by Administrator
  * Copyright (C) 2016 egridcloud.com, All rights reserved.
  */
-package com.egridcloud.udf.scheduler.mate;
+package com.egridcloud.udf.scheduler.meta;
 
 import java.io.Serializable;
 import java.util.Map;
 
 /**
- * 描述 : JobDetailMate
+ * 描述 : JobDetailMeta
  *
  * @author Administrator
  *
  */
-public class JobDetailMate implements Serializable {
+public class JobDetailMeta implements Serializable {
 
   /**
    * 描述 : ID

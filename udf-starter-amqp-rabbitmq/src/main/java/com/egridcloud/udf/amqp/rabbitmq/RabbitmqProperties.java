@@ -12,10 +12,10 @@ import java.util.Map;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import com.egridcloud.udf.amqp.rabbitmq.mate.ConsumerMate;
-import com.egridcloud.udf.amqp.rabbitmq.mate.ProducerMate;
-import com.egridcloud.udf.amqp.rabbitmq.mate.PublisherMate;
-import com.egridcloud.udf.amqp.rabbitmq.mate.SubscriberMate;
+import com.egridcloud.udf.amqp.rabbitmq.meta.ConsumerMeta;
+import com.egridcloud.udf.amqp.rabbitmq.meta.ProducerMeta;
+import com.egridcloud.udf.amqp.rabbitmq.meta.PublisherMeta;
+import com.egridcloud.udf.amqp.rabbitmq.meta.SubscriberMeta;
 
 /**
  * 描述 : RabbitmqProperties
@@ -40,29 +40,29 @@ public class RabbitmqProperties implements Serializable {
   /**
    * 描述 : 发布者 ( key:应用名称 )
    */
-  private Map<String, PublisherMate> publisher;
+  private Map<String, PublisherMeta> publisher;
 
   /**
    * 描述 : 订阅者 ( key:应用名称 )
    */
-  private Map<String, SubscriberMate> subscriber;
+  private Map<String, SubscriberMeta> subscriber;
 
   /**
    * 描述 : 生产者 ( key:编号 )
    */
-  private Map<String, ProducerMate> producer;
+  private Map<String, ProducerMeta> producer;
 
   /**
    * 描述 : 消费者 ( key:编号 )
    */
-  private Map<String, ConsumerMate> consumer;
+  private Map<String, ConsumerMeta> consumer;
 
   /**
    * 描述 : 获取publisher
    *
    * @return the publisher
    */
-  public Map<String, PublisherMate> getPublisher() {
+  public Map<String, PublisherMeta> getPublisher() {
     return publisher;
   }
 
@@ -71,7 +71,7 @@ public class RabbitmqProperties implements Serializable {
    *
    * @param publisher the publisher to set
    */
-  public void setPublisher(Map<String, PublisherMate> publisher) {
+  public void setPublisher(Map<String, PublisherMeta> publisher) {
     this.publisher = publisher;
   }
 
@@ -80,7 +80,7 @@ public class RabbitmqProperties implements Serializable {
    *
    * @return the subscriber
    */
-  public Map<String, SubscriberMate> getSubscriber() {
+  public Map<String, SubscriberMeta> getSubscriber() {
     return subscriber;
   }
 
@@ -89,7 +89,7 @@ public class RabbitmqProperties implements Serializable {
    *
    * @param subscriber the subscriber to set
    */
-  public void setSubscriber(Map<String, SubscriberMate> subscriber) {
+  public void setSubscriber(Map<String, SubscriberMeta> subscriber) {
     this.subscriber = subscriber;
   }
 
@@ -98,7 +98,7 @@ public class RabbitmqProperties implements Serializable {
    *
    * @return the producer
    */
-  public Map<String, ProducerMate> getProducer() {
+  public Map<String, ProducerMeta> getProducer() {
     return producer;
   }
 
@@ -107,7 +107,7 @@ public class RabbitmqProperties implements Serializable {
    *
    * @param producer the producer to set
    */
-  public void setProducer(Map<String, ProducerMate> producer) {
+  public void setProducer(Map<String, ProducerMeta> producer) {
     this.producer = producer;
   }
 
@@ -116,7 +116,7 @@ public class RabbitmqProperties implements Serializable {
    *
    * @return the consumer
    */
-  public Map<String, ConsumerMate> getConsumer() {
+  public Map<String, ConsumerMeta> getConsumer() {
     return consumer;
   }
 
@@ -125,7 +125,7 @@ public class RabbitmqProperties implements Serializable {
    *
    * @param consumer the consumer to set
    */
-  public void setConsumer(Map<String, ConsumerMate> consumer) {
+  public void setConsumer(Map<String, ConsumerMeta> consumer) {
     this.consumer = consumer;
   }
 

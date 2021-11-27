@@ -1,20 +1,20 @@
 /**
- * ProducerMate.java
+ * ProducerMeta.java
  * Created at 2017-05-23
  * Created by Administrator
  * Copyright (C) 2016 egridcloud.com, All rights reserved.
  */
-package com.egridcloud.udf.amqp.rabbitmq.mate;
+package com.egridcloud.udf.amqp.rabbitmq.meta;
 
 import java.io.Serializable;
 
 /**
- * 描述 : ProducerMate
+ * 描述 : ProducerMeta
  *
  * @author Administrator
  *
  */
-public class ProducerMate implements Serializable {
+public class ProducerMeta implements Serializable {
 
   /**
    * 描述 : ID

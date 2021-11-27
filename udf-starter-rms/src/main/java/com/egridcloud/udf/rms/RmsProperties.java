@@ -12,8 +12,8 @@ import java.util.Map;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import com.egridcloud.udf.rms.mate.ApplicationMate;
-import com.egridcloud.udf.rms.mate.ServiceMate;
+import com.egridcloud.udf.rms.meta.ApplicationMeta;
+import com.egridcloud.udf.rms.meta.ServiceMeta;
 
 /**
  * 描述 : Config
@@ -33,19 +33,19 @@ public class RmsProperties implements Serializable {
   /**
    * 描述 : 应用清单(应用名称 : 应用地址)
    */
-  private Map<String, ApplicationMate> application;
+  private Map<String, ApplicationMeta> application;
 
   /**
    * 描述 : 服务路径(服务编号 : 服务元数据)
    */
-  private Map<String, ServiceMate> service;
+  private Map<String, ServiceMeta> service;
 
   /**
    * 描述 : 获取application
    *
    * @return the application
    */
-  public Map<String, ApplicationMate> getApplication() {
+  public Map<String, ApplicationMeta> getApplication() {
     return application;
   }
 
@@ -54,7 +54,7 @@ public class RmsProperties implements Serializable {
    *
    * @param application the application to set
    */
-  public void setApplication(Map<String, ApplicationMate> application) {
+  public void setApplication(Map<String, ApplicationMeta> application) {
     this.application = application;
   }
 
@@ -63,7 +63,7 @@ public class RmsProperties implements Serializable {
    *
    * @return the service
    */
-  public Map<String, ServiceMate> getService() {
+  public Map<String, ServiceMeta> getService() {
     return service;
   }
 
@@ -72,7 +72,7 @@ public class RmsProperties implements Serializable {
    *
    * @param service the service to set
    */
-  public void setService(Map<String, ServiceMate> service) {
+  public void setService(Map<String, ServiceMeta> service) {
     this.service = service;
   }
 
