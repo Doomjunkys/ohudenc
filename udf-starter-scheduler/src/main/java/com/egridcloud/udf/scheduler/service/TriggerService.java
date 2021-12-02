@@ -272,7 +272,7 @@ public class TriggerService {
     if (triggerMeta.getRepeatCount() != null) { // 重复次数
       simpleTriggerBuilder.withRepeatCount(triggerMeta.getRepeatCount());
     } else {
-      simpleTriggerBuilder.withRepeatCount(SimpleTrigger.REPEAT_INDEFINITELY);
+      simpleTriggerBuilder.repeatForever();
     }
     // 重复时间
     simpleTriggerBuilder.withIntervalInMilliseconds(triggerMeta.getIntervalInMilliseconds());
