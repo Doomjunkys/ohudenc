@@ -3,8 +3,8 @@
   xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <!-- maven坐标 -->
-  <artifactId>udf-starter-scheduler</artifactId>
-  <name>udf-starter-scheduler</name>
+  <artifactId>udf-starter-scheduler-client</artifactId>
+  <name>udf-starter-scheduler-client</name>
   <packaging>jar</packaging>
   <url>http://www.egridcloud.com</url>
   <!-- 父依赖 -->
@@ -19,11 +19,6 @@
     <dependency>
       <groupId>com.egridcloud.udf</groupId>
       <artifactId>udf-starter-core</artifactId>
-    </dependency>
-    <!-- udf-starter-scheduler-client -->
-    <dependency>
-      <groupId>com.egridcloud.udf</groupId>
-      <artifactId>udf-starter-scheduler-client</artifactId>
     </dependency>
     <!-- spring-context-support -->
     <dependency>

@@ -31,7 +31,8 @@
     <module>udf-starter-amqp-rabbitmq</module>
     <module>udf-starter-file</module>
     <module>udf-starter-mail</module>
-	<module>udf-starter-scheduler</module>
+    <module>udf-starter-scheduler</module>
+    <module>udf-starter-scheduler-client</module>
   </modules>
   <!-- 依赖管理 -->
   <dependencyManagement>
@@ -92,6 +93,12 @@
       <dependency>
         <groupId>com.egridcloud.udf</groupId>
         <artifactId>udf-starter-scheduler</artifactId>
+        <version>${udf-starter.version}</version>
+      </dependency>
+      <!-- udf-starter-scheduler-client -->
+      <dependency>
+        <groupId>com.egridcloud.udf</groupId>
+        <artifactId>udf-starter-scheduler-client</artifactId>
         <version>${udf-starter.version}</version>
       </dependency>
     </dependencies>

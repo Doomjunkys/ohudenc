@@ -38,12 +38,12 @@ public class TriggerMeta implements Serializable {
   /**
    * 描述 : 组别
    */
-  private String group;
+  private String group = "default";
 
   /**
    * 描述 : 描述
    */
-  private String description;
+  private String description = "暂无描述";
 
   /**
    * 描述 : 开始时间

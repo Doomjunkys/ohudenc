@@ -8,6 +8,8 @@ package com.egridcloud.udf.scheduler.meta;
 
 import java.io.Serializable;
 
+import org.quartz.SimpleTrigger;
+
 /**
  * 描述 : SimpleTriggerMeta.java
  *
@@ -24,7 +26,7 @@ public class SimpleTriggerMeta extends TriggerMeta implements Serializable {
   /**
    * 描述 : 重复次数
    */
-  private Integer repeatCount;
+  private Integer repeatCount = SimpleTrigger.REPEAT_INDEFINITELY;
 
   /**
    * 描述 : 执行间隔
