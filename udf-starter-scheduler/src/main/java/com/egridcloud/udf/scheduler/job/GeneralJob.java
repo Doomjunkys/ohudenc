@@ -32,10 +32,14 @@ public class GeneralJob extends AbstractBaseJob {
     //从trigger中获得jobDataMap
     JobDataMap jobDataMap = jobExecutionContext.getTrigger().getJobDataMap();
     //获得必要字段
+    String serviceCode = jobDataMap.getString("serviceCode");
     String beanName = jobDataMap.getString("beanName");
     Boolean async = jobDataMap.getBoolean("async");
     Boolean ignore = jobDataMap.getBoolean("ignore");
     //校验
+    if (StringUtils.isBlank(serviceCode)) {
+      throw new SchException("serviceCode can not be empty");
+    }
     if (StringUtils.isBlank(beanName)) {
       throw new SchException("beanName can not be empty");
     }
