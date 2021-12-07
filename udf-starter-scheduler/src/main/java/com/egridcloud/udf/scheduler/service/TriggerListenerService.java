@@ -90,44 +90,12 @@ public class TriggerListenerService {
    * @throws SchedulerException SchedulerException
    */
   public void saveTriggerFired(JobExecutionContext context) throws SchedulerException {
-
+    // 状态和异常信息
+    String status = "triggering";
+    String exceptionDetail = null;
     // 是否记录执行历史(true记录,false不记录) , 是否详细记录执行历史(true记录,false不记录)
-    if (!this.schedulerConfig.getLogFlag() || !this.schedulerConfig.getLogDetailFlag()) {
-      return;
-    }
-
-    // 获得计划任务实例
-    Scheduler s = context.getScheduler();
-
-    // 删除当前ID已经有的记录
-    if (triggerLog != null) {
-      triggerLog.delete(context.getFireInstanceId());
-    }
-
-    // 写入新的记录
-    ScheduledTriggerLog tstl = new ScheduledTriggerLog();
-    tstl.setLogid(context.getFireInstanceId());
-    tstl.setScheduledFireTime(context.getScheduledFireTime());
-    tstl.setFireTime(context.getFireTime());
-    tstl.setEndTime(null);
-    tstl.setJobRunTime(null);
-    tstl.setStatus("triggering");
-    tstl.setResult(null);
-    tstl.setErrorMsg(null);
-    tstl.setTriggerName(context.getTrigger().getKey().getName());
-    tstl.setTriggerGroup(context.getTrigger().getKey().getGroup());
-    tstl.setJobName(context.getJobDetail().getKey().getName());
-    tstl.setJobGroup(context.getJobDetail().getKey().getGroup());
-    tstl.setJobClass(context.getJobDetail().getJobClass().getName());
-    tstl.setThreadGroupName(Thread.currentThread().getThreadGroup().getName());
-    tstl.setThreadId(Long.toString(Thread.currentThread().getId()));
-    tstl.setThreadName(Thread.currentThread().getName());
-    tstl.setThreadPriority(Long.toString(Thread.currentThread().getPriority()));
-    tstl.setScheduledId(s.getSchedulerInstanceId());
-    tstl.setScheduledName(s.getSchedulerName());
-    tstl.setCreateDate(new Date());
-    if (triggerLog != null) {
-      triggerLog.save(tstl);
+    if (this.schedulerConfig.getLogFlag() && this.schedulerConfig.getLogDetailFlag()) {
+      save(context, status, null, exceptionDetail);
     }
   }
 
@@ -141,47 +109,14 @@ public class TriggerListenerService {
    * @throws SchedulerException SchedulerException
    */
   public boolean saveVetoJobExecution(JobExecutionContext context) throws SchedulerException {
-
     // 是否否决
     boolean vetoed = false;
-
+    // 状态和异常信息
+    String status = "vetoed(" + vetoed + ")";
+    String exceptionDetail = null;
     // 是否记录执行历史(true记录,false不记录) , 是否详细记录执行历史(true记录,false不记录)
-    if (!this.schedulerConfig.getLogFlag() || !this.schedulerConfig.getLogDetailFlag()) {
-      return vetoed;
-    }
-
-    // 获得计划任务实例
-    Scheduler s = context.getScheduler();
-
-    // 删除当前ID已经有的记录
-    if (triggerLog != null) {
-      triggerLog.delete(context.getFireInstanceId());
-    }
-
-    // 写入新的记录
-    ScheduledTriggerLog tstl = new ScheduledTriggerLog();
-    tstl.setLogid(context.getFireInstanceId());
-    tstl.setScheduledFireTime(context.getScheduledFireTime());
-    tstl.setFireTime(context.getFireTime());
-    tstl.setEndTime(null);
-    tstl.setJobRunTime(null);
-    tstl.setStatus("vetoed(" + vetoed + ")");
-    tstl.setResult(null);
-    tstl.setErrorMsg(null);
-    tstl.setTriggerName(context.getTrigger().getKey().getName());
-    tstl.setTriggerGroup(context.getTrigger().getKey().getGroup());
-    tstl.setJobName(context.getJobDetail().getKey().getName());
-    tstl.setJobGroup(context.getJobDetail().getKey().getGroup());
-    tstl.setJobClass(context.getJobDetail().getJobClass().getName());
-    tstl.setThreadGroupName(Thread.currentThread().getThreadGroup().getName());
-    tstl.setThreadId(Long.toString(Thread.currentThread().getId()));
-    tstl.setThreadName(Thread.currentThread().getName());
-    tstl.setThreadPriority(Long.toString(Thread.currentThread().getPriority()));
-    tstl.setScheduledId(s.getSchedulerInstanceId());
-    tstl.setScheduledName(s.getSchedulerName());
-    tstl.setCreateDate(new Date());
-    if (triggerLog != null) {
-      triggerLog.save(tstl);
+    if (this.schedulerConfig.getLogFlag() && this.schedulerConfig.getLogDetailFlag()) {
+      save(context, status, null, exceptionDetail);
     }
     return vetoed;
   }
@@ -195,44 +130,12 @@ public class TriggerListenerService {
    * @throws SchedulerException SchedulerException
    */
   public void saveJobToBeExecuted(JobExecutionContext context) throws SchedulerException {
-
+    // 状态和异常信息
+    String status = "toBeExecuted";
+    String exceptionDetail = null;
     // 是否记录执行历史(true记录,false不记录) , 是否详细记录执行历史(true记录,false不记录)
-    if (!this.schedulerConfig.getLogFlag() || !this.schedulerConfig.getLogDetailFlag()) {
-      return;
-    }
-
-    // 获得计划任务实例
-    Scheduler s = context.getScheduler();
-
-    // 删除当前ID已经有的记录
-    if (triggerLog != null) {
-      triggerLog.delete(context.getFireInstanceId());
-    }
-
-    // 写入新的记录
-    ScheduledTriggerLog tstl = new ScheduledTriggerLog();
-    tstl.setLogid(context.getFireInstanceId());
-    tstl.setScheduledFireTime(context.getScheduledFireTime());
-    tstl.setFireTime(context.getFireTime());
-    tstl.setEndTime(null);
-    tstl.setJobRunTime(null);
-    tstl.setStatus("toBeExecuted");
-    tstl.setResult(null);
-    tstl.setErrorMsg(null);
-    tstl.setTriggerName(context.getTrigger().getKey().getName());
-    tstl.setTriggerGroup(context.getTrigger().getKey().getGroup());
-    tstl.setJobName(context.getJobDetail().getKey().getName());
-    tstl.setJobGroup(context.getJobDetail().getKey().getGroup());
-    tstl.setJobClass(context.getJobDetail().getJobClass().getName());
-    tstl.setThreadGroupName(Thread.currentThread().getThreadGroup().getName());
-    tstl.setThreadId(Long.toString(Thread.currentThread().getId()));
-    tstl.setThreadName(Thread.currentThread().getName());
-    tstl.setThreadPriority(Long.toString(Thread.currentThread().getPriority()));
-    tstl.setScheduledId(s.getSchedulerInstanceId());
-    tstl.setScheduledName(s.getSchedulerName());
-    tstl.setCreateDate(new Date());
-    if (triggerLog != null) {
-      triggerLog.save(tstl);
+    if (this.schedulerConfig.getLogFlag() && this.schedulerConfig.getLogDetailFlag()) {
+      save(context, status, null, exceptionDetail);
     }
   }
 
@@ -245,40 +148,11 @@ public class TriggerListenerService {
    * @throws SchedulerException SchedulerException
    */
   public void saveJobExecutionVetoed(JobExecutionContext context) throws SchedulerException {
-
-    // 获得计划任务实例
-    Scheduler s = context.getScheduler();
-
-    // 删除当前ID已经有的记录
-    if (triggerLog != null) {
-      triggerLog.delete(context.getFireInstanceId());
-    }
-
+    // 状态和异常信息
+    String status = "executionVetoed";
+    String exceptionDetail = null;
     // 写入新的记录
-    ScheduledTriggerLog tstl = new ScheduledTriggerLog();
-    tstl.setLogid(context.getFireInstanceId());
-    tstl.setScheduledFireTime(context.getScheduledFireTime());
-    tstl.setFireTime(context.getFireTime());
-    tstl.setEndTime(null);
-    tstl.setJobRunTime(null);
-    tstl.setStatus("executionVetoed");
-    tstl.setResult(null);
-    tstl.setErrorMsg(null);
-    tstl.setTriggerName(context.getTrigger().getKey().getName());
-    tstl.setTriggerGroup(context.getTrigger().getKey().getGroup());
-    tstl.setJobName(context.getJobDetail().getKey().getName());
-    tstl.setJobGroup(context.getJobDetail().getKey().getGroup());
-    tstl.setJobClass(context.getJobDetail().getJobClass().getName());
-    tstl.setThreadGroupName(Thread.currentThread().getThreadGroup().getName());
-    tstl.setThreadId(Long.toString(Thread.currentThread().getId()));
-    tstl.setThreadName(Thread.currentThread().getName());
-    tstl.setThreadPriority(Long.toString(Thread.currentThread().getPriority()));
-    tstl.setScheduledId(s.getSchedulerInstanceId());
-    tstl.setScheduledName(s.getSchedulerName());
-    tstl.setCreateDate(new Date());
-    if (triggerLog != null) {
-      triggerLog.save(tstl);
-    }
+    save(context, status, null, exceptionDetail);
   }
 
   /**
@@ -292,58 +166,21 @@ public class TriggerListenerService {
    */
   public void saveJobWasExecuted(JobExecutionContext context, JobExecutionException jobException)
       throws SchedulerException {
-
-    // 异常信息
+    // 状态和异常信息
+    String status = "executed";
     String exceptionDetail = null;
-
     // 如果作业异常,则放入信息到result中
     if (null != jobException) {
       Map<String, Object> result = new HashMap<>();
       result.put("status", "error");
       result.put("jobException", jobException);
       context.setResult(result);
-
       // 获得异常信息
       exceptionDetail = ExceptionUtils.getStackTrace(jobException);
     }
-
     // 是否记录执行历史(true记录,false不记录) , 是否详细记录执行历史(true记录,false不记录)
-    if (!this.schedulerConfig.getLogFlag() || !this.schedulerConfig.getLogDetailFlag()) {
-      return;
-    }
-
-    // 获得计划任务实例
-    Scheduler s = context.getScheduler();
-
-    // 删除当前ID已经有的记录
-    if (triggerLog != null) {
-      triggerLog.delete(context.getFireInstanceId());
-    }
-
-    // 写入新的记录
-    ScheduledTriggerLog tstl = new ScheduledTriggerLog();
-    tstl.setLogid(context.getFireInstanceId());
-    tstl.setScheduledFireTime(context.getScheduledFireTime());
-    tstl.setFireTime(context.getFireTime());
-    tstl.setEndTime(new Date());
-    tstl.setJobRunTime(context.getJobRunTime());
-    tstl.setStatus("executed");
-    tstl.setResult(null);
-    tstl.setErrorMsg(exceptionDetail);
-    tstl.setTriggerName(context.getTrigger().getKey().getName());
-    tstl.setTriggerGroup(context.getTrigger().getKey().getGroup());
-    tstl.setJobName(context.getJobDetail().getKey().getName());
-    tstl.setJobGroup(context.getJobDetail().getKey().getGroup());
-    tstl.setJobClass(context.getJobDetail().getJobClass().getName());
-    tstl.setThreadGroupName(Thread.currentThread().getThreadGroup().getName());
-    tstl.setThreadId(Long.toString(Thread.currentThread().getId()));
-    tstl.setThreadName(Thread.currentThread().getName());
-    tstl.setThreadPriority(Long.toString(Thread.currentThread().getPriority()));
-    tstl.setScheduledId(s.getSchedulerInstanceId());
-    tstl.setScheduledName(s.getSchedulerName());
-    tstl.setCreateDate(new Date());
-    if (triggerLog != null) {
-      triggerLog.save(tstl);
+    if (this.schedulerConfig.getLogFlag() && this.schedulerConfig.getLogDetailFlag()) {
+      save(context, status, null, exceptionDetail);
     }
   }
 
@@ -360,36 +197,38 @@ public class TriggerListenerService {
   @SuppressWarnings("unchecked")
   public void saveTriggerComplete(JobExecutionContext context,
       CompletedExecutionInstruction triggerInstructionCode) throws SchedulerException {
-
     // 状态和异常信息
     String status = "complete";
     String exceptionDetail = null;
-
     // 获得result
     Object o = context.getResult();
     if (null != o && o instanceof Map) {
       Map<String, Object> result = (Map<String, Object>) o;
       status = result.get("status").toString();
       JobExecutionException jobException = (JobExecutionException) result.get("jobException");
-
       // 获得异常信息
       exceptionDetail = ExceptionUtils.getStackTrace(jobException);
     }
-
     // 是否记录执行历史(true记录,false不记录)
-    if (!this.schedulerConfig.getLogFlag()) {
-      return;
+    if (this.schedulerConfig.getLogFlag()) {
+      save(context, status, triggerInstructionCode.toString(), exceptionDetail);
     }
+  }
 
+  /**
+   * 描述 : build
+   *
+   * @param context context
+   * @param status status
+   * @param result result
+   * @param exceptionDetail exceptionDetail
+   * @throws SchedulerException SchedulerException
+   */
+  private void save(JobExecutionContext context, String status, String result,
+      String exceptionDetail) throws SchedulerException {
     // 获得计划任务实例
     Scheduler s = context.getScheduler();
-
-    // 删除当前ID已经有的记录
-    if (triggerLog != null) {
-      triggerLog.delete(context.getFireInstanceId());
-    }
-
-    // 写入新的记录
+    //构造
     ScheduledTriggerLog tstl = new ScheduledTriggerLog();
     tstl.setLogid(context.getFireInstanceId());
     tstl.setScheduledFireTime(context.getScheduledFireTime());
@@ -397,7 +236,7 @@ public class TriggerListenerService {
     tstl.setEndTime(new Date());
     tstl.setJobRunTime(context.getJobRunTime());
     tstl.setStatus(status);
-    tstl.setResult(triggerInstructionCode.toString());
+    tstl.setResult(result);
     tstl.setErrorMsg(exceptionDetail);
     tstl.setTriggerName(context.getTrigger().getKey().getName());
     tstl.setTriggerGroup(context.getTrigger().getKey().getGroup());
@@ -412,7 +251,9 @@ public class TriggerListenerService {
     tstl.setScheduledName(s.getSchedulerName());
     tstl.setCreateDate(new Date());
     if (triggerLog != null) {
+      triggerLog.delete(context.getFireInstanceId());
       triggerLog.save(tstl);
     }
   }
+
 }

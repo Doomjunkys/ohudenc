@@ -30,7 +30,7 @@ public class JobDetailMeta implements Serializable {
   /**
    * 描述 : 组别
    */
-  private String group = "default";;
+  private String group = "default";
 
   /**
    * 描述 : 类型
