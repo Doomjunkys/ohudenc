@@ -20,6 +20,11 @@
       <groupId>com.egridcloud.udf</groupId>
       <artifactId>udf-starter-core</artifactId>
     </dependency>
+    <!-- udf-starter-rms -->
+    <dependency>
+      <groupId>com.egridcloud.udf</groupId>
+      <artifactId>udf-starter-rms</artifactId>
+    </dependency>
     <!-- udf-starter-scheduler-client -->
     <dependency>
       <groupId>com.egridcloud.udf</groupId>

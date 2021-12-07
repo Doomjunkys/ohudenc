@@ -6,13 +6,16 @@
  */
 package com.egridcloud.udf.scheduler.job;
 
-import java.util.Date;
-
 import org.apache.commons.lang3.StringUtils;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
+import com.egridcloud.udf.core.RestResponse;
+import com.egridcloud.udf.rms.Rms;
 import com.egridcloud.udf.scheduler.SchException;
 import com.egridcloud.udf.scheduler.client.domain.GeneralJobParam;
 
@@ -27,15 +30,11 @@ public class GeneralJob extends AbstractBaseJob {
   @Override
   protected void executeInternal(JobExecutionContext jobExecutionContext)
       throws JobExecutionException {
-    //初始化开始时间
-    Date serverInitStartDate = new Date();
     //从trigger中获得jobDataMap
     JobDataMap jobDataMap = jobExecutionContext.getTrigger().getJobDataMap();
     //获得必要字段
     String serviceCode = jobDataMap.getString("serviceCode");
     String beanName = jobDataMap.getString("beanName");
-    Boolean async = jobDataMap.getBoolean("async");
-    Boolean ignore = jobDataMap.getBoolean("ignore");
     //校验
     if (StringUtils.isBlank(serviceCode)) {
       throw new SchException("serviceCode can not be empty");
@@ -43,24 +42,27 @@ public class GeneralJob extends AbstractBaseJob {
     if (StringUtils.isBlank(beanName)) {
       throw new SchException("beanName can not be empty");
     }
-    //封装bean
+    //获得RMS
+    Rms rms = this.getApplicationContext().getBean(Rms.class);
+    //封装请求参数
     GeneralJobParam generalJobParam = new GeneralJobParam();
+    generalJobParam.setFireInstanceId(jobExecutionContext.getFireInstanceId());
     generalJobParam.setBeanName(beanName);
-    generalJobParam.setServerInitStartDate(serverInitStartDate);
-    generalJobParam.setServerStartDate(new Date());
-    //判断同步还是异步
-    if (async) {
-      //保存数据
-      //判断是否跳过
-      if (ignore) {
-        //查询是否有正在执行的任务
-        //如果有,直接写入任务,状态为跳过
-        //跳出
+    //请求
+    try {
+      //拿到结果
+      ResponseEntity<RestResponse<String>> result = rms.call(serviceCode, generalJobParam, null,
+          new ParameterizedTypeReference<RestResponse<String>>() {
+          }, null);
+      //判断http状态
+      if (result.getStatusCode() != HttpStatus.OK) {
+        throw new SchException(result.getStatusCode().toString());
       }
-      //执行任务
-      //拿到结果后,更新至数据库
-    } else {
-
+      //设置结果
+      jobExecutionContext.setResult(result.getBody().getResult());
+    } catch (Exception e) {
+      //抛出异常
+      throw new JobExecutionException(e);
     }
   }
 

@@ -7,8 +7,6 @@
 package com.egridcloud.udf.scheduler.client.domain;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.UUID;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,7 +17,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @author Administrator
  *
  */
-@ApiModel(description = "通用作业参数")
+@ApiModel(description = "通用job参数")
 public class GeneralJobParam implements Serializable {
 
   /**
@@ -28,10 +26,10 @@ public class GeneralJobParam implements Serializable {
   private static final long serialVersionUID = 1L;
 
   /**
-   * 描述 : 执行ID
+   * 描述 : 触发实例ID
    */
-  @ApiModelProperty(value = "执行ID", required = true, dataType = "string")
-  private String id = UUID.randomUUID().toString();
+  @ApiModelProperty(value = "触发实例ID", required = true, dataType = "string")
+  private String fireInstanceId;
 
   /**
    * 描述 : bean名称
@@ -40,69 +38,21 @@ public class GeneralJobParam implements Serializable {
   private String beanName;
 
   /**
-   * 描述 : 服务端初始化开始时间
-   */
-  @ApiModelProperty(value = "服务端初始化开始时间", required = true, dataType = "date")
-  private Date serverInitStartDate;
-
-  /**
-   * 描述 : 服务端开始执行时间
-   */
-  @ApiModelProperty(value = "服务端开始执行时间", required = true, dataType = "date")
-  private Date serverStartDate;
-
-  /**
-   * 描述 : 获取serverInitStartDate
+   * 描述 : 获取fireInstanceId
    *
-   * @return the serverInitStartDate
+   * @return the fireInstanceId
    */
-  public Date getServerInitStartDate() {
-    return serverInitStartDate;
+  public String getFireInstanceId() {
+    return fireInstanceId;
   }
 
   /**
-   * 描述 : 设置serverInitStartDate
+   * 描述 : 设置fireInstanceId
    *
-   * @param serverInitStartDate the serverInitStartDate to set
+   * @param fireInstanceId the fireInstanceId to set
    */
-  public void setServerInitStartDate(Date serverInitStartDate) {
-    this.serverInitStartDate = serverInitStartDate;
-  }
-
-  /**
-   * 描述 : 获取serverStartDate
-   *
-   * @return the serverStartDate
-   */
-  public Date getServerStartDate() {
-    return serverStartDate;
-  }
-
-  /**
-   * 描述 : 设置serverStartDate
-   *
-   * @param serverStartDate the serverStartDate to set
-   */
-  public void setServerStartDate(Date serverStartDate) {
-    this.serverStartDate = serverStartDate;
-  }
-
-  /**
-   * 描述 : 获取id
-   *
-   * @return the id
-   */
-  public String getId() {
-    return id;
-  }
-
-  /**
-   * 描述 : 设置id
-   *
-   * @param id the id to set
-   */
-  public void setId(String id) {
-    this.id = id;
+  public void setFireInstanceId(String fireInstanceId) {
+    this.fireInstanceId = fireInstanceId;
   }
 
   /**
