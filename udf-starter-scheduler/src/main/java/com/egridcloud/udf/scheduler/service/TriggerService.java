@@ -31,8 +31,8 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Service;
 
 import com.egridcloud.udf.core.utils.DateUtil;
-import com.egridcloud.udf.scheduler.SchException;
 import com.egridcloud.udf.scheduler.SchedulerProperties;
+import com.egridcloud.udf.scheduler.client.SchException;
 import com.egridcloud.udf.scheduler.meta.CronTriggerMeta;
 import com.egridcloud.udf.scheduler.meta.JobDetailMeta;
 import com.egridcloud.udf.scheduler.meta.SimpleTriggerMeta;

@@ -4,7 +4,7 @@
  * Created by wangkang
  * Copyright (C) 2016 egridcloud.com, All rights reserved.
  */
-package com.egridcloud.udf.scheduler;
+package com.egridcloud.udf.scheduler.client;
 
 /**
  * <p>

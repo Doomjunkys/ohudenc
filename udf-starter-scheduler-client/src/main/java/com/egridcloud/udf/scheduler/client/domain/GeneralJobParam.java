@@ -7,6 +7,7 @@
 package com.egridcloud.udf.scheduler.client.domain;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -36,6 +37,30 @@ public class GeneralJobParam implements Serializable {
    */
   @ApiModelProperty(value = "bean名称", required = true, dataType = "string")
   private String beanName;
+
+  /**
+   * 描述 : 作业参数
+   */
+  @ApiModelProperty(value = "作业参数", required = true, dataType = "object")
+  private Map<String, Object> jobDataMap; //NOSONAR
+
+  /**
+   * 描述 : 获取jobDataMap
+   *
+   * @return the jobDataMap
+   */
+  public Map<String, Object> getJobDataMap() {
+    return jobDataMap;
+  }
+
+  /**
+   * 描述 : 设置jobDataMap
+   *
+   * @param jobDataMap the jobDataMap to set
+   */
+  public void setJobDataMap(Map<String, Object> jobDataMap) {
+    this.jobDataMap = jobDataMap;
+  }
 
   /**
    * 描述 : 获取fireInstanceId

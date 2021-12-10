@@ -17,7 +17,7 @@ import org.springframework.http.ResponseEntity;
 import com.egridcloud.udf.core.RestResponse;
 import com.egridcloud.udf.rms.Rms;
 import com.egridcloud.udf.scheduler.IGeneralJobResult;
-import com.egridcloud.udf.scheduler.SchException;
+import com.egridcloud.udf.scheduler.client.SchException;
 import com.egridcloud.udf.scheduler.client.domain.GeneralJobParam;
 import com.egridcloud.udf.scheduler.client.domain.GeneralJobResult;
 
@@ -50,22 +50,17 @@ public class GeneralJob extends AbstractBaseJob {
     GeneralJobParam generalJobParam = new GeneralJobParam();
     generalJobParam.setFireInstanceId(jobExecutionContext.getFireInstanceId());
     generalJobParam.setBeanName(beanName);
+    generalJobParam.setJobDataMap(jobDataMap.getWrappedMap());
     //请求
-    try {
-      //拿到结果
-      ResponseEntity<RestResponse<GeneralJobResult>> result = rms.call(serviceCode, generalJobParam,
-          null, new ParameterizedTypeReference<RestResponse<GeneralJobResult>>() {
-          }, null);
-      //判断http状态
-      if (result.getStatusCode() != HttpStatus.OK) {
-        throw new SchException(result.getStatusCode().toString());
-      }
-      //记录结果
-      saveGeneralJobResult(result.getBody().getResult());
-    } catch (Exception e) {
-      //抛出异常
-      throw new JobExecutionException(e);
+    ResponseEntity<RestResponse<GeneralJobResult>> result = rms.call(serviceCode, generalJobParam,
+        null, new ParameterizedTypeReference<RestResponse<GeneralJobResult>>() {
+        }, null);
+    //判断http状态
+    if (result.getStatusCode() != HttpStatus.OK) {
+      throw new SchException(result.getStatusCode().toString());
     }
+    //记录结果
+    saveGeneralJobResult(result.getBody().getResult());
   }
 
   /**
