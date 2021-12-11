@@ -106,7 +106,7 @@ public class JobService {
           + jobDetailMeta.getGroup() + " already exist!");
     }
     // 获得jobDataMap
-    JobDataMap jobDataMap = null;
+    JobDataMap jobDataMap = new JobDataMap();
     if (MapUtils.isNotEmpty(jobDetailMeta.getDataMap())) {
       jobDataMap = new JobDataMap(jobDetailMeta.getDataMap());
     }
@@ -133,7 +133,7 @@ public class JobService {
     // 设置jobkey
     JobKey jobKey = getJobKey(jobDetailMeta);
     // 删除
-    this.s.getScheduler().triggerJob(jobKey);
+    this.s.getScheduler().deleteJob(jobKey);
   }
 
   /**
@@ -245,6 +245,10 @@ public class JobService {
    * @return 作业元数据
    */
   protected JobDetailMeta getJobDetailMeta(String jobCode) {
+    //判空
+    if (MapUtils.isEmpty(schedulerProperties.getJobDetail())) {
+      throw new SchException("JobDetail not defined!");
+    }
     //获得作业定义
     JobDetailMeta jobDetailMeta = schedulerProperties.getJobDetail().get(jobCode);
     //判断作业是否存在

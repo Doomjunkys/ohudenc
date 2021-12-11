@@ -6,7 +6,9 @@
  */
 package com.egridcloud.udf.scheduler.job;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.quartz.DisallowConcurrentExecution;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -27,6 +29,7 @@ import com.egridcloud.udf.scheduler.client.domain.GeneralJobResult;
  * @author Administrator
  *
  */
+@DisallowConcurrentExecution
 public class GeneralJob extends AbstractBaseJob {
 
   @Override
@@ -64,14 +67,15 @@ public class GeneralJob extends AbstractBaseJob {
   }
 
   /**
-   * 描述 : 保存
+   * 描述 : 保存(会吃掉注入IGeneralJobResult实现类的异常)
    *
    * @param result result
    */
   private void saveGeneralJobResult(GeneralJobResult result) {
-    IGeneralJobResult generalJobResultService =
-        this.getApplicationContext().getBean(IGeneralJobResult.class);
-    if (generalJobResultService != null) {
+    String[] beanNames = this.getApplicationContext().getBeanNamesForType(IGeneralJobResult.class);
+    if (ArrayUtils.isNotEmpty(beanNames)) {
+      IGeneralJobResult generalJobResultService =
+          this.getApplicationContext().getBean(IGeneralJobResult.class);
       generalJobResultService.save(result);
     }
   }

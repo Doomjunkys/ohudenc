@@ -164,7 +164,7 @@ public class TriggerService {
     // 获得jobkey
     JobKey jobKey = jobService.getJobKey(jobDetailMeta);
     // 获得jobDataMap
-    JobDataMap jobDataMap = null;
+    JobDataMap jobDataMap = new JobDataMap();
     if (MapUtils.isNotEmpty(triggerMeta.getDataMap())) {
       jobDataMap = new JobDataMap(triggerMeta.getDataMap());
     }
@@ -246,7 +246,7 @@ public class TriggerService {
     // 获得jobkey
     JobKey jobKey = jobService.getJobKey(jobDetailMeta);
     // 获得jobDataMap
-    JobDataMap jobDataMap = null;
+    JobDataMap jobDataMap = new JobDataMap();
     if (MapUtils.isNotEmpty(triggerMeta.getDataMap())) {
       jobDataMap = new JobDataMap(triggerMeta.getDataMap());
     }
@@ -390,14 +390,23 @@ public class TriggerService {
    * @return 触发器元数据
    */
   protected TriggerMeta getTriggerMeta(String triggerCode) {
-    TriggerMeta triggerMeta = getCronTriggerMeta(triggerCode);
-    if (triggerMeta == null) {
-      triggerMeta = getSimpleTriggerMeta(triggerCode);
-      if (triggerMeta == null) {
-        throw new SchException("triggerCode : " + triggerCode + " not defined!"); //NOSONAR
-      }
+    TriggerMeta cornTriggerMeta = null;
+    TriggerMeta simpleTriggerMeta = null;
+    if (MapUtils.isNotEmpty(schedulerProperties.getCronTrigger())) {
+      cornTriggerMeta = schedulerProperties.getCronTrigger().get(triggerCode);
     }
-    return triggerMeta;
+    if (MapUtils.isNotEmpty(schedulerProperties.getSimpleTrigger())) {
+      simpleTriggerMeta = schedulerProperties.getSimpleTrigger().get(triggerCode);
+    }
+    if (cornTriggerMeta == null && simpleTriggerMeta == null) {
+      throw new SchException("triggerCode : " + triggerCode + " not defined!"); //NOSONAR
+    } else if (simpleTriggerMeta == null) {
+      return cornTriggerMeta;
+    } else if (cornTriggerMeta == null) {
+      return simpleTriggerMeta;
+    } else {
+      throw new SchException("triggerCode : " + triggerCode + " Definition repeats ");
+    }
   }
 
   /**
@@ -407,6 +416,10 @@ public class TriggerService {
    * @return simple触发器元数据
    */
   protected CronTriggerMeta getCronTriggerMeta(String cronTriggerCode) {
+    //判空
+    if (MapUtils.isEmpty(schedulerProperties.getCronTrigger())) {
+      throw new SchException("cronTrigger not defined!");
+    }
     //获得触发器定义
     CronTriggerMeta cronTriggerMeta = schedulerProperties.getCronTrigger().get(cronTriggerCode);
     //判断触发器是否存在
@@ -430,6 +443,10 @@ public class TriggerService {
    * @return simple触发器元数据
    */
   protected SimpleTriggerMeta getSimpleTriggerMeta(String simpleTriggerCode) {
+    //判空
+    if (MapUtils.isEmpty(schedulerProperties.getSimpleTrigger())) {
+      throw new SchException("simpleTrigger not defined!");
+    }
     //获得触发器定义
     SimpleTriggerMeta simpleTriggerMeta =
         schedulerProperties.getSimpleTrigger().get(simpleTriggerCode);

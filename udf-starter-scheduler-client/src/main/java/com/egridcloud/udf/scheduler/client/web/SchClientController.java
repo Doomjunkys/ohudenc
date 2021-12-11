@@ -42,11 +42,12 @@ public class SchClientController implements ISchClientController, ApplicationCon
     GeneralJobResult result = new GeneralJobResult();
     result.setFireInstanceId(param.getFireInstanceId());
     result.setParam(param);
-    //获得bean
-    IExecute bean = applicationContext.getBean(IExecute.class, param.getBeanName());
-    if (bean == null) {
+    //判断bean是否存在
+    if (!applicationContext.containsBean(param.getBeanName())) {
       throw new SchException(param.getBeanName() + " not definition");
     }
+    //获得bean
+    IExecute bean = applicationContext.getBean(param.getBeanName(), IExecute.class);
     //客户端开始时间
     Date clientStartExecuteTime = new Date();
     //执行
