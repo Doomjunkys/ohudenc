@@ -15,7 +15,8 @@ import com.egridcloud.udf.core.RestResponse;
 import com.egridcloud.udf.rms.RmsConfig;
 import com.egridcloud.udf.rms.RmsProperties;
 
-import springfox.documentation.annotations.ApiIgnore;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * 描述 : RmsController
@@ -23,7 +24,8 @@ import springfox.documentation.annotations.ApiIgnore;
  * @author Administrator
  *
  */
-@ApiIgnore
+@Api(value = "rest服务", consumes = "application/json", produces = "application/json",
+    protocols = "http")
 @RestController
 @RequestMapping("rms")
 public class RmsController {
@@ -45,6 +47,7 @@ public class RmsController {
    *
    * @return rms扫描路径
    */
+  @ApiOperation(value = "返回rms扫描路径", notes = "返回rms扫描路径")
   @RequestMapping(value = "path/pattern", method = RequestMethod.GET)
   public RestResponse<String> getPathPatterns() {
     return new RestResponse<>(rmsConfig.getRmsPathPatterns());
@@ -55,6 +58,7 @@ public class RmsController {
    *
    * @return rms配置详情
    */
+  @ApiOperation(value = "获得rms配置详情", notes = "获得rms配置详情")
   @RequestMapping(value = "properties", method = RequestMethod.GET)
   public RestResponse<RmsProperties> getProperties() {
     return new RestResponse<>(rmsProperties);
