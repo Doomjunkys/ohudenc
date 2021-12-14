@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.egridcloud.udf.scheduler.service.TriggerListenerService;
+import com.egridcloud.udf.scheduler.service.ListenerService;
 
 /**
  * <p>
@@ -38,10 +38,10 @@ public class JobDetailListener implements JobListener {
   private static final Logger LOGGER = LoggerFactory.getLogger(JobDetailListener.class);
 
   /**
-   * 描述 : triggerListenerService
+   * 描述 : listenerService
    */
   @Autowired
-  private TriggerListenerService triggerListenerService;
+  private ListenerService listenerService;
 
   @Override
   public String getName() {
@@ -51,7 +51,7 @@ public class JobDetailListener implements JobListener {
   @Override
   public void jobToBeExecuted(JobExecutionContext context) { // 4
     try {
-      this.triggerListenerService.saveJobToBeExecuted(context);
+      this.listenerService.saveJobToBeExecuted(context);
     } catch (SchedulerException e) {
       LOGGER.error("jobToBeExecuted:", e);
     }
@@ -60,7 +60,7 @@ public class JobDetailListener implements JobListener {
   @Override
   public void jobExecutionVetoed(JobExecutionContext context) { // 5
     try {
-      this.triggerListenerService.saveJobExecutionVetoed(context);
+      this.listenerService.saveJobExecutionVetoed(context);
     } catch (SchedulerException e) {
       LOGGER.error("jobExecutionVetoed:", e);
     }
@@ -69,7 +69,7 @@ public class JobDetailListener implements JobListener {
   @Override
   public void jobWasExecuted(JobExecutionContext context, JobExecutionException jobException) { // 6
     try {
-      this.triggerListenerService.saveJobWasExecuted(context, jobException);
+      this.listenerService.saveJobWasExecuted(context, jobException);
     } catch (SchedulerException e) {
       LOGGER.error("jobWasExecuted:", e);
     }

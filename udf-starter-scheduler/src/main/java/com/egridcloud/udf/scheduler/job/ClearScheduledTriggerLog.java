@@ -10,7 +10,7 @@ import org.quartz.DisallowConcurrentExecution;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-import com.egridcloud.udf.scheduler.ITriggerLog;
+import com.egridcloud.udf.scheduler.IListenerLog;
 
 /**
  * <p>
@@ -32,7 +32,7 @@ public class ClearScheduledTriggerLog extends AbstractBaseJob {
   @Override
   protected void executeInternal(JobExecutionContext jobExecutionContext)
       throws JobExecutionException {
-    ITriggerLog triggerLog = this.getApplicationContext().getBean(ITriggerLog.class);
+    IListenerLog triggerLog = this.getApplicationContext().getBean(IListenerLog.class);
     if (triggerLog != null) {
       triggerLog.clearScheduledTriggerLog();
     }

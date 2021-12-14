@@ -14,7 +14,7 @@ import com.egridcloud.udf.scheduler.domain.ScheduledTriggerLog;
  * @author Administrator
  *
  */
-public interface ITriggerLog {
+public interface IListenerLog {
 
   /**
    * 描述 : 记录日志
@@ -35,5 +35,18 @@ public interface ITriggerLog {
    *
    */
   public void clearScheduledTriggerLog();
+
+  /**
+   * 描述 : 记录日志
+   *
+   * @param log log
+   */
+  public void save(String log);
+
+  /**
+   * 描述 : 清理日志
+   *
+   */
+  public void clearScheduledLog();
 
 }

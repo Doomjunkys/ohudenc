@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.egridcloud.udf.scheduler.service.TriggerListenerService;
+import com.egridcloud.udf.scheduler.service.ListenerService;
 
 /**
  * <p>
@@ -39,10 +39,10 @@ public class TriggerDetailListener implements TriggerListener {
   private static final Logger LOGGER = LoggerFactory.getLogger(TriggerDetailListener.class);
 
   /**
-   * 描述 : triggerListenerService
+   * 描述 : listenerService
    */
   @Autowired
-  private TriggerListenerService triggerListenerService;
+  private ListenerService listenerService;
 
   @Override
   public String getName() {
@@ -52,7 +52,7 @@ public class TriggerDetailListener implements TriggerListener {
   @Override
   public void triggerFired(Trigger trigger, JobExecutionContext context) { // 2
     try {
-      this.triggerListenerService.saveTriggerFired(context);
+      this.listenerService.saveTriggerFired(context);
     } catch (SchedulerException e) {
       LOGGER.error("triggerFired error:", e);
     }
@@ -62,7 +62,7 @@ public class TriggerDetailListener implements TriggerListener {
   public boolean vetoJobExecution(Trigger trigger, JobExecutionContext context) { // 3
     boolean vetoed = false;
     try {
-      vetoed = this.triggerListenerService.saveVetoJobExecution(context);
+      vetoed = this.listenerService.saveVetoJobExecution(context);
     } catch (SchedulerException e) {
       LOGGER.error("vetoJobExecution error:", e);
     }
@@ -71,14 +71,14 @@ public class TriggerDetailListener implements TriggerListener {
 
   @Override
   public void triggerMisfired(Trigger trigger) { // 1
-    this.triggerListenerService.saveTriggerMisfired(trigger);
+    this.listenerService.saveTriggerMisfired(trigger);
   }
 
   @Override
   public void triggerComplete(Trigger trigger, JobExecutionContext context,
       CompletedExecutionInstruction triggerInstructionCode) { // 7
     try {
-      this.triggerListenerService.saveTriggerComplete(context, triggerInstructionCode);
+      this.listenerService.saveTriggerComplete(context, triggerInstructionCode);
     } catch (SchedulerException e) {
       LOGGER.error("triggerComplete error:", e);
     }

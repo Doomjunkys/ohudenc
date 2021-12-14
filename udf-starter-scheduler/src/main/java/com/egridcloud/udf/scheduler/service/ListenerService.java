@@ -1,5 +1,5 @@
 /**
- * TriggerListenerService.java
+ * ListenerService.java
  * Created at 2017-06-01
  * Created by Administrator
  * Copyright (C) 2016 egridcloud.com, All rights reserved.
@@ -22,18 +22,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.egridcloud.udf.core.exception.SystemException;
-import com.egridcloud.udf.scheduler.ITriggerLog;
+import com.egridcloud.udf.scheduler.IListenerLog;
 import com.egridcloud.udf.scheduler.SchedulerConfig;
 import com.egridcloud.udf.scheduler.domain.ScheduledTriggerLog;
 
 /**
- * 描述 : TriggerListenerService
+ * 描述 : ListenerService
  *
  * @author Administrator
  *
  */
 @Service
-public class TriggerListenerService {
+public class ListenerService {
 
   /**
    * 描述 : schedulerConfig
@@ -42,10 +42,10 @@ public class TriggerListenerService {
   private SchedulerConfig schedulerConfig;
 
   /**
-   * 描述 : triggerLog
+   * 描述 : listenerLog
    */
   @Autowired(required = false)
-  private ITriggerLog triggerLog;
+  private IListenerLog listenerLog;
 
   /**
    * <p>
@@ -76,8 +76,8 @@ public class TriggerListenerService {
     tstl.setScheduledId(null);
     tstl.setScheduledName(null);
     tstl.setCreateDate(new Date());
-    if (triggerLog != null) {
-      triggerLog.save(tstl);
+    if (listenerLog != null) {
+      listenerLog.save(tstl);
     }
   }
 
@@ -250,9 +250,9 @@ public class TriggerListenerService {
     tstl.setScheduledId(s.getSchedulerInstanceId());
     tstl.setScheduledName(s.getSchedulerName());
     tstl.setCreateDate(new Date());
-    if (triggerLog != null) {
-      triggerLog.delete(context.getFireInstanceId());
-      triggerLog.save(tstl);
+    if (listenerLog != null) {
+      listenerLog.delete(context.getFireInstanceId());
+      listenerLog.save(tstl);
     }
   }
 
