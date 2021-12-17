@@ -1,5 +1,5 @@
 /**
- * GeneralJobParam.java
+ * RmsJobResult.java
  * Created at 2017-06-04
  * Created by Administrator
  * Copyright (C) 2016 egridcloud.com, All rights reserved.
@@ -13,13 +13,13 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * 描述 : GeneralJobParam
+ * 描述 : RmsJobResult
  *
  * @author Administrator
  *
  */
 @ApiModel(description = "通用job返回值")
-public class GeneralJobResult implements Serializable {
+public class RmsJobResult implements Serializable {
 
   /**
    * 描述 : ID
@@ -36,7 +36,7 @@ public class GeneralJobResult implements Serializable {
    * 描述 : 参数
    */
   @ApiModelProperty(value = "参数", required = true, dataType = "object")
-  private GeneralJobParam param;
+  private RmsJobParam param;
 
   /**
    * 描述 : 客户端初始化时间
@@ -115,7 +115,7 @@ public class GeneralJobResult implements Serializable {
    *
    * @return the param
    */
-  public GeneralJobParam getParam() {
+  public RmsJobParam getParam() {
     return param;
   }
 
@@ -124,7 +124,7 @@ public class GeneralJobResult implements Serializable {
    *
    * @param param the param to set
    */
-  public void setParam(GeneralJobParam param) {
+  public void setParam(RmsJobParam param) {
     this.param = param;
   }
 

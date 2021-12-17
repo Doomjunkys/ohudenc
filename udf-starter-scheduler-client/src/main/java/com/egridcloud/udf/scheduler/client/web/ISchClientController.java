@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.egridcloud.udf.core.RestResponse;
-import com.egridcloud.udf.scheduler.client.domain.GeneralJobParam;
-import com.egridcloud.udf.scheduler.client.domain.GeneralJobResult;
+import com.egridcloud.udf.scheduler.client.domain.RmsJobParam;
+import com.egridcloud.udf.scheduler.client.domain.RmsJobResult;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -46,6 +46,6 @@ public interface ISchClientController {
       @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号",
           required = true, dataType = "string") })
   @RequestMapping(method = RequestMethod.POST)
-  public RestResponse<GeneralJobResult> execute(@RequestBody GeneralJobParam param);
+  public RestResponse<RmsJobResult> execute(@RequestBody RmsJobParam param);
 
 }

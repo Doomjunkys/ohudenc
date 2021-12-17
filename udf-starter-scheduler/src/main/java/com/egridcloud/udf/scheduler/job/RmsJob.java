@@ -1,5 +1,5 @@
 /**
- * GeneralJob.java
+ * RmsJob.java
  * Created at 2017-06-04
  * Created by Administrator
  * Copyright (C) 2016 egridcloud.com, All rights reserved.
@@ -18,19 +18,19 @@ import org.springframework.http.ResponseEntity;
 
 import com.egridcloud.udf.core.RestResponse;
 import com.egridcloud.udf.rms.Rms;
-import com.egridcloud.udf.scheduler.IGeneralJobResult;
+import com.egridcloud.udf.scheduler.IRmsJobLog;
 import com.egridcloud.udf.scheduler.client.SchException;
-import com.egridcloud.udf.scheduler.client.domain.GeneralJobParam;
-import com.egridcloud.udf.scheduler.client.domain.GeneralJobResult;
+import com.egridcloud.udf.scheduler.client.domain.RmsJobParam;
+import com.egridcloud.udf.scheduler.client.domain.RmsJobResult;
 
 /**
- * 描述 : GeneralJob
+ * 描述 : RmsJob
  *
  * @author Administrator
  *
  */
 @DisallowConcurrentExecution
-public class GeneralJob extends AbstractBaseJob {
+public class RmsJob extends AbstractBaseJob {
 
   @Override
   protected void executeInternal(JobExecutionContext jobExecutionContext)
@@ -50,20 +50,20 @@ public class GeneralJob extends AbstractBaseJob {
     //获得RMS
     Rms rms = this.getApplicationContext().getBean(Rms.class);
     //封装请求参数
-    GeneralJobParam generalJobParam = new GeneralJobParam();
-    generalJobParam.setFireInstanceId(jobExecutionContext.getFireInstanceId());
-    generalJobParam.setBeanName(beanName);
-    generalJobParam.setJobDataMap(jobDataMap.getWrappedMap());
+    RmsJobParam rmsJobParam = new RmsJobParam();
+    rmsJobParam.setFireInstanceId(jobExecutionContext.getFireInstanceId());
+    rmsJobParam.setBeanName(beanName);
+    rmsJobParam.setJobDataMap(jobDataMap.getWrappedMap());
     //请求
-    ResponseEntity<RestResponse<GeneralJobResult>> result = rms.call(serviceCode, generalJobParam,
-        null, new ParameterizedTypeReference<RestResponse<GeneralJobResult>>() {
+    ResponseEntity<RestResponse<RmsJobResult>> result = rms.call(serviceCode, rmsJobParam, null,
+        new ParameterizedTypeReference<RestResponse<RmsJobResult>>() {
         }, null);
     //判断http状态
     if (result.getStatusCode() != HttpStatus.OK) {
       throw new SchException(result.getStatusCode().toString());
     }
     //记录结果
-    saveGeneralJobResult(result.getBody().getResult());
+    saveRmsJobResult(result.getBody().getResult());
   }
 
   /**
@@ -71,12 +71,11 @@ public class GeneralJob extends AbstractBaseJob {
    *
    * @param result result
    */
-  private void saveGeneralJobResult(GeneralJobResult result) {
-    String[] beanNames = this.getApplicationContext().getBeanNamesForType(IGeneralJobResult.class);
+  private void saveRmsJobResult(RmsJobResult result) {
+    String[] beanNames = this.getApplicationContext().getBeanNamesForType(IRmsJobLog.class);
     if (ArrayUtils.isNotEmpty(beanNames)) {
-      IGeneralJobResult generalJobResultService =
-          this.getApplicationContext().getBean(IGeneralJobResult.class);
-      generalJobResultService.save(result);
+      IRmsJobLog rmsJobLog = this.getApplicationContext().getBean(IRmsJobLog.class);
+      rmsJobLog.save(result);
     }
   }
 

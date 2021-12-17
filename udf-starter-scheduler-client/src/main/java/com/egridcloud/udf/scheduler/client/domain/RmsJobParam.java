@@ -1,5 +1,5 @@
 /**
- * GeneralJobParam.java
+ * RmsJobParam.java
  * Created at 2017-06-04
  * Created by Administrator
  * Copyright (C) 2016 egridcloud.com, All rights reserved.
@@ -13,13 +13,13 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * 描述 : GeneralJobParam
+ * 描述 : RmsJobParam
  *
  * @author Administrator
  *
  */
 @ApiModel(description = "通用job参数")
-public class GeneralJobParam implements Serializable {
+public class RmsJobParam implements Serializable {
 
   /**
    * 描述 : ID
