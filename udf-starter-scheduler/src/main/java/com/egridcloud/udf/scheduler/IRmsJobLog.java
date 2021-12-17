@@ -19,8 +19,15 @@ public interface IRmsJobLog {
   /**
    * 描述 : save
    *
-   * @param generalJobResult generalJobResult
+   * @param result result
    */
-  public void save(RmsJobResult generalJobResult);
+  public void save(RmsJobResult result);
+
+  /**
+   * 描述 : delete
+   *
+   * @param fireInstanceId fireInstanceId
+   */
+  public void delete(String fireInstanceId);
 
 }

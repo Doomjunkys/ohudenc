@@ -39,10 +39,10 @@ public class RmsJobResult implements Serializable {
   private RmsJobParam param;
 
   /**
-   * 描述 : 客户端初始化时间
+   * 描述 : 客户端接收时间
    */
-  @ApiModelProperty(value = "客户端初始化时间", required = true, dataType = "long")
-  private Date clientInitTime;
+  @ApiModelProperty(value = "客户端接收时间", required = true, dataType = "long")
+  private Date clientReceiveTime;
 
   /**
    * 描述 : 客户端开始时间
@@ -57,21 +57,87 @@ public class RmsJobResult implements Serializable {
   private Date clientEndExecuteTime;
 
   /**
-   * 描述 : 获取clientInitTime
-   *
-   * @return the clientInitTime
+   * 描述 : 状态
    */
-  public Date getClientInitTime() {
-    return clientInitTime;
+  @ApiModelProperty(value = "状态", required = true, dataType = "int")
+  private Integer stats;
+
+  /**
+   * 描述 : 错误信息
+   */
+  @ApiModelProperty(value = "错误信息", required = true, dataType = "string")
+  private String errorMsg;
+
+  /**
+   * 描述 : 获取param
+   *
+   * @return the param
+   */
+  public RmsJobParam getParam() {
+    return param;
   }
 
   /**
-   * 描述 : 设置clientInitTime
+   * 描述 : 设置param
    *
-   * @param clientInitTime the clientInitTime to set
+   * @param param the param to set
    */
-  public void setClientInitTime(Date clientInitTime) {
-    this.clientInitTime = clientInitTime;
+  public void setParam(RmsJobParam param) {
+    this.param = param;
+  }
+
+  /**
+   * 描述 : 获取errorMsg
+   *
+   * @return the errorMsg
+   */
+  public String getErrorMsg() {
+    return errorMsg;
+  }
+
+  /**
+   * 描述 : 设置errorMsg
+   *
+   * @param errorMsg the errorMsg to set
+   */
+  public void setErrorMsg(String errorMsg) {
+    this.errorMsg = errorMsg;
+  }
+
+  /**
+   * 描述 : 获取stats
+   *
+   * @return the stats
+   */
+  public Integer getStats() {
+    return stats;
+  }
+
+  /**
+   * 描述 : 设置stats
+   *
+   * @param stats the stats to set
+   */
+  public void setStats(Integer stats) {
+    this.stats = stats;
+  }
+
+  /**
+   * 描述 : 获取clientReceiveTime
+   *
+   * @return the clientReceiveTime
+   */
+  public Date getClientReceiveTime() {
+    return clientReceiveTime;
+  }
+
+  /**
+   * 描述 : 设置clientReceiveTime
+   *
+   * @param clientReceiveTime the clientReceiveTime to set
+   */
+  public void setClientReceiveTime(Date clientReceiveTime) {
+    this.clientReceiveTime = clientReceiveTime;
   }
 
   /**
@@ -108,24 +174,6 @@ public class RmsJobResult implements Serializable {
    */
   public void setClientEndExecuteTime(Date clientEndExecuteTime) {
     this.clientEndExecuteTime = clientEndExecuteTime;
-  }
-
-  /**
-   * 描述 : 获取param
-   *
-   * @return the param
-   */
-  public RmsJobParam getParam() {
-    return param;
-  }
-
-  /**
-   * 描述 : 设置param
-   *
-   * @param param the param to set
-   */
-  public void setParam(RmsJobParam param) {
-    this.param = param;
   }
 
   /**

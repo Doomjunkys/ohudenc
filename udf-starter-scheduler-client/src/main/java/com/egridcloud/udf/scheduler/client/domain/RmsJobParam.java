@@ -39,10 +39,34 @@ public class RmsJobParam implements Serializable {
   private String beanName;
 
   /**
+   * 描述 : 是否异步
+   */
+  @ApiModelProperty(value = "是否异步", required = true, dataType = "boolean")
+  private Boolean async;
+
+  /**
    * 描述 : 作业参数
    */
   @ApiModelProperty(value = "作业参数", required = true, dataType = "object")
   private Map<String, Object> jobDataMap; //NOSONAR
+
+  /**
+   * 描述 : 获取async
+   *
+   * @return the async
+   */
+  public Boolean getAsync() {
+    return async;
+  }
+
+  /**
+   * 描述 : 设置async
+   *
+   * @param async the async to set
+   */
+  public void setAsync(Boolean async) {
+    this.async = async;
+  }
 
   /**
    * 描述 : 获取jobDataMap

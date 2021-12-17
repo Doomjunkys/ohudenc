@@ -8,10 +8,12 @@ package com.egridcloud.udf.scheduler.job;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.quartz.DisallowConcurrentExecution;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import com.egridcloud.udf.core.RestResponse;
 import com.egridcloud.udf.rms.Rms;
 import com.egridcloud.udf.scheduler.IRmsJobLog;
+import com.egridcloud.udf.scheduler.client.RmsJobStats;
 import com.egridcloud.udf.scheduler.client.SchException;
 import com.egridcloud.udf.scheduler.client.domain.RmsJobParam;
 import com.egridcloud.udf.scheduler.client.domain.RmsJobResult;
@@ -29,8 +32,12 @@ import com.egridcloud.udf.scheduler.client.domain.RmsJobResult;
  * @author Administrator
  *
  */
-@DisallowConcurrentExecution
 public class RmsJob extends AbstractBaseJob {
+
+  /**
+   * 描述 : 日志
+   */
+  private static final Logger LOGGER = LoggerFactory.getLogger(RmsJob.class);
 
   @Override
   protected void executeInternal(JobExecutionContext jobExecutionContext)
@@ -40,6 +47,7 @@ public class RmsJob extends AbstractBaseJob {
     //获得必要字段
     String serviceCode = jobDataMap.getString("serviceCode");
     String beanName = jobDataMap.getString("beanName");
+    Boolean async = jobDataMap.getBoolean("async");
     //校验
     if (StringUtils.isBlank(serviceCode)) {
       throw new SchException("serviceCode can not be empty");
@@ -53,21 +61,37 @@ public class RmsJob extends AbstractBaseJob {
     RmsJobParam rmsJobParam = new RmsJobParam();
     rmsJobParam.setFireInstanceId(jobExecutionContext.getFireInstanceId());
     rmsJobParam.setBeanName(beanName);
+    rmsJobParam.setAsync(async);
     rmsJobParam.setJobDataMap(jobDataMap.getWrappedMap());
     //请求
-    ResponseEntity<RestResponse<RmsJobResult>> result = rms.call(serviceCode, rmsJobParam, null,
-        new ParameterizedTypeReference<RestResponse<RmsJobResult>>() {
-        }, null);
-    //判断http状态
-    if (result.getStatusCode() != HttpStatus.OK) {
-      throw new SchException(result.getStatusCode().toString());
+    try {
+      ResponseEntity<RestResponse<RmsJobResult>> result = rms.call(serviceCode, rmsJobParam, null,
+          new ParameterizedTypeReference<RestResponse<RmsJobResult>>() {
+          }, null);
+      //判断http状态
+      if (result.getStatusCode() != HttpStatus.OK) {
+        //抛出异常
+        throw new SchException("http状态:" + result.getStatusCode().toString());
+      }
+      //记录
+      saveRmsJobResult(result.getBody().getResult());
+    } catch (Exception e) {
+      //定义返回值
+      RmsJobResult result = new RmsJobResult();
+      result.setParam(rmsJobParam);
+      result.setFireInstanceId(rmsJobParam.getFireInstanceId());
+      result.setStats(RmsJobStats.ERROR.value());
+      result.setErrorMsg(ExceptionUtils.getStackTrace(e));
+      //记录
+      saveRmsJobResult(result);
+      //抛出异常
+      LOGGER.error("RmsJob error:", e);
+      throw new JobExecutionException(e);
     }
-    //记录结果
-    saveRmsJobResult(result.getBody().getResult());
   }
 
   /**
-   * 描述 : 保存(会吃掉注入IGeneralJobResult实现类的异常)
+   * 描述 : 保存
    *
    * @param result result
    */
