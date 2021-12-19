@@ -27,10 +27,22 @@ public class RmsJobParam implements Serializable {
   private static final long serialVersionUID = 1L;
 
   /**
+   * 描述 : 主键ID
+   */
+  @ApiModelProperty(value = "主键ID", required = true, dataType = "string")
+  private String id;
+
+  /**
    * 描述 : 触发实例ID
    */
   @ApiModelProperty(value = "触发实例ID", required = true, dataType = "string")
   private String fireInstanceId;
+
+  /**
+   * 描述 : 触发方式
+   */
+  @ApiModelProperty(value = "触发实例ID", required = true, dataType = "string")
+  private String triggerType;
 
   /**
    * 描述 : bean名称
@@ -49,6 +61,42 @@ public class RmsJobParam implements Serializable {
    */
   @ApiModelProperty(value = "作业参数", required = true, dataType = "object")
   private Map<String, Object> jobDataMap; //NOSONAR
+
+  /**
+   * 描述 : 获取triggerType
+   *
+   * @return the triggerType
+   */
+  public String getTriggerType() {
+    return triggerType;
+  }
+
+  /**
+   * 描述 : 设置triggerType
+   *
+   * @param triggerType the triggerType to set
+   */
+  public void setTriggerType(String triggerType) {
+    this.triggerType = triggerType;
+  }
+
+  /**
+   * 描述 : 获取id
+   *
+   * @return the id
+   */
+  public String getId() {
+    return id;
+  }
+
+  /**
+   * 描述 : 设置id
+   *
+   * @param id the id to set
+   */
+  public void setId(String id) {
+    this.id = id;
+  }
 
   /**
    * 描述 : 获取async

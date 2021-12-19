@@ -63,7 +63,7 @@ public class SchClientHandle implements ApplicationContextAware {
     RmsJobResult result = new RmsJobResult();
     result.setParam(param);
     result.setClientReceiveTime(receiveTime);
-    result.setFireInstanceId(param.getFireInstanceId());
+    result.setId(param.getId());
     //执行(并且记录开始和结束时间)
     result.setClientStartExecuteTime(new Date());
     try {

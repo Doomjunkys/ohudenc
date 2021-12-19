@@ -6,6 +6,8 @@
  */
 package com.egridcloud.udf.scheduler.job;
 
+import java.util.UUID;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -23,6 +25,7 @@ import com.egridcloud.udf.rms.Rms;
 import com.egridcloud.udf.scheduler.IRmsJobLog;
 import com.egridcloud.udf.scheduler.client.RmsJobStats;
 import com.egridcloud.udf.scheduler.client.SchException;
+import com.egridcloud.udf.scheduler.client.TriggerType;
 import com.egridcloud.udf.scheduler.client.domain.RmsJobParam;
 import com.egridcloud.udf.scheduler.client.domain.RmsJobResult;
 
@@ -45,26 +48,32 @@ public class RmsJob extends AbstractBaseJob {
     //从trigger中获得jobDataMap
     JobDataMap jobDataMap = jobExecutionContext.getTrigger().getJobDataMap();
     //获得必要字段
+    String triggerId = jobDataMap.getString("triggerId");
+    triggerId = StringUtils.isBlank(triggerId) ? UUID.randomUUID().toString() : triggerId;
+    String triggerType = jobDataMap.getString("triggerType");
+    triggerType = StringUtils.isBlank(triggerType) ? TriggerType.TRIGGER.value() : triggerType;
     String serviceCode = jobDataMap.getString("serviceCode");
     String beanName = jobDataMap.getString("beanName");
     Boolean async = jobDataMap.getBoolean("async");
-    //校验
-    if (StringUtils.isBlank(serviceCode)) {
-      throw new SchException("serviceCode can not be empty");
-    }
-    if (StringUtils.isBlank(beanName)) {
-      throw new SchException("beanName can not be empty");
-    }
-    //获得RMS
-    Rms rms = this.getApplicationContext().getBean(Rms.class);
     //封装请求参数
     RmsJobParam rmsJobParam = new RmsJobParam();
+    rmsJobParam.setId(triggerId);
+    rmsJobParam.setTriggerType(triggerType);
     rmsJobParam.setFireInstanceId(jobExecutionContext.getFireInstanceId());
     rmsJobParam.setBeanName(beanName);
     rmsJobParam.setAsync(async);
     rmsJobParam.setJobDataMap(jobDataMap.getWrappedMap());
-    //请求
     try {
+      //校验
+      if (StringUtils.isBlank(serviceCode)) {
+        throw new SchException("serviceCode can not be empty");
+      }
+      if (StringUtils.isBlank(rmsJobParam.getBeanName())) {
+        throw new SchException("beanName can not be empty");
+      }
+      //获得RMS
+      Rms rms = this.getApplicationContext().getBean(Rms.class);
+      //请求  
       ResponseEntity<RestResponse<RmsJobResult>> result = rms.call(serviceCode, rmsJobParam, null,
           new ParameterizedTypeReference<RestResponse<RmsJobResult>>() {
           }, null);
@@ -79,7 +88,7 @@ public class RmsJob extends AbstractBaseJob {
       //定义返回值
       RmsJobResult result = new RmsJobResult();
       result.setParam(rmsJobParam);
-      result.setFireInstanceId(rmsJobParam.getFireInstanceId());
+      result.setId(rmsJobParam.getId());
       result.setStats(RmsJobStats.ERROR.value());
       result.setErrorMsg(ExceptionUtils.getStackTrace(e));
       //记录

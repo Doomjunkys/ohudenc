@@ -6,8 +6,11 @@
  */
 package com.egridcloud.udf.scheduler.web;
 
+import java.util.Map;
+
 import org.quartz.SchedulerException;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -93,5 +96,27 @@ public interface IJobController {
   @RequestMapping(value = "{jobCode}", method = RequestMethod.DELETE)
   public RestResponse<String> remove(@PathVariable String jobCode) //NOSONAR
       throws SchedulerException;
+
+  /**
+   * 描述 : 触发作业
+   *
+   * @param jobCode 作业代码
+   * @param jobDataMap jobDataMap
+   * @return 操作结果
+   * @throws SchedulerException SchedulerException
+   */
+  @ApiOperation(value = "SCHEDULER_JOB_4", notes = "触发作业")
+  @ApiImplicitParams({
+      @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称",
+          required = true, dataType = "string"),
+      @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true,
+          dataType = "string"),
+      @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号",
+          required = true, dataType = "string"),
+      @ApiImplicitParam(paramType = "path", name = "jobCode", value = "作业代码", required = true,
+          dataType = "string") })
+  @RequestMapping(value = "trigger/{jobCode}", method = RequestMethod.POST)
+  public RestResponse<String> trigger(@PathVariable String jobCode,
+      @RequestBody Map<String, Object> jobDataMap) throws SchedulerException;
 
 }

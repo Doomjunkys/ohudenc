@@ -41,7 +41,7 @@ public class SchClientController implements ISchClientController {
     RmsJobResult result = new RmsJobResult();
     result.setParam(param);
     result.setClientReceiveTime(receiveTime);
-    result.setFireInstanceId(param.getFireInstanceId());
+    result.setId(param.getId());
     //执行(区分同步跟异步)
     if (param.getAsync()) {
       schClientHandle.asyncHandle(receiveTime, param);

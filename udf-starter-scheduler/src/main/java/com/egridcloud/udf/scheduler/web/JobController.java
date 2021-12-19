@@ -6,12 +6,19 @@
  */
 package com.egridcloud.udf.scheduler.web;
 
+import java.util.Map;
+import java.util.UUID;
+
+import org.apache.commons.collections4.MapUtils;
+import org.quartz.JobDataMap;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.egridcloud.udf.core.RestResponse;
+import com.egridcloud.udf.scheduler.client.TriggerType;
 import com.egridcloud.udf.scheduler.service.JobService;
 
 /**
@@ -47,6 +54,28 @@ public class JobController implements IJobController {
   public RestResponse<String> remove(@PathVariable String jobCode) throws SchedulerException {
     jobService.remove(jobCode);
     return new RestResponse<>();
+  }
+
+  @Override
+  public RestResponse<String> trigger(@PathVariable String jobCode,
+      @RequestBody Map<String, Object> jobDataMap) throws SchedulerException {
+    //生成id
+    String triggerId = UUID.randomUUID().toString();
+    //生成jobDataMap
+    JobDataMap jdm = null;
+    //判断是否有jobDataMap
+    if (MapUtils.isEmpty(jobDataMap)) {
+      jdm = new JobDataMap();
+    } else {
+      jdm = new JobDataMap(jobDataMap);
+    }
+    //添加参数
+    jdm.put("triggerId", triggerId);
+    jdm.put("triggerType", TriggerType.MANUAL.value());
+    //触发
+    jobService.trigger(jobCode, jdm);
+    //返回
+    return new RestResponse<>(triggerId);
   }
 
 }

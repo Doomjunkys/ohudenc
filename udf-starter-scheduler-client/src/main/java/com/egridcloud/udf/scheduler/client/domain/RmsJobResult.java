@@ -27,10 +27,10 @@ public class RmsJobResult implements Serializable {
   private static final long serialVersionUID = 1L;
 
   /**
-   * 描述 : 执行ID
+   * 描述 : 主键ID
    */
-  @ApiModelProperty(value = "执行ID", required = true, dataType = "string")
-  private String fireInstanceId;
+  @ApiModelProperty(value = "主键ID", required = true, dataType = "string")
+  private String id;
 
   /**
    * 描述 : 参数
@@ -177,21 +177,21 @@ public class RmsJobResult implements Serializable {
   }
 
   /**
-   * 描述 : 获取fireInstanceId
+   * 描述 : 获取id
    *
-   * @return the fireInstanceId
+   * @return the id
    */
-  public String getFireInstanceId() {
-    return fireInstanceId;
+  public String getId() {
+    return id;
   }
 
   /**
-   * 描述 : 设置fireInstanceId
+   * 描述 : 设置id
    *
-   * @param fireInstanceId the fireInstanceId to set
+   * @param id the id to set
    */
-  public void setFireInstanceId(String fireInstanceId) {
-    this.fireInstanceId = fireInstanceId;
+  public void setId(String id) {
+    this.id = id;
   }
 
 }

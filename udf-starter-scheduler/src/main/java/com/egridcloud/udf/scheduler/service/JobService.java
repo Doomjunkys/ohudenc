@@ -140,21 +140,6 @@ public class JobService {
    * 描述 : 触发
    *
    * @param jobCode 作业代码
-   * @throws SchedulerException SchedulerException
-   */
-  public void trigger(String jobCode) throws SchedulerException {
-    //获得作业元数据
-    JobDetailMeta jobDetailMeta = getJobDetailMeta(jobCode);
-    // 设置jobkey
-    JobKey jobKey = getJobKey(jobDetailMeta);
-    // 触发
-    this.s.getScheduler().triggerJob(jobKey);
-  }
-
-  /**
-   * 描述 : 触发
-   *
-   * @param jobCode 作业代码
    * @param jobDataMap 作业数据
    * @throws SchedulerException SchedulerException
    */
