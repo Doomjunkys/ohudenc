@@ -24,8 +24,7 @@ import io.swagger.annotations.ApiOperation;
  * @author Administrator
  *
  */
-@Api(value = "rest服务", consumes = "application/json", produces = "application/json",
-    protocols = "http")
+@Api(value = "rest服务", consumes = "application/json", produces = "application/json", protocols = "http")
 @RestController
 @RequestMapping("rms")
 public class RmsController {
@@ -47,7 +46,7 @@ public class RmsController {
    *
    * @return rms扫描路径
    */
-  @ApiOperation(value = "返回rms扫描路径", notes = "返回rms扫描路径")
+  @ApiOperation(value = "RMS_1", notes = "返回rms扫描路径")
   @RequestMapping(value = "path/pattern", method = RequestMethod.GET)
   public RestResponse<String> getPathPatterns() {
     return new RestResponse<>(rmsConfig.getRmsPathPatterns());
@@ -58,7 +57,7 @@ public class RmsController {
    *
    * @return rms配置详情
    */
-  @ApiOperation(value = "获得rms配置详情", notes = "获得rms配置详情")
+  @ApiOperation(value = "RMS_2", notes = "获得rms配置详情")
   @RequestMapping(value = "properties", method = RequestMethod.GET)
   public RestResponse<RmsProperties> getProperties() {
     return new RestResponse<>(rmsProperties);

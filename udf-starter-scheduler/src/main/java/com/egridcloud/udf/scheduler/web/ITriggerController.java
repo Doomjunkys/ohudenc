@@ -57,7 +57,7 @@ public interface ITriggerController {
    * @return 操作结果
    * @throws SchedulerException SchedulerException
    */
-  @ApiOperation(value = "SCHEDULER_TRIGGER_1", notes = "保存简单触发器(覆盖)")
+  @ApiOperation(value = "SCHEDULER_TRIGGER_2", notes = "保存简单触发器(覆盖)")
   @ApiImplicitParams({
       @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称",
           required = true, dataType = "string"),
