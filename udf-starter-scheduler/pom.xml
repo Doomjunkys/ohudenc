@@ -9,7 +9,7 @@
   <url>http://www.egridcloud.com</url>
   <!-- 父依赖 -->
   <parent>
-    <groupId>com.egridcloud.udf</groupId>
+    <groupId>org.itkk.udf</groupId>
     <artifactId>udf-starter</artifactId>
     <version>1.0</version>
   </parent>
@@ -17,17 +17,17 @@
   <dependencies>
     <!-- udf-core-starter -->
     <dependency>
-      <groupId>com.egridcloud.udf</groupId>
+      <groupId>org.itkk.udf</groupId>
       <artifactId>udf-starter-core</artifactId>
     </dependency>
     <!-- udf-starter-rms -->
     <dependency>
-      <groupId>com.egridcloud.udf</groupId>
+      <groupId>org.itkk.udf</groupId>
       <artifactId>udf-starter-rms</artifactId>
     </dependency>
     <!-- udf-starter-scheduler-client -->
     <dependency>
-      <groupId>com.egridcloud.udf</groupId>
+      <groupId>org.itkk.udf</groupId>
       <artifactId>udf-starter-scheduler-client</artifactId>
     </dependency>
     <!-- spring-context-support -->

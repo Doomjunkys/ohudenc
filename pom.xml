@@ -3,7 +3,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <!-- mavne坐标 -->
-  <groupId>com.egridcloud.udf</groupId>
+  <groupId>org.itkk.udf</groupId>
   <artifactId>udf-starter</artifactId>
   <version>1.0</version>
   <packaging>pom</packaging>
@@ -55,49 +55,49 @@
       </dependency>
       <!-- udf-starter-core -->
       <dependency>
-        <groupId>com.egridcloud.udf</groupId>
+        <groupId>org.itkk.udf</groupId>
         <artifactId>udf-starter-core</artifactId>
         <version>${udf-starter.version}</version>
       </dependency>
       <!-- udf-starter-rms -->
       <dependency>
-        <groupId>com.egridcloud.udf</groupId>
+        <groupId>org.itkk.udf</groupId>
         <artifactId>udf-starter-rms</artifactId>
         <version>${udf-starter.version}</version>
       </dependency>
       <!-- udf-starter-cors -->
       <dependency>
-        <groupId>com.egridcloud.udf</groupId>
+        <groupId>org.itkk.udf</groupId>
         <artifactId>udf-starter-cors</artifactId>
         <version>${udf-starter.version}</version>
       </dependency>
       <!-- udf-starter-amqp-rabbitmq -->
       <dependency>
-        <groupId>com.egridcloud.udf</groupId>
+        <groupId>org.itkk.udf</groupId>
         <artifactId>udf-starter-amqp-rabbitmq</artifactId>
         <version>${udf-starter.version}</version>
       </dependency>
       <!-- udf-starter-file -->
       <dependency>
-        <groupId>com.egridcloud.udf</groupId>
+        <groupId>org.itkk.udf</groupId>
         <artifactId>udf-starter-file</artifactId>
         <version>${udf-starter.version}</version>
       </dependency>
       <!-- udf-starter-mail -->
       <dependency>
-        <groupId>com.egridcloud.udf</groupId>
+        <groupId>org.itkk.udf</groupId>
         <artifactId>udf-starter-mail</artifactId>
         <version>${udf-starter.version}</version>
       </dependency>
 	  <!-- udf-starter-scheduler -->
       <dependency>
-        <groupId>com.egridcloud.udf</groupId>
+        <groupId>org.itkk.udf</groupId>
         <artifactId>udf-starter-scheduler</artifactId>
         <version>${udf-starter.version}</version>
       </dependency>
       <!-- udf-starter-scheduler-client -->
       <dependency>
-        <groupId>com.egridcloud.udf</groupId>
+        <groupId>org.itkk.udf</groupId>
         <artifactId>udf-starter-scheduler-client</artifactId>
         <version>${udf-starter.version}</version>
       </dependency>

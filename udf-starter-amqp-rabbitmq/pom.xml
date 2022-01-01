@@ -9,7 +9,7 @@
   <url>http://www.egridcloud.com</url>
   <!-- 父依赖 -->
   <parent>
-    <groupId>com.egridcloud.udf</groupId>
+    <groupId>org.itkk.udf</groupId>
     <artifactId>udf-starter</artifactId>
     <version>1.0</version>
   </parent>
@@ -17,7 +17,7 @@
   <dependencies>
     <!-- udf-core-starter -->
     <dependency>
-      <groupId>com.egridcloud.udf</groupId>
+      <groupId>org.itkk.udf</groupId>
       <artifactId>udf-starter-core</artifactId>
     </dependency>
     <!-- spring-cloud-starter-bus-amqp 消息总线 -->

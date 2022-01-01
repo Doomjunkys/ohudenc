@@ -9,7 +9,7 @@
   <url>http://www.egridcloud.com</url>
   <!-- 父依赖 -->
   <parent>
-    <groupId>com.egridcloud.udf</groupId>
+    <groupId>org.itkk.udf</groupId>
     <artifactId>udf-starter</artifactId>
     <version>1.0</version>
   </parent>
