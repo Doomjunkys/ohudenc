@@ -2,7 +2,7 @@
  * MailController.java
  * Created at 2017-05-26
  * Created by Administrator
- * Copyright (C) 2016 egridcloud.com, All rights reserved.
+ * Copyright (C) 2016 itkk.org, All rights reserved.
  */
 package com.egridcloud.udf.mail.web;
 

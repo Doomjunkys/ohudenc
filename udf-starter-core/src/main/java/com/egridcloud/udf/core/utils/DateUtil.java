@@ -2,7 +2,7 @@
  * DateUtil.java
  * Created at 2017-06-02
  * Created by Administrator
- * Copyright (C) 2016 egridcloud.com, All rights reserved.
+ * Copyright (C) 2016 itkk.org, All rights reserved.
  */
 package com.egridcloud.udf.core.utils;
 
@@ -250,26 +250,8 @@ public class DateUtil {
    * @throws ParseException 异常
    * @see #string2Timezone(String, String, String, String)
    */
-  public static String stringToTimezoneDefault(String srcDateTime, String dstTimeZoneId)
-      throws ParseException {
-    return stringToTimezone("yyyy-MM-dd HH:mm:ss", srcDateTime, "yyyy-MM-dd HH:mm:ss",
-        dstTimeZoneId);
+  public static String stringToTimezoneDefault(String srcDateTime, String dstTimeZoneId) throws ParseException {
+    return stringToTimezone("yyyy-MM-dd HH:mm:ss", srcDateTime, "yyyy-MM-dd HH:mm:ss", dstTimeZoneId);
   }
-
-  /**
-   * 测试的main方法.
-   * 
-   * @param argc
-   * @throws ParseException
-   */
-  //    public static void main(String[] argc) throws ParseException {
-  //
-  //        List<String> ids = fecthAllTimeZoneIds();
-  //        String nowDateTime = dateToString("yyyy-MM-dd HH:mm:ss"); 
-  //        // 显示世界每个时区当前的实际时间
-  //        for (int i = 0; i < ids.size(); i++) {
-  //        }
-  //        // 显示程序运行所在地的时区
-  //    }
 
 }

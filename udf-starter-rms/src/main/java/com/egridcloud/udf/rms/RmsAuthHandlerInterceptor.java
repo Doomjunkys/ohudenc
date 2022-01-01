@@ -2,7 +2,7 @@
  * SystemTagAuthHandlerInterceptor.java
  * Created at 2016-11-16
  * Created by wangkang
- * Copyright (C) 2016 egridcloud.com, All rights reserved.
+ * Copyright (C) 2016 itkk.org, All rights reserved.
  */
 package com.egridcloud.udf.rms;
 

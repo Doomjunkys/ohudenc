@@ -2,7 +2,7 @@
  * FileService.java
  * Created at 2017-05-26
  * Created by Administrator
- * Copyright (C) 2016 egridcloud.com, All rights reserved.
+ * Copyright (C) 2016 itkk.org, All rights reserved.
  */
 package com.egridcloud.udf.file.service;
 
@@ -97,8 +97,7 @@ public class FileService {
    * @throws IllegalStateException 异常
    * @throws IOException 异常
    */
-  public FileInfo upload(String pathCode, MultipartFile file)
-      throws IllegalStateException, IOException {
+  public FileInfo upload(String pathCode, MultipartFile file) throws IOException {
     //验证
     this.verification(pathCode, file);
     //创建返回对象

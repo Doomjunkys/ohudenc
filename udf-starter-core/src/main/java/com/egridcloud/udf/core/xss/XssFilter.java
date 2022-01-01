@@ -2,7 +2,7 @@
  * XssFilter.java
  * Created at 2016-09-19
  * Created by wangkang
- * Copyright (C) 2016 egridcloud.com, All rights reserved.
+ * Copyright (C) 2016 itkk.org, All rights reserved.
  */
 package com.egridcloud.udf.core.xss;
 

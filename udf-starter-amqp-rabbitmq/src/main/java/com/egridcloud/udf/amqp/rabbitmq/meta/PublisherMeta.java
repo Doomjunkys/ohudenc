@@ -2,7 +2,7 @@
  * PublisherMeta.java
  * Created at 2017-05-23
  * Created by Administrator
- * Copyright (C) 2016 egridcloud.com, All rights reserved.
+ * Copyright (C) 2016 itkk.org, All rights reserved.
  */
 package com.egridcloud.udf.amqp.rabbitmq.meta;
 

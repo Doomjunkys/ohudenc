@@ -2,7 +2,7 @@
  * SchedulerConfig.java
  * Created at 2017-06-01
  * Created by Administrator
- * Copyright (C) 2016 egridcloud.com, All rights reserved.
+ * Copyright (C) 2016 itkk.org, All rights reserved.
  */
 package com.egridcloud.udf.scheduler;
 
@@ -129,12 +129,12 @@ public class SchedulerConfig {
    * @throws IOException IOException
    */
   @Bean("clusterQuartzScheduler")
-  public SchedulerFactoryBean schedulerFactoryBean(DataSource dataSource, JobFactory jobFactory,
+  public SchedulerFactoryBean schedulerFactoryBean(DataSource dataSource, JobFactory jobFactory, //NOSONAR
       Properties quartzProperties, SchedulerListener schListener, JobListener jobDetailListener,
       TriggerListener triggerDetailListener,
       @Qualifier("clearScheduledLogTrigger") Trigger clearScheduledLogTrigger,
       @Qualifier("clearScheduledTriggerLogTrigger") Trigger clearScheduledTriggerLogTrigger)
-      throws IOException {
+      throws IOException { //NOSONAR
     //实例化
     SchedulerFactoryBean factory = new SchedulerFactoryBean();
     factory.setDataSource(dataSource);

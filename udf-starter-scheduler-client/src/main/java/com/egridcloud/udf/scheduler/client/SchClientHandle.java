@@ -2,7 +2,7 @@
  * SchClientService.java
  * Created at 2017-06-12
  * Created by Administrator
- * Copyright (C) 2016 egridcloud.com, All rights reserved.
+ * Copyright (C) 2016 itkk.org, All rights reserved.
  */
 package com.egridcloud.udf.scheduler.client;
 
@@ -11,7 +11,6 @@ import java.util.Date;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -125,7 +124,7 @@ public class SchClientHandle implements ApplicationContextAware {
   }
 
   @Override
-  public void setApplicationContext(ApplicationContext arg0) throws BeansException {
+  public void setApplicationContext(ApplicationContext arg0) {
     applicationContext = arg0;
   }
 

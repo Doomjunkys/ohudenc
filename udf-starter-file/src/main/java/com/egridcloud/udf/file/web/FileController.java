@@ -2,7 +2,7 @@
  * FileController.java
  * Created at 2017-05-26
  * Created by Administrator
- * Copyright (C) 2016 egridcloud.com, All rights reserved.
+ * Copyright (C) 2016 itkk.org, All rights reserved.
  */
 package com.egridcloud.udf.file.web;
 
@@ -53,8 +53,7 @@ public class FileController implements IFileController {
   private FileService fileService;
 
   @Override
-  public RestResponse<FileInfo> upload(String pathCode, MultipartFile file)
-      throws IllegalStateException, IOException {
+  public RestResponse<FileInfo> upload(String pathCode, MultipartFile file) throws IOException {
     return new RestResponse<>(fileService.upload(pathCode, file));
   }
 

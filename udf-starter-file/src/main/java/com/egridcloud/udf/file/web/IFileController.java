@@ -2,7 +2,7 @@
  * IFileController.java
  * Created at 2017-05-26
  * Created by Administrator
- * Copyright (C) 2016 egridcloud.com, All rights reserved.
+ * Copyright (C) 2016 itkk.org, All rights reserved.
  */
 package com.egridcloud.udf.file.web;
 
@@ -58,7 +58,6 @@ public interface IFileController {
    * @param pathCode 路径代码
    * @param file 文件
    * @return 结果
-   * @throws IllegalStateException 异常
    * @throws IOException 异常
    */
   @ApiOperation(value = "FILE_1", notes = "上传文件")
@@ -74,8 +73,7 @@ public interface IFileController {
       @ApiImplicitParam(paramType = "form", name = "file", value = "文件", required = true,
           dataType = "__file") })
   @RequestMapping(value = "upload", method = RequestMethod.POST)
-  public RestResponse<FileInfo> upload(String pathCode, MultipartFile file)
-      throws IllegalStateException, IOException;
+  public RestResponse<FileInfo> upload(String pathCode, MultipartFile file) throws IOException;
 
   /**
    * 描述 : 通过文件ID访问文件
