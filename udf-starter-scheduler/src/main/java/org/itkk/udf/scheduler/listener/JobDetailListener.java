@@ -32,47 +32,47 @@ import org.itkk.udf.scheduler.service.ListenerService;
  */
 public class JobDetailListener implements JobListener {
 
-  /**
-   * 描述 : 日志
-   */
-  private static final Logger LOGGER = LoggerFactory.getLogger(JobDetailListener.class);
+    /**
+     * 描述 : 日志
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(JobDetailListener.class);
 
-  /**
-   * 描述 : listenerService
-   */
-  @Autowired
-  private ListenerService listenerService;
+    /**
+     * 描述 : listenerService
+     */
+    @Autowired
+    private ListenerService listenerService;
 
-  @Override
-  public String getName() {
-    return "JobDetailListener";
-  }
-
-  @Override
-  public void jobToBeExecuted(JobExecutionContext context) { // 4
-    try {
-      this.listenerService.saveJobToBeExecuted(context);
-    } catch (SchedulerException e) {
-      LOGGER.error("jobToBeExecuted:", e);
+    @Override
+    public String getName() {
+        return "JobDetailListener";
     }
-  }
 
-  @Override
-  public void jobExecutionVetoed(JobExecutionContext context) { // 5
-    try {
-      this.listenerService.saveJobExecutionVetoed(context);
-    } catch (SchedulerException e) {
-      LOGGER.error("jobExecutionVetoed:", e);
+    @Override
+    public void jobToBeExecuted(JobExecutionContext context) { // 4
+        try {
+            this.listenerService.saveJobToBeExecuted(context);
+        } catch (SchedulerException e) {
+            LOGGER.error("jobToBeExecuted:", e);
+        }
     }
-  }
 
-  @Override
-  public void jobWasExecuted(JobExecutionContext context, JobExecutionException jobException) { // 6
-    try {
-      this.listenerService.saveJobWasExecuted(context, jobException);
-    } catch (SchedulerException e) {
-      LOGGER.error("jobWasExecuted:", e);
+    @Override
+    public void jobExecutionVetoed(JobExecutionContext context) { // 5
+        try {
+            this.listenerService.saveJobExecutionVetoed(context);
+        } catch (SchedulerException e) {
+            LOGGER.error("jobExecutionVetoed:", e);
+        }
     }
-  }
+
+    @Override
+    public void jobWasExecuted(JobExecutionContext context, JobExecutionException jobException) { // 6
+        try {
+            this.listenerService.saveJobWasExecuted(context, jobException);
+        } catch (SchedulerException e) {
+            LOGGER.error("jobWasExecuted:", e);
+        }
+    }
 
 }

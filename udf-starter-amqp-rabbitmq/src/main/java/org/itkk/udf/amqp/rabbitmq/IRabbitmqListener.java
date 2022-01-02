@@ -13,43 +13,42 @@ import org.springframework.amqp.core.Queue;
  * 描述 : IRabbitmqListener
  *
  * @author wangkang
- *
  */
 public interface IRabbitmqListener<T> {
 
-  /**
-   * 描述 : 消费者队列(Bean)
-   *
-   * @return Queue
-   */
-  public Queue queue();
+    /**
+     * 描述 : 消费者队列(Bean)
+     *
+     * @return Queue
+     */
+    Queue queue();
 
-  /**
-   * 描述 : 死信消费者队列(Bean)
-   *
-   * @return Queue
-   */
-  public Queue dlxQueue();
+    /**
+     * 描述 : 死信消费者队列(Bean)
+     *
+     * @return Queue
+     */
+    Queue dlxQueue();
 
-  /**
-   * 描述 : 绑定(Bean)
-   *
-   * @return Binding
-   */
-  public Binding binding();
+    /**
+     * 描述 : 绑定(Bean)
+     *
+     * @return Binding
+     */
+    Binding binding();
 
-  /**
-   * 描述 : 死信绑定(Bean)
-   *
-   * @return Binding
-   */
-  public Binding dlxBinding();
+    /**
+     * 描述 : 死信绑定(Bean)
+     *
+     * @return Binding
+     */
+    Binding dlxBinding();
 
-  /**
-   * 描述 : 处理消息
-   *
-   * @param message 消息
-   */
-  public void process(RabbitmqMessage<T> message);
+    /**
+     * 描述 : 处理消息
+     *
+     * @param message 消息
+     */
+    void process(RabbitmqMessage<T> message);
 
 }

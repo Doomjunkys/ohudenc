@@ -33,54 +33,54 @@ import org.itkk.udf.scheduler.service.ListenerService;
  */
 public class TriggerDetailListener implements TriggerListener {
 
-  /**
-   * 描述 : 日志
-   */
-  private static final Logger LOGGER = LoggerFactory.getLogger(TriggerDetailListener.class);
+    /**
+     * 描述 : 日志
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(TriggerDetailListener.class);
 
-  /**
-   * 描述 : listenerService
-   */
-  @Autowired
-  private ListenerService listenerService;
+    /**
+     * 描述 : listenerService
+     */
+    @Autowired
+    private ListenerService listenerService;
 
-  @Override
-  public String getName() {
-    return "TriggerDetailListener";
-  }
-
-  @Override
-  public void triggerFired(Trigger trigger, JobExecutionContext context) { // 2
-    try {
-      this.listenerService.saveTriggerFired(context);
-    } catch (SchedulerException e) {
-      LOGGER.error("triggerFired error:", e);
+    @Override
+    public String getName() {
+        return "TriggerDetailListener";
     }
-  }
 
-  @Override
-  public boolean vetoJobExecution(Trigger trigger, JobExecutionContext context) { // 3
-    boolean vetoed = false;
-    try {
-      vetoed = this.listenerService.saveVetoJobExecution(context);
-    } catch (SchedulerException e) {
-      LOGGER.error("vetoJobExecution error:", e);
+    @Override
+    public void triggerFired(Trigger trigger, JobExecutionContext context) { // 2
+        try {
+            this.listenerService.saveTriggerFired(context);
+        } catch (SchedulerException e) {
+            LOGGER.error("triggerFired error:", e);
+        }
     }
-    return vetoed;
-  }
 
-  @Override
-  public void triggerMisfired(Trigger trigger) { // 1
-    this.listenerService.saveTriggerMisfired(trigger);
-  }
-
-  @Override
-  public void triggerComplete(Trigger trigger, JobExecutionContext context,
-      CompletedExecutionInstruction triggerInstructionCode) { // 7
-    try {
-      this.listenerService.saveTriggerComplete(context, triggerInstructionCode);
-    } catch (SchedulerException e) {
-      LOGGER.error("triggerComplete error:", e);
+    @Override
+    public boolean vetoJobExecution(Trigger trigger, JobExecutionContext context) { // 3
+        boolean vetoed = false;
+        try {
+            vetoed = this.listenerService.saveVetoJobExecution(context);
+        } catch (SchedulerException e) {
+            LOGGER.error("vetoJobExecution error:", e);
+        }
+        return vetoed;
     }
-  }
+
+    @Override
+    public void triggerMisfired(Trigger trigger) { // 1
+        this.listenerService.saveTriggerMisfired(trigger);
+    }
+
+    @Override
+    public void triggerComplete(Trigger trigger, JobExecutionContext context,
+                                CompletedExecutionInstruction triggerInstructionCode) { // 7
+        try {
+            this.listenerService.saveTriggerComplete(context, triggerInstructionCode);
+        } catch (SchedulerException e) {
+            LOGGER.error("triggerComplete error:", e);
+        }
+    }
 }

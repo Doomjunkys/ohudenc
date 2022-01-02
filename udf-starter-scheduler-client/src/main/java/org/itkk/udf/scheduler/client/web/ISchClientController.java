@@ -23,29 +23,27 @@ import io.swagger.annotations.ApiOperation;
  * 描述 : ISchClientController
  *
  * @author Administrator
- *
  */
 @Api(value = "计划任务客户端", consumes = "application/json", produces = "application/json",
-    protocols = "http")
+        protocols = "http")
 @RequestMapping(value = "/service/scheduler/client")
 public interface ISchClientController {
 
-  /**
-   * 描述 : 执行计划任务
-   *
-   * @param param param
-   *
-   * @return 执行计划任务
-   */
-  @ApiOperation(value = "接口编号自定义", notes = "执行计划任务")
-  @ApiImplicitParams({
-      @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称",
-          required = true, dataType = "string"),
-      @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true,
-          dataType = "string"),
-      @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号",
-          required = true, dataType = "string") })
-  @RequestMapping(method = RequestMethod.POST)
-  public RestResponse<RmsJobResult> execute(@RequestBody RmsJobParam param);
+    /**
+     * 描述 : 执行计划任务
+     *
+     * @param param param
+     * @return 执行计划任务
+     */
+    @ApiOperation(value = "接口编号自定义", notes = "执行计划任务")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称",
+                    required = true, dataType = "string"),
+            @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true,
+                    dataType = "string"),
+            @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号",
+                    required = true, dataType = "string")})
+    @RequestMapping(method = RequestMethod.POST)
+    RestResponse<RmsJobResult> execute(@RequestBody RmsJobParam param);
 
 }

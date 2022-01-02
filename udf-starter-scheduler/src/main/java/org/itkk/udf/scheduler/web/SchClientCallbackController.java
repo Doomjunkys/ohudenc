@@ -18,23 +18,22 @@ import org.itkk.udf.scheduler.client.domain.RmsJobResult;
  * 描述 : JobController
  *
  * @author Administrator
- *
  */
 @RestController
 public class SchClientCallbackController implements ISchClientCallbackController {
 
-  /**
-   * 描述 : rmsJobLog
-   */
-  @Autowired(required = false)
-  private IRmsJobLog rmsJobLog;
+    /**
+     * 描述 : rmsJobLog
+     */
+    @Autowired(required = false)
+    private IRmsJobLog rmsJobLog;
 
-  @Override
-  public RestResponse<String> callback(@RequestBody RmsJobResult result) {
-    if (rmsJobLog != null) {
-      rmsJobLog.save(result);
+    @Override
+    public RestResponse<String> callback(@RequestBody RmsJobResult result) {
+        if (rmsJobLog != null) {
+            rmsJobLog.save(result);
+        }
+        return new RestResponse<>();
     }
-    return new RestResponse<>();
-  }
 
 }

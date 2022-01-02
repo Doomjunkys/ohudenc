@@ -16,25 +16,24 @@ import org.springframework.stereotype.Service;
  * 描述 : SchedulerService
  *
  * @author Administrator
- *
  */
 @Service
 public class SchedulerService {
 
-  /**
-   * 描述 : SchedulerFactoryBean
-   */
-  @Autowired
-  @Qualifier("clusterQuartzScheduler")
-  private SchedulerFactoryBean s;
+    /**
+     * 描述 : SchedulerFactoryBean
+     */
+    @Autowired
+    @Qualifier("clusterQuartzScheduler")
+    private SchedulerFactoryBean s;
 
-  /**
-   * 描述 : 清理
-   *
-   * @throws SchedulerException SchedulerException
-   */
-  public void clear() throws SchedulerException {
-    this.s.getScheduler().clear();
-  }
+    /**
+     * 描述 : 清理
+     *
+     * @throws SchedulerException SchedulerException
+     */
+    public void clear() throws SchedulerException {
+        this.s.getScheduler().clear();
+    }
 
 }

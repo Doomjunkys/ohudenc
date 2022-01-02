@@ -6,47 +6,46 @@
  */
 package org.itkk.udf.mail;
 
-import java.io.Serializable;
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
+
+import java.io.Serializable;
 
 /**
  * 描述 : MailProperties
  *
  * @author Administrator
- *
  */
 @Component
 @ConfigurationProperties(prefix = "org.itkk.mail.properties")
 public class MailProperties implements Serializable {
 
-  /**
-   * 描述 : ID
-   */
-  private static final long serialVersionUID = 1L;
+    /**
+     * 描述 : ID
+     */
+    private static final long serialVersionUID = 1L;
 
-  /**
-   * 描述 : 发送地址
-   */
-  private String from;
+    /**
+     * 描述 : 发送地址
+     */
+    private String from;
 
-  /**
-   * 描述 : 获取from
-   *
-   * @return the from
-   */
-  public String getFrom() {
-    return from;
-  }
+    /**
+     * 描述 : 获取from
+     *
+     * @return the from
+     */
+    public String getFrom() {
+        return from;
+    }
 
-  /**
-   * 描述 : 设置from
-   *
-   * @param from the from to set
-   */
-  public void setFrom(String from) {
-    this.from = from;
-  }
+    /**
+     * 描述 : 设置from
+     *
+     * @param from the from to set
+     */
+    public void setFrom(String from) {
+        this.from = from;
+    }
 
 }

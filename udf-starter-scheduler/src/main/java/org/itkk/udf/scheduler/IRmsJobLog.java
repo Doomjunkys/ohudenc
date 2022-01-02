@@ -12,22 +12,21 @@ import org.itkk.udf.scheduler.client.domain.RmsJobResult;
  * 描述 : IRmsJobLog
  *
  * @author Administrator
- *
  */
 public interface IRmsJobLog {
 
-  /**
-   * 描述 : save
-   *
-   * @param result result
-   */
-  public void save(RmsJobResult result);
+    /**
+     * 描述 : save
+     *
+     * @param result result
+     */
+    void save(RmsJobResult result);
 
-  /**
-   * 描述 : delete
-   *
-   * @param fireInstanceId fireInstanceId
-   */
-  public void delete(String fireInstanceId);
+    /**
+     * 描述 : delete
+     *
+     * @param fireInstanceId fireInstanceId
+     */
+    void delete(String fireInstanceId);
 
 }

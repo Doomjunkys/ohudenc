@@ -22,116 +22,115 @@ import io.swagger.annotations.ApiOperation;
  * 描述 : ITriggerController
  *
  * @author Administrator
- *
  */
 @Api(value = "触发器服务", consumes = "application/json", produces = "application/json",
-    protocols = "http")
+        protocols = "http")
 @RequestMapping(value = "/service/scheduler/trigger")
 public interface ITriggerController {
 
-  /**
-   * 描述 : 保存简单触发器
-   *
-   * @param triggerCode 触发器代码
-   * @return 操作结果
-   * @throws SchedulerException SchedulerException
-   */
-  @ApiOperation(value = "SCHEDULER_TRIGGER_1", notes = "保存简单触发器")
-  @ApiImplicitParams({
-      @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称",
-          required = true, dataType = "string"),
-      @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true,
-          dataType = "string"),
-      @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号",
-          required = true, dataType = "string"),
-      @ApiImplicitParam(paramType = "path", name = "triggerCode", value = "触发器代码", required = true,
-          dataType = "string") })
-  @RequestMapping(value = "simple/{triggerCode}", method = RequestMethod.PUT)
-  public RestResponse<String> saveSimple(@PathVariable String triggerCode) //NOSONAR
-      throws SchedulerException;
+    /**
+     * 描述 : 保存简单触发器
+     *
+     * @param triggerCode 触发器代码
+     * @return 操作结果
+     * @throws SchedulerException SchedulerException
+     */
+    @ApiOperation(value = "SCHEDULER_TRIGGER_1", notes = "保存简单触发器")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称",
+                    required = true, dataType = "string"),
+            @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true,
+                    dataType = "string"),
+            @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号",
+                    required = true, dataType = "string"),
+            @ApiImplicitParam(paramType = "path", name = "triggerCode", value = "触发器代码", required = true,
+                    dataType = "string")})
+    @RequestMapping(value = "simple/{triggerCode}", method = RequestMethod.PUT)
+    RestResponse<String> saveSimple(@PathVariable String triggerCode) //NOSONAR
+            throws SchedulerException;
 
-  /**
-   * 描述 : 保存简单触发器(覆盖)
-   *
-   * @param triggerCode 触发器代码
-   * @return 操作结果
-   * @throws SchedulerException SchedulerException
-   */
-  @ApiOperation(value = "SCHEDULER_TRIGGER_2", notes = "保存简单触发器(覆盖)")
-  @ApiImplicitParams({
-      @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称",
-          required = true, dataType = "string"),
-      @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true,
-          dataType = "string"),
-      @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号",
-          required = true, dataType = "string"),
-      @ApiImplicitParam(paramType = "path", name = "triggerCode", value = "触发器代码", required = true,
-          dataType = "string") })
-  @RequestMapping(value = "simple/{triggerCode}/cover", method = RequestMethod.PUT)
-  public RestResponse<String> saveSimpleCover(@PathVariable String triggerCode) //NOSONAR
-      throws SchedulerException;
+    /**
+     * 描述 : 保存简单触发器(覆盖)
+     *
+     * @param triggerCode 触发器代码
+     * @return 操作结果
+     * @throws SchedulerException SchedulerException
+     */
+    @ApiOperation(value = "SCHEDULER_TRIGGER_2", notes = "保存简单触发器(覆盖)")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称",
+                    required = true, dataType = "string"),
+            @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true,
+                    dataType = "string"),
+            @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号",
+                    required = true, dataType = "string"),
+            @ApiImplicitParam(paramType = "path", name = "triggerCode", value = "触发器代码", required = true,
+                    dataType = "string")})
+    @RequestMapping(value = "simple/{triggerCode}/cover", method = RequestMethod.PUT)
+    RestResponse<String> saveSimpleCover(@PathVariable String triggerCode) //NOSONAR
+            throws SchedulerException;
 
-  /**
-   * 描述 : 保存CRON触发器
-   *
-   * @param triggerCode 触发器代码
-   * @return 操作结果
-   * @throws SchedulerException SchedulerException
-   */
-  @ApiOperation(value = "SCHEDULER_TRIGGER_3", notes = "保存CRON触发器")
-  @ApiImplicitParams({
-      @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称",
-          required = true, dataType = "string"),
-      @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true,
-          dataType = "string"),
-      @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号",
-          required = true, dataType = "string"),
-      @ApiImplicitParam(paramType = "path", name = "triggerCode", value = "触发器代码", required = true,
-          dataType = "string") })
-  @RequestMapping(value = "cron/{triggerCode}", method = RequestMethod.PUT)
-  public RestResponse<String> saveCron(@PathVariable String triggerCode) //NOSONAR
-      throws SchedulerException;
+    /**
+     * 描述 : 保存CRON触发器
+     *
+     * @param triggerCode 触发器代码
+     * @return 操作结果
+     * @throws SchedulerException SchedulerException
+     */
+    @ApiOperation(value = "SCHEDULER_TRIGGER_3", notes = "保存CRON触发器")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称",
+                    required = true, dataType = "string"),
+            @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true,
+                    dataType = "string"),
+            @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号",
+                    required = true, dataType = "string"),
+            @ApiImplicitParam(paramType = "path", name = "triggerCode", value = "触发器代码", required = true,
+                    dataType = "string")})
+    @RequestMapping(value = "cron/{triggerCode}", method = RequestMethod.PUT)
+    RestResponse<String> saveCron(@PathVariable String triggerCode) //NOSONAR
+            throws SchedulerException;
 
-  /**
-   * 描述 : 保存CRON触发器(覆盖)
-   *
-   * @param triggerCode 触发器代码
-   * @return 操作结果
-   * @throws SchedulerException SchedulerException
-   */
-  @ApiOperation(value = "SCHEDULER_TRIGGER_4", notes = "保存CRON触发器(覆盖)")
-  @ApiImplicitParams({
-      @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称",
-          required = true, dataType = "string"),
-      @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true,
-          dataType = "string"),
-      @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号",
-          required = true, dataType = "string"),
-      @ApiImplicitParam(paramType = "path", name = "triggerCode", value = "触发器代码", required = true,
-          dataType = "string") })
-  @RequestMapping(value = "cron/{triggerCode}/cover", method = RequestMethod.PUT)
-  public RestResponse<String> saveCronCover(@PathVariable String triggerCode) //NOSONAR
-      throws SchedulerException;
+    /**
+     * 描述 : 保存CRON触发器(覆盖)
+     *
+     * @param triggerCode 触发器代码
+     * @return 操作结果
+     * @throws SchedulerException SchedulerException
+     */
+    @ApiOperation(value = "SCHEDULER_TRIGGER_4", notes = "保存CRON触发器(覆盖)")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称",
+                    required = true, dataType = "string"),
+            @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true,
+                    dataType = "string"),
+            @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号",
+                    required = true, dataType = "string"),
+            @ApiImplicitParam(paramType = "path", name = "triggerCode", value = "触发器代码", required = true,
+                    dataType = "string")})
+    @RequestMapping(value = "cron/{triggerCode}/cover", method = RequestMethod.PUT)
+    RestResponse<String> saveCronCover(@PathVariable String triggerCode) //NOSONAR
+            throws SchedulerException;
 
-  /**
-   * 描述 : 删除触发器
-   *
-   * @param triggerCode 触发器代码
-   * @return 操作结果
-   * @throws SchedulerException SchedulerException
-   */
-  @ApiOperation(value = "SCHEDULER_TRIGGER_5", notes = "删除触发器")
-  @ApiImplicitParams({
-      @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称",
-          required = true, dataType = "string"),
-      @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true,
-          dataType = "string"),
-      @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号",
-          required = true, dataType = "string"),
-      @ApiImplicitParam(paramType = "path", name = "triggerCode", value = "触发器代码", required = true,
-          dataType = "string") })
-  @RequestMapping(value = "{triggerCode}", method = RequestMethod.DELETE)
-  public RestResponse<String> remove(@PathVariable String triggerCode) //NOSONAR
-      throws SchedulerException;
+    /**
+     * 描述 : 删除触发器
+     *
+     * @param triggerCode 触发器代码
+     * @return 操作结果
+     * @throws SchedulerException SchedulerException
+     */
+    @ApiOperation(value = "SCHEDULER_TRIGGER_5", notes = "删除触发器")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称",
+                    required = true, dataType = "string"),
+            @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true,
+                    dataType = "string"),
+            @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号",
+                    required = true, dataType = "string"),
+            @ApiImplicitParam(paramType = "path", name = "triggerCode", value = "触发器代码", required = true,
+                    dataType = "string")})
+    @RequestMapping(value = "{triggerCode}", method = RequestMethod.DELETE)
+    RestResponse<String> remove(@PathVariable String triggerCode) //NOSONAR
+            throws SchedulerException;
 
 }

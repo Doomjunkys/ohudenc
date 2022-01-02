@@ -17,36 +17,34 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * 描述 : RabbitMq配置
  *
  * @author wangkang
- *
  */
 @Configuration
 public class RabbitMqConfig {
 
-  /**
-   * 描述 : rabbitListenerContainerFactoryPlus
-   *
-   * @param rabbitListenerContainerFactory rabbitListenerContainerFactory
-   * @param jackson2JsonMessageConverter jackson2JsonMessageConverter
-   * @return rabbitListenerContainerFactoryPlus
-   */
-  @Bean
-  public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactoryPlus(
-      SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory,
-      Jackson2JsonMessageConverter jackson2JsonMessageConverter) {
-    rabbitListenerContainerFactory.setMessageConverter(jackson2JsonMessageConverter);
-    return rabbitListenerContainerFactory;
-  }
+    /**
+     * 描述 : rabbitListenerContainerFactoryPlus
+     *
+     * @param rabbitListenerContainerFactory rabbitListenerContainerFactory
+     * @param jackson2JsonMessageConverter   jackson2JsonMessageConverter
+     * @return rabbitListenerContainerFactoryPlus
+     */
+    @Bean
+    public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactoryPlus(
+            SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory,
+            Jackson2JsonMessageConverter jackson2JsonMessageConverter) {
+        rabbitListenerContainerFactory.setMessageConverter(jackson2JsonMessageConverter);
+        return rabbitListenerContainerFactory;
+    }
 
-  /**
-   * 描述 : jackson2JsonMessageConverter
-   *
-   * @param xssObjectMapper xssObjectMapper
-   *
-   * @return jackson2JsonMessageConverter
-   */
-  @Bean
-  public Jackson2JsonMessageConverter jackson2JsonMessageConverter(ObjectMapper xssObjectMapper) {
-    return new Jackson2JsonMessageConverter(xssObjectMapper);
-  }
+    /**
+     * 描述 : jackson2JsonMessageConverter
+     *
+     * @param xssObjectMapper xssObjectMapper
+     * @return jackson2JsonMessageConverter
+     */
+    @Bean
+    public Jackson2JsonMessageConverter jackson2JsonMessageConverter(ObjectMapper xssObjectMapper) {
+        return new Jackson2JsonMessageConverter(xssObjectMapper);
+    }
 
 }

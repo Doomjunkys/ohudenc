@@ -24,63 +24,62 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * 描述 : 配置api文档
  *
  * @author wangkang
- *
  */
 @Configuration
 @EnableSwagger2
 public class Swagger2Config {
 
-  /**
-   * 描述 : 系统版本
-   */
-  @Value("${info.build.version}")
-  private String version;
+    /**
+     * 描述 : 系统版本
+     */
+    @Value("${info.build.version}")
+    private String version;
 
-  /**
-   * 描述 : 系统名称
-   */
-  @Value("${info.build.name}")
-  private String projectName;
+    /**
+     * 描述 : 系统名称
+     */
+    @Value("${info.build.name}")
+    private String projectName;
 
-  /**
-   * 描述 : addResourceHandlers
-   *
-   * @return WebMvcConfigurerAdapter
-   */
-  @Bean
-  public WebMvcConfigurerAdapter addResourceHandlers() {
-    return new WebMvcConfigurerAdapter() {
-      @Override
-      public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("swagger-ui.html")
-            .addResourceLocations("classpath:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**")
-            .addResourceLocations("classpath:/META-INF/resources/webjars/");
-      }
-    };
-  }
+    /**
+     * 描述 : addResourceHandlers
+     *
+     * @return WebMvcConfigurerAdapter
+     */
+    @Bean
+    public WebMvcConfigurerAdapter addResourceHandlers() {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addResourceHandlers(ResourceHandlerRegistry registry) {
+                registry.addResourceHandler("swagger-ui.html")
+                        .addResourceLocations("classpath:/META-INF/resources/");
+                registry.addResourceHandler("/webjars/**")
+                        .addResourceLocations("classpath:/META-INF/resources/webjars/");
+            }
+        };
+    }
 
-  /**
-   * 描述 : createRestApi
-   *
-   * @return createRestApi
-   */
-  @Bean
-  public Docket createRestApi() {
-    return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()
-        .apis(RequestHandlerSelectors.basePackage("org.itkk")).paths(PathSelectors.any())
-        .build();
-  }
+    /**
+     * 描述 : createRestApi
+     *
+     * @return createRestApi
+     */
+    @Bean
+    public Docket createRestApi() {
+        return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()
+                .apis(RequestHandlerSelectors.basePackage("org.itkk")).paths(PathSelectors.any())
+                .build();
+    }
 
-  /**
-   * 描述 : apiInfo
-   *
-   * @return apiInfo
-   */
-  private ApiInfo apiInfo() {
-    ApiInfoBuilder apiInfoBuilder = new ApiInfoBuilder();
-    apiInfoBuilder.title(this.projectName + " online api document");
-    apiInfoBuilder.version(version);
-    return apiInfoBuilder.build();
-  }
+    /**
+     * 描述 : apiInfo
+     *
+     * @return apiInfo
+     */
+    private ApiInfo apiInfo() {
+        ApiInfoBuilder apiInfoBuilder = new ApiInfoBuilder();
+        apiInfoBuilder.title(this.projectName + " online api document");
+        apiInfoBuilder.version(version);
+        return apiInfoBuilder.build();
+    }
 }

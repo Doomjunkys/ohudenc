@@ -22,45 +22,44 @@ import io.swagger.annotations.ApiOperation;
  * 描述 : RmsController
  *
  * @author Administrator
- *
  */
 @Api(value = "rest服务", consumes = "application/json", produces = "application/json", protocols = "http")
 @RestController
 @RequestMapping("rms")
 public class RmsController {
 
-  /**
-   * 描述 : rmsConfig
-   */
-  @Autowired
-  private RmsConfig rmsConfig;
+    /**
+     * 描述 : rmsConfig
+     */
+    @Autowired
+    private RmsConfig rmsConfig;
 
-  /**
-   * 描述 : rmsProperties
-   */
-  @Autowired(required = false)
-  private RmsProperties rmsProperties;
+    /**
+     * 描述 : rmsProperties
+     */
+    @Autowired(required = false)
+    private RmsProperties rmsProperties;
 
-  /**
-   * 描述 : 返回rms扫描路径
-   *
-   * @return rms扫描路径
-   */
-  @ApiOperation(value = "RMS_1", notes = "返回rms扫描路径")
-  @RequestMapping(value = "path/pattern", method = RequestMethod.GET)
-  public RestResponse<String> getPathPatterns() {
-    return new RestResponse<>(rmsConfig.getRmsPathPatterns());
-  }
+    /**
+     * 描述 : 返回rms扫描路径
+     *
+     * @return rms扫描路径
+     */
+    @ApiOperation(value = "RMS_1", notes = "返回rms扫描路径")
+    @RequestMapping(value = "path/pattern", method = RequestMethod.GET)
+    public RestResponse<String> getPathPatterns() {
+        return new RestResponse<>(rmsConfig.getRmsPathPatterns());
+    }
 
-  /**
-   * 描述 : 获得rms配置详情
-   *
-   * @return rms配置详情
-   */
-  @ApiOperation(value = "RMS_2", notes = "获得rms配置详情")
-  @RequestMapping(value = "properties", method = RequestMethod.GET)
-  public RestResponse<RmsProperties> getProperties() {
-    return new RestResponse<>(rmsProperties);
-  }
+    /**
+     * 描述 : 获得rms配置详情
+     *
+     * @return rms配置详情
+     */
+    @ApiOperation(value = "RMS_2", notes = "获得rms配置详情")
+    @RequestMapping(value = "properties", method = RequestMethod.GET)
+    public RestResponse<RmsProperties> getProperties() {
+        return new RestResponse<>(rmsProperties);
+    }
 
 }

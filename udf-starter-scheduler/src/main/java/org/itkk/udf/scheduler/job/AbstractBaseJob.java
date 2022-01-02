@@ -15,25 +15,24 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
  * 描述 : AbstractBaseJob
  *
  * @author Administrator
- *
  */
 public abstract class AbstractBaseJob extends QuartzJobBean {
 
-  /**
-   * 描述 : spring上下文
-   */
-  private ApplicationContext applicationContext;
+    /**
+     * 描述 : spring上下文
+     */
+    private ApplicationContext applicationContext;
 
-  @Override
-  protected abstract void executeInternal(JobExecutionContext jobExecutionContext)
-      throws JobExecutionException;
+    @Override
+    protected abstract void executeInternal(JobExecutionContext jobExecutionContext)
+            throws JobExecutionException;
 
-  public ApplicationContext getApplicationContext() {
-    return this.applicationContext;
-  }
+    public ApplicationContext getApplicationContext() {
+        return this.applicationContext;
+    }
 
-  public void setApplicationContext(ApplicationContext applicationContext) {
-    this.applicationContext = applicationContext;
-  }
+    public void setApplicationContext(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
 
 }

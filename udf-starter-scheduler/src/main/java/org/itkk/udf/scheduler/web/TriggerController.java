@@ -18,48 +18,47 @@ import org.itkk.udf.scheduler.service.TriggerService;
  * 描述 : TriggerController
  *
  * @author Administrator
- *
  */
 @RestController
 public class TriggerController implements ITriggerController {
 
-  /**
-   * 描述 : triggerService
-   */
-  @Autowired
-  private TriggerService triggerService;
+    /**
+     * 描述 : triggerService
+     */
+    @Autowired
+    private TriggerService triggerService;
 
-  @Override
-  public RestResponse<String> saveSimple(@PathVariable String triggerCode)
-      throws SchedulerException {
-    triggerService.saveSimpleTirgger(triggerCode, false);
-    return new RestResponse<>();
-  }
+    @Override
+    public RestResponse<String> saveSimple(@PathVariable String triggerCode)
+            throws SchedulerException {
+        triggerService.saveSimpleTirgger(triggerCode, false);
+        return new RestResponse<>();
+    }
 
-  @Override
-  public RestResponse<String> saveSimpleCover(@PathVariable String triggerCode)
-      throws SchedulerException {
-    triggerService.saveSimpleTirgger(triggerCode, true);
-    return new RestResponse<>();
-  }
+    @Override
+    public RestResponse<String> saveSimpleCover(@PathVariable String triggerCode)
+            throws SchedulerException {
+        triggerService.saveSimpleTirgger(triggerCode, true);
+        return new RestResponse<>();
+    }
 
-  @Override
-  public RestResponse<String> saveCron(@PathVariable String triggerCode) throws SchedulerException {
-    triggerService.saveCronTrigger(triggerCode, false);
-    return new RestResponse<>();
-  }
+    @Override
+    public RestResponse<String> saveCron(@PathVariable String triggerCode) throws SchedulerException {
+        triggerService.saveCronTrigger(triggerCode, false);
+        return new RestResponse<>();
+    }
 
-  @Override
-  public RestResponse<String> saveCronCover(@PathVariable String triggerCode)
-      throws SchedulerException {
-    triggerService.saveCronTrigger(triggerCode, true);
-    return new RestResponse<>();
-  }
+    @Override
+    public RestResponse<String> saveCronCover(@PathVariable String triggerCode)
+            throws SchedulerException {
+        triggerService.saveCronTrigger(triggerCode, true);
+        return new RestResponse<>();
+    }
 
-  @Override
-  public RestResponse<String> remove(@PathVariable String triggerCode) throws SchedulerException {
-    triggerService.remove(triggerCode);
-    return new RestResponse<>();
-  }
+    @Override
+    public RestResponse<String> remove(@PathVariable String triggerCode) throws SchedulerException {
+        triggerService.remove(triggerCode);
+        return new RestResponse<>();
+    }
 
 }

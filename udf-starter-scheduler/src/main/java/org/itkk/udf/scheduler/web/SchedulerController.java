@@ -17,21 +17,20 @@ import org.itkk.udf.scheduler.service.SchedulerService;
  * 描述 : SchedulerController
  *
  * @author Administrator
- *
  */
 @RestController
 public class SchedulerController implements ISchedulerController {
 
-  /**
-   * 描述 : SchedulerService
-   */
-  @Autowired
-  private SchedulerService schedulerService;
+    /**
+     * 描述 : SchedulerService
+     */
+    @Autowired
+    private SchedulerService schedulerService;
 
-  @Override
-  public RestResponse<String> clear() throws SchedulerException {
-    schedulerService.clear();
-    return new RestResponse<>();
-  }
+    @Override
+    public RestResponse<String> clear() throws SchedulerException {
+        schedulerService.clear();
+        return new RestResponse<>();
+    }
 
 }

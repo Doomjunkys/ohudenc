@@ -29,13 +29,13 @@ import org.itkk.udf.scheduler.IListenerLog;
 @DisallowConcurrentExecution
 public class ClearScheduledLog extends AbstractBaseJob {
 
-  @Override
-  protected void executeInternal(JobExecutionContext jobExecutionContext)
-      throws JobExecutionException {
-    IListenerLog listenerLog = this.getApplicationContext().getBean(IListenerLog.class);
-    if (listenerLog != null) {
-      listenerLog.clearScheduledLog();
+    @Override
+    protected void executeInternal(JobExecutionContext jobExecutionContext)
+            throws JobExecutionException {
+        IListenerLog listenerLog = this.getApplicationContext().getBean(IListenerLog.class);
+        if (listenerLog != null) {
+            listenerLog.clearScheduledLog();
+        }
     }
-  }
 
 }
