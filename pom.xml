@@ -1,175 +1,175 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <!-- mavne坐标 -->
-  <groupId>org.itkk.udf</groupId>
-  <artifactId>udf-starter</artifactId>
-  <version>1.0</version>
-  <packaging>pom</packaging>
-  <name>udf-starter</name>
-  <url>http://www.egridcloud.com</url>
-  <!-- 公共参数 -->
-  <properties>
-    <udf-starter.version>1.0</udf-starter.version>
-    <springboot.version>1.5.4.RELEASE</springboot.version>
-    <springcloud.version>Dalston.SR1</springcloud.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <java.version>1.8</java.version>
-    <maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
-    <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
-    <springfox-swagger2.version>2.7.0</springfox-swagger2.version>
-    <commons-collections4.version>4.1</commons-collections4.version>
-    <commons-lang3.version>3.5</commons-lang3.version>
-    <quartz.version>2.2.3</quartz.version>
-  </properties>
-  <!--子模块 -->
-  <modules>
-    <module>udf-starter-core</module>
-    <module>udf-starter-rms</module>
-    <module>udf-starter-cors</module>
-    <module>udf-starter-amqp-rabbitmq</module>
-    <module>udf-starter-file</module>
-    <module>udf-starter-mail</module>
-    <module>udf-starter-scheduler</module>
-    <module>udf-starter-scheduler-client</module>
-  </modules>
-  <!-- 依赖管理 -->
-  <dependencyManagement>
-    <dependencies>
-      <!-- spring boot -->
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-dependencies</artifactId>
-        <version>${springboot.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <!-- spring cloud -->
-      <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-dependencies</artifactId>
-        <version>${springcloud.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <!-- udf-starter-core -->
-      <dependency>
-        <groupId>org.itkk.udf</groupId>
-        <artifactId>udf-starter-core</artifactId>
-        <version>${udf-starter.version}</version>
-      </dependency>
-      <!-- udf-starter-rms -->
-      <dependency>
-        <groupId>org.itkk.udf</groupId>
-        <artifactId>udf-starter-rms</artifactId>
-        <version>${udf-starter.version}</version>
-      </dependency>
-      <!-- udf-starter-cors -->
-      <dependency>
-        <groupId>org.itkk.udf</groupId>
-        <artifactId>udf-starter-cors</artifactId>
-        <version>${udf-starter.version}</version>
-      </dependency>
-      <!-- udf-starter-amqp-rabbitmq -->
-      <dependency>
-        <groupId>org.itkk.udf</groupId>
-        <artifactId>udf-starter-amqp-rabbitmq</artifactId>
-        <version>${udf-starter.version}</version>
-      </dependency>
-      <!-- udf-starter-file -->
-      <dependency>
-        <groupId>org.itkk.udf</groupId>
-        <artifactId>udf-starter-file</artifactId>
-        <version>${udf-starter.version}</version>
-      </dependency>
-      <!-- udf-starter-mail -->
-      <dependency>
-        <groupId>org.itkk.udf</groupId>
-        <artifactId>udf-starter-mail</artifactId>
-        <version>${udf-starter.version}</version>
-      </dependency>
-	  <!-- udf-starter-scheduler -->
-      <dependency>
-        <groupId>org.itkk.udf</groupId>
-        <artifactId>udf-starter-scheduler</artifactId>
-        <version>${udf-starter.version}</version>
-      </dependency>
-      <!-- udf-starter-scheduler-client -->
-      <dependency>
-        <groupId>org.itkk.udf</groupId>
-        <artifactId>udf-starter-scheduler-client</artifactId>
-        <version>${udf-starter.version}</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-  <!-- 构建 -->
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>${maven-compiler-plugin.version}</version>
-        <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
-          <encoding>${project.build.sourceEncoding}</encoding>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <version>${maven-source-plugin.version}</version>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
-  <!-- 分发管理 -->
-  <distributionManagement>
-    <!-- 公司内网仓库-snapshot -->
-    <!-- <snapshotRepository> <id>snapshot</id> <url>http://192.168.1.11:8081/nexus/content/repositories/snapshots/</url> 
-      </snapshotRepository> -->
-    <!-- 公司内网仓库-release -->
-    <!-- <repository> <id>release</id> <url>http://192.168.1.11:8081/nexus/content/repositories/releases/</url> </repository> -->
-  </distributionManagement>
-  <!-- 依赖仓库 -->
-  <repositories>
-    <!-- 指定中央仓库(id为central,覆盖默认的中央库设置) -->
-    <repository>
-      <id>central</id>
-      <name>Nexus aliyun</name>
-      <layout>default</layout>
-      <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-    </repository>
-    <!-- 指定公司内网仓库 -->
-    <!-- <repository> <id>egridcloud-nexus</id> <name>Nexus egridcloud</name> <layout>default</layout> <url>http://192.168.1.11:8081/nexus/content/groups/public/</url> 
-      </repository> -->
-  </repositories>
-  <!-- 插件仓库 -->
-  <pluginRepositories>
-    <!-- 指定中央仓库(id为central,覆盖默认的中央库设置) -->
-    <pluginRepository>
-      <id>central</id>
-      <name>Nexus aliyun</name>
-      <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-      <layout>default</layout>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </pluginRepository>
-    <!-- 指定公司内网仓库 -->
-    <!-- <pluginRepository> <id>egridcloud-nexus</id> <name>Nexus egridcloud</name> <url>http://192.168.1.11:8081/nexus/content/groups/public/</url> 
-      <layout>default</layout> <releases> <enabled>true</enabled> </releases> <snapshots> <enabled>true</enabled> </snapshots> 
-      </pluginRepository> -->
-  </pluginRepositories>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <!-- mavne坐标 -->
+    <groupId>org.itkk.udf</groupId>
+    <artifactId>udf-starter</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+    <name>udf-starter</name>
+    <url>http://www.egridcloud.com</url>
+    <!-- 公共参数 -->
+    <properties>
+        <udf-starter.version>1.0</udf-starter.version>
+        <springboot.version>1.5.4.RELEASE</springboot.version>
+        <springcloud.version>Dalston.SR1</springcloud.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
+        <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+        <springfox-swagger2.version>2.7.0</springfox-swagger2.version>
+        <commons-collections4.version>4.1</commons-collections4.version>
+        <commons-lang3.version>3.6</commons-lang3.version>
+        <quartz.version>2.2.3</quartz.version>
+    </properties>
+    <!--子模块 -->
+    <modules>
+        <module>udf-starter-core</module>
+        <module>udf-starter-rms</module>
+        <module>udf-starter-cors</module>
+        <module>udf-starter-amqp-rabbitmq</module>
+        <module>udf-starter-file</module>
+        <module>udf-starter-mail</module>
+        <module>udf-starter-scheduler</module>
+        <module>udf-starter-scheduler-client</module>
+    </modules>
+    <!-- 依赖管理 -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- spring boot -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${springboot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- spring cloud -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${springcloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- udf-starter-core -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-core</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-rms -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-rms</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-cors -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-cors</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-amqp-rabbitmq -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-amqp-rabbitmq</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-file -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-file</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-mail -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-mail</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-scheduler -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-scheduler</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-scheduler-client -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-scheduler-client</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <!-- 构建 -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <!-- 分发管理 -->
+    <distributionManagement>
+        <!-- 公司内网仓库-snapshot -->
+        <!-- <snapshotRepository> <id>snapshot</id> <url>http://192.168.1.11:8081/nexus/content/repositories/snapshots/</url>
+          </snapshotRepository> -->
+        <!-- 公司内网仓库-release -->
+        <!-- <repository> <id>release</id> <url>http://192.168.1.11:8081/nexus/content/repositories/releases/</url> </repository> -->
+    </distributionManagement>
+    <!-- 依赖仓库 -->
+    <repositories>
+        <!-- 指定中央仓库(id为central,覆盖默认的中央库设置) -->
+        <repository>
+            <id>central</id>
+            <name>Nexus aliyun</name>
+            <layout>default</layout>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+        </repository>
+        <!-- 指定公司内网仓库 -->
+        <!-- <repository> <id>egridcloud-nexus</id> <name>Nexus egridcloud</name> <layout>default</layout> <url>http://192.168.1.11:8081/nexus/content/groups/public/</url>
+          </repository> -->
+    </repositories>
+    <!-- 插件仓库 -->
+    <pluginRepositories>
+        <!-- 指定中央仓库(id为central,覆盖默认的中央库设置) -->
+        <pluginRepository>
+            <id>central</id>
+            <name>Nexus aliyun</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+        <!-- 指定公司内网仓库 -->
+        <!-- <pluginRepository> <id>egridcloud-nexus</id> <name>Nexus egridcloud</name> <url>http://192.168.1.11:8081/nexus/content/groups/public/</url>
+          <layout>default</layout> <releases> <enabled>true</enabled> </releases> <snapshots> <enabled>true</enabled> </snapshots>
+          </pluginRepository> -->
+    </pluginRepositories>
 </project>
