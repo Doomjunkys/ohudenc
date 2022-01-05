@@ -8,7 +8,6 @@ package org.itkk.udf.mail.web;
 
 import org.itkk.udf.core.RestResponse;
 import org.itkk.udf.core.domain.mail.MailInfo;
-import org.itkk.udf.core.exception.ErrorCode;
 import org.itkk.udf.core.exception.ParameterValidException;
 import org.itkk.udf.mail.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +37,7 @@ public class MailController implements IMailController {
             throws MessagingException {
         //校验
         if (result.hasErrors()) {
-            throw new ParameterValidException(ErrorCode.PARAMETER_VALID_ERROR.value(),
+            throw new ParameterValidException("校验失败",
                     result.getAllErrors());
         }
         //发送

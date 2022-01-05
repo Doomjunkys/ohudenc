@@ -8,8 +8,8 @@ package org.itkk.udf.core;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.itkk.udf.core.exception.ErrorCode;
 import org.itkk.udf.core.exception.ErrorResult;
+import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -37,13 +37,13 @@ public class RestResponse<T> implements Serializable {
      * 描述 : 状态码(业务定义)
      */
     @ApiModelProperty(value = "状态码(业务定义)", required = true, dataType = "string")
-    private String code = "SUCCESS";
+    private String code = Integer.toString(HttpStatus.OK.value());
 
     /**
      * 描述 : 状态码描述(业务定义)
      */
     @ApiModelProperty(value = "状态码描述(业务定义)", required = true, dataType = "string")
-    private String message = "操作成功";
+    private String message = HttpStatus.OK.getReasonPhrase();
 
     /**
      * 描述 : 结果集(泛型)
@@ -77,13 +77,13 @@ public class RestResponse<T> implements Serializable {
     /**
      * 描述 : 构造函数
      *
-     * @param errorCode 错误码
-     * @param error     错误
+     * @param httpStatus http状态
+     * @param error      错误
      */
-    public RestResponse(ErrorCode errorCode, ErrorResult error) {
+    public RestResponse(HttpStatus httpStatus, ErrorResult error) {
         super();
-        this.code = errorCode.name();
-        this.message = errorCode.value();
+        this.code = Integer.toString(httpStatus.value());
+        this.message = httpStatus.getReasonPhrase();
         this.error = error;
     }
 
