@@ -5,8 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.itkk.udf.core.ApplicationConfig;
 import org.itkk.udf.core.RestResponse;
-import org.itkk.udf.core.exception.ErrorResult;
-import org.itkk.udf.core.exception.SystemRuntimeException;
+import org.itkk.udf.core.exception.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -53,24 +52,29 @@ public class ExceptionHandle extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        RestResponse<String> result = new RestResponse<>(status, buildError(ex));
-        //判断是不是rest请求异常
-        if (ex instanceof RestClientResponseException) {
+        HttpStatus localHttpStatus = status;
+        ErrorResult errorResult = this.buildError(ex);
+        if (ex instanceof PermissionException) { //权限异常
+            localHttpStatus = HttpStatus.FORBIDDEN;
+        } else if (ex instanceof AuthException) { //认证异常
+            localHttpStatus = HttpStatus.UNAUTHORIZED;
+        } else if (ex instanceof ParameterValidException) { //参数校验异常
+            localHttpStatus = HttpStatus.BAD_REQUEST;
+        } else if (ex instanceof RestClientResponseException) { //rest请求异常
             try {
-                //获得子错误
                 RestClientResponseException restClientResponseException = (RestClientResponseException) ex;
                 String data = restClientResponseException.getResponseBodyAsString();
                 if (StringUtils.isNotBlank(data)) {
-                    //解析子错误
                     RestResponse<String> child = objectMapper.readValue(data, objectMapper.getTypeFactory().constructParametricType(RestResponse.class, String.class));
-                    //设置子错误
-                    result.getError().setChild(child);
+                    errorResult.setChild(child);
                 }
             } catch (IOException e) {
                 throw new SystemRuntimeException(e);
             }
+        } else { //未知异常
+            localHttpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        return super.handleExceptionInternal(ex, result, headers, status, request);
+        return super.handleExceptionInternal(ex, new RestResponse<>(status, errorResult), headers, localHttpStatus, request);
     }
 
     /**
