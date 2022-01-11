@@ -71,8 +71,6 @@ public class ExceptionHandle extends ResponseEntityExceptionHandler {
             } catch (IOException e) {
                 throw new SystemRuntimeException(e);
             }
-        } else { //未知异常
-            localHttpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return super.handleExceptionInternal(ex, new RestResponse<>(status, errorResult), headers, localHttpStatus, request);
     }
