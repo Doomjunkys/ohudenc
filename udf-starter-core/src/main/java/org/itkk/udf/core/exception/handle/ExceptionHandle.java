@@ -72,7 +72,7 @@ public class ExceptionHandle extends ResponseEntityExceptionHandler {
                 throw new SystemRuntimeException(e);
             }
         }
-        return super.handleExceptionInternal(ex, new RestResponse<>(status, errorResult), headers, localHttpStatus, request);
+        return super.handleExceptionInternal(ex, new RestResponse<>(localHttpStatus, errorResult), headers, localHttpStatus, request);
     }
 
     /**
