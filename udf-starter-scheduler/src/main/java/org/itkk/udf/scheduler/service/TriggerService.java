@@ -378,7 +378,7 @@ public class TriggerService {
      * @param triggerCode 触发器代码
      * @return 触发器元数据
      */
-    protected TriggerMeta getTriggerMeta(String triggerCode) {
+    protected TriggerMeta getTriggerMeta(String triggerCode) { //NOSONAR
         TriggerMeta cornTriggerMeta = null;
         TriggerMeta simpleTriggerMeta = null;
         if (MapUtils.isNotEmpty(schedulerProperties.getCronTrigger())) {

@@ -80,7 +80,7 @@ public class RabbitmqListenerBaseAspect {
         for (Method method : methods) { //循环方法
             if (method.getName().equals(methodName)) { //定位方法
                 if (method.isAnnotationPresent(Consumer.class)) { //判断是否包含Consumer注解
-                    for (Annotation anno : method.getDeclaredAnnotations()) { //循环注解
+                    for (Annotation anno : method.getDeclaredAnnotations()) { //NOSONAR //循环注解
                         if (anno.annotationType().equals(Consumer.class)) { //定位注解
                             Consumer consumer = (Consumer) anno; //获得注解
                             if (StringUtils.isNotBlank(consumer.value())) { //判断值

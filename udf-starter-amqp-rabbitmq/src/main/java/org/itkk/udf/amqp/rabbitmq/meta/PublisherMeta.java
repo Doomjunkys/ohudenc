@@ -13,7 +13,7 @@ import java.io.Serializable;
  *
  * @author Administrator
  */
-public class PublisherMeta implements Serializable {
+public class PublisherMeta implements Serializable { //NOSONAR
 
     /**
      * 描述 : ID
