@@ -1,9 +1,3 @@
-/**
- * SubscriberMeta.java
- * Created at 2017-05-23
- * Created by Administrator
- * Copyright (C) 2016 itkk.org, All rights reserved.
- */
 package org.itkk.udf.amqp.rabbitmq.meta;
 
 import java.io.Serializable;
