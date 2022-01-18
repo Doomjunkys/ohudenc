@@ -103,14 +103,12 @@ public class JobService {
             jobDataMap = new JobDataMap(jobDetailMeta.getDataMap());
         }
         //实例化作业
-        JobDetail jobDetail =
-                JobBuilder.newJob(((Class<Job>) Class.forName(jobDetailMeta.getClassName())))
-                        .withIdentity(jobKey).withDescription(jobDetailMeta.getDescription())
-                        .requestRecovery(jobDetailMeta.getRecovery())
-                        .storeDurably(jobDetailMeta.getDurability()).setJobData(jobDataMap).build();
+        JobDetail jobDetail = JobBuilder.newJob(((Class<Job>) Class.forName(jobDetailMeta.getClassName()))) //NOSONAR
+                .withIdentity(jobKey).withDescription(jobDetailMeta.getDescription())
+                .requestRecovery(jobDetailMeta.getRecovery())
+                .storeDurably(jobDetailMeta.getDurability()).setJobData(jobDataMap).build();
         // 添加job
         sch.addJob(jobDetail, true, !jobDetailMeta.getDurability());
-
     }
 
     /**

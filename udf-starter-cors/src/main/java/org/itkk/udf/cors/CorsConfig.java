@@ -42,8 +42,8 @@ public class CorsConfig {
      * @return WebMvcConfigurer
      */
     @Bean
-    public WebMvcConfigurer corsConfigurer() { //NOSONAR
-        return new WebMvcConfigurerAdapter() {
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurerAdapter() { //NOSONAR
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 //扫描地址

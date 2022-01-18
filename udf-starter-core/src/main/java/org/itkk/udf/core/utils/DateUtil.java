@@ -170,8 +170,7 @@ public class DateUtil {
      * @return 转化后的日期时间.
      * @throws ParseException 异常
      */
-    public static String stringToTimezone(String srcFormater, String srcDateTime, String dstFormater,
-                                          String dstTimeZoneId) throws ParseException {
+    public static String stringToTimezone(String srcFormater, String srcDateTime, String dstFormater, String dstTimeZoneId) throws ParseException { //NOSONAR
         if (srcFormater == null || "".equals(srcFormater)) {
             return null;
         }

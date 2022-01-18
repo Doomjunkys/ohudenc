@@ -6,17 +6,15 @@
  */
 package org.itkk.udf.scheduler.web;
 
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-import org.itkk.udf.core.RestResponse;
-import org.itkk.udf.scheduler.client.domain.RmsJobResult;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.itkk.udf.core.RestResponse;
+import org.itkk.udf.scheduler.client.domain.RmsJobResult;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * 描述 : ISchClientCallbackController
@@ -26,7 +24,7 @@ import io.swagger.annotations.ApiOperation;
 @Api(value = "调度客户端回调服务", consumes = "application/json", produces = "application/json",
         protocols = "http")
 @RequestMapping(value = "/service/scheduler/client/callback")
-public interface ISchClientCallbackController {
+public interface ISchClientCallbackController { //NOSONAR
 
     /**
      * 描述 : 客户端回调

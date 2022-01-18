@@ -1,9 +1,3 @@
-/**
- * TriggerService.java
- * Created at 2017-06-02
- * Created by Administrator
- * Copyright (C) 2016 itkk.org, All rights reserved.
- */
 package org.itkk.udf.scheduler.service;
 
 import org.apache.commons.collections4.CollectionUtils;

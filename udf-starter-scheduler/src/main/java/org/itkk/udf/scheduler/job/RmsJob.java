@@ -41,8 +41,7 @@ public class RmsJob extends AbstractBaseJob {
     private static final Logger LOGGER = LoggerFactory.getLogger(RmsJob.class);
 
     @Override
-    protected void executeInternal(JobExecutionContext jobExecutionContext)
-            throws JobExecutionException {
+    protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException { //NOSONAR
         //从trigger中获得jobDataMap
         JobDataMap jobDataMap = jobExecutionContext.getTrigger().getJobDataMap();
         //获得必要字段

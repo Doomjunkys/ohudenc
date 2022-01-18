@@ -6,18 +6,16 @@
  */
 package org.itkk.udf.scheduler.client.web;
 
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-import org.itkk.udf.core.RestResponse;
-import org.itkk.udf.scheduler.client.domain.RmsJobParam;
-import org.itkk.udf.scheduler.client.domain.RmsJobResult;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.itkk.udf.core.RestResponse;
+import org.itkk.udf.scheduler.client.domain.RmsJobParam;
+import org.itkk.udf.scheduler.client.domain.RmsJobResult;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * 描述 : ISchClientController
@@ -27,7 +25,7 @@ import io.swagger.annotations.ApiOperation;
 @Api(value = "计划任务客户端", consumes = "application/json", produces = "application/json",
         protocols = "http")
 @RequestMapping(value = "/service/scheduler/client")
-public interface ISchClientController {
+public interface ISchClientController { //NOSONAR
 
     /**
      * 描述 : 执行计划任务

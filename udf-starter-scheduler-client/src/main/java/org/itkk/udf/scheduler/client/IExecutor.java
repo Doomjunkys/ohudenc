@@ -13,7 +13,7 @@ import java.util.Map;
  *
  * @author Administrator
  */
-public interface IExecutor {
+public interface IExecutor { //NOSONAR
 
     /**
      * 描述 : 执行方法

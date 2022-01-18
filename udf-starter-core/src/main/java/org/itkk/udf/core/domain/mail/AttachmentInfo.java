@@ -1,9 +1,3 @@
-/**
- * AttachmentInfo.java
- * Created at 2017-05-29
- * Created by Administrator
- * Copyright (C) 2016 itkk.org, All rights reserved.
- */
 package org.itkk.udf.core.domain.mail;
 
 import io.swagger.annotations.ApiModel;

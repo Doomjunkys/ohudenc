@@ -1,28 +1,16 @@
-/**
- * SchListener.java
- * Created at 2017-06-01
- * Created by Administrator
- * Copyright (C) 2016 itkk.org, All rights reserved.
- */
 package org.itkk.udf.scheduler.listener;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.quartz.JobDetail;
-import org.quartz.JobKey;
-import org.quartz.SchedulerException;
-import org.quartz.SchedulerListener;
-import org.quartz.Trigger;
-import org.quartz.TriggerKey;
+import org.itkk.udf.scheduler.IListenerLog;
+import org.quartz.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.itkk.udf.scheduler.IListenerLog;
-
 /**
  * <p>
- * ClassName: SchedulerListener
+ * ClassName: SchListener
  * </p>
  * <p>
  * Description: 计划任务监听器

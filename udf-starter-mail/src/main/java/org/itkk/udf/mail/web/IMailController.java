@@ -28,7 +28,7 @@ import javax.validation.Valid;
 @Api(value = "邮件服务", consumes = "application/json", produces = "application/json",
         protocols = "http")
 @RequestMapping(value = "/service/mail")
-public interface IMailController {
+public interface IMailController { //NOSONAR
 
     /**
      * 描述 : 发送邮件
