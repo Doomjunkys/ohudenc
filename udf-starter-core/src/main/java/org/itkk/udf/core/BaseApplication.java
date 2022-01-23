@@ -83,15 +83,4 @@ public class BaseApplication {
         requestFactory.setBufferRequestBody(applicationConfig.getBufferRequestBody());
         return requestFactory;
     }
-
-    /**
-     * 描述 : 分布式ID生成器
-     *
-     * @return 分布式ID生成器
-     */
-    @Bean
-    public IdWorker idWorker() {
-        return new IdWorker();
-    }
-
 }

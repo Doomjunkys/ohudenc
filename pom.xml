@@ -33,6 +33,7 @@
         <module>udf-starter-mail</module>
         <module>udf-starter-scheduler</module>
         <module>udf-starter-scheduler-client</module>
+        <module>udf-starter-id</module>
     </modules>
     <!-- 依赖管理 -->
     <dependencyManagement>
@@ -99,6 +100,12 @@
             <dependency>
                 <groupId>org.itkk.udf</groupId>
                 <artifactId>udf-starter-scheduler-client</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-id -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-id</artifactId>
                 <version>${udf-starter.version}</version>
             </dependency>
         </dependencies>
