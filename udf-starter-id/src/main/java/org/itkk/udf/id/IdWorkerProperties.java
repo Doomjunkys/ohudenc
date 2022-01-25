@@ -18,7 +18,7 @@ public class IdWorkerProperties {
      * ID构造类型
      */
     @NotNull
-    private String type = IdWorker.MAC_PID_TYPE;
+    private String type = IdWorker.UUID_TYPE;
 
     /**
      * D构造类型
