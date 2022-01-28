@@ -21,7 +21,7 @@
         <springfox-swagger2.version>2.7.0</springfox-swagger2.version>
         <commons-collections4.version>4.1</commons-collections4.version>
         <commons-lang3.version>3.6</commons-lang3.version>
-        <quartz.version>2.2.3</quartz.version>
+        <quartz.version>2.3.0</quartz.version>
     </properties>
     <!--子模块 -->
     <modules>
