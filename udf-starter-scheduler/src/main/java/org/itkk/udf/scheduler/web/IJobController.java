@@ -24,8 +24,7 @@ import java.util.Map;
  *
  * @author Administrator
  */
-@Api(value = "作业服务", consumes = "application/json", produces = "application/json",
-        protocols = "http")
+@Api(value = "作业服务", consumes = "application/json", produces = "application/json", protocols = "http")
 @RequestMapping(value = "/service/scheduler/job")
 public interface IJobController {
 
@@ -45,7 +44,7 @@ public interface IJobController {
             @ApiImplicitParam(paramType = "path", name = "jobCode", value = "作业代码", required = true, dataType = "string")
     })
     @RequestMapping(value = "{jobCode}", method = RequestMethod.POST)
-    RestResponse<String> save(@PathVariable String jobCode) throws ClassNotFoundException, SchedulerException;//NOSONAR
+    RestResponse<String> save(@PathVariable String jobCode) throws ClassNotFoundException, SchedulerException; //NOSONAR
 
     /**
      * 描述 : 保存作业(覆盖)
@@ -80,7 +79,7 @@ public interface IJobController {
             @ApiImplicitParam(paramType = "path", name = "jobCode", value = "作业代码", required = true, dataType = "string")
     })
     @RequestMapping(value = "{jobCode}", method = RequestMethod.DELETE)
-    RestResponse<String> remove(@PathVariable String jobCode) throws SchedulerException;//NOSONAR
+    RestResponse<String> remove(@PathVariable String jobCode) throws SchedulerException; //NOSONAR
 
     /**
      * 描述 : 触发作业
