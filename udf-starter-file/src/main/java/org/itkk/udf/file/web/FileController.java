@@ -6,6 +6,7 @@
  */
 package org.itkk.udf.file.web;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.itkk.udf.core.ApplicationConfig;
 import org.itkk.udf.core.RestResponse;
 import org.itkk.udf.core.domain.file.FileInfo;
@@ -22,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 描述 : FileController
@@ -52,6 +55,17 @@ public class FileController implements IFileController {
     @Override
     public RestResponse<FileInfo> upload(String pathCode, MultipartFile file) throws IOException {
         return new RestResponse<>(fileService.upload(pathCode, file));
+    }
+
+    @Override
+    public RestResponse<List<FileInfo>> batchUpload(String pathCode, List<MultipartFile> files) throws IOException {
+        List<FileInfo> infos = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(files)) {
+            for (MultipartFile file : files) {
+                infos.add(fileService.upload(pathCode, file));
+            }
+        }
+        return new RestResponse<>(infos);
     }
 
     @Override
