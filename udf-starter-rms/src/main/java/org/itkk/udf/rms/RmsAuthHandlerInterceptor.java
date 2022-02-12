@@ -79,8 +79,7 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
         //判断环境(开发环境无需校验)
         if (!DEV_PROFILES.equals(env.getProperty("spring.profiles.active"))) {
             //判断是否缺少认证信息
-            if (StringUtils.isBlank(rmsApplicationName) || StringUtils.isBlank(rmsSign)
-                    || StringUtils.isBlank(rmsServiceCode)) {
+            if (StringUtils.isBlank(rmsApplicationName) || StringUtils.isBlank(rmsSign)) {
                 throw new AuthException("missing required authentication parameters (rmsApplicationName , rmsSign)");
             }
             //判断systemTag是否有效
@@ -99,6 +98,10 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
             }
             //判断是否有调用所有服务的权限
             if (!applicationMeta.getAll()) {
+                //判断是否有服务代码
+                if (StringUtils.isBlank(rmsServiceCode)) {
+                    throw new AuthException("missing required authentication parameters (rmsServiceCode)");
+                }
                 //判断是否禁止调用所有服务权限
                 if (applicationMeta.getDisabled()) {
                     throw new PermissionException(rmsApplicationName + " is disabled");
