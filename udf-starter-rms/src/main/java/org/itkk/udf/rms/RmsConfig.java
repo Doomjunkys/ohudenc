@@ -10,6 +10,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.client.RestTemplate;
@@ -43,6 +44,7 @@ public class RmsConfig {
      */
     @Bean
     @LoadBalanced
+    @Primary
     RestTemplate restTemplate(ClientHttpRequestFactory requestFactory) {
         return new RestTemplate(requestFactory);
     }

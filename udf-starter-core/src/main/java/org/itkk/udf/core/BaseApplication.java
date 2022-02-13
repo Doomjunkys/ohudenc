@@ -11,7 +11,6 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.itkk.udf.core.xss.XssStringJsonSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -60,18 +59,6 @@ public class BaseApplication {
         objectMapper.registerModule(xssModule);
         //返回
         return objectMapper;
-    }
-
-    /**
-     * 描述 : restTemplate
-     *
-     * @param requestFactory requestFactory
-     * @return RestTemplate
-     */
-    @Bean
-    @LoadBalanced
-    public RestTemplate restTemplate(ClientHttpRequestFactory requestFactory) {
-        return new RestTemplate(requestFactory);
     }
 
     /**
