@@ -54,6 +54,8 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, //NOSONAR
                              Object handler) {
+        //获得当前环境
+        String profilesActive = env.getProperty("spring.profiles.active");
         //获取认证信息(应用名称)
         String rmsApplicationName = request.getHeader(Constant.HEADER_RMS_APPLICATION_NAME_CODE);
         if (StringUtils.isBlank(rmsApplicationName)) {
@@ -74,10 +76,9 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
         //获取请求方法
         String method = request.getMethod();
         //日志
-        LOGGER.info("rmsApplicationName:{},rmsSign:{},rmsServiceCode:{},url:{},method:{}", rmsApplicationName, rmsSign,
-                rmsServiceCode, url, method);
+        LOGGER.info("profiles.active:{},rmsApplicationName:{},rmsSign:{},rmsServiceCode:{},url:{},method:{}", profilesActive, rmsApplicationName, rmsSign, rmsServiceCode, url, method);
         //判断环境(开发环境无需校验)
-        if (!DEV_PROFILES.equals(env.getProperty("spring.profiles.active"))) {
+        if (!DEV_PROFILES.equals(profilesActive)) {
             //判断是否缺少认证信息
             if (StringUtils.isBlank(rmsApplicationName) || StringUtils.isBlank(rmsSign)) {
                 throw new AuthException("missing required authentication parameters (rmsApplicationName , rmsSign)");

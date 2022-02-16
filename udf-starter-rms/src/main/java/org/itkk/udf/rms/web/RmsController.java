@@ -6,17 +6,15 @@
  */
 package org.itkk.udf.rms.web;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.itkk.udf.core.RestResponse;
+import org.itkk.udf.rms.RmsConfig;
+import org.itkk.udf.rms.RmsProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import org.itkk.udf.core.RestResponse;
-import org.itkk.udf.rms.RmsConfig;
-import org.itkk.udf.rms.RmsProperties;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 
 /**
  * 描述 : RmsController
@@ -25,7 +23,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(value = "rest服务", consumes = "application/json", produces = "application/json", protocols = "http")
 @RestController
-@RequestMapping("rms")
+@RequestMapping("service/rms")
 public class RmsController {
 
     /**
