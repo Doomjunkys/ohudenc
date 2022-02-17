@@ -45,7 +45,7 @@ public class RmsConfig {
     @Bean
     @LoadBalanced
     @Primary
-    RestTemplate restTemplate(ClientHttpRequestFactory requestFactory) {
+    public RestTemplate restTemplate(ClientHttpRequestFactory requestFactory) {
         return new RestTemplate(requestFactory);
     }
 
