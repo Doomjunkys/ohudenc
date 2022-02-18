@@ -52,8 +52,7 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
     private Environment env;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, //NOSONAR
-                             Object handler) {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) { //NOSONAR
         //获得当前环境
         String profilesActive = env.getProperty("spring.profiles.active");
         //获取认证信息(应用名称)
@@ -77,18 +76,18 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
         String method = request.getMethod();
         //日志
         LOGGER.info("profiles.active:{},rmsApplicationName:{},rmsSign:{},rmsServiceCode:{},url:{},method:{}", profilesActive, rmsApplicationName, rmsSign, rmsServiceCode, url, method);
-        //判断环境(开发环境无需校验)
+        //判断systemTag是否有效
+        if (!this.rmsProperties.getApplication().containsKey(rmsApplicationName)) {
+            throw new AuthException("unrecognized systemTag:" + rmsApplicationName);
+        }
+        //获得应用元数据
+        ApplicationMeta applicationMeta = rmsProperties.getApplication().get(rmsApplicationName);
+        //判断环境(开发环境无需校验sign)
         if (!DEV_PROFILES.equals(profilesActive)) {
             //判断是否缺少认证信息
-            if (StringUtils.isBlank(rmsApplicationName) || StringUtils.isBlank(rmsSign)) {
-                throw new AuthException("missing required authentication parameters (rmsApplicationName , rmsSign)");
+            if (StringUtils.isBlank(rmsSign)) {
+                throw new AuthException("missing required authentication parameters (rmsSign)");
             }
-            //判断systemTag是否有效
-            if (!this.rmsProperties.getApplication().containsKey(rmsApplicationName)) {
-                throw new AuthException("unrecognized systemTag:" + rmsApplicationName);
-            }
-            //获得应用元数据
-            ApplicationMeta applicationMeta = rmsProperties.getApplication().get(rmsApplicationName);
             //获得secret
             String secret = applicationMeta.getSecret();
             //计算sign
@@ -97,30 +96,30 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
             if (!rmsSign.equals(sign)) {
                 throw new AuthException("sign Validation failed");
             }
-            //判断是否有调用所有服务的权限
-            if (!applicationMeta.getAll()) {
-                //判断是否有服务代码
-                if (StringUtils.isBlank(rmsServiceCode)) {
-                    throw new AuthException("missing required authentication parameters (rmsServiceCode)");
-                }
-                //判断是否禁止调用所有服务权限
-                if (applicationMeta.getDisabled()) {
-                    throw new PermissionException(rmsApplicationName + " is disabled");
-                }
-                //判断是否有调用该服务的权限
-                if (applicationMeta.getPurview().indexOf(rmsServiceCode) == -1) {
-                    throw new PermissionException("no access to this servoceCode : " + rmsServiceCode);
-                }
-                //判断服务元数据是否存在
-                if (!rmsProperties.getService().containsKey(rmsServiceCode)) {
-                    throw new PermissionException("service code not exist");
-                }
-                //获得服务元数据
-                ServiceMeta serviceMeta = rmsProperties.getService().get(rmsServiceCode);
-                //比较url和method的有效性
-                if (!serviceMeta.getUri().equals(url) || !serviceMeta.getMethod().equals(method)) {
-                    throw new PermissionException("url and method verification error");
-                }
+        }
+        //判断是否有调用所有服务的权限
+        if (!applicationMeta.getAll()) {
+            //判断是否有服务代码
+            if (StringUtils.isBlank(rmsServiceCode)) {
+                throw new AuthException("missing required authentication parameters (rmsServiceCode)");
+            }
+            //判断是否禁止调用所有服务权限
+            if (applicationMeta.getDisabled()) {
+                throw new PermissionException(rmsApplicationName + " is disabled");
+            }
+            //判断是否有调用该服务的权限
+            if (applicationMeta.getPurview().indexOf(rmsServiceCode) == -1) {
+                throw new PermissionException("no access to this servoceCode : " + rmsServiceCode);
+            }
+            //判断服务元数据是否存在
+            if (!rmsProperties.getService().containsKey(rmsServiceCode)) {
+                throw new PermissionException("service code not exist");
+            }
+            //获得服务元数据
+            ServiceMeta serviceMeta = rmsProperties.getService().get(rmsServiceCode);
+            //比较url和method的有效性
+            if (!serviceMeta.getUri().equals(url) || !serviceMeta.getMethod().equals(method)) {
+                throw new PermissionException("url and method verification error");
             }
         }
         //返回
