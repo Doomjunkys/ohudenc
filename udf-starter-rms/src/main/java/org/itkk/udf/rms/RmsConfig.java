@@ -6,6 +6,7 @@
  */
 package org.itkk.udf.rms;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
@@ -35,6 +36,17 @@ public class RmsConfig {
      */
     @NotNull
     private String rmsPathPatterns;
+
+    /**
+     * rmsFilter
+     *
+     * @return RmsFilter
+     */
+    @Bean
+    @ConditionalOnBean(name = "zuulServlet")
+    public RmsFilter rmsFilter() {
+        return new RmsFilter();
+    }
 
     /**
      * 描述 : restTemplate
