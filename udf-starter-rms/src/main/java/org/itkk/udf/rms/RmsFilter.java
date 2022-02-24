@@ -6,6 +6,7 @@ import org.itkk.udf.core.exception.AuthException;
 import org.itkk.udf.rms.meta.ApplicationMeta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 
 /**
  * RmsFilter
@@ -52,7 +53,7 @@ public class RmsFilter extends ZuulFilter {
 
     @Override
     public String filterType() {
-        return "pre";
+        return FilterConstants.PRE_TYPE;
     }
 
     @Override
