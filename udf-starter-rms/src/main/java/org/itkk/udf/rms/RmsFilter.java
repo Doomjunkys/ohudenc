@@ -2,11 +2,16 @@ package org.itkk.udf.rms;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
+import org.apache.commons.lang3.StringUtils;
 import org.itkk.udf.core.exception.AuthException;
 import org.itkk.udf.rms.meta.ApplicationMeta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
+
+import javax.servlet.http.HttpServletRequest;
+
+import static com.netflix.zuul.context.RequestContext.getCurrentContext;
 
 /**
  * RmsFilter
@@ -48,7 +53,16 @@ public class RmsFilter extends ZuulFilter {
 
     @Override
     public boolean shouldFilter() {
-        return true;
+        //获得request
+        RequestContext ctx = getCurrentContext();
+        HttpServletRequest request = ctx.getRequest();
+        //获得服务代码
+        String rmsServiceCode = request.getHeader(Constant.HEADER_SERVICE_CODE_CODE);
+        if (StringUtils.isBlank(rmsServiceCode)) {
+            rmsServiceCode = request.getParameter(Constant.HEADER_SERVICE_CODE_CODE);
+        }
+        //只拦截头信息带有rmsServiceCode值的请求
+        return StringUtils.isNotBlank(rmsServiceCode) ? true : false;
     }
 
     @Override
