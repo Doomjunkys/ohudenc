@@ -101,9 +101,9 @@ public class CorsConfig {
         private String mapping = "/**";
 
         /**
-         * 描述 : 允许证书
+         * 描述 : 允许cookie
          */
-        private Boolean allowCredentials = null;
+        private Boolean allowCredentials = true;
 
         /**
          * 描述 : 允许的域
