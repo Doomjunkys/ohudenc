@@ -62,7 +62,7 @@ public class RmsFilter extends ZuulFilter {
             rmsServiceCode = request.getParameter(Constant.HEADER_SERVICE_CODE_CODE);
         }
         //只拦截头信息带有rmsServiceCode值的请求
-        return StringUtils.isNotBlank(rmsServiceCode) ? true : false;
+        return StringUtils.isNotBlank(rmsServiceCode);
     }
 
     @Override

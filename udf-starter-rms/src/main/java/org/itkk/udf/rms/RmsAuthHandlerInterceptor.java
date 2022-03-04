@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -53,8 +54,16 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) { //NOSONAR
+        //获取请求方法
+        String method = request.getMethod();
+        //如果是options请求,则直接返回true (处理跨域情况)
+        if (HttpMethod.OPTIONS.toString().equals(method)) {
+            return true;
+        }
         //获得当前环境
         String profilesActive = env.getProperty("spring.profiles.active");
+        //获取请求地址
+        String url = request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE).toString();
         //获取认证信息(应用名称)
         String rmsApplicationName = request.getHeader(Constant.HEADER_RMS_APPLICATION_NAME_CODE);
         if (StringUtils.isBlank(rmsApplicationName)) {
@@ -70,10 +79,6 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
         if (StringUtils.isBlank(rmsServiceCode)) {
             rmsServiceCode = request.getParameter(Constant.HEADER_SERVICE_CODE_CODE);
         }
-        //获取请求地址
-        String url = request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE).toString();
-        //获取请求方法
-        String method = request.getMethod();
         //日志
         LOGGER.info("profiles.active:{},rmsApplicationName:{},rmsSign:{},rmsServiceCode:{},url:{},method:{}", profilesActive, rmsApplicationName, rmsSign, rmsServiceCode, url, method);
         //判断systemTag是否有效
