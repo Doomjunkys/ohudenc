@@ -57,7 +57,7 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
         //获取请求方法
         String method = request.getMethod();
         //如果是options请求,则直接返回true (处理跨域情况)
-        if (HttpMethod.OPTIONS.toString().equals(method)) {
+        if (HttpMethod.OPTIONS.equals(HttpMethod.resolve(method))) {
             return true;
         }
         //获得当前环境
