@@ -70,9 +70,32 @@ public class TriggerMeta implements Serializable {
     private Integer misfireInstruction = Trigger.MISFIRE_INSTRUCTION_SMART_POLICY;
 
     /**
+     * 是否自动实例化
+     */
+    private Boolean autoInit = false;
+
+    /**
      * 描述 : 数据
      */
     private Map<String, String> dataMap;
+
+    /**
+     * getAutoInit
+     *
+     * @return Boolean
+     */
+    public Boolean getAutoInit() {
+        return autoInit;
+    }
+
+    /**
+     * setAutoInit
+     *
+     * @param autoInit autoInit
+     */
+    public void setAutoInit(Boolean autoInit) {
+        this.autoInit = autoInit;
+    }
 
     /**
      * 描述 : 获取misfireInstruction
