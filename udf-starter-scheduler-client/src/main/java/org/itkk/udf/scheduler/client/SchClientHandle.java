@@ -6,11 +6,14 @@
  */
 package org.itkk.udf.scheduler.client;
 
+import java.util.Date;
+
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.itkk.udf.core.RestResponse;
 import org.itkk.udf.rms.Rms;
 import org.itkk.udf.scheduler.client.domain.RmsJobParam;
 import org.itkk.udf.scheduler.client.domain.RmsJobResult;
+import org.itkk.udf.scheduler.client.executor.AbstractExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +24,6 @@ import org.springframework.retry.annotation.Recover;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-
-import java.util.Date;
 
 /**
  * 描述 : SchClientService
@@ -50,20 +51,14 @@ public class SchClientHandle implements ApplicationContextAware {
 
     /**
      * 描述 : 异步执行
-     *
-     * @param receiveTime 接收时间
-     * @param param       参数
+     * 
+     * @param param 参数
+     * @param result 结果
      */
     @Async
-    public void asyncHandle(Date receiveTime, RmsJobParam param) {
-        //定义返回值
-        RmsJobResult result = new RmsJobResult();
-        result.setParam(param);
-        result.setClientReceiveTime(receiveTime);
-        result.setId(param.getId());
-        //执行(并且记录开始和结束时间)
-        result.setClientStartExecuteTime(new Date());
+    public void asyncHandle(RmsJobParam param, RmsJobResult result) {
         try {
+            //执行
             this.handle(param);
             result.setClientEndExecuteTime(new Date());
             result.setStats(RmsJobStats.COMPLETE.value());
@@ -93,9 +88,9 @@ public class SchClientHandle implements ApplicationContextAware {
             throw new SchException(param.getBeanName() + " not definition");
         }
         //获得bean
-        IExecutor bean = applicationContext.getBean(param.getBeanName(), IExecutor.class);
+        AbstractExecutor bean = applicationContext.getBean(param.getBeanName(), AbstractExecutor.class);
         //执行
-        bean.handle(param.getJobDataMap());
+        bean.handle(param);
     }
 
     /**

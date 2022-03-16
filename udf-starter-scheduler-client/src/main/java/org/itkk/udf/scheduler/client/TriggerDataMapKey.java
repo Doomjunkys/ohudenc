@@ -1,5 +1,5 @@
 /**
- * TriggerType.java
+ * TriggerDataMapKey.java
  * Created at 2016-09-27
  * Created by wangkang
  * Copyright (C) 2016 itkk.org, All rights reserved.
@@ -7,23 +7,35 @@
 package org.itkk.udf.scheduler.client;
 
 /**
- * 描述 : TriggerType
+ * 描述 : TriggerDataMapKey
  *
  * @author wangkang
  */
-public enum TriggerType {
+public enum TriggerDataMapKey {
     /**
-     * 描述 : 手动触发
+     * 描述 : 父触发ID
      */
-    MANUAL("manual"),
+    PARENT_TRIGGER_ID("parentTriggerId"),
     /**
-     * 描述 : 触发器触发
+     * 描述 : 触发ID
      */
-    TRIGGER("trigger"),
+    TRIGGER_ID("triggerId"),
     /**
-     * 描述 : 触发链
+     * 描述 : 触发类型
      */
-    CALL_CHAIN("callChain");
+    TRIGGER_TYPE("triggerType"),
+    /**
+     * 描述 : 服务代码
+     */
+    SERVICE_CODE("serviceCode"),
+    /**
+     * 描述 : bean名称
+     */
+    BEAN_NAME("beanName"),
+    /**
+     * 描述 : 是否异步
+     */
+    ASYNC("async");
 
     /**
      * <p>
@@ -39,7 +51,7 @@ public enum TriggerType {
      *
      * @param value 构造函数
      */
-    TriggerType(String value) {
+    TriggerDataMapKey(String value) {
         this.value = value;
     }
 

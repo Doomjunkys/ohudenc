@@ -31,7 +31,7 @@ public class SchClientCallbackController implements ISchClientCallbackController
     @Override
     public RestResponse<String> callback(@RequestBody RmsJobResult result) {
         if (rmsJobLog != null) {
-            rmsJobLog.save(result);
+            rmsJobLog.save(null, result);
         }
         return new RestResponse<>();
     }

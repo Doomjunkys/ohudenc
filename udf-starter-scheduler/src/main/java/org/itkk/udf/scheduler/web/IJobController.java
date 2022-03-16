@@ -34,15 +34,13 @@ public interface IJobController {
      * @param jobCode 作业代码
      * @return 操作结果
      * @throws ClassNotFoundException ClassNotFoundException
-     * @throws SchedulerException     SchedulerException
+     * @throws SchedulerException SchedulerException
      */
     @ApiOperation(value = "SCHEDULER_JOB_1", notes = "保存作业")
-    @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称", required = true, dataType = "string"),
-            @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true, dataType = "string"),
-            @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号", required = true, dataType = "string"),
-            @ApiImplicitParam(paramType = "path", name = "jobCode", value = "作业代码", required = true, dataType = "string")
-    })
+    @ApiImplicitParams({ @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称", required = true, dataType = "string"),
+                    @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true, dataType = "string"),
+                    @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号", required = true, dataType = "string"),
+                    @ApiImplicitParam(paramType = "path", name = "jobCode", value = "作业代码", required = true, dataType = "string") })
     @RequestMapping(value = "{jobCode}", method = RequestMethod.POST)
     RestResponse<String> save(@PathVariable String jobCode) throws ClassNotFoundException, SchedulerException; //NOSONAR
 
@@ -52,15 +50,13 @@ public interface IJobController {
      * @param jobCode 作业代码
      * @return 操作结果
      * @throws ClassNotFoundException ClassNotFoundException
-     * @throws SchedulerException     SchedulerException
+     * @throws SchedulerException SchedulerException
      */
     @ApiOperation(value = "SCHEDULER_JOB_2", notes = "保存作业(覆盖)")
-    @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称", required = true, dataType = "string"),
-            @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true, dataType = "string"),
-            @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号", required = true, dataType = "string"),
-            @ApiImplicitParam(paramType = "path", name = "jobCode", value = "作业代码", required = true, dataType = "string")
-    })
+    @ApiImplicitParams({ @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称", required = true, dataType = "string"),
+                    @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true, dataType = "string"),
+                    @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号", required = true, dataType = "string"),
+                    @ApiImplicitParam(paramType = "path", name = "jobCode", value = "作业代码", required = true, dataType = "string") })
     @RequestMapping(value = "{jobCode}/cover", method = RequestMethod.PUT)
     RestResponse<String> saveCover(@PathVariable String jobCode) throws ClassNotFoundException, SchedulerException; //NOSONAR
 
@@ -72,30 +68,27 @@ public interface IJobController {
      * @throws SchedulerException SchedulerException
      */
     @ApiOperation(value = "SCHEDULER_JOB_3", notes = "移除作业")
-    @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称", required = true, dataType = "string"),
-            @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true, dataType = "string"),
-            @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号", required = true, dataType = "string"),
-            @ApiImplicitParam(paramType = "path", name = "jobCode", value = "作业代码", required = true, dataType = "string")
-    })
+    @ApiImplicitParams({ @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称", required = true, dataType = "string"),
+                    @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true, dataType = "string"),
+                    @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号", required = true, dataType = "string"),
+                    @ApiImplicitParam(paramType = "path", name = "jobCode", value = "作业代码", required = true, dataType = "string") })
     @RequestMapping(value = "{jobCode}", method = RequestMethod.DELETE)
     RestResponse<String> remove(@PathVariable String jobCode) throws SchedulerException; //NOSONAR
 
     /**
      * 描述 : 触发作业
      *
-     * @param jobCode    作业代码
+     * @param jobCode 作业代码
      * @param jobDataMap jobDataMap
      * @return 操作结果
      * @throws SchedulerException SchedulerException
      */
     @ApiOperation(value = "SCHEDULER_JOB_4", notes = "触发作业")
-    @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称", required = true, dataType = "string"),
-            @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true, dataType = "string"),
-            @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号", required = true, dataType = "string"),
-            @ApiImplicitParam(paramType = "path", name = "jobCode", value = "作业代码", required = true, dataType = "string")})
+    @ApiImplicitParams({ @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称", required = true, dataType = "string"),
+                    @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true, dataType = "string"),
+                    @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号", required = true, dataType = "string"),
+                    @ApiImplicitParam(paramType = "path", name = "jobCode", value = "作业代码", required = true, dataType = "string") })
     @RequestMapping(value = "trigger/{jobCode}", method = RequestMethod.POST)
-    RestResponse<String> trigger(@PathVariable String jobCode, @RequestBody Map<String, Object> jobDataMap) throws SchedulerException;
+    RestResponse<String> trigger(@PathVariable String jobCode, @RequestBody Map<String, String> jobDataMap) throws SchedulerException;
 
 }

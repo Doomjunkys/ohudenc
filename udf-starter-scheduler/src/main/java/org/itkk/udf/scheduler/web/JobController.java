@@ -8,6 +8,7 @@ package org.itkk.udf.scheduler.web;
 
 import org.apache.commons.collections4.MapUtils;
 import org.itkk.udf.core.RestResponse;
+import org.itkk.udf.scheduler.client.TriggerDataMapKey;
 import org.itkk.udf.scheduler.client.TriggerType;
 import org.itkk.udf.scheduler.service.JobService;
 import org.quartz.JobDataMap;
@@ -35,15 +36,13 @@ public class JobController implements IJobController {
     private JobService jobService;
 
     @Override
-    public RestResponse<String> save(@PathVariable String jobCode)
-            throws ClassNotFoundException, SchedulerException {
+    public RestResponse<String> save(@PathVariable String jobCode) throws ClassNotFoundException, SchedulerException {
         jobService.save(jobCode, false);
         return new RestResponse<>();
     }
 
     @Override
-    public RestResponse<String> saveCover(@PathVariable String jobCode)
-            throws ClassNotFoundException, SchedulerException {
+    public RestResponse<String> saveCover(@PathVariable String jobCode) throws ClassNotFoundException, SchedulerException {
         jobService.save(jobCode, true);
         return new RestResponse<>();
     }
@@ -55,8 +54,7 @@ public class JobController implements IJobController {
     }
 
     @Override
-    public RestResponse<String> trigger(@PathVariable String jobCode,
-                                        @RequestBody Map<String, Object> jobDataMap) throws SchedulerException {
+    public RestResponse<String> trigger(@PathVariable String jobCode, @RequestBody Map<String, String> jobDataMap) throws SchedulerException {
         //生成id
         String triggerId = UUID.randomUUID().toString();
         //生成jobDataMap
@@ -68,8 +66,10 @@ public class JobController implements IJobController {
             jdm = new JobDataMap(jobDataMap);
         }
         //添加参数
-        jdm.put("triggerId", triggerId);
-        jdm.put("triggerType", TriggerType.MANUAL.value());
+        jdm.put(TriggerDataMapKey.TRIGGER_ID.value(), triggerId);
+        if (!jobDataMap.containsKey(TriggerDataMapKey.TRIGGER_TYPE.value())) {
+            jdm.put(TriggerDataMapKey.TRIGGER_TYPE.value(), TriggerType.MANUAL.value());
+        }
         //触发
         jobService.trigger(jobCode, jdm);
         //返回

@@ -34,7 +34,7 @@ public class SchClientService {
      * 描述 : 触发作业
      *
      * @param jobCode 作业代码
-     * @param param   参数
+     * @param param 参数
      * @return id
      */
     public String trigger(String jobCode, Map<String, String> param) {
@@ -44,9 +44,8 @@ public class SchClientService {
         Map<String, String> uriVariables = new HashMap<>();
         uriVariables.put("jobCode", jobCode);
         //请求
-        ResponseEntity<RestResponse<String>> result =
-                rms.call(serviceCode, param, null, new ParameterizedTypeReference<RestResponse<String>>() {
-                }, uriVariables);
+        ResponseEntity<RestResponse<String>> result = rms.call(serviceCode, param, null, new ParameterizedTypeReference<RestResponse<String>>() {
+        }, uriVariables);
         //返回
         return result.getBody().getResult();
     }

@@ -6,6 +6,8 @@
  */
 package org.itkk.udf.scheduler.client.web;
 
+import java.util.Date;
+
 import org.itkk.udf.core.RestResponse;
 import org.itkk.udf.scheduler.client.RmsJobStats;
 import org.itkk.udf.scheduler.client.SchClientHandle;
@@ -14,8 +16,6 @@ import org.itkk.udf.scheduler.client.domain.RmsJobResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Date;
 
 /**
  * 描述 : SchClientController
@@ -37,15 +37,14 @@ public class SchClientController implements ISchClientController {
         Date receiveTime = new Date();
         //定义返回值
         RmsJobResult result = new RmsJobResult();
-        result.setParam(param);
         result.setClientReceiveTime(receiveTime);
         result.setId(param.getId());
+        result.setClientStartExecuteTime(new Date());
         //执行(区分同步跟异步)
         if (param.getAsync()) {
-            schClientHandle.asyncHandle(receiveTime, param);
+            schClientHandle.asyncHandle(param, result);
             result.setStats(RmsJobStats.EXECUTING.value());
         } else {
-            result.setClientStartExecuteTime(new Date());
             schClientHandle.handle(param);
             result.setClientEndExecuteTime(new Date());
             result.setStats(RmsJobStats.COMPLETE.value());

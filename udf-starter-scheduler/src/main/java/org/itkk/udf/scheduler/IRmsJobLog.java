@@ -6,6 +6,7 @@
  */
 package org.itkk.udf.scheduler;
 
+import org.itkk.udf.scheduler.client.domain.RmsJobParam;
 import org.itkk.udf.scheduler.client.domain.RmsJobResult;
 
 /**
@@ -16,11 +17,13 @@ import org.itkk.udf.scheduler.client.domain.RmsJobResult;
 public interface IRmsJobLog {
 
     /**
+     * 
      * 描述 : save
      *
+     * @param param param
      * @param result result
      */
-    void save(RmsJobResult result);
+    void save(RmsJobParam param, RmsJobResult result);
 
     /**
      * 描述 : delete

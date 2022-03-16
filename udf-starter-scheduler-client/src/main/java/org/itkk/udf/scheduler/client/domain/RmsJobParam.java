@@ -32,6 +32,12 @@ public class RmsJobParam implements Serializable {
     private String id;
 
     /**
+     * 父ID
+     */
+    @ApiModelProperty(value = "父ID", required = false, dataType = "string")
+    private String parentId;
+
+    /**
      * 描述 : 触发实例ID
      */
     @ApiModelProperty(value = "触发实例ID", required = true, dataType = "string")
@@ -60,6 +66,24 @@ public class RmsJobParam implements Serializable {
      */
     @ApiModelProperty(value = "作业参数", required = true, dataType = "object")
     private Map<String, Object> jobDataMap; //NOSONAR
+
+    /**
+     * 描述 : 获取parentId
+     *
+     * @return the parentId
+     */
+    public String getParentId() {
+        return parentId;
+    }
+
+    /**
+     * 描述 : 设置parentId
+     *
+     * @param parentId the parentId to set
+     */
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
 
     /**
      * 描述 : 获取triggerType
