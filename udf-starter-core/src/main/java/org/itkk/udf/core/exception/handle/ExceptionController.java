@@ -101,7 +101,7 @@ public class ExceptionController extends AbstractErrorController {
      * @param produces the media type produced (or {@code MediaType.ALL})
      * @return if the stacktrace attribute should be included
      */
-    protected boolean isIncludeStackTrace(HttpServletRequest request, MediaType produces) {
+    protected boolean isIncludeStackTrace(HttpServletRequest request, MediaType produces) { //NOSONAR
         ErrorProperties.IncludeStacktrace include = getErrorProperties().getIncludeStacktrace();
         return include == ErrorProperties.IncludeStacktrace.ALWAYS || include == ErrorProperties.IncludeStacktrace.ON_TRACE_PARAM && getTraceParameter(request);
     }

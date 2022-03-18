@@ -6,9 +6,6 @@
  */
 package org.itkk.udf.scheduler;
 
-import java.util.Iterator;
-import java.util.Map;
-
 import org.apache.commons.collections4.MapUtils;
 import org.itkk.udf.scheduler.meta.CronTriggerMeta;
 import org.itkk.udf.scheduler.meta.JobDetailMeta;
@@ -18,6 +15,9 @@ import org.itkk.udf.scheduler.service.TriggerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * 描述 : AutoInitCommandLineRunner
