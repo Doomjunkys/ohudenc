@@ -3,8 +3,8 @@
          xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <!-- maven坐标 -->
-    <artifactId>udf-starter-id</artifactId>
-    <name>udf-starter-id</name>
+    <artifactId>udf-starter-datasource</artifactId>
+    <name>udf-starter-datasource</name>
     <packaging>jar</packaging>
     <url>http://itkk.org:81</url>
     <!-- 父依赖 -->
@@ -18,6 +18,11 @@
         <dependency>
             <groupId>org.itkk.udf</groupId>
             <artifactId>udf-starter-core</artifactId>
+        </dependency>
+        <!-- spring-boot-starter-jdbc -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -3,8 +3,8 @@
          xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <!-- maven坐标 -->
-    <artifactId>udf-starter-id</artifactId>
-    <name>udf-starter-id</name>
+    <artifactId>udf-starter-connection-pool-druid</artifactId>
+    <name>udf-starter-connection-pool-druid</name>
     <packaging>jar</packaging>
     <url>http://itkk.org:81</url>
     <!-- 父依赖 -->
@@ -18,6 +18,12 @@
         <dependency>
             <groupId>org.itkk.udf</groupId>
             <artifactId>udf-starter-core</artifactId>
+        </dependency>
+        <!-- druid -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>${alibaba.druid.version}</version>
         </dependency>
     </dependencies>
 </project>

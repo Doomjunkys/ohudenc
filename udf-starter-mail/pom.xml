@@ -6,7 +6,7 @@
   <artifactId>udf-starter-mail</artifactId>
   <name>udf-starter-mail</name>
   <packaging>jar</packaging>
-  <url>http://www.egridcloud.com</url>
+  <url>http://itkk.org:81</url>
   <!-- 父依赖 -->
   <parent>
     <groupId>org.itkk.udf</groupId>

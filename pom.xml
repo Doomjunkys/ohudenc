@@ -8,7 +8,7 @@
     <version>1.0</version>
     <packaging>pom</packaging>
     <name>udf-starter</name>
-    <url>http://www.egridcloud.com</url>
+    <url>http://itkk.org:81</url>
     <!-- 公共参数 -->
     <properties>
         <udf-starter.version>1.0</udf-starter.version>
@@ -22,6 +22,7 @@
         <commons-collections4.version>4.1</commons-collections4.version>
         <commons-lang3.version>3.6</commons-lang3.version>
         <quartz.version>2.3.0</quartz.version>
+        <alibaba.druid.version>1.1.2</alibaba.druid.version>
     </properties>
     <!--子模块 -->
     <modules>
@@ -34,6 +35,8 @@
         <module>udf-starter-scheduler</module>
         <module>udf-starter-scheduler-client</module>
         <module>udf-starter-id</module>
+        <module>udf-starter-datasource</module>
+        <module>udf-starter-connection-pool-druid</module>
     </modules>
     <!-- 依赖管理 -->
     <dependencyManagement>
@@ -106,6 +109,18 @@
             <dependency>
                 <groupId>org.itkk.udf</groupId>
                 <artifactId>udf-starter-id</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-datasource -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-datasource</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-connection-pool-druid -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-connection-pool-druid</artifactId>
                 <version>${udf-starter.version}</version>
             </dependency>
         </dependencies>
