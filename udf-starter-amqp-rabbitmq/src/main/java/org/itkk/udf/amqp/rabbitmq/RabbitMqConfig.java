@@ -39,12 +39,12 @@ public class RabbitMqConfig {
     /**
      * 描述 : jackson2JsonMessageConverter
      *
-     * @param xssObjectMapper xssObjectMapper
+     * @param objectMapper objectMapper
      * @return jackson2JsonMessageConverter
      */
     @Bean
-    public Jackson2JsonMessageConverter jackson2JsonMessageConverter(ObjectMapper xssObjectMapper) {
-        return new Jackson2JsonMessageConverter(xssObjectMapper);
+    public Jackson2JsonMessageConverter jackson2JsonMessageConverter(ObjectMapper objectMapper) {
+        return new Jackson2JsonMessageConverter(objectMapper);
     }
 
 }

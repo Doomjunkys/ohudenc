@@ -6,18 +6,13 @@
  */
 package org.itkk.udf.core;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import org.itkk.udf.core.xss.XssStringJsonSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Primary;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -41,25 +36,6 @@ public class BaseApplication {
      */
     @Autowired
     private ApplicationConfig applicationConfig;
-
-    /**
-     * 描述 : xssObjectMapper
-     *
-     * @param builder builder
-     * @return xssObjectMapper
-     */
-    @Bean
-    @Primary
-    public ObjectMapper xssObjectMapper(Jackson2ObjectMapperBuilder builder) {
-        //解析器
-        ObjectMapper objectMapper = builder.createXmlMapper(false).build();
-        //注册xss解析器
-        SimpleModule xssModule = new SimpleModule("XssStringJsonSerializer");
-        xssModule.addSerializer(new XssStringJsonSerializer());
-        objectMapper.registerModule(xssModule);
-        //返回
-        return objectMapper;
-    }
 
     /**
      * 描述 : externalRestTemplate

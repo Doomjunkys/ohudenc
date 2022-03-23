@@ -23,7 +23,6 @@ import java.util.Map;
  * 描述 : AutoInitCommandLineRunner
  *
  * @author Administrator
- *
  */
 @Component
 public class AutoInitCommandLineRunner implements CommandLineRunner {
@@ -62,7 +61,7 @@ public class AutoInitCommandLineRunner implements CommandLineRunner {
         }
         //自动实例化SimpleTrigger
         Map<String, SimpleTriggerMeta> simpleTriggerMetaMap =
-                        schedulerProperties.getSimpleTrigger();
+                schedulerProperties.getSimpleTrigger();
         if (MapUtils.isNotEmpty(simpleTriggerMetaMap)) {
             Iterator<String> simpleTriggerMetaKeys = simpleTriggerMetaMap.keySet().iterator();
             while (simpleTriggerMetaKeys.hasNext()) {

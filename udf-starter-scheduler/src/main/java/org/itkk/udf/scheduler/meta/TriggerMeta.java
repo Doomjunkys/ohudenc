@@ -47,7 +47,7 @@ public class TriggerMeta implements Serializable {
     /**
      * 描述 : 开始时间
      */
-    private Date startTime = new Date();
+    private Date startTime;
 
     /**
      * 描述 : 结束时间
