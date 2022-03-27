@@ -1,6 +1,7 @@
 package org.itkk.udf.core.exception.handle;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.itkk.udf.core.ApplicationConfig;
@@ -23,6 +24,7 @@ import java.util.Date;
  * ExceptionHandle
  */
 @ControllerAdvice
+@Slf4j
 public class ExceptionHandle extends ResponseEntityExceptionHandler {
 
     /**
@@ -89,7 +91,7 @@ public class ExceptionHandle extends ResponseEntityExceptionHandler {
             error.setStackTrace(ExceptionUtils.getStackTrace(exception));
         }
         error.setDate(new Date());
-        logger.error(exception.getClass().getName(), exception);
+        this.log.error(exception.getClass().getName(), exception);
         return error;
     }
 }

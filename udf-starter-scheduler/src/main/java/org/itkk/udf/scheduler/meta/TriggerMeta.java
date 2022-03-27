@@ -6,6 +6,7 @@
  */
 package org.itkk.udf.scheduler.meta;
 
+import lombok.Data;
 import org.quartz.Trigger;
 
 import java.io.Serializable;
@@ -17,6 +18,7 @@ import java.util.Map;
  *
  * @author Administrator
  */
+@Data
 public class TriggerMeta implements Serializable {
 
     /**
@@ -78,203 +80,5 @@ public class TriggerMeta implements Serializable {
      * 描述 : 数据
      */
     private Map<String, String> dataMap;
-
-    /**
-     * getAutoInit
-     *
-     * @return Boolean
-     */
-    public Boolean getAutoInit() {
-        return autoInit;
-    }
-
-    /**
-     * setAutoInit
-     *
-     * @param autoInit autoInit
-     */
-    public void setAutoInit(Boolean autoInit) {
-        this.autoInit = autoInit;
-    }
-
-    /**
-     * 描述 : 获取misfireInstruction
-     *
-     * @return the misfireInstruction
-     */
-    public Integer getMisfireInstruction() {
-        return misfireInstruction;
-    }
-
-    /**
-     * 描述 : 设置misfireInstruction
-     *
-     * @param misfireInstruction the misfireInstruction to set
-     */
-    public void setMisfireInstruction(Integer misfireInstruction) {
-        this.misfireInstruction = misfireInstruction;
-    }
-
-    /**
-     * 描述 : 获取jobCode
-     *
-     * @return the jobCode
-     */
-    public String getJobCode() {
-        return jobCode;
-    }
-
-    /**
-     * 描述 : 设置jobCode
-     *
-     * @param jobCode the jobCode to set
-     */
-    public void setJobCode(String jobCode) {
-        this.jobCode = jobCode;
-    }
-
-    /**
-     * 描述 : 获取name
-     *
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * 描述 : 设置name
-     *
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * 描述 : 获取group
-     *
-     * @return the group
-     */
-    public String getGroup() {
-        return group;
-    }
-
-    /**
-     * 描述 : 设置group
-     *
-     * @param group the group to set
-     */
-    public void setGroup(String group) {
-        this.group = group;
-    }
-
-    /**
-     * 描述 : 获取description
-     *
-     * @return the description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * 描述 : 设置description
-     *
-     * @param description the description to set
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
-     * 描述 : 获取startTime
-     *
-     * @return the startTime
-     */
-    public Date getStartTime() {
-        return startTime;
-    }
-
-    /**
-     * 描述 : 设置startTime
-     *
-     * @param startTime the startTime to set
-     */
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
-    /**
-     * 描述 : 获取endTime
-     *
-     * @return the endTime
-     */
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    /**
-     * 描述 : 设置endTime
-     *
-     * @param endTime the endTime to set
-     */
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
-
-    /**
-     * 描述 : 获取priority
-     *
-     * @return the priority
-     */
-    public Integer getPriority() {
-        return priority;
-    }
-
-    /**
-     * 描述 : 设置priority
-     *
-     * @param priority the priority to set
-     */
-    public void setPriority(Integer priority) {
-        this.priority = priority;
-    }
-
-    /**
-     * 描述 : 获取calendar
-     *
-     * @return the calendar
-     */
-    public String getCalendar() {
-        return calendar;
-    }
-
-    /**
-     * 描述 : 设置calendar
-     *
-     * @param calendar the calendar to set
-     */
-    public void setCalendar(String calendar) {
-        this.calendar = calendar;
-    }
-
-    /**
-     * 描述 : 获取dataMap
-     *
-     * @return the dataMap
-     */
-    public Map<String, String> getDataMap() {
-        return dataMap;
-    }
-
-    /**
-     * 描述 : 设置dataMap
-     *
-     * @param dataMap the dataMap to set
-     */
-    public void setDataMap(Map<String, String> dataMap) {
-        this.dataMap = dataMap;
-    }
 
 }

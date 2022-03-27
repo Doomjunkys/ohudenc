@@ -6,6 +6,9 @@
  */
 package org.itkk.udf.scheduler.meta;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.io.Serializable;
 
 /**
@@ -13,6 +16,8 @@ import java.io.Serializable;
  *
  * @author Administrator
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class CronTriggerMeta extends TriggerMeta implements Serializable {
 
     /**
@@ -29,41 +34,5 @@ public class CronTriggerMeta extends TriggerMeta implements Serializable {
      * 描述 : 时区ID
      */
     private String timeZoneId;
-
-    /**
-     * 描述 : 获取cron
-     *
-     * @return the cron
-     */
-    public String getCron() {
-        return cron;
-    }
-
-    /**
-     * 描述 : 设置cron
-     *
-     * @param cron the cron to set
-     */
-    public void setCron(String cron) {
-        this.cron = cron;
-    }
-
-    /**
-     * 描述 : 获取timeZoneId
-     *
-     * @return the timeZoneId
-     */
-    public String getTimeZoneId() {
-        return timeZoneId;
-    }
-
-    /**
-     * 描述 : 设置timeZoneId
-     *
-     * @param timeZoneId the timeZoneId to set
-     */
-    public void setTimeZoneId(String timeZoneId) {
-        this.timeZoneId = timeZoneId;
-    }
 
 }

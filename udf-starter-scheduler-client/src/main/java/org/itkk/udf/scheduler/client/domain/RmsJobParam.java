@@ -8,6 +8,7 @@ package org.itkk.udf.scheduler.client.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -18,6 +19,7 @@ import java.util.Map;
  * @author Administrator
  */
 @ApiModel(description = "通用job参数")
+@Data
 public class RmsJobParam implements Serializable {
 
     /**
@@ -66,131 +68,5 @@ public class RmsJobParam implements Serializable {
      */
     @ApiModelProperty(value = "作业参数", required = true, dataType = "object")
     private Map<String, Object> jobDataMap; //NOSONAR
-
-    /**
-     * 描述 : 获取parentId
-     *
-     * @return the parentId
-     */
-    public String getParentId() {
-        return parentId;
-    }
-
-    /**
-     * 描述 : 设置parentId
-     *
-     * @param parentId the parentId to set
-     */
-    public void setParentId(String parentId) {
-        this.parentId = parentId;
-    }
-
-    /**
-     * 描述 : 获取triggerType
-     *
-     * @return the triggerType
-     */
-    public String getTriggerType() {
-        return triggerType;
-    }
-
-    /**
-     * 描述 : 设置triggerType
-     *
-     * @param triggerType the triggerType to set
-     */
-    public void setTriggerType(String triggerType) {
-        this.triggerType = triggerType;
-    }
-
-    /**
-     * 描述 : 获取id
-     *
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * 描述 : 设置id
-     *
-     * @param id the id to set
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * 描述 : 获取async
-     *
-     * @return the async
-     */
-    public Boolean getAsync() {
-        return async;
-    }
-
-    /**
-     * 描述 : 设置async
-     *
-     * @param async the async to set
-     */
-    public void setAsync(Boolean async) {
-        this.async = async;
-    }
-
-    /**
-     * 描述 : 获取jobDataMap
-     *
-     * @return the jobDataMap
-     */
-    public Map<String, Object> getJobDataMap() {
-        return jobDataMap;
-    }
-
-    /**
-     * 描述 : 设置jobDataMap
-     *
-     * @param jobDataMap the jobDataMap to set
-     */
-    public void setJobDataMap(Map<String, Object> jobDataMap) {
-        this.jobDataMap = jobDataMap;
-    }
-
-    /**
-     * 描述 : 获取fireInstanceId
-     *
-     * @return the fireInstanceId
-     */
-    public String getFireInstanceId() {
-        return fireInstanceId;
-    }
-
-    /**
-     * 描述 : 设置fireInstanceId
-     *
-     * @param fireInstanceId the fireInstanceId to set
-     */
-    public void setFireInstanceId(String fireInstanceId) {
-        this.fireInstanceId = fireInstanceId;
-    }
-
-    /**
-     * 描述 : 获取beanName
-     *
-     * @return the beanName
-     */
-    public String getBeanName() {
-        return beanName;
-    }
-
-    /**
-     * 描述 : 设置beanName
-     *
-     * @param beanName the beanName to set
-     */
-    public void setBeanName(String beanName) {
-        this.beanName = beanName;
-    }
 
 }

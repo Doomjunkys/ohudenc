@@ -6,6 +6,7 @@
  */
 package org.itkk.udf.rms;
 
+import lombok.Data;
 import org.itkk.udf.rms.meta.ApplicationMeta;
 import org.itkk.udf.rms.meta.ServiceMeta;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -21,6 +22,7 @@ import java.util.Map;
  */
 @Component
 @ConfigurationProperties(prefix = "org.itkk.rms.properties")
+@Data
 public class RmsProperties implements Serializable {
 
     /**
@@ -37,41 +39,5 @@ public class RmsProperties implements Serializable {
      * 描述 : 服务路径(服务编号 : 服务元数据)
      */
     private Map<String, ServiceMeta> service;
-
-    /**
-     * 描述 : 获取application
-     *
-     * @return the application
-     */
-    public Map<String, ApplicationMeta> getApplication() {
-        return application;
-    }
-
-    /**
-     * 描述 : 设置application
-     *
-     * @param application the application to set
-     */
-    public void setApplication(Map<String, ApplicationMeta> application) {
-        this.application = application;
-    }
-
-    /**
-     * 描述 : 获取service
-     *
-     * @return the service
-     */
-    public Map<String, ServiceMeta> getService() {
-        return service;
-    }
-
-    /**
-     * 描述 : 设置service
-     *
-     * @param service the service to set
-     */
-    public void setService(Map<String, ServiceMeta> service) {
-        this.service = service;
-    }
 
 }

@@ -24,6 +24,7 @@
         <quartz.version>2.3.0</quartz.version>
         <alibaba.druid.version>1.1.2</alibaba.druid.version>
         <jasypt-spring-boot-starter.version>1.14</jasypt-spring-boot-starter.version>
+        <zxing.version>3.3.0</zxing.version>
     </properties>
     <!--子模块 -->
     <modules>
@@ -38,6 +39,7 @@
         <module>udf-starter-id</module>
         <module>udf-starter-datasource</module>
         <module>udf-starter-connection-pool-druid</module>
+        <module>udf-starter-qrcode</module>
     </modules>
     <!-- 依赖管理 -->
     <dependencyManagement>
@@ -122,6 +124,12 @@
             <dependency>
                 <groupId>org.itkk.udf</groupId>
                 <artifactId>udf-starter-connection-pool-druid</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-qrcode -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-qrcode</artifactId>
                 <version>${udf-starter.version}</version>
             </dependency>
         </dependencies>

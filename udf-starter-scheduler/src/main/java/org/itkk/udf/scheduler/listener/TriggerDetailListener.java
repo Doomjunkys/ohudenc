@@ -6,16 +6,14 @@
  */
 package org.itkk.udf.scheduler.listener;
 
+import lombok.extern.slf4j.Slf4j;
+import org.itkk.udf.scheduler.service.ListenerService;
 import org.quartz.JobExecutionContext;
 import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 import org.quartz.Trigger.CompletedExecutionInstruction;
 import org.quartz.TriggerListener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.itkk.udf.scheduler.service.ListenerService;
 
 /**
  * <p>
@@ -31,12 +29,8 @@ import org.itkk.udf.scheduler.service.ListenerService;
  * Date: 2014年2月8日
  * </p>
  */
+@Slf4j
 public class TriggerDetailListener implements TriggerListener {
-
-    /**
-     * 描述 : 日志
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(TriggerDetailListener.class);
 
     /**
      * 描述 : listenerService
@@ -54,7 +48,7 @@ public class TriggerDetailListener implements TriggerListener {
         try {
             this.listenerService.saveTriggerFired(context);
         } catch (SchedulerException e) {
-            LOGGER.error("triggerFired error:", e);
+            this.log.error("triggerFired error:", e);
         }
     }
 
@@ -64,7 +58,7 @@ public class TriggerDetailListener implements TriggerListener {
         try {
             vetoed = this.listenerService.saveVetoJobExecution(context);
         } catch (SchedulerException e) {
-            LOGGER.error("vetoJobExecution error:", e);
+            this.log.error("vetoJobExecution error:", e);
         }
         return vetoed;
     }
@@ -80,7 +74,7 @@ public class TriggerDetailListener implements TriggerListener {
         try {
             this.listenerService.saveTriggerComplete(context, triggerInstructionCode);
         } catch (SchedulerException e) {
-            LOGGER.error("triggerComplete error:", e);
+            this.log.error("triggerComplete error:", e);
         }
     }
 }

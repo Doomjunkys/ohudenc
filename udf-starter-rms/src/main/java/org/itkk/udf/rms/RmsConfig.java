@@ -6,6 +6,7 @@
  */
 package org.itkk.udf.rms;
 
+import lombok.Data;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -29,6 +30,7 @@ import javax.validation.constraints.NotNull;
 @Configuration
 @ConfigurationProperties(prefix = "org.itkk.rms.config")
 @Validated
+@Data
 public class RmsConfig {
 
     /**
@@ -86,24 +88,6 @@ public class RmsConfig {
     @Bean
     public RmsAuthHandlerInterceptor rmsAuthHandlerInterceptor() {
         return new RmsAuthHandlerInterceptor();
-    }
-
-    /**
-     * 描述 : 获取rmsPathPatterns
-     *
-     * @return the rmsPathPatterns
-     */
-    public String getRmsPathPatterns() {
-        return rmsPathPatterns;
-    }
-
-    /**
-     * 描述 : 设置rmsPathPatterns
-     *
-     * @param rmsPathPatterns the rmsPathPatterns to set
-     */
-    public void setRmsPathPatterns(String rmsPathPatterns) {
-        this.rmsPathPatterns = rmsPathPatterns;
     }
 
 }

@@ -6,13 +6,12 @@
  */
 package org.itkk.udf.rms;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.itkk.udf.core.exception.AuthException;
 import org.itkk.udf.core.exception.PermissionException;
 import org.itkk.udf.rms.meta.ApplicationMeta;
 import org.itkk.udf.rms.meta.ServiceMeta;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
@@ -28,12 +27,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author wangkang
  */
+@Slf4j
 public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
-
-    /**
-     * 描述 : 日志
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(RmsAuthHandlerInterceptor.class);
 
     /**
      * 描述 : 环境标识
@@ -80,7 +75,7 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
             rmsServiceCode = request.getParameter(Constant.HEADER_SERVICE_CODE_CODE);
         }
         //日志
-        LOGGER.info("profiles.active:{},rmsApplicationName:{},rmsSign:{},rmsServiceCode:{},url:{},method:{}", profilesActive, rmsApplicationName, rmsSign, rmsServiceCode, url, method);
+        this.log.info("profiles.active:{},rmsApplicationName:{},rmsSign:{},rmsServiceCode:{},url:{},method:{}", profilesActive, rmsApplicationName, rmsSign, rmsServiceCode, url, method);
         //判断systemTag是否有效
         if (!this.rmsProperties.getApplication().containsKey(rmsApplicationName)) {
             throw new AuthException("unrecognized systemTag:" + rmsApplicationName);
@@ -134,13 +129,13 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
                            ModelAndView modelAndView) throws Exception {
-        LOGGER.debug("SystemTagAuthHandlerInterceptor.postHandle");
+        this.log.debug("SystemTagAuthHandlerInterceptor.postHandle");
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
             throws Exception {
-        LOGGER.debug("SystemTagAuthHandlerInterceptor.afterCompletion");
+        this.log.debug("SystemTagAuthHandlerInterceptor.afterCompletion");
     }
 
 }

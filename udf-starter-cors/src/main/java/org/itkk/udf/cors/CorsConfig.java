@@ -6,6 +6,7 @@
  */
 package org.itkk.udf.cors;
 
+import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +29,7 @@ import java.util.Map;
 @Configuration
 @ConfigurationProperties(prefix = "org.itkk.cors")
 @Validated
+@Data
 public class CorsConfig {
 
     /**
@@ -72,28 +74,11 @@ public class CorsConfig {
     }
 
     /**
-     * 描述 : 获取config
-     *
-     * @return the config
-     */
-    public Map<String, CorsRegistrationConfig> getConfig() {
-        return config;
-    }
-
-    /**
-     * 描述 : 设置config
-     *
-     * @param config the config to set
-     */
-    public void setConfig(Map<String, CorsRegistrationConfig> config) {
-        this.config = config;
-    }
-
-    /**
      * 描述 : 跨域信息
      *
      * @author Administrator
      */
+    @Data
     public static class CorsRegistrationConfig {
         /**
          * 描述 : 扫描地址
@@ -119,96 +104,6 @@ public class CorsConfig {
          * 描述 : 允许的头信息
          */
         private String allowedHeaders = "*";
-
-        /**
-         * 描述 : 获取mapping
-         *
-         * @return the mapping
-         */
-        public String getMapping() {
-            return mapping;
-        }
-
-        /**
-         * 描述 : 设置mapping
-         *
-         * @param mapping the mapping to set
-         */
-        public void setMapping(String mapping) {
-            this.mapping = mapping;
-        }
-
-        /**
-         * 描述 : 获取allowCredentials
-         *
-         * @return the allowCredentials
-         */
-        public Boolean getAllowCredentials() {
-            return allowCredentials;
-        }
-
-        /**
-         * 描述 : 设置allowCredentials
-         *
-         * @param allowCredentials the allowCredentials to set
-         */
-        public void setAllowCredentials(Boolean allowCredentials) {
-            this.allowCredentials = allowCredentials;
-        }
-
-        /**
-         * 描述 : 获取allowedOrigins
-         *
-         * @return the allowedOrigins
-         */
-        public String getAllowedOrigins() {
-            return allowedOrigins;
-        }
-
-        /**
-         * 描述 : 设置allowedOrigins
-         *
-         * @param allowedOrigins the allowedOrigins to set
-         */
-        public void setAllowedOrigins(String allowedOrigins) {
-            this.allowedOrigins = allowedOrigins;
-        }
-
-        /**
-         * 描述 : 获取allowedMethods
-         *
-         * @return the allowedMethods
-         */
-        public String getAllowedMethods() {
-            return allowedMethods;
-        }
-
-        /**
-         * 描述 : 设置allowedMethods
-         *
-         * @param allowedMethods the allowedMethods to set
-         */
-        public void setAllowedMethods(String allowedMethods) {
-            this.allowedMethods = allowedMethods;
-        }
-
-        /**
-         * 描述 : 获取allowedHeaders
-         *
-         * @return the allowedHeaders
-         */
-        public String getAllowedHeaders() {
-            return allowedHeaders;
-        }
-
-        /**
-         * 描述 : 设置allowedHeaders
-         *
-         * @param allowedHeaders the allowedHeaders to set
-         */
-        public void setAllowedHeaders(String allowedHeaders) {
-            this.allowedHeaders = allowedHeaders;
-        }
 
     }
 

@@ -6,6 +6,8 @@
  */
 package org.itkk.udf.file.meta;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -13,6 +15,7 @@ import java.io.Serializable;
  *
  * @author Administrator
  */
+@Data
 public class PathMeta implements Serializable {
 
     /**
@@ -34,59 +37,5 @@ public class PathMeta implements Serializable {
      * 描述 : 描述
      */
     private String description;
-
-    /**
-     * 描述 : 获取owner
-     *
-     * @return the owner
-     */
-    public String getOwner() {
-        return owner;
-    }
-
-    /**
-     * 描述 : 设置owner
-     *
-     * @param owner the owner to set
-     */
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
-
-    /**
-     * 描述 : 获取path
-     *
-     * @return the path
-     */
-    public String getPath() {
-        return path;
-    }
-
-    /**
-     * 描述 : 设置path
-     *
-     * @param path the path to set
-     */
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    /**
-     * 描述 : 获取description
-     *
-     * @return the description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * 描述 : 设置description
-     *
-     * @param description the description to set
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
 }

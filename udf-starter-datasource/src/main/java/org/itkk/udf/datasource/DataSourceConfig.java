@@ -1,5 +1,6 @@
 package org.itkk.udf.datasource;
 
+import lombok.Data;
 import org.itkk.udf.core.domain.datasource.DataSourceMeta;
 import org.itkk.udf.core.domain.datasource.IBuildDataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -16,30 +17,13 @@ import javax.sql.DataSource;
  */
 @Configuration
 @ConfigurationProperties(prefix = "org.itkk.datasource")
+@Data
 public class DataSourceConfig {
 
     /**
      * 描述 : properties
      */
     private DataSourceMeta properties;
-
-    /**
-     * 描述 : 获取properties
-     *
-     * @return the properties
-     */
-    public DataSourceMeta getProperties() {
-        return properties;
-    }
-
-    /**
-     * 描述 : 设置properties
-     *
-     * @param properties the properties to set
-     */
-    public void setProperties(DataSourceMeta properties) {
-        this.properties = properties;
-    }
 
     /**
      * 描述 : 创建数据源

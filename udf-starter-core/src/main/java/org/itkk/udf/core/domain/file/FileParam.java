@@ -8,6 +8,7 @@ package org.itkk.udf.core.domain.file;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -17,6 +18,7 @@ import java.io.Serializable;
  * @author Administrator
  */
 @ApiModel(description = "文件参数")
+@Data
 public class FileParam implements Serializable {
 
     /**
@@ -29,23 +31,5 @@ public class FileParam implements Serializable {
      */
     @ApiModelProperty(value = "文件ID(相对路径的base64编码)", required = true, dataType = "string")
     private String id;
-
-    /**
-     * 描述 : 获取id
-     *
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * 描述 : 设置id
-     *
-     * @param id the id to set
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
 
 }

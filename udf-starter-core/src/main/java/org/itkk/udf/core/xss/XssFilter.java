@@ -6,8 +6,7 @@
  */
 package org.itkk.udf.core.xss;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -20,16 +19,12 @@ import java.io.IOException;
  * @author wangkang
  */
 @WebFilter(filterName = "xssFilter", urlPatterns = "/*", asyncSupported = true)
+@Slf4j
 public class XssFilter implements Filter {
-
-    /**
-     * 描述 : 日志
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(XssFilter.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        LOGGER.debug("(XssFilter) initialize");
+        this.log.debug("(XssFilter) initialize");
     }
 
     @Override
@@ -42,7 +37,7 @@ public class XssFilter implements Filter {
 
     @Override
     public void destroy() {
-        LOGGER.debug("(XssFilter) destroy");
+        this.log.debug("(XssFilter) destroy");
     }
 
 }

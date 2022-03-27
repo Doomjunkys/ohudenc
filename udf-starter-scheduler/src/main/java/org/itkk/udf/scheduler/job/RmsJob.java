@@ -6,8 +6,7 @@
  */
 package org.itkk.udf.scheduler.job;
 
-import java.util.UUID;
-
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -23,23 +22,19 @@ import org.itkk.udf.scheduler.client.domain.RmsJobResult;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import java.util.UUID;
 
 /**
  * 描述 : RmsJob
  *
  * @author Administrator
  */
+@Slf4j
 public class RmsJob extends AbstractBaseJob {
-
-    /**
-     * 描述 : 日志
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(RmsJob.class);
 
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException { //NOSONAR
@@ -92,7 +87,7 @@ public class RmsJob extends AbstractBaseJob {
             //记录
             saveRmsJobLog(rmsJobParam, result);
             //抛出异常
-            LOGGER.error("RmsJob error:", e);
+            this.log.error("RmsJob error:", e);
             throw new JobExecutionException(e);
         }
     }

@@ -6,16 +6,13 @@
  */
 package org.itkk.udf.scheduler.client;
 
-import java.util.Date;
-
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.itkk.udf.core.RestResponse;
 import org.itkk.udf.rms.Rms;
 import org.itkk.udf.scheduler.client.domain.RmsJobParam;
 import org.itkk.udf.scheduler.client.domain.RmsJobResult;
 import org.itkk.udf.scheduler.client.executor.AbstractExecutor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -25,18 +22,16 @@ import org.springframework.retry.annotation.Retryable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 /**
  * 描述 : SchClientService
  *
  * @author Administrator
  */
 @Component
+@Slf4j
 public class SchClientHandle implements ApplicationContextAware {
-
-    /**
-     * 描述 : 日志
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(SchClientHandle.class);
 
     /**
      * 描述 : spring上下文
@@ -51,7 +46,7 @@ public class SchClientHandle implements ApplicationContextAware {
 
     /**
      * 描述 : 异步执行
-     * 
+     *
      * @param param 参数
      * @param result 结果
      */
@@ -71,7 +66,7 @@ public class SchClientHandle implements ApplicationContextAware {
             //回调
             this.callback(result);
             //抛出异常
-            LOGGER.error("asyncHandle error:", e);
+            this.log.error("asyncHandle error:", e);
             throw new SchException(e);
         }
 
@@ -100,7 +95,7 @@ public class SchClientHandle implements ApplicationContextAware {
      */
     @Retryable(maxAttempts = 3, value = Exception.class)
     private void callback(RmsJobResult result) {
-        LOGGER.info("try to callback");
+        this.log.info("try to callback");
         final String serviceCode = "SCH_CLIENT_CALLBACK_1";
         rms.call(serviceCode, result, null, new ParameterizedTypeReference<RestResponse<String>>() {
         }, null);
@@ -113,7 +108,7 @@ public class SchClientHandle implements ApplicationContextAware {
      */
     @Recover
     public void recover(Exception e) {
-        LOGGER.error("try to callback failed:", e);
+        this.log.error("try to callback failed:", e);
     }
 
     @Override

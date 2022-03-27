@@ -6,12 +6,11 @@
  */
 package org.itkk.udf.rms;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.itkk.udf.core.exception.PermissionException;
 import org.itkk.udf.rms.meta.ApplicationMeta;
 import org.itkk.udf.rms.meta.ServiceMeta;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -31,12 +30,8 @@ import java.util.Map;
  * @author Administrator
  */
 @Component
+@Slf4j
 public class Rms {
-
-    /**
-     * 描述 : 日志
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(Rms.class);
 
     /**
      * 描述 : 应用名称
@@ -85,7 +80,7 @@ public class Rms {
         //构建请求消息体
         HttpEntity<I> requestEntity = new HttpEntity<>(input, httpHeaders);
         //请求并且返回
-        LOGGER.info("rms url : {} , method : {} ", path, method);
+        this.log.info("rms url : {} , method : {} ", path, method);
         return restTemplate.exchange(path, HttpMethod.resolve(method), requestEntity, responseType,
                 uriVariables != null ? uriVariables : new HashMap<String, String>());
     }

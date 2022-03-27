@@ -6,6 +6,7 @@
  */
 package org.itkk.udf.scheduler;
 
+import lombok.Data;
 import org.itkk.udf.scheduler.job.ClearScheduledLog;
 import org.itkk.udf.scheduler.job.ClearScheduledTriggerLog;
 import org.itkk.udf.scheduler.listener.JobDetailListener;
@@ -39,6 +40,7 @@ import java.util.Properties;
 @Configuration
 @ConfigurationProperties(prefix = "org.itkk.scheduler.config")
 @Validated
+@Data
 public class SchedulerConfig {
 
     /**
@@ -256,151 +258,6 @@ public class SchedulerConfig {
         factoryBean.setJobClass(ClearScheduledTriggerLog.class);
         factoryBean.setDurability(true);
         return factoryBean;
-    }
-
-    /**
-     * 描述 : 获取logFlag
-     *
-     * @return the logFlag
-     */
-    public Boolean getLogFlag() {
-        return logFlag;
-    }
-
-    /**
-     * 描述 : 设置logFlag
-     *
-     * @param logFlag the logFlag to set
-     */
-    public void setLogFlag(Boolean logFlag) {
-        this.logFlag = logFlag;
-    }
-
-    /**
-     * 描述 : 获取logDetailFlag
-     *
-     * @return the logDetailFlag
-     */
-    public Boolean getLogDetailFlag() {
-        return logDetailFlag;
-    }
-
-    /**
-     * 描述 : 设置logDetailFlag
-     *
-     * @param logDetailFlag the logDetailFlag to set
-     */
-    public void setLogDetailFlag(Boolean logDetailFlag) {
-        this.logDetailFlag = logDetailFlag;
-    }
-
-    /**
-     * 描述 : 获取autoStartup
-     *
-     * @return the autoStartup
-     */
-    public Boolean getAutoStartup() {
-        return autoStartup;
-    }
-
-    /**
-     * 描述 : 设置autoStartup
-     *
-     * @param autoStartup the autoStartup to set
-     */
-    public void setAutoStartup(Boolean autoStartup) {
-        this.autoStartup = autoStartup;
-    }
-
-    /**
-     * 描述 : 获取overwriteExistingJobs
-     *
-     * @return the overwriteExistingJobs
-     */
-    public Boolean getOverwriteExistingJobs() {
-        return overwriteExistingJobs;
-    }
-
-    /**
-     * 描述 : 设置overwriteExistingJobs
-     *
-     * @param overwriteExistingJobs the overwriteExistingJobs to set
-     */
-    public void setOverwriteExistingJobs(Boolean overwriteExistingJobs) {
-        this.overwriteExistingJobs = overwriteExistingJobs;
-    }
-
-    /**
-     * 描述 : 获取startupDelay
-     *
-     * @return the startupDelay
-     */
-    public Integer getStartupDelay() {
-        return startupDelay;
-    }
-
-    /**
-     * 描述 : 设置startupDelay
-     *
-     * @param startupDelay the startupDelay to set
-     */
-    public void setStartupDelay(Integer startupDelay) {
-        this.startupDelay = startupDelay;
-    }
-
-    /**
-     * 描述 : 获取applicationContextSchedulerContextKey
-     *
-     * @return the applicationContextSchedulerContextKey
-     */
-    public String getApplicationContextSchedulerContextKey() {
-        return applicationContextSchedulerContextKey;
-    }
-
-    /**
-     * 描述 : 设置applicationContextSchedulerContextKey
-     *
-     * @param applicationContextSchedulerContextKey the applicationContextSchedulerContextKey to set
-     */
-    public void setApplicationContextSchedulerContextKey(
-            String applicationContextSchedulerContextKey) {
-        this.applicationContextSchedulerContextKey = applicationContextSchedulerContextKey;
-    }
-
-    /**
-     * 描述 : 获取quartzPropertiesPath
-     *
-     * @return the quartzPropertiesPath
-     */
-    public String getQuartzPropertiesPath() {
-        return quartzPropertiesPath;
-    }
-
-    /**
-     * 描述 : 设置quartzPropertiesPath
-     *
-     * @param quartzPropertiesPath the quartzPropertiesPath to set
-     */
-    public void setQuartzPropertiesPath(String quartzPropertiesPath) {
-        this.quartzPropertiesPath = quartzPropertiesPath;
-    }
-
-    /**
-     * 描述 : 获取schedulerProperties
-     *
-     * @return the schedulerProperties
-     */
-    public SchedulerProperties getSchedulerProperties() {
-        return schedulerProperties;
-    }
-
-    /**
-     * 描述 : 设置schedulerProperties
-     *
-     * @param schedulerProperties the schedulerProperties to set
-     */
-    public void setSchedulerProperties(SchedulerProperties schedulerProperties) {
-        this.schedulerProperties = schedulerProperties;
     }
 
 }

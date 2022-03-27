@@ -6,6 +6,7 @@
  */
 package org.itkk.udf.mail;
 
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,7 @@ import java.io.Serializable;
  */
 @Component
 @ConfigurationProperties(prefix = "org.itkk.mail.properties")
+@Data
 public class MailProperties implements Serializable {
 
     /**
@@ -29,23 +31,5 @@ public class MailProperties implements Serializable {
      * 描述 : 发送地址
      */
     private String from;
-
-    /**
-     * 描述 : 获取from
-     *
-     * @return the from
-     */
-    public String getFrom() {
-        return from;
-    }
-
-    /**
-     * 描述 : 设置from
-     *
-     * @param from the from to set
-     */
-    public void setFrom(String from) {
-        this.from = from;
-    }
 
 }

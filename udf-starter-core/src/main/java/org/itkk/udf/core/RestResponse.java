@@ -8,6 +8,7 @@ package org.itkk.udf.core;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import org.itkk.udf.core.exception.ErrorResult;
 import org.springframework.http.HttpStatus;
 
@@ -20,6 +21,7 @@ import java.util.UUID;
  * @author wangkang
  */
 @ApiModel(description = "响应消息体")
+@Data
 public class RestResponse<T> implements Serializable {
 
     /**
@@ -125,96 +127,6 @@ public class RestResponse<T> implements Serializable {
         this.code = code;
         this.message = message;
         this.result = result;
-    }
-
-    /**
-     * 描述 : 获取id
-     *
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * 描述 : 设置id
-     *
-     * @param id the id to set
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * 描述 : 获取code
-     *
-     * @return the code
-     */
-    public String getCode() {
-        return code;
-    }
-
-    /**
-     * 描述 : 设置code
-     *
-     * @param code the code to set
-     */
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    /**
-     * 描述 : 获取message
-     *
-     * @return the message
-     */
-    public String getMessage() {
-        return message;
-    }
-
-    /**
-     * 描述 : 设置message
-     *
-     * @param message the message to set
-     */
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    /**
-     * 描述 : 获取result
-     *
-     * @return the result
-     */
-    public T getResult() {
-        return result;
-    }
-
-    /**
-     * 描述 : 设置result
-     *
-     * @param result the result to set
-     */
-    public void setResult(T result) {
-        this.result = result;
-    }
-
-    /**
-     * 描述 : 获取error
-     *
-     * @return the error
-     */
-    public ErrorResult getError() {
-        return error;
-    }
-
-    /**
-     * 描述 : 设置error
-     *
-     * @param error the error to set
-     */
-    public void setError(ErrorResult error) {
-        this.error = error;
     }
 
 }

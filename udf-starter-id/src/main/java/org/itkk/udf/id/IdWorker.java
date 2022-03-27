@@ -6,10 +6,9 @@
  */
 package org.itkk.udf.id;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.itkk.udf.core.exception.SystemRuntimeException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
@@ -22,6 +21,7 @@ import java.util.UUID;
  *
  * @author wangkang
  */
+@Slf4j
 public class IdWorker {
 
     /**
@@ -33,11 +33,6 @@ public class IdWorker {
      * uuid类型
      */
     public static final String MAC_PID_TYPE = "mac_pid";
-
-    /**
-     * 描述 : 日志
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(IdWorker.class);
 
     /**
      * 描述 : 机器ID
@@ -138,7 +133,7 @@ public class IdWorker {
         } else {
             throw new SystemRuntimeException("type must not be null");
         }
-        LOGGER.info("type:{},datacenterId:{},workerId:{}", type, this.datacenterId, this.workerId);
+        this.log.info("type:{},datacenterId:{},workerId:{}", type, this.datacenterId, this.workerId);
     }
 
     /**
@@ -159,7 +154,7 @@ public class IdWorker {
         }
         this.workerId = workerId;
         this.datacenterId = datacenterId;
-        LOGGER.info("datacenterId:{},workerId:{}", maxDatacenterId, maxWorkerId);
+        this.log.info("datacenterId:{},workerId:{}", maxDatacenterId, maxWorkerId);
     }
 
     /**

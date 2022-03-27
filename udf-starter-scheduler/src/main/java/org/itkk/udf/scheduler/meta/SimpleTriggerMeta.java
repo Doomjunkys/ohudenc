@@ -6,6 +6,8 @@
  */
 package org.itkk.udf.scheduler.meta;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.quartz.SimpleTrigger;
 
 import java.io.Serializable;
@@ -15,6 +17,8 @@ import java.io.Serializable;
  *
  * @author Administrator
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class SimpleTriggerMeta extends TriggerMeta implements Serializable {
 
     /**
@@ -31,41 +35,5 @@ public class SimpleTriggerMeta extends TriggerMeta implements Serializable {
      * 描述 : 执行间隔
      */
     private Long intervalInMilliseconds;
-
-    /**
-     * 描述 : 获取repeatCount
-     *
-     * @return the repeatCount
-     */
-    public Integer getRepeatCount() {
-        return repeatCount;
-    }
-
-    /**
-     * 描述 : 设置repeatCount
-     *
-     * @param repeatCount the repeatCount to set
-     */
-    public void setRepeatCount(Integer repeatCount) {
-        this.repeatCount = repeatCount;
-    }
-
-    /**
-     * 描述 : 获取intervalInMilliseconds
-     *
-     * @return the intervalInMilliseconds
-     */
-    public Long getIntervalInMilliseconds() {
-        return intervalInMilliseconds;
-    }
-
-    /**
-     * 描述 : 设置intervalInMilliseconds
-     *
-     * @param intervalInMilliseconds the intervalInMilliseconds to set
-     */
-    public void setIntervalInMilliseconds(Long intervalInMilliseconds) {
-        this.intervalInMilliseconds = intervalInMilliseconds;
-    }
 
 }

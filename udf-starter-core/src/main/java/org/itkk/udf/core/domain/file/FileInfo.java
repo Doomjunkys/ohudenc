@@ -8,6 +8,7 @@ package org.itkk.udf.core.domain.file;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -17,6 +18,7 @@ import java.io.Serializable;
  * @author Administrator
  */
 @ApiModel(description = "文件信息")
+@Data
 public class FileInfo implements Serializable {
 
     /**
@@ -53,95 +55,5 @@ public class FileInfo implements Serializable {
      */
     @ApiModelProperty(value = "文件长度", required = true, dataType = "long")
     private Long size;
-
-    /**
-     * 描述 : 获取size
-     *
-     * @return the size
-     */
-    public Long getSize() {
-        return size;
-    }
-
-    /**
-     * 描述 : 设置size
-     *
-     * @param size the size to set
-     */
-    public void setSize(Long size) {
-        this.size = size;
-    }
-
-    /**
-     * 描述 : 获取contentType
-     *
-     * @return the contentType
-     */
-    public String getContentType() {
-        return contentType;
-    }
-
-    /**
-     * 描述 : 设置contentType
-     *
-     * @param contentType the contentType to set
-     */
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
-    }
-
-    /**
-     * 描述 : 获取relativePath
-     *
-     * @return the relativePath
-     */
-    public String getRelativePath() {
-        return relativePath;
-    }
-
-    /**
-     * 描述 : 设置relativePath
-     *
-     * @param relativePath the relativePath to set
-     */
-    public void setRelativePath(String relativePath) {
-        this.relativePath = relativePath;
-    }
-
-    /**
-     * 描述 : 获取name
-     *
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * 描述 : 设置name
-     *
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * 描述 : 获取id
-     *
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * 描述 : 设置id
-     *
-     * @param id the id to set
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
 
 }

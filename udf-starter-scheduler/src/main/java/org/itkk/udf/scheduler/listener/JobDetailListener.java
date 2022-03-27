@@ -6,15 +6,13 @@
  */
 package org.itkk.udf.scheduler.listener;
 
+import lombok.extern.slf4j.Slf4j;
+import org.itkk.udf.scheduler.service.ListenerService;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.quartz.JobListener;
 import org.quartz.SchedulerException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.itkk.udf.scheduler.service.ListenerService;
 
 /**
  * <p>
@@ -30,12 +28,8 @@ import org.itkk.udf.scheduler.service.ListenerService;
  * Date: 2014年2月8日
  * </p>
  */
+@Slf4j
 public class JobDetailListener implements JobListener {
-
-    /**
-     * 描述 : 日志
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(JobDetailListener.class);
 
     /**
      * 描述 : listenerService
@@ -53,7 +47,7 @@ public class JobDetailListener implements JobListener {
         try {
             this.listenerService.saveJobToBeExecuted(context);
         } catch (SchedulerException e) {
-            LOGGER.error("jobToBeExecuted:", e);
+            this.log.error("jobToBeExecuted:", e);
         }
     }
 
@@ -62,7 +56,7 @@ public class JobDetailListener implements JobListener {
         try {
             this.listenerService.saveJobExecutionVetoed(context);
         } catch (SchedulerException e) {
-            LOGGER.error("jobExecutionVetoed:", e);
+            this.log.error("jobExecutionVetoed:", e);
         }
     }
 
@@ -71,7 +65,7 @@ public class JobDetailListener implements JobListener {
         try {
             this.listenerService.saveJobWasExecuted(context, jobException);
         } catch (SchedulerException e) {
-            LOGGER.error("jobWasExecuted:", e);
+            this.log.error("jobWasExecuted:", e);
         }
     }
 

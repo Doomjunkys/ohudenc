@@ -2,6 +2,7 @@ package org.itkk.udf.core.domain.mail;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -11,6 +12,7 @@ import java.io.Serializable;
  * @author Administrator
  */
 @ApiModel(description = "静态资源信息")
+@Data
 public class InlineInfo implements Serializable {
 
     /**
@@ -29,41 +31,5 @@ public class InlineInfo implements Serializable {
      */
     @ApiModelProperty(value = "静态资源名称文件ID", required = true, dataType = "string")
     private String fileId;
-
-    /**
-     * 描述 : 获取name
-     *
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * 描述 : 设置name
-     *
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * 描述 : 获取fileId
-     *
-     * @return the fileId
-     */
-    public String getFileId() {
-        return fileId;
-    }
-
-    /**
-     * 描述 : 设置fileId
-     *
-     * @param fileId the fileId to set
-     */
-    public void setFileId(String fileId) {
-        this.fileId = fileId;
-    }
 
 }
