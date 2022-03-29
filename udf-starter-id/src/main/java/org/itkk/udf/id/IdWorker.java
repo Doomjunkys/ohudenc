@@ -133,7 +133,7 @@ public class IdWorker {
         } else {
             throw new SystemRuntimeException("type must not be null");
         }
-        this.log.info("type:{},datacenterId:{},workerId:{}", type, this.datacenterId, this.workerId);
+        log.info("type:{},datacenterId:{},workerId:{}", type, this.datacenterId, this.workerId);
     }
 
     /**
@@ -154,7 +154,7 @@ public class IdWorker {
         }
         this.workerId = workerId;
         this.datacenterId = datacenterId;
-        this.log.info("datacenterId:{},workerId:{}", maxDatacenterId, maxWorkerId);
+        log.info("datacenterId:{},workerId:{}", maxDatacenterId, maxWorkerId);
     }
 
     /**

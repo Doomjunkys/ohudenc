@@ -75,7 +75,7 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
             rmsServiceCode = request.getParameter(Constant.HEADER_SERVICE_CODE_CODE);
         }
         //日志
-        this.log.info("profiles.active:{},rmsApplicationName:{},rmsSign:{},rmsServiceCode:{},url:{},method:{}", profilesActive, rmsApplicationName, rmsSign, rmsServiceCode, url, method);
+        log.info("profiles.active:{},rmsApplicationName:{},rmsSign:{},rmsServiceCode:{},url:{},method:{}", profilesActive, rmsApplicationName, rmsSign, rmsServiceCode, url, method);
         //判断systemTag是否有效
         if (!this.rmsProperties.getApplication().containsKey(rmsApplicationName)) {
             throw new AuthException("unrecognized systemTag:" + rmsApplicationName);
@@ -129,13 +129,13 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
                            ModelAndView modelAndView) throws Exception {
-        this.log.debug("SystemTagAuthHandlerInterceptor.postHandle");
+        log.debug("SystemTagAuthHandlerInterceptor.postHandle");
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
             throws Exception {
-        this.log.debug("SystemTagAuthHandlerInterceptor.afterCompletion");
+        log.debug("SystemTagAuthHandlerInterceptor.afterCompletion");
     }
 
 }

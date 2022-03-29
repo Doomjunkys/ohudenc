@@ -48,7 +48,7 @@ public class TriggerDetailListener implements TriggerListener {
         try {
             this.listenerService.saveTriggerFired(context);
         } catch (SchedulerException e) {
-            this.log.error("triggerFired error:", e);
+            log.error("triggerFired error:", e);
         }
     }
 
@@ -58,7 +58,7 @@ public class TriggerDetailListener implements TriggerListener {
         try {
             vetoed = this.listenerService.saveVetoJobExecution(context);
         } catch (SchedulerException e) {
-            this.log.error("vetoJobExecution error:", e);
+            log.error("vetoJobExecution error:", e);
         }
         return vetoed;
     }
@@ -74,7 +74,7 @@ public class TriggerDetailListener implements TriggerListener {
         try {
             this.listenerService.saveTriggerComplete(context, triggerInstructionCode);
         } catch (SchedulerException e) {
-            this.log.error("triggerComplete error:", e);
+            log.error("triggerComplete error:", e);
         }
     }
 }

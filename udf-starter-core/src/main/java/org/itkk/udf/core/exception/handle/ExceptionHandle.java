@@ -91,7 +91,7 @@ public class ExceptionHandle extends ResponseEntityExceptionHandler {
             error.setStackTrace(ExceptionUtils.getStackTrace(exception));
         }
         error.setDate(new Date());
-        this.log.error(exception.getClass().getName(), exception);
+        log.error(exception.getClass().getName(), exception);
         return error;
     }
 }

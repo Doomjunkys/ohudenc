@@ -66,7 +66,7 @@ public class SchClientHandle implements ApplicationContextAware {
             //回调
             this.callback(result);
             //抛出异常
-            this.log.error("asyncHandle error:", e);
+            log.error("asyncHandle error:", e);
             throw new SchException(e);
         }
 
@@ -95,7 +95,7 @@ public class SchClientHandle implements ApplicationContextAware {
      */
     @Retryable(maxAttempts = 3, value = Exception.class)
     private void callback(RmsJobResult result) {
-        this.log.info("try to callback");
+        log.info("try to callback");
         final String serviceCode = "SCH_CLIENT_CALLBACK_1";
         rms.call(serviceCode, result, null, new ParameterizedTypeReference<RestResponse<String>>() {
         }, null);
@@ -108,7 +108,7 @@ public class SchClientHandle implements ApplicationContextAware {
      */
     @Recover
     public void recover(Exception e) {
-        this.log.error("try to callback failed:", e);
+        log.error("try to callback failed:", e);
     }
 
     @Override

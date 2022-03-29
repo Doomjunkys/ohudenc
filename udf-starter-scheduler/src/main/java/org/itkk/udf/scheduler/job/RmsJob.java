@@ -87,7 +87,7 @@ public class RmsJob extends AbstractBaseJob {
             //记录
             saveRmsJobLog(rmsJobParam, result);
             //抛出异常
-            this.log.error("RmsJob error:", e);
+            log.error("RmsJob error:", e);
             throw new JobExecutionException(e);
         }
     }
