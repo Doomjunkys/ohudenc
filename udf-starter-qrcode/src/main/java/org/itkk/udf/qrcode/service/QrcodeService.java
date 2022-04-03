@@ -179,7 +179,7 @@ public class QrcodeService {
             op.setDetectOptions(detectOptions);
         }
         // 背景相关
-        if (StringUtils.isBlank(request.getBgImg())) {
+        if (StringUtils.isNotBlank(request.getBgImg())) {
             BgImgOptions bgImgOptions = new BgImgOptions();
             bgImgOptions.setBgImg(ImageUtil.getByPath(request.getBgImg()));
             bgImgOptions.setBgw(request.getBgw() == null ? 0 : request.getBgw());
