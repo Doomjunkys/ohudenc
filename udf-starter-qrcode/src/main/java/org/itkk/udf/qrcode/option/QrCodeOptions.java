@@ -17,6 +17,11 @@ public class QrCodeOptions {
     public static final int DEF_SIZE = 200;
 
     /**
+     * 默认文件类型
+     */
+    public static final String DEF_PIC_TYPE = "png";
+
+    /**
      * 塞入二维码的信息
      */
     private String msg;
@@ -56,12 +61,5 @@ public class QrCodeOptions {
      * 编码提示类型
      */
     private Map<EncodeHintType, Object> hints;
-
-    /**
-     * 生成二维码图片的格式 png, jpg
-     */
-    private String picType = "png";
-
-
 
 }

@@ -16,8 +16,10 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
-import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * QrcodeService
@@ -69,8 +71,35 @@ public class QrcodeService {
      * @throws IOException     IOException
      * @throws WriterException WriterException
      */
-    public String parse(QrCodeRequest request) throws IOException, WriterException {
+    public String parseString(QrCodeRequest request) throws IOException, WriterException {
         return this.asString(this.build(request));
+    }
+
+    /**
+     * 生成二维码
+     *
+     * @param request 参数
+     * @return 结果
+     * @throws IOException     IOException
+     * @throws WriterException WriterException
+     */
+    public BufferedImage parseBufferedImage(QrCodeRequest request) throws IOException, WriterException {
+        return this.asBufferedImage(this.build(request));
+    }
+
+    /**
+     * 生成二维码
+     *
+     * @param request     request
+     * @param absFileName absFileName
+     * @throws WriterException WriterException
+     * @throws IOException     IOException
+     */
+    public void parseFile(QrCodeRequest request, String absFileName) throws WriterException, IOException {
+        File file = new File(absFileName);
+        file.mkdirs();
+        BufferedImage bufferedImage = this.asBufferedImage(this.build(request));
+        ImageIO.write(bufferedImage, QrCodeOptions.DEF_PIC_TYPE, file);
     }
 
     /**
@@ -84,7 +113,7 @@ public class QrcodeService {
     private String asString(QrCodeOptions qrCodeOptions) throws IOException, WriterException {
         BufferedImage bufferedImage = asBufferedImage(qrCodeOptions);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        ImageIO.write(bufferedImage, qrCodeOptions.getPicType(), outputStream);
+        ImageIO.write(bufferedImage, QrCodeOptions.DEF_PIC_TYPE, outputStream);
         return Base64Util.encode(outputStream);
     }
 
@@ -109,15 +138,15 @@ public class QrcodeService {
      */
     private QrCodeOptions build(QrCodeRequest request) throws IOException {  //NOSONAR
         //常量
+        final int num3 = 3;
         final int num4 = 4;
         //处理参数
         QrCodeOptions op = new QrCodeOptions();
         op.setMsg(request.getContent());
-        op.setPicType(request.getPicType());
         op.setW(request.getSize() == null ? (op.getH() == null ? QrCodeOptions.DEF_SIZE : op.getH()) : request.getSize());  //NOSONAR
         op.setH(request.getSize() == null ? (op.getW() == null ? QrCodeOptions.DEF_SIZE : op.getW()) : request.getSize()); //NOSONAR
         // 设置精度参数
-        EnumMap<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
+        Map<EncodeHintType, Object> hints = new HashMap<>(num3); //NOSONAR
         hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
         hints.put(EncodeHintType.CHARACTER_SET, request.getCharset());
         hints.put(EncodeHintType.MARGIN, request.getPadding() == null ? 1 : request.getPadding() < 0 ? 0 : request.getPadding() > num4 ? num4 : request.getPadding()); //NOSONAR
@@ -150,9 +179,12 @@ public class QrcodeService {
         }
         op.setDrawOptions(drawOptions);
         //logo 相关
+        final int num12 = 12;
+        LogoOptions logoOptions = new LogoOptions();
+        logoOptions.setLogoStyle(LogoStyle.NORMAL);
+        logoOptions.setBorder(false);
+        logoOptions.setRate(num12);
         if (StringUtils.isNotBlank(request.getLogo())) {
-            final int num12 = 12;
-            LogoOptions logoOptions = new LogoOptions();
             logoOptions.setLogo(ImageUtil.getByPath(request.getLogo()));
             logoOptions.setRate(request.getLogoRate() == null ? num12 : request.getLogoRate());
             logoOptions.setBorder(request.isLogoBorder());
@@ -164,23 +196,32 @@ public class QrcodeService {
             op.setLogoOptions(logoOptions);
         }
         //探测图形
+        DetectOptions detectOptions = new DetectOptions();
         if (StringUtils.isNotBlank(request.getDetectImg())) {
-            DetectOptions detectOptions = new DetectOptions();
             detectOptions.setDetectImg(ImageUtil.getByPath(request.getDetectImg()));
             op.setDetectOptions(detectOptions);
         } else {
-            DetectOptions detectOptions = new DetectOptions();
             if (StringUtils.isNotBlank(request.getDetectInColor())) {
                 detectOptions.setInColor(ColorUtil.int2color(NumUtil.decode2int(request.getDetectInColor(), null)));
             }
             if (StringUtils.isNotBlank(request.getDetectOutColor())) {
                 detectOptions.setOutColor(ColorUtil.int2color(NumUtil.decode2int(request.getDetectOutColor(), null)));
             }
-            op.setDetectOptions(detectOptions);
         }
+        if (detectOptions.getOutColor() == null && detectOptions.getInColor() == null) {
+            detectOptions.setInColor(drawOptions.getPreColor());
+            detectOptions.setOutColor(drawOptions.getPreColor());
+        } else if (detectOptions.getOutColor() == null) {
+            detectOptions.setOutColor(detectOptions.getOutColor());
+        } else if (detectOptions.getInColor() == null) {
+            detectOptions.setInColor(detectOptions.getInColor());
+        }
+        op.setDetectOptions(detectOptions);
         // 背景相关
+        BgImgOptions bgImgOptions = new BgImgOptions();
+        bgImgOptions.setBgImgStyle(BgImgStyle.OVERRIDE);
+        bgImgOptions.setOpacity(0.85f);
         if (StringUtils.isNotBlank(request.getBgImg())) {
-            BgImgOptions bgImgOptions = new BgImgOptions();
             bgImgOptions.setBgImg(ImageUtil.getByPath(request.getBgImg()));
             bgImgOptions.setBgw(request.getBgw() == null ? 0 : request.getBgw());
             bgImgOptions.setBgh(request.getBgh() == null ? 0 : request.getBgh());

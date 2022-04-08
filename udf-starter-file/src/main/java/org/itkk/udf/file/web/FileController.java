@@ -107,7 +107,7 @@ public class FileController implements IFileController {
         //输出文件
         final int buffInt = 1024;
         byte[] buff = new byte[buffInt];
-        OutputStream os;
+        OutputStream os = null;
         BufferedInputStream bis = null;
         try { //NOSONAR
             os = response.getOutputStream();
@@ -122,8 +122,8 @@ public class FileController implements IFileController {
             if (bis != null) {
                 bis.close();
             }
-            if (bis != null) {
-                bis.close();
+            if (os != null) {
+                os.close();
             }
         }
     }

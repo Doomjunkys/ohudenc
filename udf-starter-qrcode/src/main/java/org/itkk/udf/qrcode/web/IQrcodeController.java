@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
  * 描述 : IQrcodeController
+ * <p/>
+ * 此实现参考自 : https://my.oschina.net/u/566591/blog/1457164
  *
  * @author Administrator
  */
@@ -67,14 +70,14 @@ public interface IQrcodeController {
     RestResponse<String> decode(String path) throws FormatException, ChecksumException, NotFoundException, IOException;
 
     /**
-     * 生成二维码
+     * 生成二维码(base64编码)
      *
      * @param qrCodeRequest 参数
      * @return 结果
-     * @throws IOException IOException
+     * @throws IOException     IOException
      * @throws WriterException WriterException
      */
-    @ApiOperation(value = "QRCODE_3", notes = "生成二维码")
+    @ApiOperation(value = "QRCODE_3", notes = "生成二维码(base64编码)")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称", required = true, dataType = "string"),
             @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true, dataType = "string"),
@@ -82,5 +85,22 @@ public interface IQrcodeController {
     })
     @RequestMapping(value = "gen", method = RequestMethod.POST)
     RestResponse<String> parse(@RequestBody QrCodeRequest qrCodeRequest) throws IOException, WriterException;
+
+    /**
+     * 生成二维码(文件流)
+     *
+     * @param qrCodeRequest 参数
+     * @param response      响应参数
+     * @throws IOException     IOException
+     * @throws WriterException WriterException
+     */
+    @ApiOperation(value = "QRCODE_4", notes = "生成二维码(文件流)")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称", required = true, dataType = "string"),
+            @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true, dataType = "string"),
+            @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号", required = true, dataType = "string")
+    })
+    @RequestMapping(value = "download", method = RequestMethod.POST)
+    void download(@RequestBody QrCodeRequest qrCodeRequest, HttpServletResponse response) throws IOException, WriterException;
 
 }

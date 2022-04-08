@@ -21,16 +21,16 @@ import java.awt.image.BufferedImage;
 public class QrCodeUtil {
 
     /**
+     * QUIET_ZONE_SIZE
+     */
+    private static final int QUIET_ZONE_SIZE = 4;
+
+    /**
      * 私有化构造函数
      */
     private QrCodeUtil() {
 
     }
-
-    /**
-     * QUIET_ZONE_SIZE
-     */
-    private static final int QUIET_ZONE_SIZE = 4;
 
     /**
      * 对 zxing 的 QRCodeWriter 进行扩展, 解决白边过多的问题
@@ -133,9 +133,7 @@ public class QrCodeUtil {
         int realQrCodeHeight = qrCodeConfig.getH();
         if (qrCodeWidth != realQrCodeWidth || qrCodeHeight != realQrCodeHeight) {
             BufferedImage tmp = new BufferedImage(realQrCodeWidth, realQrCodeHeight, BufferedImage.TYPE_INT_RGB);
-            tmp.getGraphics().drawImage(
-                    qrCode.getScaledInstance(realQrCodeWidth, realQrCodeHeight,
-                            Image.SCALE_SMOOTH), 0, 0, null);
+            tmp.getGraphics().drawImage(qrCode.getScaledInstance(realQrCodeWidth, realQrCodeHeight, Image.SCALE_SMOOTH), 0, 0, null);
             qrCode = tmp;
         }
         /**
@@ -174,13 +172,11 @@ public class QrCodeUtil {
         if (qrCodeSize >= expectSize) {
             return 0;
         }
-
         int scale = expectSize / qrCodeSize;
         int abs = expectSize - scale * qrCodeSize;
         if (abs < expectSize * 0.15) {
             return 0;
         }
-
         return scale;
     }
 

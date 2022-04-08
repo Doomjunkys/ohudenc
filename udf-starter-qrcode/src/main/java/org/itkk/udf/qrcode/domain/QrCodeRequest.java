@@ -40,12 +40,6 @@ public class QrCodeRequest implements Serializable {
     private Integer size = QrCodeOptions.DEF_SIZE;
 
     /**
-     * 生成图片的类型(默认 : png)
-     */
-    @ApiModelProperty(value = "生成图片的类型(默认 : png)", required = false, dataType = "string")
-    private String picType = "png";
-
-    /**
      * 绘制二维码的背景色(默认0xffffffff)
      */
     @ApiModelProperty(value = "绘制二维码的背景色(默认0xffffffff)", required = false, dataType = "string")
