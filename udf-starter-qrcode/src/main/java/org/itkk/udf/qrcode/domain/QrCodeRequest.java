@@ -187,6 +187,6 @@ public class QrCodeRequest implements Serializable {
     /**
      * 背景样式(默认 : OVERRIDE)
      */
-    @ApiModelProperty(value = "全覆盖模式时，二维码的透明度", required = false, dataType = "float")
+    @ApiModelProperty(value = "背景样式(默认 : OVERRIDE)", required = false, dataType = "float")
     private String bgStyle = BgImgStyle.OVERRIDE.name();
 }
