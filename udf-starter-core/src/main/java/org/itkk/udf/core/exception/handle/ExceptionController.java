@@ -1,7 +1,9 @@
 package org.itkk.udf.core.exception.handle;
 
+import org.itkk.udf.core.ApplicationConfig;
 import org.itkk.udf.core.RestResponse;
 import org.itkk.udf.core.exception.ErrorResult;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.AbstractErrorController;
 import org.springframework.boot.autoconfigure.web.ErrorAttributes;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
@@ -33,6 +35,12 @@ public class ExceptionController extends AbstractErrorController {
      * errorProperties
      */
     private final ErrorProperties errorProperties;
+
+    /**
+     * 描述 : 系统配置
+     */
+    @Autowired
+    private ApplicationConfig applicationConfig;
 
     /**
      * Create a new {@link ExceptionController} instance.
@@ -88,10 +96,11 @@ public class ExceptionController extends AbstractErrorController {
     @ResponseBody
     public ResponseEntity<RestResponse<String>> error(HttpServletRequest request) {
         Map<String, Object> body = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.ALL));
+        String path = body.containsKey("path") ? body.get("path").toString() : "unknow path";
         HttpStatus status = getStatus(request);
         ErrorResult errorResult = new ErrorResult();
         errorResult.setType(NoHandlerFoundException.class.getName());
-        errorResult.setMessage("No handler found for " + request.getMethod() + " " + body.get("path").toString());
+        errorResult.setMessage("No handler found for " + request.getMethod() + " --> " + path);
         errorResult.setDate(new Date());
         return new ResponseEntity<>(new RestResponse<>(status, errorResult), status);
     }
