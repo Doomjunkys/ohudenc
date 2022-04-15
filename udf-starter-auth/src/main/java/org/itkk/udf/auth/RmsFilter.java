@@ -1,13 +1,16 @@
-package org.itkk.udf.rms;
+package org.itkk.udf.auth;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import org.apache.commons.lang3.StringUtils;
 import org.itkk.udf.core.exception.AuthException;
+import org.itkk.udf.rms.Constant;
+import org.itkk.udf.rms.RmsProperties;
 import org.itkk.udf.rms.meta.ApplicationMeta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,6 +19,7 @@ import static com.netflix.zuul.context.RequestContext.getCurrentContext;
 /**
  * RmsFilter
  */
+@Component
 public class RmsFilter extends ZuulFilter {
 
     /**
@@ -33,7 +37,7 @@ public class RmsFilter extends ZuulFilter {
     @Override
     public Object run() {
         //获得request
-        RequestContext ctx = RequestContext.getCurrentContext();
+        RequestContext ctx = getCurrentContext();
         //获得应用元数据
         ApplicationMeta applicationMeta = rmsProperties.getApplication().get(springApplicationName);
         //判空

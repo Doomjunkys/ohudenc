@@ -40,6 +40,7 @@
         <module>udf-starter-datasource</module>
         <module>udf-starter-connection-pool-druid</module>
         <module>udf-starter-qrcode</module>
+        <module>udf-starter-auth</module>
     </modules>
     <!-- 依赖管理 -->
     <dependencyManagement>
@@ -130,6 +131,12 @@
             <dependency>
                 <groupId>org.itkk.udf</groupId>
                 <artifactId>udf-starter-qrcode</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-auth -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-auth</artifactId>
                 <version>${udf-starter.version}</version>
             </dependency>
         </dependencies>
