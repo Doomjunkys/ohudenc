@@ -1,7 +1,8 @@
-package org.itkk.udf.auth;
+package org.itkk.udf.auth.filter;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.itkk.udf.core.exception.AuthException;
 import org.itkk.udf.rms.Constant;
@@ -20,6 +21,7 @@ import static com.netflix.zuul.context.RequestContext.getCurrentContext;
  * RmsFilter
  */
 @Component
+@Slf4j
 public class RmsFilter extends ZuulFilter {
 
     /**
@@ -36,6 +38,8 @@ public class RmsFilter extends ZuulFilter {
 
     @Override
     public Object run() {
+        //日志
+        log.info("RmsFilter.run");
         //获得request
         RequestContext ctx = getCurrentContext();
         //获得应用元数据
@@ -76,6 +80,7 @@ public class RmsFilter extends ZuulFilter {
 
     @Override
     public int filterOrder() {
-        return 0;
+        final int order = 10002;
+        return order;
     }
 }
