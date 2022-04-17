@@ -1,4 +1,4 @@
-package org.itkk.udf.auth.filter;
+package org.itkk.udf.auth.filter.user;
 
 import com.netflix.zuul.ZuulFilter;
 import lombok.extern.slf4j.Slf4j;
@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Slf4j
-public class IdentityFilter extends ZuulFilter {
+public class UserIdentityFilter extends ZuulFilter {
 
     @Override
     public Object run() {
-        log.info("IdentityFilter.run");
+        log.info("UserIdentityFilter.run");
         return null;
     }
 

@@ -1,4 +1,4 @@
-package org.itkk.udf.auth.filter;
+package org.itkk.udf.auth.filter.client;
 
 import com.netflix.zuul.ZuulFilter;
 import lombok.extern.slf4j.Slf4j;
@@ -6,15 +6,15 @@ import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.stereotype.Component;
 
 /**
- * PurviewFilter
+ * IdentityFilter
  */
 @Component
 @Slf4j
-public class PurviewFilter extends ZuulFilter {
+public class ClientIdentityFilter extends ZuulFilter {
 
     @Override
     public Object run() {
-        log.info("PurviewFilter.run");
+        log.info("ClientIdentityFilter.run");
         return null;
     }
 
@@ -30,7 +30,7 @@ public class PurviewFilter extends ZuulFilter {
 
     @Override
     public int filterOrder() {
-        final int order = 10001;
+        final int order = 10000;
         return order;
     }
 
