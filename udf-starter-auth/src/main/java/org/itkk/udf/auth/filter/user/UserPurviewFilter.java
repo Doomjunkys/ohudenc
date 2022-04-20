@@ -24,7 +24,7 @@ public class UserPurviewFilter extends AbstractBaseZuulFilter {
 
     @Override
     public boolean shouldFilter() {
-        return this.checkUserType(UserType.USER);
+        return this.checkUserType(UserType.USER) && this.checkExclude(UserType.USER);
     }
 
     @Override

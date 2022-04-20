@@ -24,7 +24,7 @@ public class ClientIdentityFilter extends AbstractBaseZuulFilter {
 
     @Override
     public boolean shouldFilter() {
-        return this.checkUserType(UserType.CLIENT);
+        return this.checkUserType(UserType.CLIENT) && this.checkExclude(UserType.CLIENT);
     }
 
     @Override
