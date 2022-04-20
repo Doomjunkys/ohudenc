@@ -1,7 +1,10 @@
 package org.itkk.udf.auth.filter.client;
 
-import com.netflix.zuul.ZuulFilter;
 import lombok.extern.slf4j.Slf4j;
+import org.itkk.udf.auth.Constant;
+import org.itkk.udf.auth.UserType;
+import org.itkk.udf.auth.filter.AbstractBaseZuulFilter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +13,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Slf4j
-public class ClientIdentityFilter extends ZuulFilter {
+@ConditionalOnProperty(value = "org.itkk.auth.filter.client.identity.enabled", matchIfMissing = true)
+public class ClientIdentityFilter extends AbstractBaseZuulFilter {
 
     @Override
     public Object run() {
@@ -20,7 +24,7 @@ public class ClientIdentityFilter extends ZuulFilter {
 
     @Override
     public boolean shouldFilter() {
-        return true;
+        return this.checkUserType(UserType.CLIENT);
     }
 
     @Override
@@ -30,8 +34,7 @@ public class ClientIdentityFilter extends ZuulFilter {
 
     @Override
     public int filterOrder() {
-        final int order = 10000;
-        return order;
+        return Constant.ORDER_IDENTITY;
     }
 
 }

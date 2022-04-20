@@ -1,4 +1,4 @@
-package org.itkk.udf.auth.filter.client;
+package org.itkk.udf.auth.filter.user;
 
 import lombok.extern.slf4j.Slf4j;
 import org.itkk.udf.auth.Constant;
@@ -13,18 +13,18 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Slf4j
-@ConditionalOnProperty(value = "org.itkk.auth.filter.client.purviews.enabled", matchIfMissing = true)
-public class ClientPurviewFilter extends AbstractBaseZuulFilter {
+@ConditionalOnProperty(value = "org.itkk.auth.filter.user.purview.enabled", matchIfMissing = true)
+public class UserPurviewFilter extends AbstractBaseZuulFilter {
 
     @Override
     public Object run() {
-        log.info("ClientPurviewFilter.run");
+        log.info("UserPurviewFilter.run");
         return null;
     }
 
     @Override
     public boolean shouldFilter() {
-        return this.checkUserType(UserType.CLIENT);
+        return this.checkUserType(UserType.USER);
     }
 
     @Override
