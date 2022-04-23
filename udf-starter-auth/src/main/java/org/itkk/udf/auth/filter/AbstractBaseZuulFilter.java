@@ -42,7 +42,12 @@ public abstract class AbstractBaseZuulFilter extends ZuulFilter {
         String url = request.getRequestURI();
         String method = request.getMethod();
         //获得排除列表
-        Map<String, ExcludeServiceMeta> map = targetUserType.equals(UserType.USER) ? authProperties.getUserExcludeService() : targetUserType.equals(UserType.CLIENT) ? authProperties.getClientExcludeServiceMeta() : null;
+        Map<String, ExcludeServiceMeta> map = null;
+        if (targetUserType.equals(UserType.USER)) {
+            map = authProperties.getUserExcludeService();
+        } else if (targetUserType.equals(UserType.CLIENT)) {
+            map = authProperties.getClientExcludeServiceMeta();
+        }
         //判空 & 遍历 & 匹配排除规则
         if (MapUtils.isNotEmpty(map)) {
             Iterator<String> keys = map.keySet().iterator();
@@ -59,7 +64,7 @@ public abstract class AbstractBaseZuulFilter extends ZuulFilter {
 
     /**
      * 判断用户类型
-     *
+     *s
      * @param targetUserType 目标用户类型
      * @return 是否匹配
      */
