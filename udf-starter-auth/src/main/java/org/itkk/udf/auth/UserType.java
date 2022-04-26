@@ -22,14 +22,14 @@ public enum UserType {
     /**
      * mappings
      */
-    private static final Map<String, UserType> mappings = new HashMap<>();
+    private static final Map<String, UserType> MAPPINGS = new HashMap<>();
 
     /**
      * 静态块
      */
     static {
         for (UserType userType : values()) {
-            mappings.put(userType.name(), userType);
+            MAPPINGS.put(userType.name(), userType);
         }
     }
 
@@ -40,7 +40,7 @@ public enum UserType {
      * @return 枚举
      */
     public static UserType resolve(String userType) {
-        return (userType != null ? mappings.get(userType) : null);
+        return (userType != null ? MAPPINGS.get(userType) : null);
     }
 
     /**

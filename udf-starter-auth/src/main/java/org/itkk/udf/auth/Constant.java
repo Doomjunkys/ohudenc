@@ -29,6 +29,11 @@ public class Constant {
     public static final String HEADER_USER_TYPE = "userType";
 
     /**
+     * 描述 : 头信息(token)
+     */
+    public static final String HEADER_ACCESS_TOKEN = "accessToken";
+
+    /**
      * 身份认证顺序
      */
     public static final int ORDER_IDENTITY = 10000;

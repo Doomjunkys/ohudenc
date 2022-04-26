@@ -30,6 +30,28 @@ public abstract class AbstractBaseZuulFilter extends ZuulFilter {
     private AuthProperties authProperties;
 
     /**
+     * 获得token
+     *
+     * @return token
+     */
+    public String getAccessToken() {
+        //获得request
+        RequestContext ctx = getCurrentContext();
+        HttpServletRequest request = ctx.getRequest();
+        //获得accessToken
+        String accessToken = request.getHeader(Constant.HEADER_ACCESS_TOKEN);
+        if (StringUtils.isBlank(accessToken)) {
+            accessToken = request.getParameter(Constant.HEADER_ACCESS_TOKEN);
+        }
+        //判空
+        if (StringUtils.isBlank(accessToken)) {
+            throw new AuthException("missing required authentication parameters (accessToken)");
+        }
+        //返回
+        return accessToken;
+    }
+
+    /**
      * 判断排除
      *
      * @param targetUserType 目标用户类型
@@ -54,7 +76,7 @@ public abstract class AbstractBaseZuulFilter extends ZuulFilter {
             Iterator<String> keys = map.keySet().iterator();
             while (keys.hasNext()) {
                 ExcludeServiceMeta item = map.get(keys.next());
-                if (item.getUrl().equals(url) && item.getMethod().equals(method)) {
+                if (item.getUrl().startsWith(url) && item.getMethod().equals(method)) {
                     return false;
                 }
             }

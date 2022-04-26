@@ -8,6 +8,9 @@ import org.springframework.validation.annotation.Validated;
 
 import java.io.Serializable;
 
+/**
+ * UserAuthenticationModel
+ */
 @ApiModel(description = "用户鉴权输入模型")
 @Data
 @Validated
