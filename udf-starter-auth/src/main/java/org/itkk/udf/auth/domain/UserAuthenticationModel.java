@@ -23,7 +23,7 @@ public class UserAuthenticationModel implements Serializable {
      */
     @ApiModelProperty(value = "用户名", required = true, dataType = "string")
     @NotBlank
-    private String userName;
+    private String account;
 
     /**
      * 密码
@@ -31,6 +31,12 @@ public class UserAuthenticationModel implements Serializable {
     @ApiModelProperty(value = "密码", required = true, dataType = "string")
     @NotBlank
     private String password;
+
+    /**
+     * 是否单例登录默认false(如果为true,则同一账号,只能同时一个人登录)
+     */
+    @ApiModelProperty(value = "是否单例登录默认false(如果为true,则同一账号,只能同时一个人登录)", required = false, dataType = "boolean")
+    private boolean singleton = false;
 
     /**
      * 强制登录(只在禁止同时登录的模式下有效)

@@ -12,6 +12,7 @@ import org.itkk.udf.core.exception.AuthException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -42,7 +43,7 @@ public abstract class AbstractBaseZuulFilter extends ZuulFilter {
         String url = request.getRequestURI();
         String method = request.getMethod();
         //获得排除列表
-        Map<String, ExcludeServiceMeta> map = null;
+        Map<String, ExcludeServiceMeta> map = new HashMap<>();
         if (targetUserType.equals(UserType.USER)) {
             map = authProperties.getUserExcludeService();
         } else if (targetUserType.equals(UserType.CLIENT)) {
@@ -64,7 +65,8 @@ public abstract class AbstractBaseZuulFilter extends ZuulFilter {
 
     /**
      * 判断用户类型
-     *s
+     * s
+     *
      * @param targetUserType 目标用户类型
      * @return 是否匹配
      */

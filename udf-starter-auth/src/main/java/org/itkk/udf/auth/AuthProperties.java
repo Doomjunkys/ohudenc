@@ -17,11 +17,6 @@ import java.util.Map;
 public class AuthProperties {
 
     /**
-     * 是否单例登录
-     */
-    private boolean singletonLogin = false;
-
-    /**
      * 用户服务排除
      */
     private Map<String, ExcludeServiceMeta> userExcludeService;
