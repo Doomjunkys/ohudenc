@@ -10,7 +10,7 @@
 
 - [udf-sample : 集成样例](https://gitee.com/wangkang/udf-sample)
 
-### 项目博客 (点击跳转)
+## 项目博客 (点击跳转)
 
 - [spring boot / cloud (十) 使用quartz搭建调度中心](https://my.oschina.net/wangkang80/blog/983208)
 
@@ -34,55 +34,54 @@
 
 ## 项目包说明
 
-- udf-starter
+### udf-starter
 
-    - udf-start-core : 核心包,包含统一异常处理,标准json输出,在线api文档,线程池配置,xss处理,等
-    
-    - udf-starter-cors : 跨域请求配置
-    
-    - udf-starter-file : 文件服务
-    
-    - udf-starter-id : 分布式ID服务
-    
-    - udf-starter-mail : 邮件服务
-    
-    - udf-starter-qrcode : 二维码服务
-    
-    - udf-starter-rms : rest远程调用服务,包含服务间认证和治理
-    
-    - udf-starter-scheduler : 分布式调度服务
-    
-    - udf-starter-scheduler-client : 分布式调度客户端
-    
-    - udf-starter-datasource : 数据源
-    
-    - udf-starter-connection-pool-druid : druid数据源
-    
-    - udf-starter-amqp-rabbitmq : 消息中间件
-    
-    - udf-starter-auth : 用户认证服务
-        
-        
-- udf-sample
+- udf-start-core : 核心包,包含统一异常处理,标准json输出,在线api文档,线程池配置,xss处理,等
 
-    - udf-eureka-config-server-demo  : 服务注册中心 和 配置中心
+- udf-starter-cors : 跨域请求配置
+
+- udf-starter-file : 文件服务
+
+- udf-starter-id : 分布式ID服务
+
+- udf-starter-mail : 邮件服务
+
+- udf-starter-qrcode : 二维码服务
+
+- udf-starter-rms : rest远程调用服务,包含服务间认证和治理
+
+- udf-starter-scheduler : 分布式调度服务
+
+- udf-starter-scheduler-client : 分布式调度客户端
+
+- udf-starter-datasource : 数据源
+
+- udf-starter-connection-pool-druid : druid数据源
+
+- udf-starter-amqp-rabbitmq : 消息中间件
+
+- udf-starter-auth : 用户认证服务
+        
+### udf-sample
+
+- udf-eureka-config-server-demo  : 服务注册中心 和 配置中心
+
+- udf-admin-server-demo : 监控中心 和 断路器看板
+
+- udf-config-hub : 配置文件仓库
+
+- udf-zuul-server-demo : 网关
+
+- udf-general-server-demo : 公共服务
+
+- udf-service-a-demo : demo服务
     
-    - udf-admin-server-demo : 监控中心 和 断路器看板
     
-    - udf-config-hub : 配置文件仓库
-    
-    - udf-zuul-server-demo : 网关
-    
-    - udf-general-server-demo : 公共服务
-    
-    - udf-service-a-demo : demo服务
-    
-    
-### csdn博客地址 (博客同步更新)
+## csdn博客地址 (博客同步更新)
 
 http://blog.csdn.net/wangkang80/    
 
-### 公众号二维码 (博客同步更新,并主动推送)
+## 公众号二维码 (博客同步更新,并主动推送)
 
 想获得最快更新,请关注公众号
 
