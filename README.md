@@ -12,6 +12,10 @@
 
 ## 项目博客 (点击跳转)
 
+- [spring boot / cloud (十一) 回归-博客配套项目开源](https://my.oschina.net/wangkang80/blog/1517938)
+
+- [spring boot / cloud (十) 使用quartz搭建调度中心](https://my.oschina.net/wangkang80/blog/983208)
+
 - [spring boot / cloud (十) 使用quartz搭建调度中心](https://my.oschina.net/wangkang80/blog/983208)
 
 - [spring boot / cloud (九) 使用rabbitmq消息中间件](https://my.oschina.net/wangkang80/blog/955328)
