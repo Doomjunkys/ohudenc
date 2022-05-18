@@ -55,7 +55,7 @@ public class ExceptionHandle extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
         HttpStatus localHttpStatus = status;
-        ErrorResult errorResult = this.buildError(ex);
+        ErrorResult errorResult = buildError(applicationConfig, ex);
         if (ex instanceof PermissionException) { //权限异常
             localHttpStatus = HttpStatus.FORBIDDEN;
         } else if (ex instanceof AuthException) { //认证异常
@@ -74,24 +74,25 @@ public class ExceptionHandle extends ResponseEntityExceptionHandler {
                 throw new SystemRuntimeException(e);
             }
         }
+        log.error(ex.getClass().getName(), ex);
         return super.handleExceptionInternal(ex, new RestResponse<>(localHttpStatus, errorResult), headers, localHttpStatus, request);
     }
 
     /**
      * 描述 : 构造错误响应对象
      *
-     * @param exception 异常
+     * @param applicationConfig 系统配置
+     * @param throwable         异常
      * @return 错误响应对象
      */
-    private ErrorResult buildError(Exception exception) {
+    public static ErrorResult buildError(ApplicationConfig applicationConfig, Throwable throwable) {
         ErrorResult error = new ErrorResult();
-        error.setType(exception.getClass().getName());
-        error.setMessage(ExceptionUtils.getMessage(exception));
+        error.setType(throwable.getClass().getName());
+        error.setMessage(ExceptionUtils.getMessage(throwable));
         if (applicationConfig.isOutputExceptionStackTrace()) {
-            error.setStackTrace(ExceptionUtils.getStackTrace(exception));
+            error.setStackTrace(ExceptionUtils.getStackTrace(throwable));
         }
         error.setDate(new Date());
-        log.error(exception.getClass().getName(), exception);
         return error;
     }
 }

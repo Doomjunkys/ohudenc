@@ -1,9 +1,9 @@
-package org.itkk.udf.auth.filter.rms;
+package org.itkk.udf.auth;
 
+import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.itkk.udf.auth.filter.AbstractBaseZuulFilter;
 import org.itkk.udf.core.exception.AuthException;
 import org.itkk.udf.rms.Constant;
 import org.itkk.udf.rms.RmsProperties;
@@ -22,7 +22,7 @@ import static com.netflix.zuul.context.RequestContext.getCurrentContext;
  */
 @Component
 @Slf4j
-public class RmsFilter extends AbstractBaseZuulFilter {
+public class RmsFilter extends ZuulFilter {
 
     /**
      * 描述 : 应用名称

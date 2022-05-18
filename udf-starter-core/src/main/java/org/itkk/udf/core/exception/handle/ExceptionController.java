@@ -21,7 +21,10 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * ErrorController
@@ -80,7 +83,11 @@ public class ExceptionController extends AbstractErrorController {
     @RequestMapping(produces = "text/html")
     public ModelAndView errorHtml(HttpServletRequest request, HttpServletResponse response) {
         HttpStatus status = getStatus(request);
-        Map<String, Object> model = Collections.unmodifiableMap(getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML)));
+        Map<String, Object> model = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML));
+        RestResponse<String> restResponse = this.getRestResponse(request, status, model);
+        model.put("restResponse", restResponse);
+        model.put("exception", restResponse.getError().getType());
+        model.put("message", restResponse.getError().getMessage());
         response.setStatus(status.value());
         ModelAndView modelAndView = resolveErrorView(request, response, status, model);
         return (modelAndView == null ? new ModelAndView("error", model) : modelAndView);
@@ -96,13 +103,40 @@ public class ExceptionController extends AbstractErrorController {
     @ResponseBody
     public ResponseEntity<RestResponse<String>> error(HttpServletRequest request) {
         Map<String, Object> body = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.ALL));
-        String path = body.containsKey("path") ? body.get("path").toString() : "unknow path";
         HttpStatus status = getStatus(request);
+        return new ResponseEntity<>(getRestResponse(request, status, body), status);
+    }
+
+    /**
+     * 获得RestResponse
+     *
+     * @param request request
+     * @param status  status
+     * @param body    body
+     * @return RestResponse
+     */
+    private RestResponse<String> getRestResponse(HttpServletRequest request, HttpStatus status, Map<String, Object> body) {
         ErrorResult errorResult = new ErrorResult();
-        errorResult.setType(NoHandlerFoundException.class.getName());
-        errorResult.setMessage("No handler found for " + request.getMethod() + " --> " + path);
+        if (status == HttpStatus.NOT_FOUND) { //404处理
+            errorResult.setType(NoHandlerFoundException.class.getName());
+            errorResult.setMessage(body.get("path").toString());
+        } else { //非404处理
+            Object object = request.getAttribute("javax.servlet.error.exception");
+            if (object != null && object instanceof Exception) { //上下文中能拿到异常的情况
+                Exception exception = (Exception) object;
+                //ZuulException异常特殊处理,去除ZuulException的包裹 (不用instanceof的原因是不想因为这里的判断而引入zuul的依赖在core包中)
+                if (exception.getClass().getName().equals("com.netflix.zuul.exception.ZuulException")) { //NOSONAR
+                    errorResult = ExceptionHandle.buildError(applicationConfig, exception.getCause());
+                } else {
+                    errorResult = ExceptionHandle.buildError(applicationConfig, exception);
+                }
+            } else { //上下文中拿不到异常的情况
+                errorResult.setType(body.get("exception").toString());
+                errorResult.setMessage(body.get("message").toString());
+            }
+        }
         errorResult.setDate(new Date());
-        return new ResponseEntity<>(new RestResponse<>(status, errorResult), status);
+        return new RestResponse<>(status, errorResult);
     }
 
     /**

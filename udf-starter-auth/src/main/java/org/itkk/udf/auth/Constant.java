@@ -14,36 +14,6 @@ package org.itkk.udf.auth;
 public class Constant {
 
     /**
-     * 描述 : 用户鉴权url
-     */
-    public static final String USER_AUTHENTICATION_URL = "/service/user";
-
-    /**
-     * 描述 : 用户鉴权http方法
-     */
-    public static final String USER_AUTHENTICATION_METHOD = "POST";
-
-    /**
-     * 描述 : 头信息(用户类型)
-     */
-    public static final String HEADER_USER_TYPE = "userType";
-
-    /**
-     * 描述 : 头信息(token)
-     */
-    public static final String HEADER_ACCESS_TOKEN = "accessToken";
-
-    /**
-     * 身份认证顺序
-     */
-    public static final int ORDER_IDENTITY = 10000;
-
-    /**
-     * 权限认证顺序
-     */
-    public static final int ORDER_PURVIEW = 10001;
-
-    /**
      * rms认证顺序
      */
     public static final int ORDER_RMS = 10002;
