@@ -1,5 +1,6 @@
 package org.itkk.udf.core.exception.handle;
 
+import lombok.extern.slf4j.Slf4j;
 import org.itkk.udf.core.ApplicationConfig;
 import org.itkk.udf.core.RestResponse;
 import org.itkk.udf.core.exception.ErrorResult;
@@ -32,6 +33,7 @@ import java.util.Map;
 @ApiIgnore
 @Controller
 @RequestMapping("${server.error.path:${error.path:/error}}")
+@Slf4j
 public class ExceptionController extends AbstractErrorController {
 
     /**
@@ -116,6 +118,7 @@ public class ExceptionController extends AbstractErrorController {
      * @return RestResponse
      */
     private RestResponse<String> getRestResponse(HttpServletRequest request, HttpStatus status, Map<String, Object> body) {
+        log.info(body.toString());
         ErrorResult errorResult = new ErrorResult();
         if (status == HttpStatus.NOT_FOUND) { //404处理
             errorResult.setType(NoHandlerFoundException.class.getName());
@@ -131,8 +134,8 @@ public class ExceptionController extends AbstractErrorController {
                     errorResult = ExceptionHandle.buildError(applicationConfig, exception);
                 }
             } else { //上下文中拿不到异常的情况
-                errorResult.setType(body.get("exception").toString());
-                errorResult.setMessage(body.get("message").toString());
+                errorResult.setType(body.containsKey("exception") ? body.get("exception").toString() : "unknow exception");
+                errorResult.setMessage(body.containsKey("message") ? body.get("message").toString() : "unknow message");
             }
         }
         errorResult.setDate(new Date());
