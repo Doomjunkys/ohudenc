@@ -27,6 +27,11 @@ import java.util.List;
 public interface IIdWorkerController {
 
     /**
+     * 最大个数
+     */
+    public static final int MAX_COUNT = 1000;
+
+    /**
      * 获得分布式ID
      *
      * @return ID
