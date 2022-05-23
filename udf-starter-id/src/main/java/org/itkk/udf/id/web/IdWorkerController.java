@@ -7,6 +7,7 @@
 package org.itkk.udf.id.web;
 
 import org.itkk.udf.core.RestResponse;
+import org.itkk.udf.core.exception.SystemRuntimeException;
 import org.itkk.udf.id.IdWorker;
 import org.itkk.udf.id.IdWorkerProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class IdWorkerController implements IIdWorkerController {
     public RestResponse<List<String>> get(@PathVariable Integer count) {
         //判断最大数量
         if (count > idWorkerProperties.getMaxCount()) {
-            throw new RuntimeException("The number is too large and the maximum setting is " + idWorkerProperties.getMaxCount());
+            throw new SystemRuntimeException("The number is too large and the maximum setting is " + idWorkerProperties.getMaxCount());
         }
         //循环生成
         List<String> ids = new ArrayList<>();

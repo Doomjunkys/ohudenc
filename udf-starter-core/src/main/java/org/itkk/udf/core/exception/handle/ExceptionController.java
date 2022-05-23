@@ -37,6 +37,17 @@ import java.util.Map;
 public class ExceptionController extends AbstractErrorController {
 
     /**
+     * exception
+     */
+    private static final String KEY_EXCEPTION = "exception";
+
+    /**
+     * message
+     */
+    private static final String KEY_MESSAGE = "message";
+
+
+    /**
      * errorProperties
      */
     private final ErrorProperties errorProperties;
@@ -88,8 +99,8 @@ public class ExceptionController extends AbstractErrorController {
         Map<String, Object> model = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML));
         RestResponse<String> restResponse = this.getRestResponse(request, status, model);
         model.put("restResponse", restResponse);
-        model.put("exception", restResponse.getError().getType());
-        model.put("message", restResponse.getError().getMessage());
+        model.put(KEY_EXCEPTION, restResponse.getError().getType());
+        model.put(KEY_MESSAGE, restResponse.getError().getMessage());
         response.setStatus(status.value());
         ModelAndView modelAndView = resolveErrorView(request, response, status, model);
         return (modelAndView == null ? new ModelAndView("error", model) : modelAndView);
@@ -117,7 +128,7 @@ public class ExceptionController extends AbstractErrorController {
      * @param body    body
      * @return RestResponse
      */
-    private RestResponse<String> getRestResponse(HttpServletRequest request, HttpStatus status, Map<String, Object> body) {
+    private RestResponse<String> getRestResponse(HttpServletRequest request, HttpStatus status, Map<String, Object> body) { //NOSONAR
         log.info(body.toString());
         ErrorResult errorResult = new ErrorResult();
         if (status == HttpStatus.NOT_FOUND) { //404处理
@@ -134,8 +145,8 @@ public class ExceptionController extends AbstractErrorController {
                     errorResult = ExceptionHandle.buildError(applicationConfig, exception);
                 }
             } else { //上下文中拿不到异常的情况
-                errorResult.setType(body.containsKey("exception") ? body.get("exception").toString() : "unknow exception");
-                errorResult.setMessage(body.containsKey("message") ? body.get("message").toString() : "unknow message");
+                errorResult.setType(body.containsKey(KEY_EXCEPTION) ? body.get(KEY_EXCEPTION).toString() : "unknow exception");
+                errorResult.setMessage(body.containsKey(KEY_MESSAGE) ? body.get(KEY_MESSAGE).toString() : "unknow message");
             }
         }
         errorResult.setDate(new Date());

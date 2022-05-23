@@ -24,7 +24,7 @@ import java.util.List;
  */
 @Api(value = "分布式ID服务", consumes = "application/json", produces = "application/json", protocols = "http")
 @RequestMapping(value = "/service/id")
-public interface IIdWorkerController {
+public interface IIdWorkerController { //NOSONAR
 
     /**
      * 最大个数
