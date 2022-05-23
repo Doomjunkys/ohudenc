@@ -1,4 +1,4 @@
-package org.itkk.udf.datasource;
+package org.itkk.udf.datasource.dynamic;
 
 import lombok.Data;
 import org.itkk.udf.core.domain.datasource.DataSourceMeta;

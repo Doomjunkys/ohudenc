@@ -41,6 +41,7 @@
         <module>udf-starter-connection-pool-druid</module>
         <module>udf-starter-qrcode</module>
         <module>udf-starter-auth</module>
+        <module>udf-starter-datasource-dynamic</module>
     </modules>
     <!-- 依赖管理 -->
     <dependencyManagement>
@@ -119,6 +120,12 @@
             <dependency>
                 <groupId>org.itkk.udf</groupId>
                 <artifactId>udf-starter-datasource</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-datasource-dynamic -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-datasource-dynamic</artifactId>
                 <version>${udf-starter.version}</version>
             </dependency>
             <!-- udf-starter-connection-pool-druid -->
