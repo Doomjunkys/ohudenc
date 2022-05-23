@@ -29,7 +29,7 @@ public interface IIdWorkerController {
     /**
      * 最大个数
      */
-    public static final int MAX_COUNT = 1000;
+    int MAX_COUNT = 1000;
 
     /**
      * 获得分布式ID
