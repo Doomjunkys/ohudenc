@@ -71,6 +71,8 @@
 - udf-starter-amqp-rabbitmq : 消息中间件
 
 - udf-starter-auth : 用户认证服务
+
+- udf-starter-datasource-dynamic : 动态数据源
         
 ### udf-sample
 
