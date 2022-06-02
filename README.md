@@ -4,6 +4,18 @@
 
 按照spring boot的思想,将各个不同的功能按照starter的形式拆分开来,做到灵活组合
 
+## 物理架构示意
+
+![物理架构示意](https://static.oschina.net/uploads/img/201708/25093208_nNaX.png "物理架构示意")
+
+## 逻辑架构示意
+
+![逻辑架构示意](https://static.oschina.net/uploads/img/201708/25093422_TzrG.png "逻辑架构示意")
+
+## CI & CD 示意
+
+![CI & CD 示意](https://static.oschina.net/uploads/img/201708/25093522_sKFz.png "CI & CD 示意")
+
 ## 代码仓库 (点击跳转)
 
 - [udf-starter : 基础项目,脚手架,框架](https://gitee.com/wangkang/udf)
