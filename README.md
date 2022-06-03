@@ -95,11 +95,6 @@
 - udf-general-server-demo : 公共服务
 
 - udf-service-a-demo : demo服务
-    
-    
-## csdn博客地址 (博客同步更新)
-
-http://blog.csdn.net/wangkang80/    
 
 ## 公众号二维码 (博客同步更新,并主动推送)
 
