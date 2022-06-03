@@ -24,6 +24,8 @@
 
 ## 项目博客 (点击跳转)
 
+- [spring boot / cloud (十三) 404错误处理进阶](https://my.oschina.net/wangkang80/blog/1523308)
+
 - [spring boot / cloud (十二) 异常统一处理进阶](https://my.oschina.net/wangkang80/blog/1519189)
 
 - [spring boot / cloud (十一) 回归-博客配套项目开源](https://my.oschina.net/wangkang80/blog/1517938)
