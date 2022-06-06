@@ -8,10 +8,6 @@
 
 ![物理架构示意](https://static.oschina.net/uploads/img/201708/25093208_nNaX.png "物理架构示意")
 
-## 逻辑架构示意
-
-![逻辑架构示意](https://static.oschina.net/uploads/img/201708/25093422_TzrG.png "逻辑架构示意")
-
 ## CI & CD 示意
 
 ![CI & CD 示意](https://static.oschina.net/uploads/img/201708/25093522_sKFz.png "CI & CD 示意")
