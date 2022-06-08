@@ -7,14 +7,20 @@
 package org.itkk.udf.scheduler.job;
 
 import org.quartz.DisallowConcurrentExecution;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 
 /**
  * 描述 : RmsJobDisallowConcurrent
  *
  * @author Administrator
- *
  */
 @DisallowConcurrentExecution
-public class RmsJobDisallowConcurrent extends RmsJob {
+public class RmsJobDisallowConcurrent extends AbstractBaseRmsJob {
+
+    @Override
+    protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException { //NOSONAR
+        this.disallowConcurrentExecute(this.getRmsJobParam(jobExecutionContext));
+    }
 
 }

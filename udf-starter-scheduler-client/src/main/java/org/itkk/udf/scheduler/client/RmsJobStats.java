@@ -23,7 +23,11 @@ public enum RmsJobStats {
     /**
      * 描述 : 错误
      */
-    ERROR(-1);
+    ERROR(-1),
+    /**
+     * 描述 : 跳过
+     */
+    SKIP(-2);
 
     /**
      * <p>

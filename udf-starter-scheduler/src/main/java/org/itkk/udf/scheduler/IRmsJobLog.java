@@ -17,10 +17,17 @@ import org.itkk.udf.scheduler.client.domain.RmsJobResult;
 public interface IRmsJobLog {
 
     /**
-     * 
+     * hasRunning
+     *
+     * @param rmsJobParam rmsJobParam
+     * @return boolean
+     */
+    boolean hasRunning(RmsJobParam rmsJobParam);
+
+    /**
      * 描述 : save
      *
-     * @param param param
+     * @param param  param
      * @param result result
      */
     void save(RmsJobParam param, RmsJobResult result);

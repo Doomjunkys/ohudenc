@@ -52,6 +52,12 @@ public class RmsJobParam implements Serializable {
     private String triggerType;
 
     /**
+     * 描述 : 服务代码
+     */
+    @ApiModelProperty(value = "服务代码", required = true, dataType = "string")
+    private String serviceCode;
+
+    /**
      * 描述 : bean名称
      */
     @ApiModelProperty(value = "bean名称", required = true, dataType = "string")
