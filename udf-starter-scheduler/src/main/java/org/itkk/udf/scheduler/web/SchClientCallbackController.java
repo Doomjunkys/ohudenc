@@ -6,12 +6,12 @@
  */
 package org.itkk.udf.scheduler.web;
 
+import org.itkk.udf.scheduler.IRmsJobEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.itkk.udf.core.RestResponse;
-import org.itkk.udf.scheduler.IRmsJobLog;
 import org.itkk.udf.scheduler.client.domain.RmsJobResult;
 
 /**
@@ -26,7 +26,7 @@ public class SchClientCallbackController implements ISchClientCallbackController
      * 描述 : rmsJobLog
      */
     @Autowired(required = false)
-    private IRmsJobLog rmsJobLog;
+    private IRmsJobEvent rmsJobLog;
 
     @Override
     public RestResponse<String> callback(@RequestBody RmsJobResult result) {

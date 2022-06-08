@@ -7,7 +7,7 @@
 package org.itkk.udf.scheduler.service;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.itkk.udf.scheduler.IListenerLog;
+import org.itkk.udf.scheduler.IListenerEvent;
 import org.itkk.udf.scheduler.SchedulerConfig;
 import org.itkk.udf.scheduler.domain.ScheduledTriggerLog;
 import org.quartz.*;
@@ -38,7 +38,7 @@ public class ListenerService {
      * 描述 : listenerLog
      */
     @Autowired(required = false)
-    private IListenerLog listenerLog;
+    private IListenerEvent listenerLog;
 
     /**
      * <p>

@@ -12,7 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.itkk.udf.core.RestResponse;
 import org.itkk.udf.rms.Rms;
-import org.itkk.udf.scheduler.IRmsJobLog;
+import org.itkk.udf.scheduler.IRmsJobEvent;
 import org.itkk.udf.scheduler.client.RmsJobStats;
 import org.itkk.udf.scheduler.client.SchException;
 import org.itkk.udf.scheduler.client.TriggerDataMapKey;
@@ -81,7 +81,7 @@ public abstract class AbstractBaseRmsJob extends AbstractBaseJob {
             RmsJobResult result = new RmsJobResult();
             result.setId(rmsJobParam.getId());
             result.setStats(RmsJobStats.SKIP.value());
-            saveRmsJobLog(rmsJobParam, result);
+            saveRmsJobEvent(rmsJobParam, result);
         }
     }
 
@@ -111,7 +111,7 @@ public abstract class AbstractBaseRmsJob extends AbstractBaseJob {
                 throw new SchException("http状态:" + result.getStatusCode().toString());
             }
             //记录
-            saveRmsJobLog(rmsJobParam, result.getBody().getResult());
+            saveRmsJobEvent(rmsJobParam, result.getBody().getResult());
         } catch (Exception e) {
             //定义返回值
             RmsJobResult result = new RmsJobResult();
@@ -119,7 +119,7 @@ public abstract class AbstractBaseRmsJob extends AbstractBaseJob {
             result.setStats(RmsJobStats.ERROR.value());
             result.setErrorMsg(ExceptionUtils.getStackTrace(e));
             //记录
-            saveRmsJobLog(rmsJobParam, result);
+            saveRmsJobEvent(rmsJobParam, result);
             //抛出异常
             log.error("RmsJob error:", e);
             throw new JobExecutionException(e);
@@ -133,8 +133,8 @@ public abstract class AbstractBaseRmsJob extends AbstractBaseJob {
      * @return 是否正在运行
      */
     private boolean hasRunning(RmsJobParam rmsJobParam) {
-        IRmsJobLog rmsJobLog = this.getRmsJobLog();
-        return rmsJobLog != null && rmsJobLog.hasRunning(rmsJobParam);
+        IRmsJobEvent rmsJobEvent = this.getRmsJobEvent();
+        return rmsJobEvent != null && rmsJobEvent.hasRunning(rmsJobParam);
     }
 
     /**
@@ -143,22 +143,22 @@ public abstract class AbstractBaseRmsJob extends AbstractBaseJob {
      * @param param  param
      * @param result result
      */
-    private void saveRmsJobLog(RmsJobParam param, RmsJobResult result) {
-        IRmsJobLog rmsJobLog = this.getRmsJobLog();
-        if (rmsJobLog != null) {
-            rmsJobLog.save(param, result);
+    private void saveRmsJobEvent(RmsJobParam param, RmsJobResult result) {
+        IRmsJobEvent rmsJobEvent = this.getRmsJobEvent();
+        if (rmsJobEvent != null) {
+            rmsJobEvent.save(param, result);
         }
     }
 
     /**
-     * 获得RmsJobLog
+     * 获得RmsJobEvent
      *
-     * @return IRmsJobLog
+     * @return IRmsJobEvent
      */
-    private IRmsJobLog getRmsJobLog() {
-        String[] beanNames = this.getApplicationContext().getBeanNamesForType(IRmsJobLog.class);
+    private IRmsJobEvent getRmsJobEvent() {
+        String[] beanNames = this.getApplicationContext().getBeanNamesForType(IRmsJobEvent.class);
         if (ArrayUtils.isNotEmpty(beanNames)) {
-            return this.getApplicationContext().getBean(IRmsJobLog.class);
+            return this.getApplicationContext().getBean(IRmsJobEvent.class);
         }
         return null;
     }

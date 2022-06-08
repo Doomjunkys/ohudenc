@@ -3,7 +3,7 @@ package org.itkk.udf.scheduler.listener;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.itkk.udf.scheduler.IListenerLog;
+import org.itkk.udf.scheduler.IListenerEvent;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -42,7 +42,7 @@ public class SchListener implements SchedulerListener {
      * 描述 : listenerLog
      */
     @Autowired(required = false)
-    private IListenerLog listenerLog;
+    private IListenerEvent listenerLog;
 
     @Override
     public void triggerPaused(TriggerKey triggerKey) {
