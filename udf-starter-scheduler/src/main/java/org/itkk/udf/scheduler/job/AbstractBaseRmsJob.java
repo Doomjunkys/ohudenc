@@ -69,7 +69,7 @@ public abstract class AbstractBaseRmsJob extends AbstractBaseJob {
     }
 
     /**
-     * 锁定执行
+     * 禁止并发执行
      *
      * @param rmsJobParam rmsJobParam
      * @throws JobExecutionException JobExecutionException
@@ -133,12 +133,8 @@ public abstract class AbstractBaseRmsJob extends AbstractBaseJob {
      * @return 是否正在运行
      */
     private boolean hasRunning(RmsJobParam rmsJobParam) {
-        String[] beanNames = this.getApplicationContext().getBeanNamesForType(IRmsJobLog.class);
-        if (ArrayUtils.isNotEmpty(beanNames)) {
-            IRmsJobLog rmsJobLog = this.getApplicationContext().getBean(IRmsJobLog.class);
-            return rmsJobLog.hasRunning(rmsJobParam);
-        }
-        return false;
+        IRmsJobLog rmsJobLog = this.getRmsJobLog();
+        return rmsJobLog != null && rmsJobLog.hasRunning(rmsJobParam);
     }
 
     /**
@@ -148,11 +144,23 @@ public abstract class AbstractBaseRmsJob extends AbstractBaseJob {
      * @param result result
      */
     private void saveRmsJobLog(RmsJobParam param, RmsJobResult result) {
-        String[] beanNames = this.getApplicationContext().getBeanNamesForType(IRmsJobLog.class);
-        if (ArrayUtils.isNotEmpty(beanNames)) {
-            IRmsJobLog rmsJobLog = this.getApplicationContext().getBean(IRmsJobLog.class);
+        IRmsJobLog rmsJobLog = this.getRmsJobLog();
+        if (rmsJobLog != null) {
             rmsJobLog.save(param, result);
         }
+    }
+
+    /**
+     * 获得RmsJobLog
+     *
+     * @return IRmsJobLog
+     */
+    private IRmsJobLog getRmsJobLog() {
+        String[] beanNames = this.getApplicationContext().getBeanNamesForType(IRmsJobLog.class);
+        if (ArrayUtils.isNotEmpty(beanNames)) {
+            return this.getApplicationContext().getBean(IRmsJobLog.class);
+        }
+        return null;
     }
 
 }
