@@ -81,7 +81,7 @@ public abstract class AbstractBaseRmsJob extends AbstractBaseJob {
             RmsJobResult result = new RmsJobResult();
             result.setId(rmsJobParam.getId());
             result.setStats(RmsJobStats.SKIP.value());
-            saveRmsJobEvent(rmsJobParam, result);
+            save(rmsJobParam, result);
         }
     }
 
@@ -111,7 +111,7 @@ public abstract class AbstractBaseRmsJob extends AbstractBaseJob {
                 throw new SchException("http状态:" + result.getStatusCode().toString());
             }
             //记录
-            saveRmsJobEvent(rmsJobParam, result.getBody().getResult());
+            save(rmsJobParam, result.getBody().getResult());
         } catch (Exception e) {
             //定义返回值
             RmsJobResult result = new RmsJobResult();
@@ -119,7 +119,7 @@ public abstract class AbstractBaseRmsJob extends AbstractBaseJob {
             result.setStats(RmsJobStats.ERROR.value());
             result.setErrorMsg(ExceptionUtils.getStackTrace(e));
             //记录
-            saveRmsJobEvent(rmsJobParam, result);
+            save(rmsJobParam, result);
             //抛出异常
             log.error("RmsJob error:", e);
             throw new JobExecutionException(e);
@@ -143,7 +143,7 @@ public abstract class AbstractBaseRmsJob extends AbstractBaseJob {
      * @param param  param
      * @param result result
      */
-    private void saveRmsJobEvent(RmsJobParam param, RmsJobResult result) {
+    private void save(RmsJobParam param, RmsJobResult result) {
         IRmsJobEvent rmsJobEvent = this.getRmsJobEvent();
         if (rmsJobEvent != null) {
             rmsJobEvent.save(param, result);
