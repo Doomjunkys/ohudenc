@@ -8,6 +8,10 @@
 
 ![物理架构示意](https://static.oschina.net/uploads/img/201708/25093208_nNaX.png "物理架构示意")
 
+## 分布式调度-逻辑架构示意
+
+![分布式调度-逻辑架构示意](https://static.oschina.net/uploads/img/201708/29201705_LnBY.png "分布式调度-逻辑架构示意")
+
 ## CI & CD 示意
 
 ![CI & CD 示意](https://static.oschina.net/uploads/img/201708/25093522_sKFz.png "CI & CD 示意")
