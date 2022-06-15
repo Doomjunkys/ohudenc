@@ -24,6 +24,8 @@
 
 ## 项目博客 (点击跳转)
 
+- [spring boot / cloud (十五) 分布式调度中心进阶](https://my.oschina.net/wangkang80/blog/1525908)
+
 - [spring boot / cloud (十四) 微服务间远程服务调用的认证和鉴权的思考和设计,以及restFul风格的url匹配拦截方法](https://my.oschina.net/wangkang80/blog/1524746)
 
 - [spring boot / cloud (十三) 404错误处理进阶](https://my.oschina.net/wangkang80/blog/1523308)
