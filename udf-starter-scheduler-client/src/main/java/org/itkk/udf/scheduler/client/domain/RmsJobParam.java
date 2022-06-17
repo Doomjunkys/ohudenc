@@ -9,6 +9,7 @@ package org.itkk.udf.scheduler.client.domain;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -20,6 +21,7 @@ import java.util.Map;
  */
 @ApiModel(description = "通用job参数")
 @Data
+@ToString
 public class RmsJobParam implements Serializable {
 
     /**

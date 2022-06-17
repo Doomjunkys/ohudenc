@@ -7,6 +7,8 @@
 package org.itkk.udf.scheduler;
 
 import lombok.Data;
+import org.itkk.udf.scheduler.impl.DefListenerEvent;
+import org.itkk.udf.scheduler.impl.DefRmsJobEvent;
 import org.itkk.udf.scheduler.job.ClearScheduledLog;
 import org.itkk.udf.scheduler.job.ClearScheduledTriggerLog;
 import org.itkk.udf.scheduler.listener.JobDetailListener;
@@ -17,6 +19,8 @@ import org.quartz.spi.JobFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.SearchStrategy;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -258,6 +262,28 @@ public class SchedulerConfig {
         factoryBean.setJobClass(ClearScheduledTriggerLog.class);
         factoryBean.setDurability(true);
         return factoryBean;
+    }
+
+    /**
+     * rmsJobEvent
+     *
+     * @return IRmsJobEvent
+     */
+    @Bean
+    @ConditionalOnMissingBean(value = IRmsJobEvent.class, search = SearchStrategy.CURRENT)
+    public IRmsJobEvent rmsJobEvent() {
+        return new DefRmsJobEvent();
+    }
+
+    /**
+     * listenerEvent
+     *
+     * @return IListenerEvent
+     */
+    @Bean
+    @ConditionalOnMissingBean(value = IListenerEvent.class, search = SearchStrategy.CURRENT)
+    public IListenerEvent listenerEvent() {
+        return new DefListenerEvent();
     }
 
 }

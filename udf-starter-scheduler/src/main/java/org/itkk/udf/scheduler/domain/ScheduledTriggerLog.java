@@ -9,6 +9,7 @@ package org.itkk.udf.scheduler.domain;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -20,6 +21,7 @@ import java.util.Date;
  */
 @ApiModel(description = "计划任务触发日志")
 @Data
+@ToString
 public class ScheduledTriggerLog implements Serializable {
 
     private static final long serialVersionUID = 1L;

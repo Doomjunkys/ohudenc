@@ -1,6 +1,5 @@
 package org.itkk.udf.scheduler.listener;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.itkk.udf.scheduler.IListenerEvent;
@@ -21,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Date: 2014年1月24日
  * </p>
  */
-@Slf4j
 public class SchListener implements SchedulerListener {
 
     /**
@@ -47,7 +45,6 @@ public class SchListener implements SchedulerListener {
     @Override
     public void triggerPaused(TriggerKey triggerKey) {
         String logMsg = "(triggerPaused)" + triggerKey.getName() + "/" + triggerKey.getGroup() + "被暂停了";
-        log.info(logMsg);
         if (listenerLog != null) {
             listenerLog.save(logMsg);
         }
@@ -57,7 +54,6 @@ public class SchListener implements SchedulerListener {
     public void triggerResumed(TriggerKey triggerKey) {
         String logMsg =
                 "(triggerResumed)" + triggerKey.getName() + CHAR_1 + triggerKey.getGroup() + "被恢复了";
-        log.info(logMsg);
         if (listenerLog != null) {
             listenerLog.save(logMsg);
         }
@@ -68,7 +64,6 @@ public class SchListener implements SchedulerListener {
         String logMsg = "(jobScheduled)" + ZHUOYE + trigger.getJobKey().getName() + CHAR_1
                 + trigger.getJobKey().getGroup() + "被触发器" + trigger.getKey().getName() + CHAR_1
                 + trigger.getKey().getGroup() + "触发了";
-        log.info(logMsg);
         if (listenerLog != null) {
             listenerLog.save(logMsg);
         }
@@ -76,9 +71,7 @@ public class SchListener implements SchedulerListener {
 
     @Override
     public void jobUnscheduled(TriggerKey triggerKey) {
-        String logMsg =
-                "(jobUnscheduled)" + triggerKey.getName() + CHAR_1 + triggerKey.getGroup() + "被移除了";
-        log.info(logMsg);
+        String logMsg = "(jobUnscheduled)" + triggerKey.getName() + CHAR_1 + triggerKey.getGroup() + "被移除了";
         if (listenerLog != null) {
             listenerLog.save(logMsg);
         }
@@ -89,7 +82,6 @@ public class SchListener implements SchedulerListener {
         String logMsg = "(triggerFinalized)" + ZHUOYE + trigger.getJobKey().getName() + CHAR_1
                 + trigger.getJobKey().getGroup() + ",触发器" + trigger.getKey().getName() + CHAR_1
                 + trigger.getKey().getGroup() + "已经执行完成,后续将不会继续触发";
-        log.info(logMsg);
         if (listenerLog != null) {
             listenerLog.save(logMsg);
         }
@@ -99,13 +91,11 @@ public class SchListener implements SchedulerListener {
     public void triggersPaused(String triggerGroup) {
         if (StringUtils.isEmpty(triggerGroup)) {
             String logMsg = "(triggersPaused)" + "触发器组全部被暂停了";
-            log.info(logMsg);
             if (listenerLog != null) {
                 listenerLog.save(logMsg);
             }
         } else {
             String logMsg = "(triggersPaused)" + "触发器组" + triggerGroup + "被暂停了";
-            log.info(logMsg);
             if (listenerLog != null) {
                 listenerLog.save(logMsg);
             }
@@ -117,13 +107,11 @@ public class SchListener implements SchedulerListener {
     public void triggersResumed(String triggerGroup) {
         if (StringUtils.isEmpty(triggerGroup)) {
             String logMsg = "(triggersResumed)" + "触发器组全部被恢复了";
-            log.info(logMsg);
             if (listenerLog != null) {
                 listenerLog.save(logMsg);
             }
         } else {
             String logMsg = "(triggersResumed)" + "触发器组" + triggerGroup + "被恢复了";
-            log.info(logMsg);
             if (listenerLog != null) {
                 listenerLog.save(logMsg);
             }
@@ -132,9 +120,7 @@ public class SchListener implements SchedulerListener {
 
     @Override
     public void jobAdded(JobDetail jobDetail) {
-        String logMsg = "(jobAdded)" + ZHUOYE + jobDetail.getKey().getName() + CHAR_1
-                + jobDetail.getKey().getGroup() + "被添加了";
-        log.info(logMsg);
+        String logMsg = "(jobAdded)" + ZHUOYE + jobDetail.getKey().getName() + CHAR_1 + jobDetail.getKey().getGroup() + "被添加了";
         if (listenerLog != null) {
             listenerLog.save(logMsg);
         }
@@ -143,7 +129,6 @@ public class SchListener implements SchedulerListener {
     @Override
     public void jobDeleted(JobKey jobKey) {
         String logMsg = "(jobDeleted)" + ZHUOYE + jobKey.getName() + CHAR_1 + jobKey.getGroup() + "被删除了";
-        log.info(logMsg);
         if (listenerLog != null) {
             listenerLog.save(logMsg);
         }
@@ -152,7 +137,6 @@ public class SchListener implements SchedulerListener {
     @Override
     public void jobPaused(JobKey jobKey) {
         String logMsg = "(jobPaused)" + ZHUOYE + jobKey.getName() + CHAR_1 + jobKey.getGroup() + "被暂停了";
-        log.info(logMsg);
         if (listenerLog != null) {
             listenerLog.save(logMsg);
         }
@@ -162,13 +146,11 @@ public class SchListener implements SchedulerListener {
     public void jobsPaused(String jobGroup) {
         if (StringUtils.isEmpty(jobGroup)) {
             String logMsg = "(jobsPaused)" + "作业全部被暂停了";
-            log.info(logMsg);
             if (listenerLog != null) {
                 listenerLog.save(logMsg);
             }
         } else {
             String logMsg = "(jobsPaused)" + "作业组" + jobGroup + "被暂停了";
-            log.info(logMsg);
             if (listenerLog != null) {
                 listenerLog.save(logMsg);
             }
@@ -179,7 +161,6 @@ public class SchListener implements SchedulerListener {
     @Override
     public void jobResumed(JobKey jobKey) {
         String logMsg = "(jobResumed)" + ZHUOYE + jobKey.getName() + CHAR_1 + jobKey.getGroup() + "被恢复了";
-        log.info(logMsg);
         if (listenerLog != null) {
             listenerLog.save(logMsg);
         }
@@ -189,13 +170,11 @@ public class SchListener implements SchedulerListener {
     public void jobsResumed(String jobGroup) {
         if (StringUtils.isEmpty(jobGroup)) {
             String logMsg = "(jobsResumed)" + "作业全部被恢复了";
-            log.info(logMsg);
             if (listenerLog != null) {
                 listenerLog.save(logMsg);
             }
         } else {
             String logMsg = "(jobsResumed)" + "作业组" + jobGroup + "被恢复了";
-            log.info(logMsg);
             if (listenerLog != null) {
                 listenerLog.save(logMsg);
             }
@@ -207,7 +186,6 @@ public class SchListener implements SchedulerListener {
         // 获得异常详细信息
         String exceptionDetail = ExceptionUtils.getStackTrace(cause);
         String logMsg = "(schedulerError)" + "计划任务出错:" + msg + "\n" + exceptionDetail;
-        log.info(logMsg);
         if (listenerLog != null) {
             listenerLog.save(logMsg);
         }
@@ -216,7 +194,6 @@ public class SchListener implements SchedulerListener {
     @Override
     public void schedulerInStandbyMode() {
         String logMsg = "(schedulerInStandbyMode)" + "计划任务为待机状态";
-        log.info(logMsg);
         if (listenerLog != null) {
             listenerLog.save(logMsg);
         }
@@ -225,7 +202,6 @@ public class SchListener implements SchedulerListener {
     @Override
     public void schedulerStarted() {
         String logMsg = "(schedulerStarted)" + "计划任务已经启动";
-        log.info(logMsg);
         if (listenerLog != null) {
             listenerLog.save(logMsg);
         }
@@ -234,7 +210,6 @@ public class SchListener implements SchedulerListener {
     @Override
     public void schedulerStarting() {
         String logMsg = "(schedulerStarting)" + "计划任务正在启动中";
-        log.info(logMsg);
         if (listenerLog != null) {
             listenerLog.save(logMsg);
         }
@@ -243,7 +218,6 @@ public class SchListener implements SchedulerListener {
     @Override
     public void schedulerShutdown() {
         String logMsg = "(schedulerShutdown)" + "计划任务已关闭";
-        log.info(logMsg);
         if (listenerLog != null) {
             listenerLog.save(logMsg);
         }
@@ -252,7 +226,6 @@ public class SchListener implements SchedulerListener {
     @Override
     public void schedulerShuttingdown() {
         String logMsg = "(schedulerShuttingdown)" + "计划任务正在关闭中";
-        log.info(logMsg);
         if (listenerLog != null) {
             listenerLog.save(logMsg);
         }
@@ -261,7 +234,6 @@ public class SchListener implements SchedulerListener {
     @Override
     public void schedulingDataCleared() {
         String logMsg = "(schedulingDataCleared)" + "计划任务数据被清除";
-        log.info(logMsg);
         if (listenerLog != null) {
             listenerLog.save(logMsg);
         }

@@ -18,9 +18,9 @@ public interface IListenerEvent {
     /**
      * 描述 : 记录日志
      *
-     * @param log log
+     * @param scheduledTriggerLog scheduledTriggerLog
      */
-    void save(ScheduledTriggerLog log);
+    void save(ScheduledTriggerLog scheduledTriggerLog);
 
     /**
      * 描述 : 删除记录
@@ -37,9 +37,9 @@ public interface IListenerEvent {
     /**
      * 描述 : 记录日志
      *
-     * @param log log
+     * @param saveLog saveLog
      */
-    void save(String log);
+    void save(String saveLog);
 
     /**
      * 描述 : 清理日志
