@@ -25,6 +25,8 @@
         <alibaba.druid.version>1.1.2</alibaba.druid.version>
         <jasypt-spring-boot-starter.version>1.14</jasypt-spring-boot-starter.version>
         <zxing.version>3.3.0</zxing.version>
+        <mybatis-spring-boot-starter.version>1.3.1</mybatis-spring-boot-starter.version>
+        <jsqlparser.version>1.1</jsqlparser.version>
     </properties>
     <!--子模块 -->
     <modules>
@@ -42,6 +44,7 @@
         <module>udf-starter-qrcode</module>
         <module>udf-starter-auth</module>
         <module>udf-starter-datasource-dynamic</module>
+        <module>udf-starter-dal-mybatis</module>
     </modules>
     <!-- 依赖管理 -->
     <dependencyManagement>
@@ -144,6 +147,12 @@
             <dependency>
                 <groupId>org.itkk.udf</groupId>
                 <artifactId>udf-starter-auth</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-dal-mybatis -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-dal-mybatis</artifactId>
                 <version>${udf-starter.version}</version>
             </dependency>
         </dependencies>
