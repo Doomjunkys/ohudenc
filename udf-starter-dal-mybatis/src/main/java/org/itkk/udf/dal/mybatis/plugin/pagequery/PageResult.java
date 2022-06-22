@@ -36,12 +36,12 @@ public class PageResult<E> extends ArrayList<E> { //NOSONAR
     /**
      * 总页数
      */
-    private int totalPages = 0;
+    private long totalPages = 0;
 
     /**
      * 总条数
      */
-    private int totalRecords = 0;
+    private long totalRecords = 0;
 
     /**
      * 只读属性,是否已经存在分页总条数,默认为false,当调用setTotalRecords方法的时候,会变更为true
@@ -64,15 +64,15 @@ public class PageResult<E> extends ArrayList<E> { //NOSONAR
         this.pageSize = pageSize;
     }
 
-    public int getTotalPages() {
+    public long getTotalPages() {
         return this.totalPages;
     }
 
-    public void setTotalPages(int totalPages) {
+    public void setTotalPages(long totalPages) {
         this.totalPages = totalPages;
     }
 
-    public int getTotalRecords() {
+    public long getTotalRecords() {
         return this.totalRecords;
     }
 
@@ -83,7 +83,7 @@ public class PageResult<E> extends ArrayList<E> { //NOSONAR
      *
      * @param totalRecords 总记录数
      */
-    public void setTotalRecords(int totalRecords) {
+    public void setTotalRecords(long totalRecords) {
         this.totalRecords = totalRecords;
         this.hasTotalRecords = true;
     }

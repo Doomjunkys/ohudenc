@@ -28,13 +28,6 @@ public class SqlParser {
 
     /**
      * <p>
-     * Field COUNT_ITEM: COUNT_ITEM
-     * </p>
-     */
-    private static final List<SelectItem> COUNT_ITEM;
-
-    /**
-     * <p>
      * Field TABLE_ALIAS: TABLE_ALIAS
      * </p>
      */
@@ -48,9 +41,6 @@ public class SqlParser {
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
     static {
-        COUNT_ITEM = new ArrayList<>();
-        COUNT_ITEM.add(new SelectExpressionItem(new Column("count(*)")));
-
         TABLE_ALIAS = new Alias("table_count");
         TABLE_ALIAS.setUseAs(false);
     }
@@ -58,10 +48,11 @@ public class SqlParser {
     /**
      * 获取智能的countSql
      *
-     * @param sql sql
+     * @param sql  sql
+     * @param name 字段名称
      * @return 优化后的sql
      */
-    public String getSmartCountSql(String sql) {
+    public String getSmartCountSql(String sql, String name) {
         // 校验是否支持该sql
         isSupportedSql(sql);
         // 解析SQL
@@ -81,7 +72,7 @@ public class SqlParser {
             // 处理with-去order by
             processWithItemsList(select.getWithItemsList());
             // 处理为count查询
-            sqlToCount(select);
+            sqlToCount(select, name);
             // 返回
             return select.toString();
         } catch (JSQLParserException e) {
@@ -110,19 +101,22 @@ public class SqlParser {
      * 将sql转换为count查询
      *
      * @param select 查询对象
+     * @param name   字段名称
      */
-    private void sqlToCount(Select select) {
+    private void sqlToCount(Select select, String name) {
         SelectBody selectBody = select.getSelectBody();
         // 是否能简化count查询
+        List<SelectItem> countItem = new ArrayList<>();
+        countItem.add(new SelectExpressionItem(new Column("count(" + name + ")")));
         if (selectBody instanceof PlainSelect && isSimpleCount((PlainSelect) selectBody)) {
-            ((PlainSelect) selectBody).setSelectItems(COUNT_ITEM);
+            ((PlainSelect) selectBody).setSelectItems(countItem);
         } else {
             PlainSelect plainSelect = new PlainSelect();
             SubSelect subSelect = new SubSelect();
             subSelect.setSelectBody(selectBody);
             subSelect.setAlias(TABLE_ALIAS);
             plainSelect.setFromItem(subSelect);
-            plainSelect.setSelectItems(COUNT_ITEM);
+            plainSelect.setSelectItems(countItem);
             select.setSelectBody(plainSelect);
         }
     }

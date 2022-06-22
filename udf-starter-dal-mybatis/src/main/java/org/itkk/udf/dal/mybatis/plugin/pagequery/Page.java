@@ -30,14 +30,14 @@ public class Page<E> {
     /**
      * 总页数
      */
-    @ApiModelProperty(value = "总页数", required = true, dataType = "int")
-    private int totalPages = 0;
+    @ApiModelProperty(value = "总页数", required = true, dataType = "long")
+    private long totalPages = 0;
 
     /**
      * 总条数
      */
-    @ApiModelProperty(value = "总行数", required = true, dataType = "int")
-    private int totalRecords = 0;
+    @ApiModelProperty(value = "总行数", required = true, dataType = "long")
+    private long totalRecords = 0;
 
     /**
      * 结果集

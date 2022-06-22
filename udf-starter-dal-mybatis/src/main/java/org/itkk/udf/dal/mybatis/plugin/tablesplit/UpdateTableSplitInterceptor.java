@@ -11,7 +11,9 @@ import java.util.Properties;
  *
  * @author wangkang
  */
-@Intercepts(@Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class}))
+@Intercepts(
+        @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class})
+)
 public class UpdateTableSplitInterceptor extends BaseTableSplitInterceptor implements Interceptor {
 
     /**
