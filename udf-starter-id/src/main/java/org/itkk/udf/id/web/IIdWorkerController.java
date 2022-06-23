@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.itkk.udf.core.RestResponse;
+import org.itkk.udf.id.domain.Id;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -60,5 +61,21 @@ public interface IIdWorkerController { //NOSONAR
     })
     @RequestMapping(value = "{count}", method = RequestMethod.GET)
     RestResponse<List<String>> get(@PathVariable Integer count);
+
+    /**
+     * 解析分布式ID
+     *
+     * @param id 分布式ID
+     * @return ID
+     */
+    @ApiOperation(value = "ID_3", notes = "解析分布式ID")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称", required = true, dataType = "string"),
+            @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true, dataType = "string"),
+            @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号", required = true, dataType = "string"),
+            @ApiImplicitParam(paramType = "path", name = "id", value = "分布式ID", required = true, dataType = "long")
+    })
+    @RequestMapping(value = "reverse/{id}", method = RequestMethod.GET)
+    RestResponse<Id> reverse(@PathVariable long id);
 
 }

@@ -66,7 +66,7 @@ public class PageInterceptor implements Interceptor {
     private String countSuffix = "_COUNT";
 
     @Override
-    public Object intercept(Invocation invocation) throws Throwable {
+    public Object intercept(Invocation invocation) throws Throwable { // NOSONAR
         try {
             //常量
             final int num2 = 2;
@@ -123,7 +123,7 @@ public class PageInterceptor implements Interceptor {
                     String pageSql = generatePageSql(boundSql.getSql(), pr);
                     BoundSql pageBoundSql = new BoundSql(configuration, pageSql, boundSql.getParameterMappings(), parameter);
                     //设置动态参数
-                    for (String key : additionalParameters.keySet()) {
+                    for (String key : additionalParameters.keySet()) { // NOSONAR
                         pageBoundSql.setAdditionalParameter(key, additionalParameters.get(key));
                     }
                     //执行分页查询
@@ -164,10 +164,10 @@ public class PageInterceptor implements Interceptor {
         CacheKey countKey = executor.createCacheKey(countMs, parameter, RowBounds.DEFAULT, boundSql);
         //调用方言获取 count sql
         String countSql = new SqlParser().getSmartCountSql(boundSql.getSql(), "1");
-        //countKey.update(countSql);
+        //获得BoundSql
         BoundSql countBoundSql = new BoundSql(countMs.getConfiguration(), countSql, boundSql.getParameterMappings(), parameter);
         //当使用动态 SQL 时，可能会产生临时的参数，这些参数需要手动设置到新的 BoundSql 中
-        for (String key : additionalParameters.keySet()) {
+        for (String key : additionalParameters.keySet()) { //NOSONAR
             countBoundSql.setAdditionalParameter(key, additionalParameters.get(key));
         }
         //执行 count 查询

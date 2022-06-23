@@ -24,11 +24,6 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
      */
     private static Map<Object, Object> dyanmictargetDataSources;
 
-    /**
-     * 描述 : 当前所使用的数据源
-     */
-    private static final ThreadLocal<DataSource> CURRENTDATASOURCE = new ThreadLocal<>();
-
     static {
         if (null == DynamicDataSource.dyanmictargetDataSources) {
             DynamicDataSource.dyanmictargetDataSources = new HashMap<>();
@@ -46,15 +41,6 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
      */
     @Autowired
     private IBuildDataSource buildDataSource;
-
-    /**
-     * 当前所使用的数据源
-     *
-     * @return 数据源
-     */
-    public static DataSource getCurrentDataSource() {
-        return CURRENTDATASOURCE.get();
-    }
 
     @Override
     protected Object determineCurrentLookupKey() { //NOSONAR
@@ -94,13 +80,6 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
             throw new DynamicDataSourceException("dataSourceCode : " + dataSourceCode + " not exist or not enable");
         }
         log.debug("switch to the Data Source : " + dataSourceCode);
-        Object dataSource = dyanmictargetDataSources.get(dataSourceCode);
-        if (dataSource != null) {
-            CURRENTDATASOURCE.set((DataSource) dataSource);
-        } else {
-            CURRENTDATASOURCE.set(null);
-        }
-        log.debug("Sets the current data source : " + dataSourceCode);
         return dataSourceCode;
     }
 

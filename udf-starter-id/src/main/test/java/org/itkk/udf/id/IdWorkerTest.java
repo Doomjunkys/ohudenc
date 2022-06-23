@@ -1,7 +1,6 @@
 package org.itkk.udf.id;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
@@ -13,7 +12,6 @@ import java.util.Map;
 public class IdWorkerTest {
 
     @Test
-    @Ignore
     public void id() {
         Map<Long, Long> map = new HashMap<>();
         int maxCount = 1;

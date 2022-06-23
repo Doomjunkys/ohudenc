@@ -9,6 +9,7 @@ package org.itkk.udf.id;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.itkk.udf.core.exception.SystemRuntimeException;
+import org.itkk.udf.id.domain.Id;
 
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
@@ -153,6 +154,21 @@ public class IdWorker {
         this.workerId = workerId;
         this.datacenterId = datacenterId;
         log.info("datacenterId:{},workerId:{}", this.datacenterId, this.workerId);
+    }
+
+    /**
+     * 反解析ID
+     *
+     * @param id id
+     * @return id信息
+     */
+    public Id reverse(long id) {
+        Id reverseId = new Id();
+        reverseId.setSequence((id) & ~(-1L << sequenceBits));
+        reverseId.setWorkerId((id >> workerIdShift) & ~(-1L << workerIdBits));
+        reverseId.setDatacenterId((id >> datacenterIdShift) & ~(-1L << datacenterIdBits));
+        reverseId.setTimestamp((id >> timestampLeftShift) + twepoch);
+        return reverseId;
     }
 
     /**

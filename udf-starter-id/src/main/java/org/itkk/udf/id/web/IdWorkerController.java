@@ -10,6 +10,7 @@ import org.itkk.udf.core.RestResponse;
 import org.itkk.udf.core.exception.SystemRuntimeException;
 import org.itkk.udf.id.IdWorker;
 import org.itkk.udf.id.IdWorkerProperties;
+import org.itkk.udf.id.domain.Id;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,5 +55,10 @@ public class IdWorkerController implements IIdWorkerController {
             ids.add(Long.toString(idWorker.nextId()));
         }
         return new RestResponse<>(ids);
+    }
+
+    @Override
+    public RestResponse<Id> reverse(@PathVariable long id) {
+        return new RestResponse<>(idWorker.reverse(id));
     }
 }
