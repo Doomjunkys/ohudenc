@@ -15,6 +15,12 @@
     </parent>
     <!-- 依赖 -->
     <dependencies>
+        <!-- spring-boot-starter-test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.itkk.udf</groupId>
             <artifactId>udf-starter-core</artifactId>

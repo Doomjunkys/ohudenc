@@ -35,17 +35,17 @@ public class IdWorker {
     public static final String MAC_PID_TYPE = "mac_pid";
 
     /**
-     * 描述 : 机器ID
+     * 描述 : 机器ID( 0 - 31 )
      */
     private long workerId;
 
     /**
-     * 描述 : 数据中心ID
+     * 描述 : 数据中心ID( 0 - 31 )
      */
     private long datacenterId;
 
     /**
-     * 描述 : 并发控制
+     * 描述 : 序列号( 0 - 4095)
      */
     private long sequence = 0L;
 
@@ -95,7 +95,7 @@ public class IdWorker {
     private long timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits;
 
     /**
-     * 描述 : sequenceMask
+     * 描述 : 序列号最大值 , 一微秒能产生的ID个数
      */
     private long sequenceMask = -1L ^ (-1L << sequenceBits);
 
@@ -145,16 +145,14 @@ public class IdWorker {
     public IdWorker(long workerId, long datacenterId) {
         // sanity check for workerId
         if (workerId > maxWorkerId || workerId < 0) {
-            throw new IllegalArgumentException(
-                    String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
+            throw new IllegalArgumentException(String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
         }
         if (datacenterId > maxDatacenterId || datacenterId < 0) {
-            throw new IllegalArgumentException(
-                    String.format("datacenter Id can't be greater than %d or less than 0", maxDatacenterId));
+            throw new IllegalArgumentException(String.format("datacenter Id can't be greater than %d or less than 0", maxDatacenterId));
         }
         this.workerId = workerId;
         this.datacenterId = datacenterId;
-        log.info("datacenterId:{},workerId:{}", maxDatacenterId, maxWorkerId);
+        log.info("datacenterId:{},workerId:{}", this.datacenterId, this.workerId);
     }
 
     /**
@@ -165,9 +163,7 @@ public class IdWorker {
     public synchronized long nextId() {
         long timestamp = timeGen();
         if (timestamp < lastTimestamp) {
-            throw new SystemRuntimeException(
-                    String.format("Clock moved backwards. Refusing to generate id for %d milliseconds",
-                            lastTimestamp - timestamp));
+            throw new SystemRuntimeException(String.format("Clock moved backwards. Refusing to generate id for %d milliseconds", lastTimestamp - timestamp));
         }
         if (lastTimestamp == timestamp) {
             sequence = (sequence + 1) & sequenceMask;
@@ -178,8 +174,9 @@ public class IdWorker {
             sequence = 0L;
         }
         lastTimestamp = timestamp;
-        return ((timestamp - twepoch) << timestampLeftShift) | (datacenterId << datacenterIdShift)
-                | (workerId << workerIdShift) | sequence;
+        log.debug("{} | {} | {} | {}", ((timestamp - twepoch) << timestampLeftShift), (datacenterId << datacenterIdShift), (workerId << workerIdShift), sequence);
+        log.debug("(({} - {}) << {}) | ({} << {}) | ({} << {}) | {}", timestamp, twepoch, timestampLeftShift, datacenterId, datacenterIdShift, workerId, workerIdShift, sequence);
+        return ((timestamp - twepoch) << timestampLeftShift) | (datacenterId << datacenterIdShift) | (workerId << workerIdShift) | sequence;
     }
 
     /**
