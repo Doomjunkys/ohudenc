@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,7 +14,12 @@ import java.util.List;
  */
 @ApiModel(description = "分页消息体")
 @Data
-public class Page<E> {
+public class Page<E> implements Serializable {
+
+    /**
+     * 描述 : id
+     */
+    private static final long serialVersionUID = 1L;
 
     /**
      * 当前页,默认1

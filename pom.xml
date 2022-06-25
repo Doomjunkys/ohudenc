@@ -45,6 +45,7 @@
         <module>udf-starter-auth</module>
         <module>udf-starter-datasource-dynamic</module>
         <module>udf-starter-dal-mybatis</module>
+        <module>udf-starter-cache-redis</module>
     </modules>
     <!-- 依赖管理 -->
     <dependencyManagement>
@@ -153,6 +154,12 @@
             <dependency>
                 <groupId>org.itkk.udf</groupId>
                 <artifactId>udf-starter-dal-mybatis</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-cache-redis -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-cache-redis</artifactId>
                 <version>${udf-starter.version}</version>
             </dependency>
         </dependencies>
