@@ -49,7 +49,7 @@ public class Page<E> implements Serializable {
      * 结果集
      */
     @ApiModelProperty(value = "结果集", required = true, dataType = "object")
-    private List<E> records;
+    private List<E> records; //NOSONAR
 
     /**
      * 描述 : 构造函数
