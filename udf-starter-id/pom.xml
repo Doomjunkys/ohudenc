@@ -25,5 +25,9 @@
             <groupId>org.itkk.udf</groupId>
             <artifactId>udf-starter-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.itkk.udf</groupId>
+            <artifactId>udf-starter-cache-redis</artifactId>
+        </dependency>
     </dependencies>
 </project>

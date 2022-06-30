@@ -1,6 +1,5 @@
 package org.itkk.udf.id;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,20 +9,19 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class IdWorkerConfig {
 
-    /**
-     * idWorkerProperties
-     */
-    @Autowired
-    private IdWorkerProperties idWorkerProperties;
 
     /**
-     * 描述 : 分布式ID生成器
+     * 分布式ID生成器
      *
-     * @return 分布式ID生成器
+     * @param idWorkerInit idWorkInit
+     * @return idWorkInit
      */
     @Bean
-    public IdWorker idWorker() {
-        return new IdWorker(idWorkerProperties.getType());
+    public IdWorker idWorker(IdWorkerInit idWorkerInit) {
+        //初始化
+        idWorkerInit.init();
+        //返回
+        return idWorkerInit.get();
     }
 
 }
