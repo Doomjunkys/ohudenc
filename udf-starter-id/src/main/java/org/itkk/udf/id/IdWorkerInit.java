@@ -42,7 +42,7 @@ public class IdWorkerInit {
     /**
      * job执行时间
      */
-    private static final long JOB_RUN_TIME = 20 * 1000;
+    private static final long JOB_RUN_TIME = 20l * 1000l;
 
     /**
      * 机器ID( 0 - 31 )
@@ -95,7 +95,7 @@ public class IdWorkerInit {
                 for (int i = 0; i <= MAX_COUNT; i++) { //datacenterId
                     for (int j = 0; j <= MAX_COUNT; j++) { //workerId
                         //生成key
-                        String key = cacheRedisProperties.getPrefix().concat(SPLIT).concat(CACHE_NAME).concat(SPLIT).concat(i + "").concat(SPLIT).concat(j + "");
+                        String key = cacheRedisProperties.getPrefix().concat(SPLIT).concat(CACHE_NAME).concat(SPLIT).concat(Integer.toString(i)).concat(SPLIT).concat(Integer.toString(j));
                         //创建锁
                         lock = connection.setNX(serializer.serialize(key), serializer.serialize(String.valueOf(new Date().getTime())));
                         //获得锁成功
@@ -136,14 +136,14 @@ public class IdWorkerInit {
     @Scheduled(fixedRate = JOB_RUN_TIME)
     public void refresh() {
         //id生成器实例化成功的情况下执行
-        if (this.workerId != null && this.datacenterId != null & this.idWorker != null) {
+        if (this.workerId != null && this.datacenterId != null && this.idWorker != null) {
             //开始处理
             boolean result = redisTemplate.execute((RedisCallback<Boolean>) connection -> {
                 try {
                     //实例化解析器
                     StringRedisSerializer serializer = new StringRedisSerializer();
                     //生成key
-                    String key = cacheRedisProperties.getPrefix().concat(SPLIT).concat(CACHE_NAME).concat(SPLIT).concat(this.datacenterId + "").concat(SPLIT).concat(this.workerId + "");
+                    String key = cacheRedisProperties.getPrefix().concat(SPLIT).concat(CACHE_NAME).concat(SPLIT).concat(Integer.toString(this.datacenterId)).concat(SPLIT).concat(Integer.toString(this.workerId));
                     //如果key不存在就创建(方式特殊情况,缓存丢失掉)
                     connection.setNX(serializer.serialize(key), serializer.serialize(String.valueOf(new Date().getTime())));
                     //设置超时时间
