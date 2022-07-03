@@ -37,12 +37,12 @@ public class IdWorkerInit {
     /**
      * key的过期时间
      */
-    private static final long EXPIRATION = 70;
+    private static final long EXPIRATION = 30;
 
     /**
      * job执行时间
      */
-    private static final long JOB_RUN_TIME = 60 * 1000l;
+    private static final long JOB_RUN_TIME = 20l * 1000l;
 
     /**
      * 机器ID( 0 - 31 )
