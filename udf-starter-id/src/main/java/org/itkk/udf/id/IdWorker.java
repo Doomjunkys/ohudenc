@@ -7,15 +7,8 @@
 package org.itkk.udf.id;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.itkk.udf.core.exception.SystemRuntimeException;
 import org.itkk.udf.id.domain.Id;
-
-import java.io.IOException;
-import java.lang.management.ManagementFactory;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.util.UUID;
 
 /**
  * 描述 : 分布式id生成器,基于twiter的snowflake
@@ -24,17 +17,6 @@ import java.util.UUID;
  */
 @Slf4j
 public class IdWorker {
-
-    /**
-     * uuid类型
-     */
-    public static final String UUID_TYPE = "uuid";
-
-    /**
-     * uuid类型
-     */
-    public static final String MAC_PID_TYPE = "mac_pid";
-
     /**
      * 描述 : 机器ID( 0 - 31 )
      */
@@ -107,38 +89,6 @@ public class IdWorker {
 
     /**
      * 描述 : 构造函数
-     */
-    public IdWorker() {
-        this(IdWorker.UUID_TYPE);
-    }
-
-    /**
-     * 构造函数
-     *
-     * @param type ID构造类型
-     */
-    public IdWorker(String type) {
-        if (StringUtils.isNotBlank(type)) {
-            switch (type) {
-                case IdWorker.UUID_TYPE:
-                    this.datacenterId = getDatacenterId(maxDatacenterId);
-                    this.workerId = getWorkerId(maxWorkerId);
-                    break;
-                case IdWorker.MAC_PID_TYPE: //DOCKER容器下有问题
-                    this.datacenterId = getDatacenterIdBack(maxDatacenterId);
-                    this.workerId = getWorkerIdBack(this.datacenterId, maxWorkerId);
-                    break;
-                default:
-                    throw new SystemRuntimeException("unknow type");
-            }
-        } else {
-            throw new SystemRuntimeException("type must not be null");
-        }
-        log.info("type:{},datacenterId:{},workerId:{}", type, this.datacenterId, this.workerId);
-    }
-
-    /**
-     * 描述 : 构造函数
      *
      * @param workerId     workerId
      * @param datacenterId datacenterId
@@ -190,8 +140,6 @@ public class IdWorker {
             sequence = 0L;
         }
         lastTimestamp = timestamp;
-        log.debug("{} | {} | {} | {}", ((timestamp - twepoch) << timestampLeftShift), (datacenterId << datacenterIdShift), (workerId << workerIdShift), sequence);
-        log.debug("(({} - {}) << {}) | ({} << {}) | ({} << {}) | {}", timestamp, twepoch, timestampLeftShift, datacenterId, datacenterIdShift, workerId, workerIdShift, sequence);
         return ((timestamp - twepoch) << timestampLeftShift) | (datacenterId << datacenterIdShift) | (workerId << workerIdShift) | sequence;
     }
 
@@ -216,76 +164,6 @@ public class IdWorker {
      */
     protected long timeGen() {
         return System.currentTimeMillis();
-    }
-
-    /**
-     * 描述 : 获取机器ID
-     *
-     * @param maxWorkerIdparam maxWorkerIdparam
-     * @return 机器ID
-     */
-    protected long getWorkerId(long maxWorkerIdparam) {
-        return Math.abs(UUID.randomUUID().toString().hashCode() % maxWorkerIdparam);
-    }
-
-    /**
-     * 描述 : 获取数据中心ID
-     *
-     * @param maxDatacenterIdparam maxDatacenterIdparam
-     * @return 数据中心ID
-     */
-    protected long getDatacenterId(long maxDatacenterIdparam) {
-        return Math.abs(UUID.randomUUID().toString().hashCode() % maxDatacenterIdparam);
-    }
-
-    /**
-     * 描述 : 获取机器ID(备用,docker容器中有问题)
-     *
-     * @param datacenterIdparam datacenterIdparam
-     * @param maxWorkerIdparam  maxWorkerIdparam
-     * @return 机器ID
-     */
-    protected long getWorkerIdBack(long datacenterIdparam, long maxWorkerIdparam) {
-        final int numbera = 0xffff;
-        StringBuilder mpid = new StringBuilder();
-        mpid.append(datacenterIdparam);
-        String name = ManagementFactory.getRuntimeMXBean().getName();
-        if (!name.isEmpty()) {
-            //GET jvmPid
-            mpid.append(name.split("@")[0]);
-        }
-        //MAC + PID 的 hashcode 获取16个低位
-        return (mpid.toString().hashCode() & numbera) % (maxWorkerIdparam + 1);
-    }
-
-    /**
-     * 描述 : 获取数据中心ID(备用,docker容器中有问题)
-     *
-     * @param maxDatacenterIdparam maxDatacenterIdparam
-     * @return 数据中心ID
-     */
-    protected long getDatacenterIdBack(long maxDatacenterIdparam) {
-        final int numbera = 0x000000FF;
-        final int numberb = 0x0000FF00;
-        final int number2 = 2;
-        final int number6 = 6;
-        final int number8 = 8;
-        long id;
-        try {
-            InetAddress ip = InetAddress.getLocalHost();
-            NetworkInterface network = NetworkInterface.getByInetAddress(ip);
-            if (network == null) {
-                id = 1L;
-            } else {
-                byte[] mac = network.getHardwareAddress();
-                id = ((numbera & (long) mac[mac.length - 1])
-                        | (numberb & (((long) mac[mac.length - number2]) << number8))) >> number6;
-                id = id % (maxDatacenterIdparam + 1);
-            }
-        } catch (IOException e) {
-            throw new SystemRuntimeException(e);
-        }
-        return id;
     }
 
 }

@@ -20,6 +20,11 @@ import java.util.Date;
 public class IdWorkerInit {
 
     /**
+     * MAX_SEQUENCE
+     */
+    public static final int MAX_SEQUENCE = 4095;
+
+    /**
      * 机器ID和数据中心ID的最大值
      */
     private static final int MAX_COUNT = 31;

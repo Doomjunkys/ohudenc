@@ -28,11 +28,6 @@ import java.util.List;
 public interface IIdWorkerController { //NOSONAR
 
     /**
-     * 最大个数
-     */
-    int MAX_COUNT = 1000;
-
-    /**
      * 获得分布式ID
      *
      * @return ID
