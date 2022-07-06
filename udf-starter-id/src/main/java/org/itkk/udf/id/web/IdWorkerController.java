@@ -8,7 +8,7 @@ package org.itkk.udf.id.web;
 
 import org.itkk.udf.core.RestResponse;
 import org.itkk.udf.core.exception.SystemRuntimeException;
-import org.itkk.udf.id.IdWorker;
+import org.itkk.udf.id.IdWorkerInit;
 import org.itkk.udf.id.IdWorkerProperties;
 import org.itkk.udf.id.domain.Id;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class IdWorkerController implements IIdWorkerController {
      * idWorker
      */
     @Autowired
-    private IdWorker idWorker;
+    private IdWorkerInit idWorkerInit;
 
     /**
      * idWorkerProperties
@@ -40,7 +40,7 @@ public class IdWorkerController implements IIdWorkerController {
 
     @Override
     public RestResponse<String> get() {
-        return new RestResponse<>(Long.toString(idWorker.nextId()));
+        return new RestResponse<>(Long.toString(idWorkerInit.get().nextId()));
     }
 
     @Override
@@ -52,13 +52,13 @@ public class IdWorkerController implements IIdWorkerController {
         //循环生成
         List<String> ids = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            ids.add(Long.toString(idWorker.nextId()));
+            ids.add(Long.toString(idWorkerInit.get().nextId()));
         }
         return new RestResponse<>(ids);
     }
 
     @Override
     public RestResponse<Id> reverse(@PathVariable long id) {
-        return new RestResponse<>(idWorker.reverse(id));
+        return new RestResponse<>(idWorkerInit.get().reverse(id));
     }
 }

@@ -10,7 +10,8 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
+import javax.annotation.PostConstruct;
+import java.util.UUID;
 
 /**
  * IdWorkInit
@@ -22,7 +23,7 @@ public class IdWorkerInit {
     /**
      * MAX_SEQUENCE
      */
-    public static final int MAX_SEQUENCE = 4095;
+    public static final int MAX_SEQUENCE = 4096;
 
     /**
      * 机器ID和数据中心ID的最大值
@@ -65,6 +66,11 @@ public class IdWorkerInit {
     private IdWorker idWorker;
 
     /**
+     * 缓存值
+     */
+    private String cacheValue;
+
+    /**
      * redisTemplate
      */
     @Autowired
@@ -86,8 +92,9 @@ public class IdWorkerInit {
     }
 
     /**
-     * 初始化
+     * 初始化(默认实例化)
      */
+    @PostConstruct
     public synchronized void init() {
         //开始处理
         boolean result = redisTemplate.execute((RedisCallback<Boolean>) connection -> {
@@ -99,10 +106,12 @@ public class IdWorkerInit {
                 //循环
                 for (int i = 0; i <= MAX_COUNT; i++) { //datacenterId
                     for (int j = 0; j <= MAX_COUNT; j++) { //workerId
+                        //生成一个uuid
+                        cacheValue = UUID.randomUUID().toString();
                         //生成key
                         String key = cacheRedisProperties.getPrefix().concat(SPLIT).concat(CACHE_NAME).concat(SPLIT).concat(Integer.toString(i)).concat(SPLIT).concat(Integer.toString(j));
                         //创建锁
-                        lock = connection.setNX(serializer.serialize(key), serializer.serialize(String.valueOf(new Date().getTime())));
+                        lock = connection.setNX(serializer.serialize(key), serializer.serialize(cacheValue));
                         //获得锁成功
                         if (lock) {
                             //设置超时时间
@@ -150,15 +159,28 @@ public class IdWorkerInit {
                     //生成key
                     String key = cacheRedisProperties.getPrefix().concat(SPLIT).concat(CACHE_NAME).concat(SPLIT).concat(Integer.toString(this.datacenterId)).concat(SPLIT).concat(Integer.toString(this.workerId));
                     //如果key不存在就创建(方式特殊情况,缓存丢失掉)
-                    connection.setNX(serializer.serialize(key), serializer.serialize(String.valueOf(new Date().getTime())));
-                    //设置超时时间
-                    return connection.expire(serializer.serialize(key), EXPIRATION);
+                    connection.setNX(serializer.serialize(key), serializer.serialize(cacheValue));
+                    //获得值(用于确定锁是否是自己创建的)
+                    String oldCacheVlue = serializer.deserialize(connection.get(serializer.serialize(key)));
+                    //比较(如果值是一样,则代表自己拥有锁,如果值不一样,则代表锁已经被其他进程获取)
+                    if (cacheValue.equals(oldCacheVlue)) {
+                        //设置超时时间
+                        return connection.expire(serializer.serialize(key), EXPIRATION);
+                    } else {
+                        //重新初始化
+                        this.init();
+                        //返回
+                        return true;
+                    }
                 } finally {
                     connection.close();
                 }
             });
             //日志输出
             log.info("refresh IdWorker success = {} , {} , {}", result, this.datacenterId, this.workerId);
+        } else {
+            //重新初始化
+            this.init();
         }
     }
 }
