@@ -158,12 +158,12 @@ public class IdWorkerInit {
                     StringRedisSerializer serializer = new StringRedisSerializer();
                     //生成key
                     String key = cacheRedisProperties.getPrefix().concat(SPLIT).concat(CACHE_NAME).concat(SPLIT).concat(Integer.toString(this.datacenterId)).concat(SPLIT).concat(Integer.toString(this.workerId));
-                    //如果key不存在就创建(方式特殊情况,缓存丢失掉)
+                    //如果key不存在就创建(防止特殊情况,缓存丢失掉)
                     connection.setNX(serializer.serialize(key), serializer.serialize(cacheValue));
                     //获得值(用于确定锁是否是自己创建的)
-                    String oldCacheVlue = serializer.deserialize(connection.get(serializer.serialize(key)));
+                    String currentCacheVlue = serializer.deserialize(connection.get(serializer.serialize(key)));
                     //比较(如果值是一样,则代表自己拥有锁,如果值不一样,则代表锁已经被其他进程获取)
-                    if (cacheValue.equals(oldCacheVlue)) {
+                    if (cacheValue.equals(currentCacheVlue)) {
                         //设置超时时间
                         return connection.expire(serializer.serialize(key), EXPIRATION);
                     } else {
