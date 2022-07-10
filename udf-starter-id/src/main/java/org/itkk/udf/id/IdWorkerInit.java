@@ -178,9 +178,6 @@ public class IdWorkerInit {
             });
             //日志输出
             log.info("refresh IdWorker success = {} , {} , {}", result, this.datacenterId, this.workerId);
-        } else {
-            //重新初始化
-            this.init();
         }
     }
 }
