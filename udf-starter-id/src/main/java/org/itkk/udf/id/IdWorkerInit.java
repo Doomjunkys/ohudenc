@@ -71,6 +71,11 @@ public class IdWorkerInit {
     private String cacheValue;
 
     /**
+     * serializer
+     */
+    private StringRedisSerializer serializer = new StringRedisSerializer();
+
+    /**
      * redisTemplate
      */
     @Autowired
@@ -99,8 +104,6 @@ public class IdWorkerInit {
         //开始处理
         boolean result = redisTemplate.execute((RedisCallback<Boolean>) connection -> {
             try {
-                //实例化解析器
-                StringRedisSerializer serializer = new StringRedisSerializer();
                 //锁定标记
                 boolean lock = false;
                 //循环
@@ -154,8 +157,6 @@ public class IdWorkerInit {
             //开始处理
             boolean result = redisTemplate.execute((RedisCallback<Boolean>) connection -> {
                 try {
-                    //实例化解析器
-                    StringRedisSerializer serializer = new StringRedisSerializer();
                     //生成key
                     String key = cacheRedisProperties.getPrefix().concat(SPLIT).concat(CACHE_NAME).concat(SPLIT).concat(Integer.toString(this.datacenterId)).concat(SPLIT).concat(Integer.toString(this.workerId));
                     //如果key不存在就创建(防止特殊情况,缓存丢失掉)
