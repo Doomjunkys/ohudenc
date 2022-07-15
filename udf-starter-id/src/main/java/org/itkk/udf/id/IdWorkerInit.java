@@ -3,14 +3,18 @@ package org.itkk.udf.id;
 import lombok.extern.slf4j.Slf4j;
 import org.itkk.udf.cache.redis.CacheRedisProperties;
 import org.itkk.udf.core.exception.SystemRuntimeException;
+import org.itkk.udf.id.domain.CacheValue;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.net.InetAddress;
 import java.util.UUID;
 
 /**
@@ -66,14 +70,25 @@ public class IdWorkerInit {
     private IdWorker idWorker;
 
     /**
+     * 描述 : 应用端口号
+     */
+    @Value("${server.port}")
+    private int port;
+
+    /**
      * 缓存值
      */
-    private String cacheValue;
+    private CacheValue cacheValue;
 
     /**
      * serializer
      */
     private StringRedisSerializer serializer = new StringRedisSerializer();
+
+    /**
+     * jdkSerializationRedisSerializer
+     */
+    private JdkSerializationRedisSerializer jdkSerializationRedisSerializer = new JdkSerializationRedisSerializer();
 
     /**
      * redisTemplate
@@ -106,15 +121,18 @@ public class IdWorkerInit {
             try {
                 //锁定标记
                 boolean lock = false;
+                //构造cacheValue
+                this.cacheValue = new CacheValue();
+                this.cacheValue.setCacheId(UUID.randomUUID().toString());
+                this.cacheValue.setPort(this.port);
+                this.cacheValue.setHost(InetAddress.getLocalHost().getHostAddress());
                 //循环
                 for (int i = 0; i <= MAX_COUNT; i++) { //datacenterId
                     for (int j = 0; j <= MAX_COUNT; j++) { //workerId
-                        //生成一个uuid
-                        cacheValue = UUID.randomUUID().toString();
                         //生成key
                         String key = cacheRedisProperties.getPrefix().concat(SPLIT).concat(CACHE_NAME).concat(SPLIT).concat(Integer.toString(i)).concat(SPLIT).concat(Integer.toString(j));
                         //创建锁
-                        lock = connection.setNX(serializer.serialize(key), serializer.serialize(cacheValue));
+                        lock = connection.setNX(serializer.serialize(key), jdkSerializationRedisSerializer.serialize(this.cacheValue));
                         //获得锁成功
                         if (lock) {
                             //设置超时时间
@@ -139,6 +157,8 @@ public class IdWorkerInit {
                     throw new SystemRuntimeException("实例化IdWork失败");
                 }
                 return lock;
+            } catch (Exception e) {
+                throw new SystemRuntimeException(e);
             } finally {
                 connection.close();
             }
@@ -160,11 +180,11 @@ public class IdWorkerInit {
                     //生成key
                     String key = cacheRedisProperties.getPrefix().concat(SPLIT).concat(CACHE_NAME).concat(SPLIT).concat(Integer.toString(this.datacenterId)).concat(SPLIT).concat(Integer.toString(this.workerId));
                     //如果key不存在就创建(防止特殊情况,缓存丢失掉)
-                    connection.setNX(serializer.serialize(key), serializer.serialize(cacheValue));
+                    connection.setNX(serializer.serialize(key), jdkSerializationRedisSerializer.serialize(this.cacheValue));
                     //获得值(用于确定锁是否是自己创建的)
-                    String currentCacheVlue = serializer.deserialize(connection.get(serializer.serialize(key)));
+                    CacheValue currentCacheValue = (CacheValue) jdkSerializationRedisSerializer.deserialize(connection.get(serializer.serialize(key)));
                     //比较(如果值是一样,则代表自己拥有锁,如果值不一样,则代表锁已经被其他进程获取)
-                    if (cacheValue.equals(currentCacheVlue)) {
+                    if (this.cacheValue.getCacheId().equals(currentCacheValue.getCacheId())) {
                         //设置超时时间
                         return connection.expire(serializer.serialize(key), EXPIRATION);
                     } else {
