@@ -115,7 +115,7 @@ public class IdWorkerInit {
      * 初始化(默认实例化)
      */
     @PostConstruct
-    public synchronized void init() {
+    public synchronized void init() { // NOSONAR
         //开始处理
         boolean result = redisTemplate.execute((RedisCallback<Boolean>) connection -> {
             try {
@@ -133,6 +133,18 @@ public class IdWorkerInit {
                         String key = cacheRedisProperties.getPrefix().concat(SPLIT).concat(CACHE_NAME).concat(SPLIT).concat(Integer.toString(i)).concat(SPLIT).concat(Integer.toString(j));
                         //创建锁
                         lock = connection.setNX(serializer.serialize(key), jdkSerializationRedisSerializer.serialize(this.cacheValue));
+                        //获取失败
+                        if (!lock) {
+                            //获得数据
+                            CacheValue currentCacheValue = (CacheValue) jdkSerializationRedisSerializer.deserialize(connection.get(serializer.serialize(key)));
+                            //比对host和port,是否跟当前server一致,如果一致的话,证明是可以获取锁的
+                            if (this.cacheValue.getHost().equals(currentCacheValue.getHost()) && this.cacheValue.getPort() == currentCacheValue.getPort()) {
+                                //更新本地变量
+                                this.cacheValue = currentCacheValue;
+                                //更改锁定状态
+                                lock = true;
+                            }
+                        }
                         //获得锁成功
                         if (lock) {
                             //设置超时时间
