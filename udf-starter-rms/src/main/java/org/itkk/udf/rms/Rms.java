@@ -12,6 +12,7 @@ import org.itkk.udf.core.exception.PermissionException;
 import org.itkk.udf.rms.meta.ApplicationMeta;
 import org.itkk.udf.rms.meta.ServiceMeta;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -46,10 +47,54 @@ public class Rms {
     private RestTemplate restTemplate;
 
     /**
+     * externalRestTemplate
+     */
+    @Autowired
+    @Qualifier("externalRestTemplate")
+    private RestTemplate externalRestTemplate;
+
+    /**
      * 描述 : 配置
      */
     @Autowired
     private RmsProperties rmsProperties;
+
+    /**
+     * 远程服务调用 (不走ribbon)
+     *
+     * @param host         地址
+     * @param port         端口
+     * @param serviceCode  服务代码
+     * @param input        输入参数
+     * @param uriParam     uri参数
+     * @param responseType 返回类型
+     * @param uriVariables rest参数
+     * @param <I>          输入类型
+     * @param <O>          输出类型
+     * @return 服务结果
+     */
+    public <I, O> ResponseEntity<O> call(String host, int port, String serviceCode, I input, String uriParam, ParameterizedTypeReference<O> responseType, Map<String, ?> uriVariables) {
+        //客户端权限验证
+        verification(serviceCode);
+        //获取服务元数据
+        ServiceMeta serviceMeta = rmsProperties.getService().get(serviceCode);
+        //构建请求路径
+        String path = serviceMeta.getIsHttps() ? Constant.HTTPS : Constant.HTTP;
+        path.concat(host).concat(":").concat(String.valueOf(port)).concat(serviceMeta.getUri());
+        //获得请求方法
+        String method = getRmsMethod(serviceCode);
+        //拼装路径参数
+        if (StringUtils.isNotBlank(uriParam)) {
+            path += uriParam;
+        }
+        //构建请求头
+        HttpHeaders httpHeaders = buildSystemTagHeaders(serviceCode);
+        //构建请求消息体
+        HttpEntity<I> requestEntity = new HttpEntity<>(input, httpHeaders);
+        //请求并且返回
+        log.info("rms url : {} , method : {} ", path, method);
+        return externalRestTemplate.exchange(path, HttpMethod.resolve(method), requestEntity, responseType, uriVariables != null ? uriVariables : new HashMap<String, String>());
+    }
 
     /**
      * 描述 : 远程服务调用
@@ -63,8 +108,7 @@ public class Rms {
      * @param <O>          输出类型
      * @return 服务结果
      */
-    public <I, O> ResponseEntity<O> call(String serviceCode, I input, String uriParam,
-                                         ParameterizedTypeReference<O> responseType, Map<String, ?> uriVariables) {
+    public <I, O> ResponseEntity<O> call(String serviceCode, I input, String uriParam, ParameterizedTypeReference<O> responseType, Map<String, ?> uriVariables) {
         //客户端权限验证
         verification(serviceCode);
         //构建请求路径
@@ -81,8 +125,7 @@ public class Rms {
         HttpEntity<I> requestEntity = new HttpEntity<>(input, httpHeaders);
         //请求并且返回
         log.info("rms url : {} , method : {} ", path, method);
-        return restTemplate.exchange(path, HttpMethod.resolve(method), requestEntity, responseType,
-                uriVariables != null ? uriVariables : new HashMap<String, String>());
+        return restTemplate.exchange(path, HttpMethod.resolve(method), requestEntity, responseType, uriVariables != null ? uriVariables : new HashMap<String, String>());
     }
 
     /**
