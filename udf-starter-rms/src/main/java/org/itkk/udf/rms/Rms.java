@@ -79,8 +79,7 @@ public class Rms {
         //获取服务元数据
         ServiceMeta serviceMeta = rmsProperties.getService().get(serviceCode);
         //构建请求路径
-        String path = serviceMeta.getIsHttps() ? Constant.HTTPS : Constant.HTTP;
-        path.concat(host).concat(":").concat(String.valueOf(port)).concat(serviceMeta.getUri());
+        String path = (serviceMeta.getIsHttps() ? Constant.HTTPS : Constant.HTTP).concat(host).concat(":").concat(String.valueOf(port)).concat(serviceMeta.getUri());
         //获得请求方法
         String method = getRmsMethod(serviceCode);
         //拼装路径参数

@@ -180,6 +180,33 @@ public class IdWorkerInit {
     }
 
     /**
+     * 获得缓存值
+     *
+     * @param paramDatacenterId 数据中心ID
+     * @param paramWorkerId     机器ID
+     * @return 缓存值
+     */
+    public CacheValue getCacheValue(Integer paramDatacenterId, Integer paramWorkerId) {
+        return redisTemplate.execute((RedisCallback<CacheValue>) connection -> {
+            try {
+                //判空
+                if (datacenterId == null || workerId == null) {
+                    throw new SystemRuntimeException("datacenterId and workerId must not be null");
+                }
+                //生成key
+                String key = cacheRedisProperties.getPrefix().concat(SPLIT).concat(CACHE_NAME).concat(SPLIT).concat(Integer.toString(paramDatacenterId)).concat(SPLIT).concat(Integer.toString(paramWorkerId));
+                //判断缓存是否存在
+                if (!connection.exists(serializer.serialize(key))) {
+                    throw new SystemRuntimeException("cache does not exist , key ----> " + key);
+                }
+                return (CacheValue) jdkSerializationRedisSerializer.deserialize(connection.get(serializer.serialize(key)));
+            } finally {
+                connection.close();
+            }
+        });
+    }
+
+    /**
      * 定时刷新过期时间
      */
     @Scheduled(fixedRate = JOB_RUN_TIME)
