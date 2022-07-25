@@ -32,7 +32,7 @@ public interface IIdWorkerController { //NOSONAR
      *
      * @return ID
      */
-    @ApiOperation(value = "ID_1", notes = "获得分布式ID[IdWorker随机](注意:ID为长整型,在javascript下会丢失精度,请注意数据类型转换)")
+    @ApiOperation(value = "ID_1", notes = "获得分布式ID , IdWorker随机 (注意:ID为长整型,在javascript下会丢失精度,请注意数据类型转换)")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称", required = true, dataType = "string"),
             @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true, dataType = "string"),
@@ -47,7 +47,7 @@ public interface IIdWorkerController { //NOSONAR
      * @param count 数量
      * @return ID
      */
-    @ApiOperation(value = "ID_2", notes = "批量获得分布式ID[IdWorker随机](注意:ID为长整型,在javascript下会丢失精度,请注意数据类型转换)")
+    @ApiOperation(value = "ID_2", notes = "批量获得分布式ID , IdWorker随机 (注意:ID为长整型,在javascript下会丢失精度,请注意数据类型转换)")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称", required = true, dataType = "string"),
             @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true, dataType = "string"),
@@ -80,7 +80,7 @@ public interface IIdWorkerController { //NOSONAR
      * @param workerId     workerId
      * @return ID
      */
-    @ApiOperation(value = "ID_4", notes = "获得分布式ID[指定IdWorker](注意:ID为长整型,在javascript下会丢失精度,请注意数据类型转换)")
+    @ApiOperation(value = "ID_4", notes = "获得分布式ID , 指定IdWorker (注意:ID为长整型,在javascript下会丢失精度,请注意数据类型转换)")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称", required = true, dataType = "string"),
             @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true, dataType = "string"),
@@ -99,7 +99,7 @@ public interface IIdWorkerController { //NOSONAR
      * @param count        数量
      * @return ID
      */
-    @ApiOperation(value = "ID_5", notes = "批量获得分布式ID[指定IdWorker](注意:ID为长整型,在javascript下会丢失精度,请注意数据类型转换)")
+    @ApiOperation(value = "ID_5", notes = "批量获得分布式ID , 指定IdWorker (注意:ID为长整型,在javascript下会丢失精度,请注意数据类型转换)")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称", required = true, dataType = "string"),
             @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true, dataType = "string"),
