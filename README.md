@@ -12,9 +12,17 @@
 
 ![分布式调度-逻辑架构示意](https://static.oschina.net/uploads/img/201708/29201705_LnBY.png "分布式调度-逻辑架构示意")
 
-## CI & CD 示意
+## 分布式ID-逻辑架构示意
 
-![CI & CD 示意](https://static.oschina.net/uploads/img/201708/25093522_sKFz.png "CI & CD 示意")
+![分布式ID-逻辑架构示意](https://static.oschina.net/uploads/img/201709/05194852_LFQ1.png "分布式ID-逻辑架构示意")
+
+## 分布式ID-发号流程示意
+
+![分布式ID-发号流程示意](https://static.oschina.net/uploads/img/201709/05194917_Lp9T.png "分布式ID-发号流程示意")
+
+## CI & CD 流程示意
+
+![CI & CD 流程示意](https://static.oschina.net/uploads/img/201708/25093522_sKFz.png "CI & CD 流程示意")
 
 ## 代码仓库 (点击跳转)
 
