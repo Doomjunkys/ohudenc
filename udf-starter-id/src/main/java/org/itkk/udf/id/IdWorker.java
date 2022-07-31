@@ -115,6 +115,7 @@ public class IdWorker {
     public Id reverse(long id) {
         Id reverseId = new Id();
         reverseId.setSequence((id) & ~(-1L << sequenceBits));
+        reverseId.setDwId((id >> (workerIdShift)) & ~(-1L << (datacenterIdBits + workerIdBits)));
         reverseId.setWorkerId((id >> workerIdShift) & ~(-1L << workerIdBits));
         reverseId.setDatacenterId((id >> datacenterIdShift) & ~(-1L << datacenterIdBits));
         reverseId.setTimestamp((id >> timestampLeftShift) + twepoch);

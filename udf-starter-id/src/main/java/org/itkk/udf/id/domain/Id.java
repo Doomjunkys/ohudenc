@@ -30,6 +30,12 @@ public class Id implements Serializable {
     private long datacenterId;
 
     /**
+     * 数据中心ID | 机器ID ( 0 - 1023 )
+     */
+    @ApiModelProperty(value = "数据中心ID | 机器ID ( 0 - 4095 )", required = true, dataType = "long")
+    private long dwId;
+
+    /**
      * 时间戳
      */
     @ApiModelProperty(value = "时间戳", required = true, dataType = "long")

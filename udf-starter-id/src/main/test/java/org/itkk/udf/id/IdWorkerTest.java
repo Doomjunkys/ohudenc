@@ -15,7 +15,7 @@ public class IdWorkerTest {
     public void id() {
         Map<Long, Long> map = new HashMap<>();
         int maxCount = 1;
-        IdWorker idWorker = new IdWorker(10, 20);
+        IdWorker idWorker = new IdWorker(1, 1);
         for (int i = 0; i < maxCount; i++) {
             long id = idWorker.nextId();
             log.info("--------------------------------------------------------------");
@@ -30,6 +30,7 @@ public class IdWorkerTest {
             log.info(Long.toBinaryString((id >> 17)) + " ---> id ,左移17位,定位到datacenterId");
             log.info(Long.toBinaryString((id >> 22)) + " ---> id ,左移22位,定位到timestamp");
             log.info(Long.parseLong(Long.toBinaryString((id) & ~(-1L << 12L)), 2) + " ---> & 运算 , 解析sequence");
+            log.info(Long.parseLong(Long.toBinaryString((id >> 12) & ~(-1L << 10L)), 2) + " ---> & 运算 , 解析dwId");
             log.info(Long.parseLong(Long.toBinaryString((id >> 12) & ~(-1L << 5L)), 2) + " ---> & 运算 , 解析workerId");
             log.info(Long.parseLong(Long.toBinaryString((id >> 17) & ~(-1L << 5L)), 2) + " ---> & 运算 , 解析datacenterId");
             log.info(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS").format(new Date(Long.parseLong(Long.toBinaryString((id >> 22) + 1288834974657l), 2))) + " ---> & 运算 , 解析timestamp");
