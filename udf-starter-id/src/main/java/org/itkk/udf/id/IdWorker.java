@@ -17,70 +17,71 @@ import org.itkk.udf.id.domain.Id;
  */
 @Slf4j
 public class IdWorker {
+
+    /**
+     * 描述 : 时间起始标记点，作为基准，一般取系统的最近时间（一旦确定不能变动）
+     */
+    private final long twepoch = 1288834974657L;
+
+    /**
+     * 描述 : 机器标识位数
+     */
+    private final long workerIdBits = 5L;
+
+    /**
+     * 描述 : 数据中心标识位数
+     */
+    private final long datacenterIdBits = 5L;
+
+    /**
+     * 描述 : 机器ID最大值
+     */
+    private final long maxWorkerId = -1L ^ (-1L << workerIdBits);
+
+    /**
+     * 描述 : 数据中心ID最大值
+     */
+    private final long maxDatacenterId = -1L ^ (-1L << datacenterIdBits);
+
+    /**
+     * 描述 : 毫秒内自增位
+     */
+    private final long sequenceBits = 12L;
+
+    /**
+     * 描述 : 机器ID偏左移12位
+     */
+    private final long workerIdShift = sequenceBits;
+
+    /**
+     * 描述 : 数据中心ID左移17位
+     */
+    private final long datacenterIdShift = sequenceBits + workerIdBits;
+
+    /**
+     * 描述 : 时间毫秒左移22位
+     */
+    private final long timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits;
+
+    /**
+     * 描述 : 序列号最大值 , 一微秒能产生的ID个数
+     */
+    private final long sequenceMask = -1L ^ (-1L << sequenceBits);
+
     /**
      * 描述 : 机器ID( 0 - 31 )
      */
-    private long workerId;
+    private final long workerId;
 
     /**
      * 描述 : 数据中心ID( 0 - 31 )
      */
-    private long datacenterId;
+    private final long datacenterId;
 
     /**
      * 描述 : 序列号( 0 - 4095)
      */
     private long sequence = 0L;
-
-    /**
-     * 描述 : 时间起始标记点，作为基准，一般取系统的最近时间（一旦确定不能变动）
-     */
-    private long twepoch = 1288834974657L;
-
-    /**
-     * 描述 : 机器标识位数
-     */
-    private long workerIdBits = 5L;
-
-    /**
-     * 描述 : 数据中心标识位数
-     */
-    private long datacenterIdBits = 5L;
-
-    /**
-     * 描述 : 机器ID最大值
-     */
-    private long maxWorkerId = -1L ^ (-1L << workerIdBits);
-
-    /**
-     * 描述 : 数据中心ID最大值
-     */
-    private long maxDatacenterId = -1L ^ (-1L << datacenterIdBits);
-
-    /**
-     * 描述 : 毫秒内自增位
-     */
-    private long sequenceBits = 12L;
-
-    /**
-     * 描述 : 机器ID偏左移12位
-     */
-    private long workerIdShift = sequenceBits;
-
-    /**
-     * 描述 : 数据中心ID左移17位
-     */
-    private long datacenterIdShift = sequenceBits + workerIdBits;
-
-    /**
-     * 描述 : 时间毫秒左移22位
-     */
-    private long timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits;
-
-    /**
-     * 描述 : 序列号最大值 , 一微秒能产生的ID个数
-     */
-    private long sequenceMask = -1L ^ (-1L << sequenceBits);
 
     /**
      * 描述 : 上次生产id时间戳
