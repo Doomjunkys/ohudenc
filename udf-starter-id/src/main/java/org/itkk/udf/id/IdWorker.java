@@ -21,62 +21,62 @@ public class IdWorker {
     /**
      * 描述 : 时间起始标记点，作为基准，一般取系统的最近时间（一旦确定不能变动）
      */
-    private final long twepoch = 1288834974657L;
+    private long twepoch = 1288834974657L;
 
     /**
      * 描述 : 机器标识位数
      */
-    private final long workerIdBits = 5L;
+    private long workerIdBits = 5L;
 
     /**
      * 描述 : 数据中心标识位数
      */
-    private final long datacenterIdBits = 5L;
+    private long datacenterIdBits = 5L;
 
     /**
      * 描述 : 机器ID最大值
      */
-    private final long maxWorkerId = -1L ^ (-1L << workerIdBits);
+    private long maxWorkerId = -1L ^ (-1L << workerIdBits);
 
     /**
      * 描述 : 数据中心ID最大值
      */
-    private final long maxDatacenterId = -1L ^ (-1L << datacenterIdBits);
+    private long maxDatacenterId = -1L ^ (-1L << datacenterIdBits);
 
     /**
      * 描述 : 毫秒内自增位
      */
-    private final long sequenceBits = 12L;
+    private long sequenceBits = 12L;
 
     /**
      * 描述 : 机器ID偏左移12位
      */
-    private final long workerIdShift = sequenceBits;
+    private long workerIdShift = sequenceBits;
 
     /**
      * 描述 : 数据中心ID左移17位
      */
-    private final long datacenterIdShift = sequenceBits + workerIdBits;
+    private long datacenterIdShift = sequenceBits + workerIdBits;
 
     /**
      * 描述 : 时间毫秒左移22位
      */
-    private final long timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits;
+    private long timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits;
 
     /**
      * 描述 : 序列号最大值 , 一微秒能产生的ID个数
      */
-    private final long sequenceMask = -1L ^ (-1L << sequenceBits);
+    private long sequenceMask = -1L ^ (-1L << sequenceBits);
 
     /**
      * 描述 : 机器ID( 0 - 31 )
      */
-    private final long workerId;
+    private long workerId;
 
     /**
      * 描述 : 数据中心ID( 0 - 31 )
      */
-    private final long datacenterId;
+    private long datacenterId;
 
     /**
      * 描述 : 序列号( 0 - 4095)

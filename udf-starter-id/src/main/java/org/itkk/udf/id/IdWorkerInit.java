@@ -133,6 +133,18 @@ public class IdWorkerInit {
                         String key = cacheRedisProperties.getPrefix().concat(SPLIT).concat(CACHE_NAME).concat(SPLIT).concat(Integer.toString(i)).concat(SPLIT).concat(Integer.toString(j));
                         //创建锁
                         lock = connection.setNX(serializer.serialize(key), jdkSerializationRedisSerializer.serialize(this.cacheValue));
+                        //检查是否是死锁
+                        if (!lock) {
+                            //获得缓存过期时间
+                            long expiration = connection.ttl(serializer.serialize(key));
+                            //如果等于-1,则代表死锁
+                            if (expiration == -1) {
+                                //删除缓存
+                                connection.del(serializer.serialize(key));
+                                //重新创建锁
+                                lock = connection.setNX(serializer.serialize(key), jdkSerializationRedisSerializer.serialize(this.cacheValue));
+                            }
+                        }
                         //获取失败
                         if (!lock) {
                             //获得数据
