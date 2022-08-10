@@ -17,11 +17,6 @@ public class CacheValue implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 缓存ID
-     */
-    private String cacheId;
-
-    /**
      * host
      */
     private String host;

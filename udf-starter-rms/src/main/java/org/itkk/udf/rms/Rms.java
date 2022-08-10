@@ -91,7 +91,7 @@ public class Rms {
         //构建请求消息体
         HttpEntity<I> requestEntity = new HttpEntity<>(input, httpHeaders);
         //请求并且返回
-        log.info("rms url : {} , method : {} ", path, method);
+        log.debug("rms url : {} , method : {} ", path, method);
         return externalRestTemplate.exchange(path, HttpMethod.resolve(method), requestEntity, responseType, uriVariables != null ? uriVariables : new HashMap<String, String>());
     }
 
@@ -123,7 +123,7 @@ public class Rms {
         //构建请求消息体
         HttpEntity<I> requestEntity = new HttpEntity<>(input, httpHeaders);
         //请求并且返回
-        log.info("rms url : {} , method : {} ", path, method);
+        log.debug("rms url : {} , method : {} ", path, method);
         return restTemplate.exchange(path, HttpMethod.resolve(method), requestEntity, responseType, uriVariables != null ? uriVariables : new HashMap<String, String>());
     }
 

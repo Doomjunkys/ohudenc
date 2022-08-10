@@ -30,6 +30,6 @@ public class DefRedisCachePrefix implements RedisCachePrefix {
 
     @Override
     public byte[] prefix(String cacheName) {
-        return serializer.serialize(prefix.concat("_"));
+        return serializer.serialize(prefix.concat(":"));
     }
 }

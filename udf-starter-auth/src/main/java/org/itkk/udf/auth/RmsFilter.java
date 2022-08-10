@@ -39,7 +39,7 @@ public class RmsFilter extends ZuulFilter {
     @Override
     public Object run() {
         //日志
-        log.info("RmsFilter.run");
+        log.debug("RmsFilter.run");
         //获得request
         RequestContext ctx = getCurrentContext();
         //获得应用元数据

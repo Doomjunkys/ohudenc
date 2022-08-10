@@ -209,7 +209,7 @@ public class PageInterceptor implements Interceptor {
 
     @Override
     public void setProperties(Properties properties) {
-        log.info("setProperties");
+        log.debug("setProperties");
     }
 
     /**

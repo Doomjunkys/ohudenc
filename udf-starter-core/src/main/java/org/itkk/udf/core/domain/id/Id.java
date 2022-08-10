@@ -1,8 +1,9 @@
-package org.itkk.udf.id.domain;
+package org.itkk.udf.core.domain.id;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -10,6 +11,7 @@ import java.io.Serializable;
  * Id
  */
 @Data
+@ToString
 @ApiModel(description = "分布式ID信息")
 public class Id implements Serializable {
     /**

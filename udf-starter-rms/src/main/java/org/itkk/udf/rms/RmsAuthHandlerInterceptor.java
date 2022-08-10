@@ -75,7 +75,7 @@ public class RmsAuthHandlerInterceptor implements HandlerInterceptor {
             rmsServiceCode = request.getParameter(Constant.HEADER_SERVICE_CODE_CODE);
         }
         //日志
-        log.info("profiles.active:{},rmsApplicationName:{},rmsSign:{},rmsServiceCode:{},url:{},method:{}", profilesActive, rmsApplicationName, rmsSign, rmsServiceCode, url, method);
+        log.debug("profiles.active:{},rmsApplicationName:{},rmsSign:{},rmsServiceCode:{},url:{},method:{}", profilesActive, rmsApplicationName, rmsSign, rmsServiceCode, url, method);
         //判断systemTag是否有效
         if (!this.rmsProperties.getApplication().containsKey(rmsApplicationName)) {
             throw new AuthException("unrecognized systemTag:" + rmsApplicationName);

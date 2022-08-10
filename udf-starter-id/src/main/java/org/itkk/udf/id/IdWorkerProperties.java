@@ -17,6 +17,6 @@ public class IdWorkerProperties {
     /**
      * 最大个数
      */
-    private int maxCount = IdWorkerInit.MAX_SEQUENCE;
+    private int maxCount = IdWorkerFactory.MAX_SEQUENCE;
 
 }
