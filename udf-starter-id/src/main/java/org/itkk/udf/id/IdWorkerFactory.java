@@ -293,6 +293,7 @@ public class IdWorkerFactory {
             //远程请求失败,快速剔除远程节点,本地重试
             log.error("rmsNexId failure , start fast switching ,  error ---------> {}", e.getMessage());
             redisTemplate.delete(idWorkerWrapper.getCacheKey());
+            this.localCache.remove(idWorkerWrapper.getCacheKey());
             return this.nextId(idWorkerWrapper.getDatacenterId(), idWorkerWrapper.getWorkerId());
         }
     }
@@ -319,6 +320,7 @@ public class IdWorkerFactory {
             //远程请求失败,快速剔除远程节点,本地重试
             log.error("rmsBatchNexId failure , start fast switching , error ---------> {}", e.getMessage());
             redisTemplate.delete(idWorkerWrapper.getCacheKey());
+            this.localCache.remove(idWorkerWrapper.getCacheKey());
             return this.batchNextId(idWorkerWrapper.getDatacenterId(), idWorkerWrapper.getWorkerId(), count);
         }
     }
