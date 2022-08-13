@@ -14,11 +14,11 @@
 
 ## 分布式ID-逻辑架构示意
 
-![分布式ID-逻辑架构示意](https://static.oschina.net/uploads/img/201709/05194852_LFQ1.png "分布式ID-逻辑架构示意")
+![分布式ID-逻辑架构示意](https://static.oschina.net/uploads/img/201709/09110632_8gYc.png "分布式ID-逻辑架构示意")
 
 ## 分布式ID-发号流程示意
 
-![分布式ID-发号流程示意](https://static.oschina.net/uploads/img/201709/05194917_Lp9T.png "分布式ID-发号流程示意")
+![分布式ID-发号流程示意](https://static.oschina.net/uploads/img/201709/09110610_Aum3.png "分布式ID-发号流程示意")
 
 ## CI & CD 流程示意
 
