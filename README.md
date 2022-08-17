@@ -14,7 +14,7 @@
 
 ## 分布式ID-逻辑架构示意
 
-![分布式ID-逻辑架构示意](https://static.oschina.net/uploads/img/201709/09110632_8gYc.png "分布式ID-逻辑架构示意")
+![分布式ID-逻辑架构示意](https://static.oschina.net/uploads/img/201709/09134644_PINI.png "分布式ID-逻辑架构示意")
 
 ## 分布式ID-发号流程示意
 
@@ -31,6 +31,8 @@
 - [udf-sample : 集成样例](https://gitee.com/wangkang/udf-sample)
 
 ## 项目博客 (点击跳转)
+
+- [spring boot / cloud (十六) 分布式ID生成服务 ](https://my.oschina.net/wangkang80/blog/1532272)
 
 - [spring boot / cloud (十五) 分布式调度中心进阶](https://my.oschina.net/wangkang80/blog/1525908)
 
