@@ -1,9 +1,3 @@
-/**
- * BaseApplication.java
- * Created at 2016-10-02
- * Created by wangkang
- * Copyright (C) 2016 itkk.org, All rights reserved.
- */
 package org.itkk.udf.core;
 
 import org.springframework.beans.factory.annotation.Autowired;
