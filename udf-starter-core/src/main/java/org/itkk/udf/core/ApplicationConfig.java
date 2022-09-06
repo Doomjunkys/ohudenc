@@ -1,9 +1,3 @@
-/**
- * ApplicationConfig.java
- * Created at 2016-10-03
- * Created by wangkang
- * Copyright (C) 2016 itkk.org, All rights reserved.
- */
 package org.itkk.udf.core;
 
 import lombok.Data;
