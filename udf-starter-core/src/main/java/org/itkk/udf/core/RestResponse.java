@@ -1,9 +1,3 @@
-/**
- * RestResponse.java
- * Created at 2016-09-19
- * Created by wangkang
- * Copyright (C) 2016 itkk.org, All rights reserved.
- */
 package org.itkk.udf.core;
 
 import io.swagger.annotations.ApiModel;
