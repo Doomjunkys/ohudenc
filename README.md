@@ -32,7 +32,9 @@
 
 ## 项目博客 (点击跳转)
 
-- [spring boot / cloud (十七) 快速搭建注册中心和配置中心  ](https://my.oschina.net/wangkang80/blog/1539618)
+- [spring boot / cloud (十八) 使用docker快速搭建本地环境](https://my.oschina.net/wangkang80/blog/1543369)
+
+- [spring boot / cloud (十七) 快速搭建注册中心和配置中心](https://my.oschina.net/wangkang80/blog/1539618)
 
 - [spring boot / cloud (十六) 分布式ID生成服务 ](https://my.oschina.net/wangkang80/blog/1532272)
 
