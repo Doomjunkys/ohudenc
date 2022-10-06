@@ -32,6 +32,8 @@
 
 ## 项目博客 (点击跳转)
 
+- [spring boot / cloud (十九) 并发消费消息,如何保证入库的数据是最新的?](https://my.oschina.net/wangkang80/blog/1552213)
+
 - [spring boot / cloud (十八) 使用docker快速搭建本地环境](https://my.oschina.net/wangkang80/blog/1543369)
 
 - [spring boot / cloud (十七) 快速搭建注册中心和配置中心](https://my.oschina.net/wangkang80/blog/1539618)
