@@ -17,6 +17,7 @@ import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 
@@ -40,14 +41,24 @@ public class ExceptionHandle extends ResponseEntityExceptionHandler {
     private ObjectMapper objectMapper;
 
     /**
+     * exceptionCors
+     */
+    @Autowired
+    private ExceptionCors exceptionCors;
+
+    /**
      * 异常处理
      *
-     * @param ex      ex
-     * @param request request
+     * @param ex       ex
+     * @param request  request
+     * @param response response
      * @return ResponseEntity<Object>
      */
     @ExceptionHandler(value = Exception.class)
-    public ResponseEntity<Object> exception(Exception ex, WebRequest request) {
+    public ResponseEntity<Object> exception(Exception ex, WebRequest request, HttpServletResponse response) {
+        //cors特殊处理
+        exceptionCors.fixCors(response);
+        //异常处理
         ResponseEntity<Object> objectResponseEntity = this.handleException(ex, request);
         return this.handleExceptionInternal(ex, null, objectResponseEntity.getHeaders(), objectResponseEntity.getStatusCode(), request);
     }

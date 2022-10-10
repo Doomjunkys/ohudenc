@@ -59,6 +59,12 @@ public class ExceptionController extends AbstractErrorController {
     private ApplicationConfig applicationConfig;
 
     /**
+     * exceptionCors
+     */
+    @Autowired
+    private ExceptionCors exceptionCors;
+
+    /**
      * Create a new {@link ExceptionController} instance.
      *
      * @param errorAttributes the error attributes
@@ -95,6 +101,9 @@ public class ExceptionController extends AbstractErrorController {
      */
     @RequestMapping(produces = "text/html")
     public ModelAndView errorHtml(HttpServletRequest request, HttpServletResponse response) {
+        //cors特殊处理
+        exceptionCors.fixCors(response);
+        //异常信息处理
         HttpStatus status = getStatus(request);
         Map<String, Object> model = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML));
         RestResponse<String> restResponse = this.getRestResponse(request, status, model);
@@ -109,12 +118,16 @@ public class ExceptionController extends AbstractErrorController {
     /**
      * json错误
      *
-     * @param request request
+     * @param request  request
+     * @param response response
      * @return ResponseEntity
      */
     @RequestMapping
     @ResponseBody
-    public ResponseEntity<RestResponse<String>> error(HttpServletRequest request) {
+    public ResponseEntity<RestResponse<String>> error(HttpServletRequest request, HttpServletResponse response) {
+        //cors特殊处理
+        exceptionCors.fixCors(response);
+        //异常信息处理
         Map<String, Object> body = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.ALL));
         HttpStatus status = getStatus(request);
         return new ResponseEntity<>(getRestResponse(request, status, body), status);
