@@ -1,5 +1,6 @@
 package org.itkk.udf.core.exception.handle;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.RestClientResponseException;
@@ -82,6 +84,13 @@ public class ExceptionHandle extends ResponseEntityExceptionHandler {
                     errorResult.setChild(child);
                 }
             } catch (IOException e) {
+                throw new SystemRuntimeException(e);
+            }
+        } else if (ex instanceof MethodArgumentNotValidException) { //参数校验异常
+            MethodArgumentNotValidException methodArgumentNotValidException = (MethodArgumentNotValidException) ex;
+            try {
+                errorResult.setMessage(objectMapper.writeValueAsString(methodArgumentNotValidException.getBindingResult().getAllErrors()));
+            } catch (JsonProcessingException e) {
                 throw new SystemRuntimeException(e);
             }
         }
