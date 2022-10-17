@@ -141,7 +141,6 @@ public class ExceptionController extends AbstractErrorController {
      * 获得RestResponse
      *
      * @param request request
-     * @param request response
      * @param status  status
      * @param body    body
      * @return RestResponse
@@ -159,9 +158,9 @@ public class ExceptionController extends AbstractErrorController {
                 //ZuulException异常特殊处理,去除ZuulException的包裹 (不用instanceof的原因是不想因为这里的判断而引入zuul的依赖在core包中)
                 if (exception.getClass().getName().equals("com.netflix.zuul.exception.ZuulException")) { //NOSONAR
                     if (exception.getCause() instanceof PermissionException) {
-                        status = HttpStatus.FORBIDDEN;
+                        status = HttpStatus.FORBIDDEN; //NOSONAR
                     } else if (exception.getCause() instanceof AuthException) {
-                        status = HttpStatus.UNAUTHORIZED;
+                        status = HttpStatus.UNAUTHORIZED; //NOSONAR
                     }
                     errorResult = ExceptionHandle.buildError(applicationConfig, exception.getCause());
                 } else {
