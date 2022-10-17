@@ -3,7 +3,9 @@ package org.itkk.udf.core.exception.handle;
 import lombok.extern.slf4j.Slf4j;
 import org.itkk.udf.core.ApplicationConfig;
 import org.itkk.udf.core.RestResponse;
+import org.itkk.udf.core.exception.AuthException;
 import org.itkk.udf.core.exception.ErrorResult;
+import org.itkk.udf.core.exception.PermissionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.AbstractErrorController;
 import org.springframework.boot.autoconfigure.web.ErrorAttributes;
@@ -107,6 +109,7 @@ public class ExceptionController extends AbstractErrorController {
         HttpStatus status = getStatus(request);
         Map<String, Object> model = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML));
         RestResponse<String> restResponse = this.getRestResponse(request, status, model);
+        status = HttpStatus.valueOf(Integer.parseInt(restResponse.getCode()));
         model.put("restResponse", restResponse);
         model.put(KEY_EXCEPTION, restResponse.getError().getType());
         model.put(KEY_MESSAGE, restResponse.getError().getMessage());
@@ -130,13 +133,15 @@ public class ExceptionController extends AbstractErrorController {
         //异常信息处理
         Map<String, Object> body = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.ALL));
         HttpStatus status = getStatus(request);
-        return new ResponseEntity<>(getRestResponse(request, status, body), status);
+        RestResponse<String> restResponse = getRestResponse(request, status, body);
+        return new ResponseEntity<>(restResponse, HttpStatus.valueOf(Integer.parseInt(restResponse.getCode())));
     }
 
     /**
      * 获得RestResponse
      *
      * @param request request
+     * @param request response
      * @param status  status
      * @param body    body
      * @return RestResponse
@@ -153,6 +158,11 @@ public class ExceptionController extends AbstractErrorController {
                 Exception exception = (Exception) object;
                 //ZuulException异常特殊处理,去除ZuulException的包裹 (不用instanceof的原因是不想因为这里的判断而引入zuul的依赖在core包中)
                 if (exception.getClass().getName().equals("com.netflix.zuul.exception.ZuulException")) { //NOSONAR
+                    if (exception.getCause() instanceof PermissionException) {
+                        status = HttpStatus.FORBIDDEN;
+                    } else if (exception.getCause() instanceof AuthException) {
+                        status = HttpStatus.UNAUTHORIZED;
+                    }
                     errorResult = ExceptionHandle.buildError(applicationConfig, exception.getCause());
                 } else {
                     errorResult = ExceptionHandle.buildError(applicationConfig, exception);
