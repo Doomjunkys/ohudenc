@@ -146,7 +146,6 @@ public class ExceptionController extends AbstractErrorController {
      * @return RestResponse
      */
     private RestResponse<String> getRestResponse(HttpServletRequest request, HttpStatus status, Map<String, Object> body) { //NOSONAR
-        log.info(body.toString());
         ErrorResult errorResult = new ErrorResult();
         if (status == HttpStatus.NOT_FOUND) { //404处理
             errorResult.setType(NoHandlerFoundException.class.getName());
@@ -160,7 +159,7 @@ public class ExceptionController extends AbstractErrorController {
                     if (exception.getCause() instanceof PermissionException) {
                         status = HttpStatus.FORBIDDEN; //NOSONAR
                     } else if (exception.getCause() instanceof AuthException) {
-                        status = HttpStatus.UNAUTHORIZED; //NOSONAR
+                        status = HttpStatus.FORBIDDEN; //NOSONAR
                     }
                     errorResult = ExceptionHandle.buildError(applicationConfig, exception.getCause());
                 } else {

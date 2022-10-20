@@ -1,5 +1,6 @@
 package org.itkk.udf.core;
 
+import org.itkk.udf.core.exception.handle.RmsResponseErrorHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -39,7 +40,9 @@ public class BaseApplication {
      */
     @Bean(name = "externalRestTemplate")
     public RestTemplate externalRestTemplate(ClientHttpRequestFactory requestFactory) {
-        return new RestTemplate(requestFactory);
+        RestTemplate restTemplate = new RestTemplate(requestFactory);
+        restTemplate.setErrorHandler(new RmsResponseErrorHandler());
+        return restTemplate;
     }
 
     /**

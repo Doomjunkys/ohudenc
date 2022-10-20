@@ -7,6 +7,7 @@
 package org.itkk.udf.rms;
 
 import lombok.Data;
+import org.itkk.udf.core.exception.handle.RmsResponseErrorHandler;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
@@ -48,7 +49,9 @@ public class RmsConfig {
     @LoadBalanced
     @Primary
     public RestTemplate restTemplate(ClientHttpRequestFactory requestFactory) {
-        return new RestTemplate(requestFactory);
+        RestTemplate restTemplate = new RestTemplate(requestFactory);
+        restTemplate.setErrorHandler(new RmsResponseErrorHandler());
+        return restTemplate;
     }
 
     /**

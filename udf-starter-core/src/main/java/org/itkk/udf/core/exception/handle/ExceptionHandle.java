@@ -72,7 +72,7 @@ public class ExceptionHandle extends ResponseEntityExceptionHandler {
         if (ex instanceof PermissionException) { //权限异常
             localHttpStatus = HttpStatus.FORBIDDEN;
         } else if (ex instanceof AuthException) { //认证异常
-            localHttpStatus = HttpStatus.UNAUTHORIZED;
+            localHttpStatus = HttpStatus.FORBIDDEN;
         } else if (ex instanceof ParameterValidException) { //参数校验异常
             localHttpStatus = HttpStatus.BAD_REQUEST;
         } else if (ex instanceof RestClientResponseException) { //rest请求异常
