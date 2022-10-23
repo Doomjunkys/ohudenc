@@ -49,17 +49,20 @@ public class ExceptionHandle extends ResponseEntityExceptionHandler {
     private ExceptionCors exceptionCors;
 
     /**
+     * httpServletResponse
+     */
+    @Autowired
+    private HttpServletResponse httpServletResponse;
+
+    /**
      * 异常处理
      *
-     * @param ex       ex
-     * @param request  request
-     * @param response response
+     * @param ex      ex
+     * @param request request
      * @return ResponseEntity<Object>
      */
     @ExceptionHandler(value = Exception.class)
-    public ResponseEntity<Object> exception(Exception ex, WebRequest request, HttpServletResponse response) {
-        //cors特殊处理
-        exceptionCors.fixCors(response);
+    public ResponseEntity<Object> exception(Exception ex, WebRequest request) {
         //异常处理
         ResponseEntity<Object> objectResponseEntity = this.handleException(ex, request);
         return this.handleExceptionInternal(ex, null, objectResponseEntity.getHeaders(), objectResponseEntity.getStatusCode(), request);
@@ -67,6 +70,9 @@ public class ExceptionHandle extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        //cors特殊处理
+        exceptionCors.fixCors(httpServletResponse);
+        //异常处理
         HttpStatus localHttpStatus = status;
         ErrorResult errorResult = buildError(applicationConfig, ex);
         if (ex instanceof PermissionException) { //权限异常
