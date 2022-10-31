@@ -37,26 +37,13 @@ public class RabbitmqListenerBaseAspect {
      * @param joinPoint joinPoint
      * @return 对列名称
      */
-    @SuppressWarnings("rawtypes")
     protected String getQueues(JoinPoint joinPoint) {
         try {
-            String targetName = joinPoint.getTarget().getClass().getName();
-            String methodName = joinPoint.getSignature().getName();
-            Object[] arguments = joinPoint.getArgs();
-            Class targetClass = Class.forName(targetName);
-            Method[] methods = targetClass.getMethods();
-            for (Method method : methods) {
-                if (method.getName().equals(methodName)) {
-                    Class[] clazzs = method.getParameterTypes();
-                    if (clazzs.length == arguments.length) { //NOSONAR
-                        return Arrays.toString(method.getAnnotation(RabbitListener.class).queues());
-                    }
-                }
-            }
-        } catch (ClassNotFoundException e) {
+            Method method = joinPoint.getTarget().getClass().getMethod(joinPoint.getSignature().getName(), RabbitmqMessage.class);
+            return Arrays.toString(method.getAnnotation(RabbitListener.class).queues());
+        } catch (NoSuchMethodException e) {
             throw new SystemRuntimeException(e);
         }
-        return null;
     }
 
 }

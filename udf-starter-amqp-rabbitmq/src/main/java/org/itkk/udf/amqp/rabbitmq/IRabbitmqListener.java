@@ -9,6 +9,9 @@ package org.itkk.udf.amqp.rabbitmq;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.Queue;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 描述 : IRabbitmqListener
  *
@@ -50,5 +53,55 @@ public interface IRabbitmqListener<T> {
      * @param message 消息
      */
     void process(RabbitmqMessage<T> message);
+
+    /**
+     * queue
+     *
+     * @param queueName       queueName
+     * @param dlxExchangeName dlxExchangeName
+     * @param dlxRoutingkey   dlxRoutingkey
+     * @return Queue
+     */
+    default Queue queue(String queueName, String dlxExchangeName, String dlxRoutingkey) {
+        Map<String, Object> args = new HashMap<>();
+        args.put(RabbitmqConstant.X_DEAD_LETTER_EXCHANGE, dlxExchangeName);
+        args.put(RabbitmqConstant.X_DEAD_LETTER_ROUTING_KEY, dlxRoutingkey);
+        return new Queue(queueName, true, false, false, args);
+    }
+
+    /**
+     * dlxQueue
+     *
+     * @param queueName queueName
+     * @return Queue
+     */
+    default Queue dlxQueue(String queueName) {
+        return new Queue(queueName);
+    }
+
+
+    /**
+     * binding
+     *
+     * @param queueName    queueName
+     * @param exchangeName exchangeName
+     * @param routingkey   routingkey
+     * @return Binding
+     */
+    default Binding binding(String queueName, String exchangeName, String routingkey) {
+        return new Binding(queueName, Binding.DestinationType.QUEUE, exchangeName, routingkey, null);
+    }
+
+    /**
+     * dlxBinding
+     *
+     * @param queueName    queueName
+     * @param exchangeName exchangeName
+     * @param routingkey   routingkey
+     * @return Binding
+     */
+    default Binding dlxBinding(String queueName, String exchangeName, String routingkey) {
+        return new Binding(queueName, Binding.DestinationType.QUEUE, exchangeName, routingkey, null);
+    }
 
 }
