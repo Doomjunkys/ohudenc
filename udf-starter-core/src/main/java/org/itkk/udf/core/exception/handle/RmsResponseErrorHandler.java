@@ -44,7 +44,6 @@ public class RmsResponseErrorHandler extends DefaultResponseErrorHandler {
      * @throws IOException 异常
      */
     private String getData(InputStream in) throws IOException {
-        String result = "";
         StringBuilder sb = new StringBuilder();
         BufferedReader br = new BufferedReader(new InputStreamReader(in, "utf-8"));
         String line;
@@ -54,12 +53,10 @@ public class RmsResponseErrorHandler extends DefaultResponseErrorHandler {
             }
             br.close();
         } finally {
-            if (result != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    log.error("getData", e);
-                }
+            try {
+                br.close();
+            } catch (IOException e) {
+                log.error("getData", e);
             }
         }
         return sb.toString();

@@ -156,7 +156,7 @@ public class ExceptionController extends AbstractErrorController {
                 Exception exception = (Exception) object;
                 //ZuulException异常特殊处理,去除ZuulException的包裹 (不用instanceof的原因是不想因为这里的判断而引入zuul的依赖在core包中)
                 if (exception.getClass().getName().equals("com.netflix.zuul.exception.ZuulException")) { //NOSONAR
-                    if (exception.getCause() instanceof PermissionException) {
+                    if (exception.getCause() instanceof PermissionException) { // NOSONAR
                         status = HttpStatus.FORBIDDEN; //NOSONAR
                     } else if (exception.getCause() instanceof AuthException) {
                         status = HttpStatus.FORBIDDEN; //NOSONAR
