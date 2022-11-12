@@ -12,10 +12,13 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.itkk.udf.core.RestResponse;
 import org.itkk.udf.file.aliyun.oss.domain.PolicyResult;
+import org.itkk.udf.file.aliyun.oss.domain.PresignedUrlParam;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.validation.Valid;
 import java.io.IOException;
 
 /**
@@ -44,5 +47,20 @@ public interface IAliuyinOssController {
     })
     @RequestMapping(value = "policy/{code}", method = RequestMethod.POST)
     RestResponse<PolicyResult> policy(@PathVariable String code) throws IOException;
+
+    /**
+     * 获得阿里云OSS的对象的签名url
+     *
+     * @param presignedUrlParam presignedUrlParam
+     * @return 结果
+     */
+    @ApiOperation(value = "FILE_ALIYUN_OSS_PRESIGNED_URL", notes = "获得阿里云OSS的对象的签名url")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称", required = true, dataType = "string"),
+            @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true, dataType = "string"),
+            @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号", required = true, dataType = "string")
+    })
+    @RequestMapping(value = "presigned/url", method = RequestMethod.POST)
+    RestResponse<String> presignedUrl(@RequestBody @Valid PresignedUrlParam presignedUrlParam);
 
 }

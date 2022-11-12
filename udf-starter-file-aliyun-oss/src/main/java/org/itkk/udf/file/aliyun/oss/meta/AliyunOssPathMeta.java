@@ -24,6 +24,11 @@ public class AliyunOssPathMeta implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
+     * bucketName
+     */
+    private String bucketName;
+
+    /**
      * ossHost
      */
     private String ossHost;

@@ -9,10 +9,13 @@ package org.itkk.udf.file.aliyun.oss.web;
 import org.itkk.udf.core.RestResponse;
 import org.itkk.udf.file.aliyun.oss.PostObjectPolicy;
 import org.itkk.udf.file.aliyun.oss.domain.PolicyResult;
+import org.itkk.udf.file.aliyun.oss.domain.PresignedUrlParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.io.IOException;
 
 /**
@@ -32,5 +35,10 @@ public class AliyunOssController implements IAliuyinOssController {
     @Override
     public RestResponse<PolicyResult> policy(@PathVariable String code) throws IOException {
         return new RestResponse<>(postObjectPolicy.getPolicy(code));
+    }
+
+    @Override
+    public RestResponse<String> presignedUrl(@RequestBody @Valid PresignedUrlParam presignedUrlParam) {
+        return new RestResponse<>(postObjectPolicy.getPresignedUrl(presignedUrlParam.getCode(), presignedUrlParam.getObjectKey()));
     }
 }

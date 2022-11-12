@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.sql.Date;
 
 /**
@@ -78,4 +79,31 @@ public class PostObjectPolicy {
         //返回
         return policyResult;
     }
+
+    /**
+     * 返回签名URL
+     *
+     * @param code      code
+     * @param objectKey objectKey
+     * @return String
+     */
+    public String getPresignedUrl(String code, String objectKey) {
+        //判空
+        if (!aliyunOssProperties.getAuth().containsKey(code) || !aliyunOssProperties.getPath().containsKey(code)) {
+            throw new ParameterValidException("aliyun oss code:" + code + "未定义", null);
+        }
+        //获得认证信息 和 路径信息
+        AliyunOssAccessMeta auth = aliyunOssProperties.getAuth().get(code);
+        AliyunOssPathMeta path = aliyunOssProperties.getPath().get(code);
+        //构造超时时间
+        long expireEndTime = System.currentTimeMillis() + auth.getExpireTime() * NUM_1000;
+        Date expiration = new Date(expireEndTime);
+        //实例化oss对象
+        OSSClient client = new OSSClient(auth.getEndPoint(), auth.getAccessId(), auth.getAccessKey());
+        // 生成URL
+        URL url = client.generatePresignedUrl(path.getBucketName(), objectKey, expiration);
+        //返回
+        return url.getFile();
+    }
+
 }
