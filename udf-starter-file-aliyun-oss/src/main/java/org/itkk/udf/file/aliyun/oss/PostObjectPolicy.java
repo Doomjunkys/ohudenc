@@ -3,6 +3,7 @@ package org.itkk.udf.file.aliyun.oss;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.common.utils.BinaryUtil;
 import com.aliyun.oss.model.PolicyConditions;
+import org.apache.commons.lang3.StringUtils;
 import org.itkk.udf.core.ApplicationConfig;
 import org.itkk.udf.core.exception.ParameterValidException;
 import org.itkk.udf.file.aliyun.oss.domain.PolicyResult;
@@ -102,8 +103,14 @@ public class PostObjectPolicy {
         OSSClient client = new OSSClient(auth.getEndPoint(), auth.getAccessId(), auth.getAccessKey());
         // 生成URL
         URL url = client.generatePresignedUrl(path.getBucketName(), objectKey, expiration);
-        //返回
-        return url.getFile();
+        //返回地址判断
+        if (StringUtils.isNotBlank(path.getCdnHost())) {
+            //返回CDN地址
+            return path.getCdnHost() + url.getFile();
+        } else {
+            //返回OSS公网地址
+            return url.getFile();
+        }
     }
 
 }
