@@ -7,9 +7,9 @@
 package org.itkk.udf.file.aliyun.oss.web;
 
 import org.itkk.udf.core.RestResponse;
-import org.itkk.udf.file.aliyun.oss.PostObjectPolicy;
+import org.itkk.udf.file.aliyun.oss.OssWarpper;
+import org.itkk.udf.file.aliyun.oss.domain.OssParam;
 import org.itkk.udf.file.aliyun.oss.domain.PolicyResult;
-import org.itkk.udf.file.aliyun.oss.domain.PresignedUrlParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,18 +27,24 @@ import java.io.IOException;
 public class AliyunOssController implements IAliuyinOssController {
 
     /**
-     * postObjectPolicy
+     * ossWarpper
      */
     @Autowired
-    private PostObjectPolicy postObjectPolicy;
+    private OssWarpper ossWarpper;
 
     @Override
     public RestResponse<PolicyResult> policy(@PathVariable String code) throws IOException {
-        return new RestResponse<>(postObjectPolicy.getPolicy(code));
+        return new RestResponse<>(ossWarpper.getPolicy(code));
     }
 
     @Override
-    public RestResponse<String> presignedUrl(@RequestBody @Valid PresignedUrlParam presignedUrlParam) {
-        return new RestResponse<>(postObjectPolicy.getPresignedUrl(presignedUrlParam.getCode(), presignedUrlParam.getObjectKey()));
+    public RestResponse<String> presignedUrl(@RequestBody @Valid OssParam ossParam) {
+        return new RestResponse<>(ossWarpper.getPresignedUrl(ossParam.getCode(), ossParam.getObjectKey()));
+    }
+
+    @Override
+    public RestResponse<String> delete(@RequestBody @Valid OssParam ossParam) {
+        ossWarpper.delete(ossParam.getCode(), ossParam.getObjectKey());
+        return new RestResponse<>();
     }
 }

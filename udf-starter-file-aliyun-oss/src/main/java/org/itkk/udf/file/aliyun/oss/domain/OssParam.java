@@ -8,11 +8,11 @@ import org.hibernate.validator.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
- * PresignedUrlParam
+ * OssParam
  */
-@ApiModel(description = "邮件信息")
+@ApiModel(description = "阿里云oss对象信息")
 @Data
-public class PresignedUrlParam implements Serializable {
+public class OssParam implements Serializable {
 
     /**
      * 描述 : ID

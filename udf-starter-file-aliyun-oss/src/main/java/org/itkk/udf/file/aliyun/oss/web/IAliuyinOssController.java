@@ -11,8 +11,8 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.itkk.udf.core.RestResponse;
+import org.itkk.udf.file.aliyun.oss.domain.OssParam;
 import org.itkk.udf.file.aliyun.oss.domain.PolicyResult;
-import org.itkk.udf.file.aliyun.oss.domain.PresignedUrlParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,7 +51,7 @@ public interface IAliuyinOssController {
     /**
      * 获得阿里云OSS的对象的签名url
      *
-     * @param presignedUrlParam presignedUrlParam
+     * @param ossParam ossParam
      * @return 结果
      */
     @ApiOperation(value = "FILE_ALIYUN_OSS_PRESIGNED_URL", notes = "获得阿里云OSS的对象的签名url")
@@ -61,6 +61,21 @@ public interface IAliuyinOssController {
             @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号", required = true, dataType = "string")
     })
     @RequestMapping(value = "presigned/url", method = RequestMethod.POST)
-    RestResponse<String> presignedUrl(@RequestBody @Valid PresignedUrlParam presignedUrlParam);
+    RestResponse<String> presignedUrl(@RequestBody @Valid OssParam ossParam);
+
+    /**
+     * 删除阿里云OSS对象
+     *
+     * @param ossParam ossParam
+     * @return 结果
+     */
+    @ApiOperation(value = "FILE_ALIYUN_OSS_DELETE", notes = "删除阿里云OSS对象")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称", required = true, dataType = "string"),
+            @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true, dataType = "string"),
+            @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号", required = true, dataType = "string")
+    })
+    @RequestMapping(value = "delete", method = RequestMethod.PUT)
+    RestResponse<String> delete(@RequestBody @Valid OssParam ossParam);
 
 }
