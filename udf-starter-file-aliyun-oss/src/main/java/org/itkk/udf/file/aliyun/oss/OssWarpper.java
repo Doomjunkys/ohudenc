@@ -104,6 +104,10 @@ public class OssWarpper {
         //实例化oss对象
         OSSClient client = new OSSClient(auth.getEndPoint(), auth.getAccessId(), auth.getAccessKey());
         try {
+            //判断文件是否存在
+            if (!client.doesObjectExist(path.getBucketName(), objectKey)) {
+                throw new ParameterValidException(objectKey + "不存在", null);
+            }
             //构造超时时间
             long expireEndTime = System.currentTimeMillis() + auth.getExpireTime() * NUM_1000;
             Date expiration = new Date(expireEndTime);
