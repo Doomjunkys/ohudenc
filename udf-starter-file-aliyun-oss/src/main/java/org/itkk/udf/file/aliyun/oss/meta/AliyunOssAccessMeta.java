@@ -39,11 +39,6 @@ public class AliyunOssAccessMeta implements Serializable {
     private String endPoint;
 
     /**
-     * endPointInternal
-     */
-    private String endPointInternal;
-
-    /**
      * expireTime
      */
     private long expireTime;
