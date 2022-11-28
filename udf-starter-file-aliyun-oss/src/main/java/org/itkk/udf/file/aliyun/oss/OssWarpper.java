@@ -152,4 +152,28 @@ public class OssWarpper {
         }
     }
 
+    /**
+     * 判断文件是否存在
+     *
+     * @param code      code
+     * @param objectKey objectKey
+     * @return boolean
+     */
+    public boolean checkExist(String code, String objectKey) {
+        //判空
+        if (!aliyunOssProperties.getAuth().containsKey(code) || !aliyunOssProperties.getPath().containsKey(code)) {
+            throw new ParameterValidException("aliyun oss code:" + code + "未定义", null);
+        }
+        //获得认证信息 和 路径信息
+        AliyunOssAccessMeta auth = aliyunOssProperties.getAuth().get(code);
+        AliyunOssPathMeta path = aliyunOssProperties.getPath().get(code);
+        //实例化oss对象
+        OSSClient client = new OSSClient(auth.getEndPoint(), auth.getAccessId(), auth.getAccessKey());
+        try {
+            return client.doesObjectExist(path.getBucketName(), objectKey);
+        } finally {
+            client.shutdown();
+        }
+    }
+
 }

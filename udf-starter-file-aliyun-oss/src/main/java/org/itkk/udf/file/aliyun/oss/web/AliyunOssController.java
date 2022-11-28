@@ -47,4 +47,9 @@ public class AliyunOssController implements IAliuyinOssController {
         ossWarpper.delete(ossParam.getCode(), ossParam.getObjectKey());
         return new RestResponse<>();
     }
+
+    @Override
+    public RestResponse<Boolean> checkExist(@RequestBody @Valid OssParam ossParam) {
+        return new RestResponse<>(ossWarpper.checkExist(ossParam.getCode(), ossParam.getObjectKey()));
+    }
 }
