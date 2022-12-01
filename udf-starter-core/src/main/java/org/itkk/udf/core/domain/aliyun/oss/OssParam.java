@@ -1,4 +1,4 @@
-package org.itkk.udf.file.aliyun.oss.domain;
+package org.itkk.udf.core.domain.aliyun.oss;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
