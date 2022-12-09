@@ -24,6 +24,20 @@ public class RabbitmqConstant {
     public static final String X_DEAD_LETTER_ROUTING_KEY = "x-dead-letter-routing-key";
 
     /**
+     * (EXCHANGE)消息记录
+     */
+    public enum EXCHANGE_MESSAGE_LOG {
+
+    }
+
+    /**
+     * (EXCHANGE)消息记录(死信)
+     */
+    public enum EXCHANGE_MESSAGE_LOG_DLX {
+
+    }
+
+    /**
      * 描述 : 私有化构造函数
      */
     private RabbitmqConstant() {

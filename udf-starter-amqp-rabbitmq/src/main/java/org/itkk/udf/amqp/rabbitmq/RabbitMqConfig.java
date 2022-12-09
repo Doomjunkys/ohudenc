@@ -6,12 +6,12 @@
  */
 package org.itkk.udf.amqp.rabbitmq;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * 描述 : RabbitMq配置
@@ -45,6 +45,26 @@ public class RabbitMqConfig {
     @Bean
     public Jackson2JsonMessageConverter jackson2JsonMessageConverter(ObjectMapper objectMapper) {
         return new Jackson2JsonMessageConverter(objectMapper);
+    }
+
+    /**
+     * exchangeMessageLog
+     *
+     * @return DirectExchange
+     */
+    @Bean
+    public DirectExchange exchangeMessageLog() {
+        return new DirectExchange(RabbitmqConstant.EXCHANGE_MESSAGE_LOG.class.getSimpleName(), true, false);
+    }
+
+    /**
+     * exchangeMessageLogDlx
+     *
+     * @return DirectExchange
+     */
+    @Bean
+    public DirectExchange exchangeMessageLogDlx() {
+        return new DirectExchange(RabbitmqConstant.EXCHANGE_MESSAGE_LOG_DLX.class.getSimpleName(), true, false);
     }
 
 }

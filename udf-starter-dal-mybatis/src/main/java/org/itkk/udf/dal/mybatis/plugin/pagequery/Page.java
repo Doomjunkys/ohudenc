@@ -25,25 +25,25 @@ public class Page<E> implements Serializable {
      * 当前页,默认1
      */
     @ApiModelProperty(value = "当前页", required = true, dataType = "int")
-    private int curPage = 1;
+    private int curPage;
 
     /**
      * 每页数量,默认0
      */
     @ApiModelProperty(value = "每页行数", required = true, dataType = "int")
-    private int pageSize = 0;
+    private int pageSize;
 
     /**
      * 总页数
      */
     @ApiModelProperty(value = "总页数", required = true, dataType = "long")
-    private long totalPages = 0;
+    private long totalPages;
 
     /**
      * 总条数
      */
     @ApiModelProperty(value = "总行数", required = true, dataType = "long")
-    private long totalRecords = 0;
+    private long totalRecords;
 
     /**
      * 结果集

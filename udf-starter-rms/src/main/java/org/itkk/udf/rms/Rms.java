@@ -75,7 +75,7 @@ public class Rms {
      * @param <O>          输出类型
      * @return 服务结果
      */
-    public <I, O> ResponseEntity<O> call(String host, int port, String serviceCode, HttpHeaders headers, I input, String uriParam, ParameterizedTypeReference<O> responseType, Map<String, ?> uriVariables) {
+    public <I, O> ResponseEntity<O> call(String host, int port, String serviceCode, HttpHeaders headers, I input, String uriParam, ParameterizedTypeReference<O> responseType, Map<String, ?> uriVariables) { //NOSONAR
         //客户端权限验证
         verification(serviceCode);
         //获取服务元数据

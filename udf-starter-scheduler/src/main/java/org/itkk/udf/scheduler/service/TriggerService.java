@@ -173,14 +173,18 @@ public class TriggerService {
         // 时区
         cronTriggerBuilder.inTimeZone(TimeZone.getTimeZone(triggerMeta.getTimeZoneId()));
         // 设置触发机制 默认 SimpleTrigger.MISFIRE_INSTRUCTION_SMART_POLICY
-        if (CronTrigger.MISFIRE_INSTRUCTION_DO_NOTHING == triggerMeta.getMisfireInstruction()) {
-            cronTriggerBuilder.withMisfireHandlingInstructionDoNothing();
-        } else if (CronTrigger.MISFIRE_INSTRUCTION_FIRE_ONCE_NOW == triggerMeta
-                .getMisfireInstruction()) {
-            cronTriggerBuilder.withMisfireHandlingInstructionFireAndProceed();
-        } else if (CronTrigger.MISFIRE_INSTRUCTION_IGNORE_MISFIRE_POLICY == triggerMeta
-                .getMisfireInstruction()) {
-            cronTriggerBuilder.withMisfireHandlingInstructionIgnoreMisfires();
+        switch (triggerMeta.getMisfireInstruction()) {
+            case CronTrigger.MISFIRE_INSTRUCTION_DO_NOTHING:
+                cronTriggerBuilder.withMisfireHandlingInstructionDoNothing();
+                break;
+            case CronTrigger.MISFIRE_INSTRUCTION_FIRE_ONCE_NOW:
+                cronTriggerBuilder.withMisfireHandlingInstructionFireAndProceed();
+                break;
+            case CronTrigger.MISFIRE_INSTRUCTION_IGNORE_MISFIRE_POLICY:
+                cronTriggerBuilder.withMisfireHandlingInstructionIgnoreMisfires();
+                break;
+            default:
+                break;
         }
         // 将cronTrigger设置到triggerBuilder中
         triggerBuilder.withSchedule(cronTriggerBuilder);
@@ -245,23 +249,27 @@ public class TriggerService {
         // 重复时间
         simpleTriggerBuilder.withIntervalInMilliseconds(triggerMeta.getIntervalInMilliseconds());
         // 设置触发机制 默认 SimpleTrigger.MISFIRE_INSTRUCTION_SMART_POLICY
-        if (SimpleTrigger.MISFIRE_INSTRUCTION_FIRE_NOW == triggerMeta.getMisfireInstruction()) {
-            simpleTriggerBuilder.withMisfireHandlingInstructionFireNow();
-        } else if (SimpleTrigger.MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_EXISTING_COUNT == triggerMeta
-                .getMisfireInstruction()) {
-            simpleTriggerBuilder.withMisfireHandlingInstructionNextWithExistingCount();
-        } else if (SimpleTrigger.MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_REMAINING_COUNT == triggerMeta
-                .getMisfireInstruction()) {
-            simpleTriggerBuilder.withMisfireHandlingInstructionNextWithRemainingCount();
-        } else if (SimpleTrigger.MISFIRE_INSTRUCTION_RESCHEDULE_NOW_WITH_EXISTING_REPEAT_COUNT == triggerMeta
-                .getMisfireInstruction()) {
-            simpleTriggerBuilder.withMisfireHandlingInstructionNowWithExistingCount();
-        } else if (SimpleTrigger.MISFIRE_INSTRUCTION_RESCHEDULE_NOW_WITH_REMAINING_REPEAT_COUNT == triggerMeta
-                .getMisfireInstruction()) {
-            simpleTriggerBuilder.withMisfireHandlingInstructionNowWithRemainingCount();
-        } else if (SimpleTrigger.MISFIRE_INSTRUCTION_IGNORE_MISFIRE_POLICY == triggerMeta
-                .getMisfireInstruction()) {
-            simpleTriggerBuilder.withMisfireHandlingInstructionIgnoreMisfires();
+        switch (triggerMeta.getMisfireInstruction()) {
+            case SimpleTrigger.MISFIRE_INSTRUCTION_FIRE_NOW:
+                simpleTriggerBuilder.withMisfireHandlingInstructionFireNow();
+                break;
+            case SimpleTrigger.MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_EXISTING_COUNT:
+                simpleTriggerBuilder.withMisfireHandlingInstructionNextWithExistingCount();
+                break;
+            case SimpleTrigger.MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_REMAINING_COUNT:
+                simpleTriggerBuilder.withMisfireHandlingInstructionNextWithRemainingCount();
+                break;
+            case SimpleTrigger.MISFIRE_INSTRUCTION_RESCHEDULE_NOW_WITH_EXISTING_REPEAT_COUNT:
+                simpleTriggerBuilder.withMisfireHandlingInstructionNowWithExistingCount();
+                break;
+            case SimpleTrigger.MISFIRE_INSTRUCTION_RESCHEDULE_NOW_WITH_REMAINING_REPEAT_COUNT:
+                simpleTriggerBuilder.withMisfireHandlingInstructionNowWithRemainingCount();
+                break;
+            case SimpleTrigger.MISFIRE_INSTRUCTION_IGNORE_MISFIRE_POLICY:
+                simpleTriggerBuilder.withMisfireHandlingInstructionIgnoreMisfires();
+                break;
+            default:
+                break;
         }
         // 将SimpleTrigger设置到triggerBuilder中
         triggerBuilder.withSchedule(simpleTriggerBuilder);

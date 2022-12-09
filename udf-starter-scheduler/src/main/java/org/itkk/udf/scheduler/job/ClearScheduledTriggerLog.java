@@ -6,11 +6,9 @@
  */
 package org.itkk.udf.scheduler.job;
 
+import org.itkk.udf.scheduler.IListenerEvent;
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-
-import org.itkk.udf.scheduler.IListenerEvent;
 
 /**
  * <p>
@@ -30,8 +28,7 @@ import org.itkk.udf.scheduler.IListenerEvent;
 public class ClearScheduledTriggerLog extends AbstractBaseJob {
 
     @Override
-    protected void executeInternal(JobExecutionContext jobExecutionContext)
-            throws JobExecutionException {
+    protected void executeInternal(JobExecutionContext jobExecutionContext) {
         IListenerEvent triggerLog = this.getApplicationContext().getBean(IListenerEvent.class);
         if (triggerLog != null) {
             triggerLog.clearScheduledTriggerLog();

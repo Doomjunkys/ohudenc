@@ -34,7 +34,7 @@ public enum RmsJobStats {
      * Field value: 参数值
      * </p>
      */
-    private Integer value = null;
+    private Integer value;
 
     /**
      * <p>

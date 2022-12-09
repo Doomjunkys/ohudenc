@@ -68,13 +68,13 @@ public class DrawOptions {
             return true;
         }
 
-
-        if (expandType == ExpandType.SIZE4) {
-            return size4Img != null;
-        } else if (expandType == ExpandType.COL2) {
-            return col2img != null;
-        } else {
-            return row2Img != null;
+        switch (expandType) {
+            case SIZE4:
+                return size4Img != null;
+            case COL2:
+                return col2img != null;
+            default:
+                return row2Img != null;
         }
     }
 }

@@ -54,7 +54,7 @@ public class OssWarpper {
     public PolicyResult getPolicy(String code) throws UnsupportedEncodingException {
         //判空
         if (!aliyunOssProperties.getAuth().containsKey(code) || !aliyunOssProperties.getPath().containsKey(code)) {
-            throw new ParameterValidException("aliyun oss code:" + code + "未定义", null);
+            throw new ParameterValidException("aliyun oss code:" + code + "未定义", null); //NOSONAR
         }
         //获得认证信息 和 路径信息
         AliyunOssAccessMeta auth = aliyunOssProperties.getAuth().get(code);

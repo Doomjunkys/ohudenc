@@ -30,7 +30,7 @@ public enum TriggerType {
      * Field value: 参数值
      * </p>
      */
-    private String value = null;
+    private String value;
 
     /**
      * <p>
