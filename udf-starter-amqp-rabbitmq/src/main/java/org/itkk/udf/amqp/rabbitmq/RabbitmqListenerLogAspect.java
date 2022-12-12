@@ -12,6 +12,7 @@ import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +30,12 @@ import java.util.Date;
 public class RabbitmqListenerLogAspect extends RabbitmqListenerBaseAspect {
 
     /**
+     * messageLog
+     */
+    @Autowired
+    private MessageLog messageLog;
+
+    /**
      * 描述 : 前置通知
      *
      * @param joinPoint joinPoint
@@ -38,7 +45,7 @@ public class RabbitmqListenerLogAspect extends RabbitmqListenerBaseAspect {
         if (joinPoint.getTarget() instanceof IRabbitmqListener) {
             RabbitmqMessage<?> message = (RabbitmqMessage<?>) joinPoint.getArgs()[0];
             String queues = this.getQueues(joinPoint);
-            log.info("{},{},receiveDate:{}", queues, message.getId(), new Date().getTime());
+            messageLog.receive(message.getId(), queues, new Date());
         }
     }
 
@@ -52,7 +59,7 @@ public class RabbitmqListenerLogAspect extends RabbitmqListenerBaseAspect {
         if (joinPoint.getTarget() instanceof IRabbitmqListener) {
             RabbitmqMessage<?> message = (RabbitmqMessage<?>) joinPoint.getArgs()[0];
             String queues = this.getQueues(joinPoint);
-            log.info("{},{},completeDate:{}", queues, message.getId(), new Date().getTime());
+            messageLog.complete(message.getId(), queues, new Date());
         }
     }
 
@@ -67,7 +74,7 @@ public class RabbitmqListenerLogAspect extends RabbitmqListenerBaseAspect {
         if (joinPoint.getTarget() instanceof IRabbitmqListener) {
             RabbitmqMessage<?> message = (RabbitmqMessage<?>) joinPoint.getArgs()[0];
             String queues = this.getQueues(joinPoint);
-            log.info("{},{},errorDate:{}", queues, message.getId(), new Date().getTime(), ex);
+            messageLog.error(message.getId(), queues, new Date(), ex);
         }
     }
 

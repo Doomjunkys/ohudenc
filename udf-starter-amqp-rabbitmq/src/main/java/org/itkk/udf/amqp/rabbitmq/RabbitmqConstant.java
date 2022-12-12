@@ -27,14 +27,44 @@ public class RabbitmqConstant {
      * (EXCHANGE)消息记录
      */
     public enum EXCHANGE_MESSAGE_LOG {
-
+        /**
+         * 发送消息
+         */
+        SEND,
+        /**
+         * 接收消息
+         */
+        RECEIVE,
+        /**
+         * 消息完成
+         */
+        COMPLETE,
+        /**
+         * 消息错误
+         */
+        ERROR
     }
 
     /**
      * (EXCHANGE)消息记录(死信)
      */
     public enum EXCHANGE_MESSAGE_LOG_DLX {
-
+        /**
+         * 发送消息
+         */
+        SEND_DLX,
+        /**
+         * 接收消息
+         */
+        RECEIVE_DLX,
+        /**
+         * 消息完成
+         */
+        COMPLETE_DLX,
+        /**
+         * 消息错误
+         */
+        ERROR_DLX
     }
 
     /**

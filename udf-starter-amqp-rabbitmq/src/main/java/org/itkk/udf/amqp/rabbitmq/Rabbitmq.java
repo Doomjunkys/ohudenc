@@ -34,6 +34,12 @@ public class Rabbitmq {
     private AmqpTemplate amqpTemplate;
 
     /**
+     * messageLog
+     */
+    @Autowired
+    private MessageLog messageLog;
+
+    /**
      * 描述 : Convert a Java object to an Amqp Message and send it to a specific exchange with a
      * specific routing key.
      *
@@ -49,6 +55,7 @@ public class Rabbitmq {
         message.setRoutingKey(routingKey);
         message.setTimestamp(System.currentTimeMillis());
         this.amqpTemplate.convertAndSend(exchange, routingKey, message);
+        messageLog.send(message);
     }
 
 }
