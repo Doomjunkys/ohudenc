@@ -330,8 +330,8 @@ public class IdWorkerFactory {
      *
      * @return IdWorkerWrapper
      */
-    private IdWorkerWrapper get() {
-        long dwId = new Date().getTime() & ~(-1L << (IdWorkerConstant.WORKER_ID_BITS + IdWorkerConstant.DATACENTER_ID_BITS));
+    private synchronized IdWorkerWrapper get() {
+        long dwId = System.currentTimeMillis() & ~(-1L << (IdWorkerConstant.WORKER_ID_BITS + IdWorkerConstant.DATACENTER_ID_BITS));
         return this.get(dwId);
     }
 

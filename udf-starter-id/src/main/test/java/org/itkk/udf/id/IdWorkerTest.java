@@ -1,6 +1,7 @@
 package org.itkk.udf.id;
 
 import lombok.extern.slf4j.Slf4j;
+import org.itkk.udf.core.constant.IdWorkerConstant;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
@@ -39,6 +40,10 @@ public class IdWorkerTest {
             }
             map.put(id, id);
         }
+        long time = System.currentTimeMillis();
+        log.info(Long.toBinaryString(time));
+        long dwId = time & ~(-1L << (IdWorkerConstant.WORKER_ID_BITS + IdWorkerConstant.DATACENTER_ID_BITS));
+        log.info(Long.toBinaryString(dwId));
         //0 - 0000000000 0000000000 0000000000 0000000000 0 - 00000 - 00000 - 000000000000
         //       1100100 0101110001 1111010110 0111000000 1 - 00001 - 00001 - 000000000000 ---> 1 ,1
         //       1100100 0101110010 0110110000 1110100110 1 - 00010 - 00010 - 000000000000 ---> 2 ,2
