@@ -102,20 +102,20 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-config</artifactId>
         </dependency>
-        <!-- spring-cloud-starter-eureka 服务发现-客户端 -->
+        <!-- spring-cloud-starter-netflix-eureka-client 服务发现-客户端 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-eureka</artifactId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
-        <!-- spring-cloud-starter-ribbon 服务发现-负载均衡 -->
+        <!-- spring-cloud-starter-netflix-ribbon 服务发现-负载均衡 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-ribbon</artifactId>
+            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
         </dependency>
-        <!-- spring-cloud-starter-hystrix 断路器 -->
+        <!-- spring-cloud-starter-netflix-hystrix 断路器 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-hystrix</artifactId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
         </dependency>
         <!-- lombok -->
         <dependency>
