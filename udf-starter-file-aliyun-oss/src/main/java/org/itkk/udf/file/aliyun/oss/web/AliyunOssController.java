@@ -7,9 +7,9 @@
 package org.itkk.udf.file.aliyun.oss.web;
 
 import org.itkk.udf.core.RestResponse;
-import org.itkk.udf.file.aliyun.oss.OssWarpper;
 import org.itkk.udf.core.domain.aliyun.oss.OssParam;
-import org.itkk.udf.file.aliyun.oss.domain.PolicyResult;
+import org.itkk.udf.file.aliyun.oss.api.OssWarpper;
+import org.itkk.udf.file.aliyun.oss.api.domain.PolicyResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;

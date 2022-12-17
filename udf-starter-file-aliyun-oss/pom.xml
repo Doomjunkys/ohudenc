@@ -20,11 +20,10 @@
             <groupId>org.itkk.udf</groupId>
             <artifactId>udf-starter-core</artifactId>
         </dependency>
-        <!-- aliyun-sdk-oss -->
+        <!-- udf-starter-file-aliyun-oss-api -->
         <dependency>
-            <groupId>com.aliyun.oss</groupId>
-            <artifactId>aliyun-sdk-oss</artifactId>
-            <version>${aliyun-sdk-oss.version}</version>
+            <groupId>org.itkk.udf</groupId>
+            <artifactId>udf-starter-file-aliyun-oss-api</artifactId>
         </dependency>
     </dependencies>
 </project>

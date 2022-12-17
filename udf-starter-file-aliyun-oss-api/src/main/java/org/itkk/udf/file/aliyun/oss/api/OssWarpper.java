@@ -1,4 +1,4 @@
-package org.itkk.udf.file.aliyun.oss;
+package org.itkk.udf.file.aliyun.oss.api;
 
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.common.utils.BinaryUtil;
@@ -6,12 +6,13 @@ import com.aliyun.oss.model.PolicyConditions;
 import org.apache.commons.lang3.StringUtils;
 import org.itkk.udf.core.ApplicationConfig;
 import org.itkk.udf.core.exception.ParameterValidException;
-import org.itkk.udf.file.aliyun.oss.domain.PolicyResult;
-import org.itkk.udf.file.aliyun.oss.meta.AliyunOssAccessMeta;
-import org.itkk.udf.file.aliyun.oss.meta.AliyunOssPathMeta;
+import org.itkk.udf.file.aliyun.oss.api.domain.PolicyResult;
+import org.itkk.udf.file.aliyun.oss.api.meta.AliyunOssAccessMeta;
+import org.itkk.udf.file.aliyun.oss.api.meta.AliyunOssPathMeta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.sql.Date;
@@ -171,6 +172,29 @@ public class OssWarpper {
         OSSClient client = new OSSClient(auth.getEndPoint(), auth.getAccessId(), auth.getAccessKey());
         try {
             return client.doesObjectExist(path.getBucketName(), objectKey);
+        } finally {
+            client.shutdown();
+        }
+    }
+
+    /**
+     * 文件上传
+     *
+     * @param code code
+     * @param file file
+     */
+    public void uploadFile(String code, File file) {
+        //判空
+        if (!aliyunOssProperties.getAuth().containsKey(code) || !aliyunOssProperties.getPath().containsKey(code)) {
+            throw new ParameterValidException("aliyun oss code:" + code + "未定义", null);
+        }
+        //获得认证信息 和 路径信息
+        AliyunOssAccessMeta auth = aliyunOssProperties.getAuth().get(code);
+        AliyunOssPathMeta path = aliyunOssProperties.getPath().get(code);
+        //实例化oss对象
+        OSSClient client = new OSSClient(auth.getEndPoint(), auth.getAccessId(), auth.getAccessKey());
+        try {
+            client.putObject(path.getBucketName(), file.getName(), file);
         } finally {
             client.shutdown();
         }

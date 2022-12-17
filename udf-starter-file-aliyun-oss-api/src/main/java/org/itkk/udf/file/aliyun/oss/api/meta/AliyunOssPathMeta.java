@@ -4,7 +4,7 @@
  * Created by Administrator
  * Copyright (C) 2016 itkk.org, All rights reserved.
  */
-package org.itkk.udf.file.aliyun.oss.meta;
+package org.itkk.udf.file.aliyun.oss.api.meta;
 
 import lombok.Data;
 
@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @author Administrator
  */
 @Data
-public class AliyunOssAccessMeta implements Serializable {
+public class AliyunOssPathMeta implements Serializable {
 
     /**
      * 描述 : ID
@@ -24,23 +24,23 @@ public class AliyunOssAccessMeta implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * accessId
+     * bucketName
      */
-    private String accessId;
+    private String bucketName;
 
     /**
-     * accessKey
+     * ossHost
      */
-    private String accessKey;
+    private String ossHost;
 
     /**
-     * endPoint
+     * ossInternalHost
      */
-    private String endPoint;
+    private String ossInternalHost;
 
     /**
-     * expireTime
+     * cdnHost
      */
-    private long expireTime;
+    private String cdnHost;
 
 }

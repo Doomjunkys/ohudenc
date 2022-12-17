@@ -1,7 +1,7 @@
-package org.itkk.udf.file.aliyun.oss.domain;
+package org.itkk.udf.file.aliyun.oss.api.domain;
 
 import lombok.Data;
-import org.itkk.udf.file.aliyun.oss.meta.AliyunOssPathMeta;
+import org.itkk.udf.file.aliyun.oss.api.meta.AliyunOssPathMeta;
 
 import java.io.Serializable;
 

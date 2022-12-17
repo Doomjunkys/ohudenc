@@ -38,6 +38,7 @@
         <module>udf-starter-amqp-rabbitmq</module>
         <module>udf-starter-file</module>
         <module>udf-starter-file-aliyun-oss</module>
+        <module>udf-starter-file-aliyun-oss-api</module>
         <module>udf-starter-mail</module>
         <module>udf-starter-scheduler</module>
         <module>udf-starter-scheduler-client</module>
@@ -103,6 +104,12 @@
             <dependency>
                 <groupId>org.itkk.udf</groupId>
                 <artifactId>udf-starter-file-aliyun-oss</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-file-aliyun-oss-api -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-file-aliyun-oss-api</artifactId>
                 <version>${udf-starter.version}</version>
             </dependency>
             <!-- udf-starter-mail -->

@@ -4,11 +4,11 @@
  * Created by Administrator
  * Copyright (C) 2016 itkk.org, All rights reserved.
  */
-package org.itkk.udf.file.aliyun.oss;
+package org.itkk.udf.file.aliyun.oss.api;
 
 import lombok.Data;
-import org.itkk.udf.file.aliyun.oss.meta.AliyunOssAccessMeta;
-import org.itkk.udf.file.aliyun.oss.meta.AliyunOssPathMeta;
+import org.itkk.udf.file.aliyun.oss.api.meta.AliyunOssAccessMeta;
+import org.itkk.udf.file.aliyun.oss.api.meta.AliyunOssPathMeta;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
