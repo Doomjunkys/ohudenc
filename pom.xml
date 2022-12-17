@@ -28,6 +28,7 @@
         <mybatis-spring-boot-starter.version>1.3.1</mybatis-spring-boot-starter.version>
         <jsqlparser.version>1.1</jsqlparser.version>
         <aliyun-sdk-oss.version>2.8.2</aliyun-sdk-oss.version>
+        <poi.version>3.17</poi.version>
     </properties>
     <!--子模块 -->
     <modules>
