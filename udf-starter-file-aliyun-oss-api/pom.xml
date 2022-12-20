@@ -20,6 +20,11 @@
             <groupId>org.itkk.udf</groupId>
             <artifactId>udf-starter-core</artifactId>
         </dependency>
+        <!-- udf-starter-cache-redis -->
+        <dependency>
+            <groupId>org.itkk.udf</groupId>
+            <artifactId>udf-starter-cache-redis</artifactId>
+        </dependency>
         <!-- aliyun-sdk-oss -->
         <dependency>
             <groupId>com.aliyun.oss</groupId>

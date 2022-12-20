@@ -182,8 +182,9 @@ public class OssWarpper {
      *
      * @param code code
      * @param file file
+     * @return String
      */
-    public void uploadFile(String code, File file) {
+    public String uploadFile(String code, File file) {
         //判空
         if (!aliyunOssProperties.getAuth().containsKey(code) || !aliyunOssProperties.getPath().containsKey(code)) {
             throw new ParameterValidException("aliyun oss code:" + code + "未定义", null);
@@ -194,7 +195,9 @@ public class OssWarpper {
         //实例化oss对象
         OSSClient client = new OSSClient(auth.getEndPoint(), auth.getAccessId(), auth.getAccessKey());
         try {
-            client.putObject(path.getBucketName(), file.getName(), file);
+            String objectKey = "upload/" + file.getName();
+            client.putObject(path.getBucketName(), objectKey, file);
+            return objectKey;
         } finally {
             client.shutdown();
         }
