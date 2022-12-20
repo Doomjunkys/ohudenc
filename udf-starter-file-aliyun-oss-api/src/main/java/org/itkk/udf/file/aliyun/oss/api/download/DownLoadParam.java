@@ -31,6 +31,11 @@ public class DownLoadParam<T> implements Serializable {
     private String id;
 
     /**
+     * ossCode
+     */
+    private String ossCode;
+
+    /**
      * 描述 : 消息体
      */
     private T body; //NOSONAR

@@ -6,6 +6,8 @@
  */
 package org.itkk.udf.file.aliyun.oss.api.download;
 
+import java.io.File;
+
 /**
  * 描述 : IDownLoadProcess
  *
@@ -17,8 +19,8 @@ public interface IDownLoadProcess<T> {
      * process
      *
      * @param param param
-     * @return String
+     * @return File
      */
-    String process(DownLoadParam<T> param);
+    File process(DownLoadParam<T> param);
 
 }

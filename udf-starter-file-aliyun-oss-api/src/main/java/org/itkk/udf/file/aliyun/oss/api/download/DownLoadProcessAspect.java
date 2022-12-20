@@ -12,11 +12,13 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.itkk.udf.cache.redis.CacheRedisProperties;
 import org.itkk.udf.core.exception.SystemRuntimeException;
+import org.itkk.udf.file.aliyun.oss.api.OssWarpper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -53,12 +55,18 @@ public class DownLoadProcessAspect {
     private CacheRedisProperties cacheRedisProperties;
 
     /**
+     * ossWarpper
+     */
+    @Autowired
+    private OssWarpper ossWarpper;
+
+    /**
      * around
      *
      * @param proceedingJoinPoint proceedingJoinPoint
      * @return Object
      */
-    @Around("this(org.itkk.udf.file.aliyun.oss.api.download.IDownLoadProcess)")
+    @Around("this(org.itkk.udf.file.aliyun.oss.api.download.IDownLoadProcess) && args(org.itkk.udf.file.aliyun.oss.api.download.DownLoadParam)")
     public Object around(ProceedingJoinPoint proceedingJoinPoint) {
         //定义返回值
         Object result = null;
@@ -77,9 +85,15 @@ public class DownLoadProcessAspect {
                 redisTemplate.opsForValue().set(key, info, DOWNLOAD_CACHE_EXPIRATION, TimeUnit.MINUTES);
                 //执行
                 result = proceedingJoinPoint.proceed();
+                //获得本地文件
+                File file = (File) result;
+                //上传文件到阿里云OSS
+                String objectKey = ossWarpper.uploadFile(param.getOssCode(), file);
+                //删除本地文件
+                file.delete();
                 //更新缓存
                 info.setStatus(DownConstant.DOWNLOAD_PROCESS_STATUS.STATUS_2.value());
-                info.setObjectKey(result.toString());
+                info.setObjectKey(objectKey);
                 redisTemplate.opsForValue().set(key, info, DOWNLOAD_CACHE_EXPIRATION, TimeUnit.MINUTES);
             } catch (Throwable e) {
                 //更新缓存
