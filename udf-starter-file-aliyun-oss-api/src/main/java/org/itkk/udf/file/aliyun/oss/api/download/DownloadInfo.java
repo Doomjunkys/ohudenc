@@ -20,7 +20,7 @@ public class DownloadInfo {
     /**
      * status
      */
-    @ApiModelProperty(value = "下载状态 ( 1 : 执行中 , 2 : 执行完成 , 3 : 执行错误 )", required = true, dataType = "int")
+    @ApiModelProperty(value = "下载状态 ( 1 : 待执行 , 2 : 执行中 , 3 : 执行完成 , 4 : 执行错误 )", required = true, dataType = "int")
     private Integer status;
 
     /**

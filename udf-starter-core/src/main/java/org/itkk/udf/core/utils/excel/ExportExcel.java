@@ -109,9 +109,9 @@ public class ExportExcel {
         final int num16 = 16;
         final int num30 = 30;
         final int num256 = 256;
-        this.wb = new SXSSFWorkbook(rowAccessWindowSize); //有没有被关闭的风险
+        this.wb = new SXSSFWorkbook(rowAccessWindowSize); //设置刷新行数大小
         this.wb.setCompressTempFiles(true); // 缓冲区文件压缩
-        this.sheet = this.wb.createSheet("Export");
+        this.sheet = this.wb.createSheet(title);
         this.styles = createStyles();
         // 创建标题
         if (StringUtils.isNotBlank(title)) {

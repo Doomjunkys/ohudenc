@@ -10,6 +10,8 @@ import org.itkk.udf.core.RestResponse;
 import org.itkk.udf.core.domain.aliyun.oss.OssParam;
 import org.itkk.udf.file.aliyun.oss.api.OssWarpper;
 import org.itkk.udf.file.aliyun.oss.api.domain.PolicyResult;
+import org.itkk.udf.file.aliyun.oss.api.download.DownloadInfo;
+import org.itkk.udf.file.aliyun.oss.service.DownLoadProcessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +34,12 @@ public class AliyunOssController implements IAliuyinOssController {
     @Autowired
     private OssWarpper ossWarpper;
 
+    /**
+     * downLoadProcessService
+     */
+    @Autowired
+    private DownLoadProcessService downLoadProcessService;
+
     @Override
     public RestResponse<PolicyResult> policy(@PathVariable String code) throws IOException {
         return new RestResponse<>(ossWarpper.getPolicy(code));
@@ -51,5 +59,10 @@ public class AliyunOssController implements IAliuyinOssController {
     @Override
     public RestResponse<Boolean> checkExist(@RequestBody @Valid OssParam ossParam) {
         return new RestResponse<>(ossWarpper.checkExist(ossParam.getCode(), ossParam.getObjectKey()));
+    }
+
+    @Override
+    public RestResponse<DownloadInfo> getDownloadInfo(@PathVariable String id) {
+        return new RestResponse<>(downLoadProcessService.getDownloadInfo(id));
     }
 }

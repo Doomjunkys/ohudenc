@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import org.itkk.udf.core.RestResponse;
 import org.itkk.udf.core.domain.aliyun.oss.OssParam;
 import org.itkk.udf.file.aliyun.oss.api.domain.PolicyResult;
+import org.itkk.udf.file.aliyun.oss.api.download.DownloadInfo;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -92,5 +93,21 @@ public interface IAliuyinOssController {
     })
     @RequestMapping(value = "check/exist", method = RequestMethod.POST)
     RestResponse<Boolean> checkExist(@RequestBody @Valid OssParam ossParam);
+
+    /**
+     * 获得文件下载信息(供客户端轮询)
+     *
+     * @param id id
+     * @return RestResponse<DownloadInfo>
+     */
+    @ApiOperation(value = "FILE_ALIYUN_OSS_DOWNLOAD_INFO", notes = "获得文件下载信息(供客户端轮询)")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称", required = true, dataType = "string"),
+            @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true, dataType = "string"),
+            @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号", required = true, dataType = "string"),
+            @ApiImplicitParam(paramType = "path", name = "id", value = "文件下载ID", required = true, dataType = "string")
+    })
+    @RequestMapping(value = "download/info/{id}", method = RequestMethod.GET)
+    RestResponse<DownloadInfo> getDownloadInfo(@PathVariable String id);
 
 }

@@ -19,6 +19,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -66,7 +67,9 @@ public class DownLoadProcessAspect {
      * @param proceedingJoinPoint proceedingJoinPoint
      * @return Object
      */
-    @Around("this(org.itkk.udf.file.aliyun.oss.api.download.IDownLoadProcess) && args(org.itkk.udf.file.aliyun.oss.api.download.DownLoadParam)")
+    @Around("this(org.itkk.udf.file.aliyun.oss.api.download.IDownLoadProcess)" +
+            " && @annotation(org.itkk.udf.file.aliyun.oss.api.download.DownLoad)" +
+            " && args(org.itkk.udf.file.aliyun.oss.api.download.DownLoadParam)")
     public Object around(ProceedingJoinPoint proceedingJoinPoint) {
         //定义返回值
         Object result = null;
@@ -81,7 +84,7 @@ public class DownLoadProcessAspect {
             info.setId(param.getId());
             try {
                 //更新缓存
-                info.setStatus(DownConstant.DOWNLOAD_PROCESS_STATUS.STATUS_1.value());
+                info.setStatus(DownConstant.DOWNLOAD_PROCESS_STATUS.STATUS_2.value());
                 redisTemplate.opsForValue().set(key, info, DOWNLOAD_CACHE_EXPIRATION, TimeUnit.MINUTES);
                 //执行
                 result = proceedingJoinPoint.proceed();
@@ -90,14 +93,14 @@ public class DownLoadProcessAspect {
                 //上传文件到阿里云OSS
                 String objectKey = ossWarpper.uploadFile(param.getOssCode(), file);
                 //删除本地文件
-                file.delete();
+                Files.delete(file.toPath());
                 //更新缓存
-                info.setStatus(DownConstant.DOWNLOAD_PROCESS_STATUS.STATUS_2.value());
+                info.setStatus(DownConstant.DOWNLOAD_PROCESS_STATUS.STATUS_3.value());
                 info.setObjectKey(objectKey);
                 redisTemplate.opsForValue().set(key, info, DOWNLOAD_CACHE_EXPIRATION, TimeUnit.MINUTES);
             } catch (Throwable e) {
                 //更新缓存
-                info.setStatus(DownConstant.DOWNLOAD_PROCESS_STATUS.STATUS_3.value());
+                info.setStatus(DownConstant.DOWNLOAD_PROCESS_STATUS.STATUS_4.value());
                 info.setErrorMsg(e.getMessage());
                 redisTemplate.opsForValue().set(key, info, DOWNLOAD_CACHE_EXPIRATION, TimeUnit.MINUTES);
                 //抛出异常

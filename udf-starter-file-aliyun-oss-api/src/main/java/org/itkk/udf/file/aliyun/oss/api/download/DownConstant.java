@@ -18,17 +18,21 @@ public class DownConstant {
      */
     public enum DOWNLOAD_PROCESS_STATUS {
         /**
-         * 执行中
+         * 待执行
          */
         STATUS_1(1),
         /**
-         * 执行完成
+         * 执行中
          */
         STATUS_2(2),
         /**
+         * 执行完成
+         */
+        STATUS_3(3),
+        /**
          * 执行错误
          */
-        STATUS_3(3);
+        STATUS_4(4);
 
         /**
          * value
