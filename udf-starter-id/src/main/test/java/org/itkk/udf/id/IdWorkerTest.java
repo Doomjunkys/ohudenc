@@ -1,8 +1,7 @@
-package java.org.itkk.udf.id;
+package org.itkk.udf.id;
 
 import lombok.extern.slf4j.Slf4j;
 import org.itkk.udf.core.constant.IdWorkerConstant;
-import org.itkk.udf.id.IdWorker;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
