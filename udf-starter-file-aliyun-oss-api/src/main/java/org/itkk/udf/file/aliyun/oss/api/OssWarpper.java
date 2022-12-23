@@ -15,7 +15,8 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
-import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * OssWarpper
@@ -195,7 +196,7 @@ public class OssWarpper {
         //实例化oss对象
         OSSClient client = new OSSClient(auth.getEndPoint(), auth.getAccessId(), auth.getAccessKey());
         try {
-            String objectKey = "upload/" + file.getName();
+            String objectKey = "upload/" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "/" + file.getName();
             client.putObject(path.getBucketName(), objectKey, file);
             return objectKey;
         } finally {
