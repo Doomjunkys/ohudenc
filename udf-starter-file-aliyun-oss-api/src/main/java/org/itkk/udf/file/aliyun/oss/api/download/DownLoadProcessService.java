@@ -1,9 +1,6 @@
-package org.itkk.udf.file.aliyun.oss.service;
+package org.itkk.udf.file.aliyun.oss.api.download;
 
 import org.itkk.udf.cache.redis.CacheRedisProperties;
-import org.itkk.udf.file.aliyun.oss.api.download.DownConstant;
-import org.itkk.udf.file.aliyun.oss.api.download.DownLoadProcessAspect;
-import org.itkk.udf.file.aliyun.oss.api.download.DownloadInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -44,7 +41,7 @@ public class DownLoadProcessService {
         info.setId(id);
         info.setStatus(DownConstant.DOWNLOAD_PROCESS_STATUS.STATUS_1.value());
         //更新缓存
-        redisTemplate.opsForValue().set(key, info, DownLoadProcessAspect.DOWNLOAD_CACHE_EXPIRATION, TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set(key, info, DownLoadProcessAspect.DOWNLOAD_WAITING_CACHE_EXPIRATION, TimeUnit.MINUTES);
         //返回ID
         return id;
     }

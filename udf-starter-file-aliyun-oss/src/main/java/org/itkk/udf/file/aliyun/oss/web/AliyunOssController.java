@@ -11,7 +11,7 @@ import org.itkk.udf.core.domain.aliyun.oss.OssParam;
 import org.itkk.udf.file.aliyun.oss.api.OssWarpper;
 import org.itkk.udf.file.aliyun.oss.api.domain.PolicyResult;
 import org.itkk.udf.file.aliyun.oss.api.download.DownloadInfo;
-import org.itkk.udf.file.aliyun.oss.service.DownLoadProcessService;
+import org.itkk.udf.file.aliyun.oss.api.download.DownLoadProcessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;

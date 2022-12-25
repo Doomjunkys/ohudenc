@@ -39,7 +39,12 @@ public class DownLoadProcessAspect {
     public static final String DOWNLOAD_CACHE_PREFIX = ":DOWNLOAD_CACHE:";
 
     /**
-     * DOWNLOAD_CACHE_EXPIRATION
+     * DOWNLOAD_WAITING_CACHE_EXPIRATION(待执行,执行中,缓存过期时间为1天)
+     */
+    public static final long DOWNLOAD_WAITING_CACHE_EXPIRATION = 60 * 24;
+
+    /**
+     * DOWNLOAD_CACHE_EXPIRATION(执行完成,执行错误,缓存过期时间为10分钟)
      */
     public static final long DOWNLOAD_CACHE_EXPIRATION = 10;
 
@@ -85,7 +90,7 @@ public class DownLoadProcessAspect {
             try {
                 //更新缓存
                 info.setStatus(DownConstant.DOWNLOAD_PROCESS_STATUS.STATUS_2.value());
-                redisTemplate.opsForValue().set(key, info, DOWNLOAD_CACHE_EXPIRATION, TimeUnit.MINUTES);
+                redisTemplate.opsForValue().set(key, info, DOWNLOAD_WAITING_CACHE_EXPIRATION, TimeUnit.MINUTES);
                 //执行
                 result = proceedingJoinPoint.proceed();
                 //获得本地文件
