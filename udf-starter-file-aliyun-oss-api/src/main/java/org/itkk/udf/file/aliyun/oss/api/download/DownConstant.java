@@ -14,6 +14,12 @@ package org.itkk.udf.file.aliyun.oss.api.download;
 public class DownConstant {
 
     /**
+     * MAX_DOWNLOAD_ROW_COUNT
+     */
+    public static final int MAX_DOWNLOAD_ROW_COUNT = 10000;
+
+
+    /**
      * 下载状态
      */
     public enum DOWNLOAD_PROCESS_STATUS {
@@ -62,6 +68,15 @@ public class DownConstant {
      * 描述 : 私有化构造函数
      */
     private DownConstant() {
+    }
+
+    /**
+     * tempdir
+     *
+     * @return String
+     */
+    public static String tempdir() {
+        return System.getProperty("java.io.tmpdir");
     }
 
 }
