@@ -1,6 +1,7 @@
 package org.itkk.udf.file.aliyun.oss.api.download;
 
 import org.itkk.udf.cache.redis.CacheRedisProperties;
+import org.itkk.udf.core.exception.ParameterValidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -29,9 +30,14 @@ public class DownLoadProcessService {
     /**
      * generateDownLoadId
      *
+     * @param count count
      * @return String
      */
-    public String generateDownLoadId() {
+    public String generateDownLoadId(long count) {
+        //判断行数
+        if (count > DownConstant.MAX_DOWNLOAD_ROW_COUNT) {
+            throw new ParameterValidException("导出行数不能超过" + DownConstant.MAX_DOWNLOAD_ROW_COUNT + "行", null);
+        }
         //生成ID
         String id = UUID.randomUUID().toString();
         //获得key
