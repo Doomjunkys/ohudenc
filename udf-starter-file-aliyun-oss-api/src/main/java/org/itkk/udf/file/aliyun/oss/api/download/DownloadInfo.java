@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * DownloadInfo
  */
@@ -28,6 +30,24 @@ public class DownloadInfo {
      */
     @ApiModelProperty(value = "阿里云OSS的objectKey", required = true, dataType = "string")
     private String objectKey;
+
+    /**
+     * 初始化时间
+     */
+    @ApiModelProperty(value = "初始化时间", required = true, dataType = "date")
+    private Date processInitDate;
+
+    /**
+     * processStartDate
+     */
+    @ApiModelProperty(value = "开始时间", required = true, dataType = "date")
+    private Date processStartDate;
+
+    /**
+     * processEndDate
+     */
+    @ApiModelProperty(value = "结束时间", required = true, dataType = "date")
+    private Date processEndDate;
 
     /**
      * errorMsg

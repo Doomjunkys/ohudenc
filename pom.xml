@@ -21,6 +21,7 @@
         <springfox-swagger2.version>2.7.0</springfox-swagger2.version>
         <commons-collections4.version>4.1</commons-collections4.version>
         <commons-lang3.version>3.7</commons-lang3.version>
+        <commons-compress.version>1.15</commons-compress.version>
         <quartz.version>2.3.0</quartz.version>
         <alibaba.druid.version>1.1.5</alibaba.druid.version>
         <jasypt-spring-boot-starter.version>1.16</jasypt-spring-boot-starter.version>
