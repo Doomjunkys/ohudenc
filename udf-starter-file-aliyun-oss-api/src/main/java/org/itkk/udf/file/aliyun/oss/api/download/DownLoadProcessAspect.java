@@ -97,6 +97,7 @@ public class DownLoadProcessAspect {
             //构造对象
             DownloadInfo info = new DownloadInfo();
             info.setId(param.getId());
+            info.setOssCode(param.getOssCode());
             //定义文件变量
             File file = null;
             File zipFile = null;

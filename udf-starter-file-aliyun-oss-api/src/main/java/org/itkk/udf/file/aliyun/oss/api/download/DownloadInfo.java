@@ -20,6 +20,12 @@ public class DownloadInfo {
     private String id;
 
     /**
+     * ossCode
+     */
+    @ApiModelProperty(value = "oss代码", required = true, dataType = "string")
+    private String ossCode;
+
+    /**
      * status
      */
     @ApiModelProperty(value = "下载状态 ( 1 : 待执行 , 2 : 执行中 , 3 : 执行完成 , 4 : 执行错误 )", required = true, dataType = "int")
