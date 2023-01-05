@@ -1,6 +1,5 @@
 package org.itkk.udf.file.aliyun.oss.api.download;
 
-import org.itkk.udf.cache.redis.CacheRedisProperties;
 import org.itkk.udf.core.exception.ParameterValidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -23,12 +22,6 @@ public class DownLoadProcessService {
     private RedisTemplate<Object, Object> redisTemplate;
 
     /**
-     * cacheRedisProperties
-     */
-    @Autowired
-    private CacheRedisProperties cacheRedisProperties;
-
-    /**
      * generateDownLoadId
      *
      * @param count count
@@ -42,7 +35,7 @@ public class DownLoadProcessService {
         //生成ID
         String id = UUID.randomUUID().toString();
         //获得key
-        String key = cacheRedisProperties.getPrefix() + DownLoadProcessAspect.DOWNLOAD_CACHE_PREFIX + id;
+        String key = DownLoadProcessAspect.DOWNLOAD_CACHE_PREFIX + id;
         //构造对象
         DownloadInfo info = new DownloadInfo();
         info.setId(id);
@@ -62,7 +55,7 @@ public class DownLoadProcessService {
      */
     public DownloadInfo getDownloadInfo(String id) {
         //获得key
-        String key = cacheRedisProperties.getPrefix() + DownLoadProcessAspect.DOWNLOAD_CACHE_PREFIX + id;
+        String key = DownLoadProcessAspect.DOWNLOAD_CACHE_PREFIX + id;
         //获得缓存值
         Object cacheValue = redisTemplate.opsForValue().get(key);
         //返回

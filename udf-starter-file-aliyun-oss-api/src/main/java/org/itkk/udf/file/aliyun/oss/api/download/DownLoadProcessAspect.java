@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.itkk.udf.cache.redis.CacheRedisProperties;
 import org.itkk.udf.core.ApplicationConfig;
 import org.itkk.udf.core.exception.SystemRuntimeException;
 import org.itkk.udf.core.utils.ZipUtil;
@@ -40,7 +39,7 @@ public class DownLoadProcessAspect {
     /**
      * DOWNLOAD_CACHE_PREFIX
      */
-    public static final String DOWNLOAD_CACHE_PREFIX = ":DOWNLOAD_CACHE:";
+    public static final String DOWNLOAD_CACHE_PREFIX = "DOWNLOAD_CACHE:";
 
     /**
      * DOWNLOAD_WAITING_CACHE_EXPIRATION(待执行,执行中,缓存过期时间为1天)
@@ -57,12 +56,6 @@ public class DownLoadProcessAspect {
      */
     @Autowired
     private RedisTemplate<Object, Object> redisTemplate;
-
-    /**
-     * cacheRedisProperties
-     */
-    @Autowired
-    private CacheRedisProperties cacheRedisProperties;
 
     /**
      * ossWarpper
@@ -93,7 +86,7 @@ public class DownLoadProcessAspect {
             //获得参数
             DownLoadParam<?> param = (DownLoadParam<?>) proceedingJoinPoint.getArgs()[0];
             //获得key
-            String key = cacheRedisProperties.getPrefix() + DOWNLOAD_CACHE_PREFIX + param.getId();
+            String key = DOWNLOAD_CACHE_PREFIX + param.getId();
             //构造对象
             DownloadInfo info = new DownloadInfo();
             info.setId(param.getId());
