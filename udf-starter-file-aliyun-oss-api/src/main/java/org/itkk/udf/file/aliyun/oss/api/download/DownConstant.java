@@ -6,6 +6,8 @@
  */
 package org.itkk.udf.file.aliyun.oss.api.download;
 
+import java.io.File;
+
 /**
  * 描述 : DownConstant
  *
@@ -76,7 +78,7 @@ public class DownConstant {
      * @return String
      */
     public static String tempdir() {
-        return System.getProperty("java.io.tmpdir");
+        return System.getProperty("java.io.tmpdir") + File.separator;
     }
 
 }
