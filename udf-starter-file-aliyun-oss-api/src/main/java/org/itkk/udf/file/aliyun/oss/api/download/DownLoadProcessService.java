@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -40,7 +39,6 @@ public class DownLoadProcessService {
         DownloadInfo info = new DownloadInfo();
         info.setId(id);
         info.setStatus(DownConstant.DOWNLOAD_PROCESS_STATUS.STATUS_1.value());
-        info.setProcessInitDate(new Date());
         //更新缓存
         redisTemplate.opsForValue().set(key, info, DownLoadProcessAspect.DOWNLOAD_WAITING_CACHE_EXPIRATION, TimeUnit.MINUTES);
         //返回ID

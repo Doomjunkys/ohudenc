@@ -38,12 +38,6 @@ public class DownloadInfo {
     private String objectKey;
 
     /**
-     * 初始化时间
-     */
-    @ApiModelProperty(value = "初始化时间", required = true, dataType = "date")
-    private Date processInitDate;
-
-    /**
      * processStartDate
      */
     @ApiModelProperty(value = "开始时间", required = true, dataType = "date")
