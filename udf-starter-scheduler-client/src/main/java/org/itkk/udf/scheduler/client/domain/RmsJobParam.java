@@ -50,7 +50,7 @@ public class RmsJobParam implements Serializable {
     /**
      * 描述 : 触发方式
      */
-    @ApiModelProperty(value = "触发实例ID", required = true, dataType = "string")
+    @ApiModelProperty(value = "触发方式", required = true, dataType = "string")
     private String triggerType;
 
     /**
