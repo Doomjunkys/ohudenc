@@ -22,7 +22,14 @@ public interface IRmsJobEvent {
      * @param rmsJobParam rmsJobParam
      * @return boolean
      */
-    boolean hasRunning(RmsJobParam rmsJobParam);
+    boolean beginRun(RmsJobParam rmsJobParam);
+
+    /**
+     * endRun
+     *
+     * @param rmsJobParam rmsJobParam
+     */
+    void endRun(RmsJobParam rmsJobParam);
 
     /**
      * 描述 : save
@@ -31,12 +38,5 @@ public interface IRmsJobEvent {
      * @param result result
      */
     void save(RmsJobParam param, RmsJobResult result);
-
-    /**
-     * 描述 : delete
-     *
-     * @param fireInstanceId fireInstanceId
-     */
-    void delete(String fireInstanceId);
 
 }

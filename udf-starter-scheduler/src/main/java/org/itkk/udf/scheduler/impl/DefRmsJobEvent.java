@@ -12,9 +12,14 @@ import org.itkk.udf.scheduler.client.domain.RmsJobResult;
 public class DefRmsJobEvent implements IRmsJobEvent {
 
     @Override
-    public boolean hasRunning(RmsJobParam rmsJobParam) {
-        log.info("----- DefRmsJobEvent.hasRunning -----> {}", rmsJobParam.toString());
+    public boolean beginRun(RmsJobParam rmsJobParam) {
+        log.info("----- DefRmsJobEvent.beginRun -----> {}", rmsJobParam.toString());
         return false;
+    }
+
+    @Override
+    public void endRun(RmsJobParam rmsJobParam) {
+        log.info("----- DefRmsJobEvent.endRun -----> {}", rmsJobParam.toString());
     }
 
     @Override
@@ -27,8 +32,4 @@ public class DefRmsJobEvent implements IRmsJobEvent {
         }
     }
 
-    @Override
-    public void delete(String fireInstanceId) {
-        log.info("----- DefRmsJobEvent.delete -----> {}", fireInstanceId);
-    }
 }

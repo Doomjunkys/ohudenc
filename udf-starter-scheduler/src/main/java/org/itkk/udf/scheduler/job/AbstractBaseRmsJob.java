@@ -75,13 +75,17 @@ public abstract class AbstractBaseRmsJob extends AbstractBaseJob {
      * @throws JobExecutionException JobExecutionException
      */
     protected void disallowConcurrentExecute(RmsJobParam rmsJobParam) throws JobExecutionException {
-        if (!this.hasRunning(rmsJobParam)) { //没有正在运行的任务才能运行
-            this.execute(rmsJobParam);
-        } else { //跳过执行,并且记录
-            RmsJobResult result = new RmsJobResult();
-            result.setId(rmsJobParam.getId());
-            result.setStats(RmsJobStats.SKIP.value());
-            save(rmsJobParam, result);
+        try {
+            if (!this.beginRun(rmsJobParam)) { //没有正在运行的任务才能运行
+                this.execute(rmsJobParam);
+            } else { //跳过执行,并且记录
+                RmsJobResult result = new RmsJobResult();
+                result.setId(rmsJobParam.getId());
+                result.setStats(RmsJobStats.SKIP.value());
+                save(rmsJobParam, result);
+            }
+        } finally {
+            this.endRun(rmsJobParam);
         }
     }
 
@@ -127,14 +131,26 @@ public abstract class AbstractBaseRmsJob extends AbstractBaseJob {
     }
 
     /**
-     * 检查是否有正在运行
+     * 开始运行任务
      *
      * @param rmsJobParam rmsJobParam
      * @return 是否正在运行
      */
-    private boolean hasRunning(RmsJobParam rmsJobParam) {
+    private boolean beginRun(RmsJobParam rmsJobParam) {
         IRmsJobEvent rmsJobEvent = this.getRmsJobEvent();
-        return rmsJobEvent != null && rmsJobEvent.hasRunning(rmsJobParam);
+        return rmsJobEvent != null && rmsJobEvent.beginRun(rmsJobParam);
+    }
+
+    /**
+     * 结束运行任务
+     *
+     * @param rmsJobParam rmsJobParam
+     */
+    private void endRun(RmsJobParam rmsJobParam) {
+        IRmsJobEvent rmsJobEvent = this.getRmsJobEvent();
+        if (rmsJobEvent != null) {
+            rmsJobEvent.endRun(rmsJobParam);
+        }
     }
 
     /**
