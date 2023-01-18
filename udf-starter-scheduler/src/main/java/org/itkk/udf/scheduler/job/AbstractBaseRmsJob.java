@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.itkk.udf.cache.redis.lock.RedisBasedDistributedLock;
 import org.itkk.udf.core.RestResponse;
 import org.itkk.udf.rms.Rms;
 import org.itkk.udf.scheduler.IRmsJobEvent;
@@ -22,11 +23,13 @@ import org.itkk.udf.scheduler.client.domain.RmsJobResult;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 描述 : RmsJob
@@ -35,6 +38,12 @@ import java.util.UUID;
  */
 @Slf4j
 public abstract class AbstractBaseRmsJob extends AbstractBaseJob {
+
+    /**
+     * redisBasedDistributedLock
+     */
+    @Autowired
+    private RedisBasedDistributedLock redisBasedDistributedLock;
 
     /**
      * 获得RmsJobParam
@@ -75,17 +84,25 @@ public abstract class AbstractBaseRmsJob extends AbstractBaseJob {
      * @throws JobExecutionException JobExecutionException
      */
     protected void disallowConcurrentExecute(RmsJobParam rmsJobParam) throws JobExecutionException {
-        try {
-            if (!this.beginRun(rmsJobParam)) { //没有正在运行的任务才能运行
+        //定义锁信息 (锁超时时间为60分钟) (异步任务,解锁在callback中完成,同步任务,解锁在本方法完成)
+        String name = "rmsJobDisallowConcurrent_" + rmsJobParam.getServiceCode() + "_" + rmsJobParam.getBeanName();
+        final long timeout = 60;
+        TimeUnit timeUnit = TimeUnit.MINUTES;
+        //尝试锁定,锁定成功则触发,锁定失败则跳过
+        if (redisBasedDistributedLock.lock(name, timeout, timeUnit, rmsJobParam)) {
+            try {
                 this.execute(rmsJobParam);
-            } else { //跳过执行,并且记录
-                RmsJobResult result = new RmsJobResult();
-                result.setId(rmsJobParam.getId());
-                result.setStats(RmsJobStats.SKIP.value());
-                save(rmsJobParam, result);
+            } finally {
+                //同步任务解锁
+                if (!rmsJobParam.getAsync()) {
+                    redisBasedDistributedLock.unlock(name);
+                }
             }
-        } finally {
-            this.endRun(rmsJobParam);
+        } else { //跳过执行,并且记录
+            RmsJobResult result = new RmsJobResult();
+            result.setId(rmsJobParam.getId());
+            result.setStats(RmsJobStats.SKIP.value());
+            save(rmsJobParam, result);
         }
     }
 
@@ -127,29 +144,6 @@ public abstract class AbstractBaseRmsJob extends AbstractBaseJob {
             //抛出异常
             log.error("RmsJob error:", e);
             throw new JobExecutionException(e);
-        }
-    }
-
-    /**
-     * 开始运行任务
-     *
-     * @param rmsJobParam rmsJobParam
-     * @return 是否正在运行
-     */
-    private boolean beginRun(RmsJobParam rmsJobParam) {
-        IRmsJobEvent rmsJobEvent = this.getRmsJobEvent();
-        return rmsJobEvent != null && rmsJobEvent.beginRun(rmsJobParam);
-    }
-
-    /**
-     * 结束运行任务
-     *
-     * @param rmsJobParam rmsJobParam
-     */
-    private void endRun(RmsJobParam rmsJobParam) {
-        IRmsJobEvent rmsJobEvent = this.getRmsJobEvent();
-        if (rmsJobEvent != null) {
-            rmsJobEvent.endRun(rmsJobParam);
         }
     }
 

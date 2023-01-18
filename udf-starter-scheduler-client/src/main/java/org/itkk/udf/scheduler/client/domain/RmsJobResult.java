@@ -65,4 +65,10 @@ public class RmsJobResult implements Serializable {
     @ApiModelProperty(value = "错误信息", required = true, dataType = "string")
     private String errorMsg;
 
+    /**
+     * 描述 : param
+     */
+    @ApiModelProperty(value = "参数", required = true, dataType = "string")
+    private RmsJobParam param;
+
 }

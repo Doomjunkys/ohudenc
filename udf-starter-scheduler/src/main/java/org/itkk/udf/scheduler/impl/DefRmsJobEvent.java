@@ -12,17 +12,6 @@ import org.itkk.udf.scheduler.client.domain.RmsJobResult;
 public class DefRmsJobEvent implements IRmsJobEvent {
 
     @Override
-    public boolean beginRun(RmsJobParam rmsJobParam) {
-        log.info("----- DefRmsJobEvent.beginRun -----> {}", rmsJobParam.toString());
-        return false;
-    }
-
-    @Override
-    public void endRun(RmsJobParam rmsJobParam) {
-        log.info("----- DefRmsJobEvent.endRun -----> {}", rmsJobParam.toString());
-    }
-
-    @Override
     public void save(RmsJobParam param, RmsJobResult result) {
         if (param != null) {
             log.info("----- DefRmsJobEvent.save -----> {}", param.toString());

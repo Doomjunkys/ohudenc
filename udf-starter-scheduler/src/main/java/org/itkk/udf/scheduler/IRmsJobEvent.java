@@ -17,21 +17,6 @@ import org.itkk.udf.scheduler.client.domain.RmsJobResult;
 public interface IRmsJobEvent {
 
     /**
-     * hasRunning
-     *
-     * @param rmsJobParam rmsJobParam
-     * @return boolean
-     */
-    boolean beginRun(RmsJobParam rmsJobParam);
-
-    /**
-     * endRun
-     *
-     * @param rmsJobParam rmsJobParam
-     */
-    void endRun(RmsJobParam rmsJobParam);
-
-    /**
      * 描述 : save
      *
      * @param param  param

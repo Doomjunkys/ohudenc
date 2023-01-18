@@ -25,6 +25,11 @@
       <groupId>org.itkk.udf</groupId>
       <artifactId>udf-starter-rms</artifactId>
     </dependency>
+    <!-- udf-starter-cache-redis -->
+    <dependency>
+      <groupId>org.itkk.udf</groupId>
+      <artifactId>udf-starter-cache-redis</artifactId>
+    </dependency>
     <!-- udf-starter-scheduler-client -->
     <dependency>
       <groupId>org.itkk.udf</groupId>
