@@ -34,6 +34,7 @@
     <!--子模块 -->
     <modules>
         <module>udf-starter-core</module>
+        <module>udf-starter-swagger2</module>
         <module>udf-starter-rms</module>
         <module>udf-starter-cors</module>
         <module>udf-starter-amqp-rabbitmq</module>
@@ -75,6 +76,12 @@
             <dependency>
                 <groupId>org.itkk.udf</groupId>
                 <artifactId>udf-starter-core</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-swagger2 -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-swagger2</artifactId>
                 <version>${udf-starter.version}</version>
             </dependency>
             <!-- udf-starter-rms -->
