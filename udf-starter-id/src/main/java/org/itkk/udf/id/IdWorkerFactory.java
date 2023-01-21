@@ -12,10 +12,7 @@ import org.itkk.udf.rms.Rms;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -24,6 +21,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 /**
  * IdWorkerFactory
@@ -56,16 +54,6 @@ public class IdWorkerFactory {
      * job执行时间
      */
     private static final long JOB_RUN_TIME = 50 * 1000l;
-
-    /**
-     * serializer
-     */
-    private StringRedisSerializer serializer = new StringRedisSerializer();
-
-    /**
-     * jdkSerializationRedisSerializer
-     */
-    private JdkSerializationRedisSerializer jdkSerializationRedisSerializer = new JdkSerializationRedisSerializer();
 
     /**
      * 本地缓存 ( 线程安全 )
@@ -442,45 +430,36 @@ public class IdWorkerFactory {
         String[] keyArr = key.split(SPLIT);
         long datacenterId = Long.parseLong(keyArr[keyArr.length - num2]);
         long workerId = Long.parseLong(keyArr[keyArr.length - 1]);
+        //结果
+        boolean execute = false;
         //判空
         if (this.localCache.containsKey(key)) {
-            //处理
-            boolean execute = redisTemplate.execute((RedisCallback<Boolean>) connection -> {
-                try {
-                    //返回值
-                    boolean rv = false;
-                    //判断缓存是否存在
-                    if (connection.exists(serializer.serialize(key))) { //存在
-                        //获得值(用于确定锁是否是自己创建的)
-                        CacheValue cacheValue = (CacheValue) jdkSerializationRedisSerializer.deserialize(connection.get(serializer.serialize(key)));
-                        //比较(如果值是一样,则代表自己拥有锁,如果值不一样,则代表锁已经被其他进程获取)
-                        if (cacheValue.getHost().equals(this.host) && cacheValue.getPort() == this.port) {
-                            //设置超时时间
-                            connection.expire(serializer.serialize(key), EXPIRATION);
-                            //设置返回值
-                            rv = true;
-                        } else {
-                            //排除本地缓存
-                            this.localCache.remove(key);
-                        }
-                    } else { //不存在
-                        //创建锁
-                        if (this.lock(key)) { //锁成功
-                            //创建本地缓存
-                            this.putNxLocalCache(key, datacenterId, workerId);
-                            //设置返回值
-                            rv = true;
-                        } else { //锁失败
-                            //排除本地缓存
-                            this.localCache.remove(key);
-                        }
-                    }
-                    //返回
-                    return rv;
-                } finally {
-                    connection.close();
+            //判断缓存是否存在
+            if (redisTemplate.hasKey(key)) { //存在
+                //获得值(用于确定锁是否是自己创建的)
+                CacheValue cacheValue = (CacheValue) redisTemplate.opsForValue().get(key);
+                //比较(如果值是一样,则代表自己拥有锁,如果值不一样,则代表锁已经被其他进程获取)
+                if (cacheValue.getHost().equals(this.host) && cacheValue.getPort() == this.port) {
+                    //设置超时时间
+                    redisTemplate.expire(key, EXPIRATION, TimeUnit.SECONDS);
+                    //设置返回值
+                    execute = true;
+                } else {
+                    //排除本地缓存
+                    this.localCache.remove(key);
                 }
-            });
+            } else { //不存在
+                //创建锁
+                if (this.lock(key)) { //锁成功
+                    //创建本地缓存
+                    this.putNxLocalCache(key, datacenterId, workerId);
+                    //设置返回值
+                    execute = true;
+                } else { //锁失败
+                    //排除本地缓存
+                    this.localCache.remove(key);
+                }
+            }
             //日志(刷新失败打印日志)
             if (!execute) {
                 log.info("refresh {} , {}", execute, key);
@@ -499,42 +478,35 @@ public class IdWorkerFactory {
         CacheValue localCacheValue = new CacheValue();
         localCacheValue.setPort(this.port);
         localCacheValue.setHost(this.host);
-        //操作缓存 & 返回
-        return redisTemplate.execute((RedisCallback<Boolean>) connection -> {
-            try {
-                //检查是否是死锁
-                if (connection.exists(serializer.serialize(key))) {
-                    //获得缓存过期时间
-                    long expiration = connection.ttl(serializer.serialize(key));
-                    //如果等于-1,则代表死锁
-                    if (expiration == -1) {
-                        //删除缓存
-                        connection.del(serializer.serialize(key));
-                    }
-                }
-                //创建锁
-                boolean lock = connection.setNX(serializer.serialize(key), jdkSerializationRedisSerializer.serialize(localCacheValue));
-                //锁失败
-                if (!lock) {
-                    //获得数据
-                    CacheValue cacheValue = (CacheValue) jdkSerializationRedisSerializer.deserialize(connection.get(serializer.serialize(key)));
-                    //比对host和port,是否跟当前server一致,如果一致的话,证明是可以获取锁的
-                    if (cacheValue.getHost().equals(this.host) && cacheValue.getPort() == this.port) {
-                        //更改锁定状态
-                        lock = true;
-                    }
-                }
-                //锁成功
-                if (lock) {
-                    //设置超时时间
-                    connection.expire(serializer.serialize(key), EXPIRATION);
-                }
-                //返回
-                return lock;
-            } finally {
-                connection.close();
+        //检查是否是死锁
+        if (redisTemplate.hasKey(key)) {
+            //获得缓存过期时间
+            long expiration = redisTemplate.getExpire(key);
+            //如果等于-1,则代表死锁
+            if (expiration == -1) {
+                //删除缓存
+                redisTemplate.delete(key);
             }
-        });
+        }
+        //创建锁
+        boolean lock = redisTemplate.opsForValue().setIfAbsent(key, localCacheValue);
+        //锁失败
+        if (!lock) {
+            //获得数据
+            CacheValue cacheValue = (CacheValue) redisTemplate.opsForValue().get(key);
+            //比对host和port,是否跟当前server一致,如果一致的话,证明是可以获取锁的
+            if (cacheValue.getHost().equals(this.host) && cacheValue.getPort() == this.port) {
+                //更改锁定状态
+                lock = true;
+            }
+        }
+        //锁成功
+        if (lock) {
+            //设置超时时间
+            redisTemplate.expire(key, EXPIRATION, TimeUnit.SECONDS);
+        }
+        //返回
+        return lock;
     }
 
     /**
