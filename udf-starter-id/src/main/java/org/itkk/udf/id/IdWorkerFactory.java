@@ -369,7 +369,7 @@ public class IdWorkerFactory {
                 //获得缓存数据
                 CacheValue cacheValue = (CacheValue) redisTemplate.opsForValue().get(key);
                 //比较本地的IP和端口号
-                if (cacheValue.getHost().equals(this.host) && cacheValue.getPort() == this.port) { //一致 , 同步本地缓存
+                if (cacheValue.getHost().equals(this.host) && cacheValue.getPort() == this.port) { //一致,同步本地缓存
                     //获得idWorker , 同步本地缓存
                     idWorker = this.putNxLocalCache(key, datacenterId, workerId);
                 } else { //不一致 , 走远程调用
