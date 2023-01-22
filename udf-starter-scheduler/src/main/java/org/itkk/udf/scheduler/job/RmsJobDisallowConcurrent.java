@@ -6,7 +6,6 @@
  */
 package org.itkk.udf.scheduler.job;
 
-import org.quartz.DisallowConcurrentExecution;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -15,7 +14,6 @@ import org.quartz.JobExecutionException;
  *
  * @author Administrator
  */
-@DisallowConcurrentExecution
 public class RmsJobDisallowConcurrent extends AbstractBaseRmsJob {
 
     @Override
