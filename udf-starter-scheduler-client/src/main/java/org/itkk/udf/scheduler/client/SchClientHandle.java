@@ -9,6 +9,7 @@ package org.itkk.udf.scheduler.client;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.itkk.udf.core.RestResponse;
+import org.itkk.udf.core.exception.SystemRuntimeException;
 import org.itkk.udf.rms.Rms;
 import org.itkk.udf.scheduler.client.domain.RmsJobParam;
 import org.itkk.udf.scheduler.client.domain.RmsJobResult;
@@ -66,7 +67,6 @@ public class SchClientHandle implements ApplicationContextAware {
             //回调
             this.callback(result);
             //抛出异常
-            log.error("asyncHandle error:", e);
             throw new SchException(e);
         }
 
@@ -108,7 +108,7 @@ public class SchClientHandle implements ApplicationContextAware {
      */
     @Recover
     public void recover(Exception e) {
-        log.error("try to callback failed:", e);
+        throw new SystemRuntimeException(e);
     }
 
     @Override

@@ -131,14 +131,14 @@ public class DownLoadProcessAspect {
                     try {
                         Files.delete(file.toPath());
                     } catch (IOException e) {
-                        log.error("error:", e);
+                        log.warn("msg:", e);
                     }
                 }
                 if (zipFile != null) {
                     try {
                         Files.delete(zipFile.toPath());
                     } catch (IOException e) {
-                        log.error("error:", e);
+                        log.warn("msg:", e);
                     }
                 }
             }

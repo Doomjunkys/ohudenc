@@ -47,7 +47,7 @@ public class JobDetailListener implements JobListener {
         try {
             this.listenerService.saveJobToBeExecuted(context);
         } catch (SchedulerException e) {
-            log.error("jobToBeExecuted:", e);
+            log.warn("jobToBeExecuted:", e);
         }
     }
 
@@ -56,7 +56,7 @@ public class JobDetailListener implements JobListener {
         try {
             this.listenerService.saveJobExecutionVetoed(context);
         } catch (SchedulerException e) {
-            log.error("jobExecutionVetoed:", e);
+            log.warn("jobExecutionVetoed:", e);
         }
     }
 
@@ -65,7 +65,7 @@ public class JobDetailListener implements JobListener {
         try {
             this.listenerService.saveJobWasExecuted(context, jobException);
         } catch (SchedulerException e) {
-            log.error("jobWasExecuted:", e);
+            log.warn("jobWasExecuted:", e);
         }
     }
 

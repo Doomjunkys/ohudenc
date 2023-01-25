@@ -142,7 +142,6 @@ public abstract class AbstractBaseRmsJob extends AbstractBaseJob {
             //记录
             save(rmsJobParam, result);
             //抛出异常
-            log.error("RmsJob error:", e);
             throw new JobExecutionException(e);
         }
     }

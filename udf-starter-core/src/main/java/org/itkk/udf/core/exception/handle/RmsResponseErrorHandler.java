@@ -56,7 +56,7 @@ public class RmsResponseErrorHandler extends DefaultResponseErrorHandler {
             try {
                 br.close();
             } catch (IOException e) {
-                log.error("getData", e);
+                log.warn("msg:", e);
             }
         }
         return sb.toString();

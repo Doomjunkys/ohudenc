@@ -55,7 +55,7 @@ public class MessageLog {
         try {
             msgJsonString = objectMapper.writeValueAsString(message);
         } catch (JsonProcessingException e) {
-            log.error("MessageLog.msgJsonString convert msg to string error : ", e);
+            log.warn("MessageLog.msgJsonString convert msg to string error : ", e);
         }
         //构造实体
         SendLog log = new SendLog();
