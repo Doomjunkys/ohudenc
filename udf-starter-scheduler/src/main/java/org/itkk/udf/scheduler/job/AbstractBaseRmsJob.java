@@ -40,6 +40,11 @@ import java.util.concurrent.TimeUnit;
 public abstract class AbstractBaseRmsJob extends AbstractBaseJob {
 
     /**
+     * RMS_JOB_DISALLOW_CONCURRENT_PREFIX
+     */
+    public static final String RMS_JOB_DISALLOW_CONCURRENT_PREFIX = "rmsJobDisallowConcurrent_";
+
+    /**
      * redisBasedDistributedLock
      */
     @Autowired
@@ -85,13 +90,18 @@ public abstract class AbstractBaseRmsJob extends AbstractBaseJob {
      */
     protected void disallowConcurrentExecute(RmsJobParam rmsJobParam) throws JobExecutionException {
         //定义锁信息 (锁超时时间为60分钟) (异步任务,解锁在callback中完成,同步任务,解锁在本方法完成)
-        String name = "rmsJobDisallowConcurrent_" + rmsJobParam.getServiceCode() + "_" + rmsJobParam.getBeanName();
+        String name = AbstractBaseRmsJob.RMS_JOB_DISALLOW_CONCURRENT_PREFIX + rmsJobParam.getServiceCode() + "_" + rmsJobParam.getBeanName();
         final long timeout = 60;
         TimeUnit timeUnit = TimeUnit.MINUTES;
         //尝试锁定,锁定成功则触发,锁定失败则跳过
         if (redisBasedDistributedLock.lock(name, timeout, timeUnit, rmsJobParam)) {
             try {
                 this.execute(rmsJobParam);
+            } catch (JobExecutionException e) {
+                //解锁
+                redisBasedDistributedLock.unlock(name);
+                //抛出异常
+                throw e;
             } finally {
                 //同步任务解锁
                 if (!rmsJobParam.getAsync()) {

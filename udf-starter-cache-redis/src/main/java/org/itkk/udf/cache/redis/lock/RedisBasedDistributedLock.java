@@ -1,5 +1,6 @@
 package org.itkk.udf.cache.redis.lock;
 
+import lombok.extern.slf4j.Slf4j;
 import org.itkk.udf.cache.redis.CacheRedisProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -11,6 +12,7 @@ import java.util.concurrent.TimeUnit;
  * RedisBasedDistributedLock
  */
 @Component
+@Slf4j
 public class RedisBasedDistributedLock {
 
     /**
@@ -60,6 +62,8 @@ public class RedisBasedDistributedLock {
             //设置超时时间
             redisTemplate.expire(key, timeout, timeUnit);
         }
+        //日志输出
+        log.info("RedisBasedDistributedLock : lock key : {} : {}", key, lock);
         //返回
         return lock;
     }
@@ -74,6 +78,8 @@ public class RedisBasedDistributedLock {
         String key = cacheRedisProperties.getPrefix() + DISTRIBUTED_LOCK_KEY_PREFIX + name;
         //删除缓存
         redisTemplate.delete(key);
+        //日志输出
+        log.info("RedisBasedDistributedLock : unlock key : {}", key);
     }
 
 }

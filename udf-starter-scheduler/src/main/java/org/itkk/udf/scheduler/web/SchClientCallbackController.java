@@ -10,6 +10,7 @@ import org.itkk.udf.cache.redis.lock.RedisBasedDistributedLock;
 import org.itkk.udf.core.RestResponse;
 import org.itkk.udf.scheduler.IRmsJobEvent;
 import org.itkk.udf.scheduler.client.domain.RmsJobResult;
+import org.itkk.udf.scheduler.job.AbstractBaseRmsJob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,7 +44,7 @@ public class SchClientCallbackController implements ISchClientCallbackController
             return new RestResponse<>();
         } finally {
             //获得key
-            String name = result.getParam().getServiceCode() + "_" + result.getParam().getBeanName();
+            String name = AbstractBaseRmsJob.RMS_JOB_DISALLOW_CONCURRENT_PREFIX + result.getParam().getServiceCode() + "_" + result.getParam().getBeanName();
             //解锁
             redisBasedDistributedLock.unlock(name);
         }
