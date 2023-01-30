@@ -34,6 +34,7 @@
     <!--子模块 -->
     <modules>
         <module>udf-starter-core</module>
+        <module>udf-starter-exception-alert</module>
         <module>udf-starter-swagger2</module>
         <module>udf-starter-rms</module>
         <module>udf-starter-cors</module>
@@ -76,6 +77,12 @@
             <dependency>
                 <groupId>org.itkk.udf</groupId>
                 <artifactId>udf-starter-core</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-exception-alert -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-exception-alert</artifactId>
                 <version>${udf-starter.version}</version>
             </dependency>
             <!-- udf-starter-swagger2 -->

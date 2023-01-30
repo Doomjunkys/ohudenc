@@ -6,6 +6,7 @@ import org.itkk.udf.core.RestResponse;
 import org.itkk.udf.core.exception.AuthException;
 import org.itkk.udf.core.exception.ErrorResult;
 import org.itkk.udf.core.exception.PermissionException;
+import org.itkk.udf.core.exception.alert.IExceptionAlert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.AbstractErrorController;
 import org.springframework.boot.autoconfigure.web.ErrorAttributes;
@@ -67,6 +68,12 @@ public class ExceptionController extends AbstractErrorController {
     private ExceptionCors exceptionCors;
 
     /**
+     * iExceptionAlert
+     */
+    @Autowired(required = false)
+    private IExceptionAlert iExceptionAlert;
+
+    /**
      * Create a new {@link ExceptionController} instance.
      *
      * @param errorAttributes the error attributes
@@ -115,6 +122,11 @@ public class ExceptionController extends AbstractErrorController {
         model.put(KEY_MESSAGE, restResponse.getError().getMessage());
         response.setStatus(status.value());
         ModelAndView modelAndView = resolveErrorView(request, response, status, model);
+        //发出通知
+        if (iExceptionAlert != null) {
+            iExceptionAlert.alert(restResponse);
+        }
+        log.error(restResponse.getId() + ":" + restResponse.toString());
         return (modelAndView == null ? new ModelAndView("error", model) : modelAndView);
     }
 
@@ -134,6 +146,11 @@ public class ExceptionController extends AbstractErrorController {
         Map<String, Object> body = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.ALL));
         HttpStatus status = getStatus(request);
         RestResponse<String> restResponse = getRestResponse(request, status, body);
+        //发出通知
+        if (iExceptionAlert != null) {
+            iExceptionAlert.alert(restResponse);
+        }
+        log.error(restResponse.getId() + ":" + restResponse.toString());
         return new ResponseEntity<>(restResponse, HttpStatus.valueOf(Integer.parseInt(restResponse.getCode())));
     }
 

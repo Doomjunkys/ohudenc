@@ -8,6 +8,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.itkk.udf.core.ApplicationConfig;
 import org.itkk.udf.core.RestResponse;
 import org.itkk.udf.core.exception.*;
+import org.itkk.udf.core.exception.alert.IExceptionAlert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -55,6 +56,12 @@ public class ExceptionHandle extends ResponseEntityExceptionHandler {
     private HttpServletResponse httpServletResponse;
 
     /**
+     * iExceptionAlert
+     */
+    @Autowired(required = false)
+    private IExceptionAlert iExceptionAlert;
+
+    /**
      * 异常处理
      *
      * @param ex      ex
@@ -100,8 +107,13 @@ public class ExceptionHandle extends ResponseEntityExceptionHandler {
                 throw new SystemRuntimeException(e);
             }
         }
-        log.error(ex.getClass().getName(), ex);
-        return super.handleExceptionInternal(ex, new RestResponse<>(localHttpStatus, errorResult), headers, localHttpStatus, request);
+        RestResponse<String> restResponse = new RestResponse<>(localHttpStatus, errorResult);
+        //发出通知
+        if (iExceptionAlert != null) {
+            iExceptionAlert.alert(restResponse);
+        }
+        log.error(restResponse.getId(), ex);
+        return super.handleExceptionInternal(ex, restResponse, headers, localHttpStatus, request);
     }
 
     /**

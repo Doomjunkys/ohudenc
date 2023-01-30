@@ -3,6 +3,7 @@ package org.itkk.udf.core;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.ToString;
 import org.itkk.udf.core.exception.ErrorResult;
 import org.springframework.http.HttpStatus;
 
@@ -16,6 +17,7 @@ import java.util.UUID;
  */
 @ApiModel(description = "响应消息体")
 @Data
+@ToString
 public class RestResponse<T> implements Serializable {
 
     /**
