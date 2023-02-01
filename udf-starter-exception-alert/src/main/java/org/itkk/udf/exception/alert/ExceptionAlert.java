@@ -51,11 +51,37 @@ public class ExceptionAlert implements IExceptionAlert {
     private Rabbitmq rabbitmq;
 
     @Override
-    public void alert(RestResponse<String> errorResponse) { //NOSONAR
+    public void alert(RestResponse<String> errorResponse) {
         //开关打开,才进行异常信息发送
         if (exceptionAlertProperties.getEnable()) {
             //发送消息标志位
-            boolean sendFlg = true;
+            Boolean sendFlg = true;
+            //判断
+            sendFlg = this.checkExclude(sendFlg, errorResponse);
+            //发送消息
+            if (sendFlg) {
+                //构造消息头
+                Map<String, String> header = new HashMap<>();
+                header.put("springApplicationName", springApplicationName);
+                header.put("port", String.valueOf(port));
+                header.put("profiles", profiles);
+                //构造消息
+                RabbitmqMessage<RestResponse<String>> alert = new RabbitmqMessage<>(header, errorResponse);
+                //发送消息
+                rabbitmq.convertAndSend(ExceptionAlertConstant.EXCHANGE_EXCEPTION_ALERT.class.getSimpleName(), ExceptionAlertConstant.EXCHANGE_EXCEPTION_ALERT.ALERT.name(), alert);
+            }
+        }
+    }
+
+    /**
+     * checkExclude
+     *
+     * @param sendFlg       sendFlg
+     * @param errorResponse errorResponse
+     * @return boolean
+     */
+    private boolean checkExclude(Boolean sendFlg, RestResponse<String> errorResponse) { //NOSONAR
+        if (errorResponse != null) {
             //逻辑判断
             if (errorResponse.getError() == null) { //error的空判断
                 log.warn("errorResponse error is null");
@@ -88,19 +114,11 @@ public class ExceptionAlert implements IExceptionAlert {
                     }
                 }
             }
-            //发送消息
-            if (sendFlg) {
-                //构造消息头
-                Map<String, String> header = new HashMap<>();
-                header.put("springApplicationName", springApplicationName);
-                header.put("port", String.valueOf(port));
-                header.put("profiles", profiles);
-                //构造消息
-                RabbitmqMessage<RestResponse<String>> alert = new RabbitmqMessage<>(header, errorResponse);
-                //发送消息
-                rabbitmq.convertAndSend(ExceptionAlertConstant.EXCHANGE_EXCEPTION_ALERT.class.getSimpleName(), ExceptionAlertConstant.EXCHANGE_EXCEPTION_ALERT.ALERT.name(), alert);
-            }
+            //子错误
+            sendFlg = checkExclude(sendFlg, errorResponse.getError().getChild());
         }
+        //返回
+        return sendFlg;
     }
 
 }
