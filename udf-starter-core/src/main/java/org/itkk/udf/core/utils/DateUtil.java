@@ -35,6 +35,41 @@ public class DateUtil {
     }
 
     /**
+     * dayStart
+     *
+     * @param date date
+     * @return Date
+     */
+    public static Date dayStart(Date date) {
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
+    }
+
+    /**
+     * dayEnd
+     *
+     * @param date date
+     * @return Date
+     */
+    public static Date dayEnd(Date date) {
+        final int num23 = 23;
+        final int num59 = 59;
+        final int num999 = 999;
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR, num23);
+        calendar.set(Calendar.MINUTE, num59);
+        calendar.set(Calendar.SECOND, num59);
+        calendar.set(Calendar.MILLISECOND, num999);
+        return calendar.getTime();
+    }
+
+    /**
      * 对日期(时间)中的日进行加减计算. <br>
      * 例子: <br>
      * 如果Date类型的d为 2005年8月20日,那么 <br>
@@ -195,7 +230,7 @@ public class DateUtil {
     /**
      * 获取系统当前默认时区与UTC的时间差.(单位:毫秒)
      *
-     * @return 系统当前默认时区与UTC的时间差.(单=毫秒)
+     * @return 系统当前默认时区与UTC的时间差.(单 = 毫秒)
      */
     public static int getDefaultTimeZoneRawOffset() {
         return TimeZone.getDefault().getRawOffset();
@@ -217,7 +252,7 @@ public class DateUtil {
      * 获取指定时区与UTC的时间差.(单位:毫秒)
      *
      * @param timeZoneId 时区Id
-     * @return 指定时区与UTC的时间差.(单位=毫秒)
+     * @return 指定时区与UTC的时间差.(单位 = 毫秒)
      */
     public static int getTimeZoneRawOffset(String timeZoneId) {
         return TimeZone.getTimeZone(timeZoneId).getRawOffset();
@@ -227,7 +262,7 @@ public class DateUtil {
      * 获取系统当前默认时区与指定时区的时间差.(单位:毫秒)
      *
      * @param timeZoneId 时区Id
-     * @return 系统当前默认时区与指定时区的时间差.(单位=毫秒)
+     * @return 系统当前默认时区与指定时区的时间差.(单位 = 毫秒)
      */
     private static int getDiffTimeZoneRawOffset(String timeZoneId) {
         return TimeZone.getDefault().getRawOffset() - TimeZone.getTimeZone(timeZoneId).getRawOffset();
