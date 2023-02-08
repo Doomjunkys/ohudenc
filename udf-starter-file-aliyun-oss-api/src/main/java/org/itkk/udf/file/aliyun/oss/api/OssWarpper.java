@@ -2,6 +2,9 @@ package org.itkk.udf.file.aliyun.oss.api;
 
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.common.utils.BinaryUtil;
+import com.aliyun.oss.model.ListObjectsRequest;
+import com.aliyun.oss.model.OSSObjectSummary;
+import com.aliyun.oss.model.ObjectListing;
 import com.aliyun.oss.model.PolicyConditions;
 import org.apache.commons.lang3.StringUtils;
 import org.itkk.udf.core.ApplicationConfig;
@@ -16,13 +19,30 @@ import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * OssWarpper
  */
 @Component
 public class OssWarpper {
+
+    /**
+     * MSG_1
+     */
+    private static final String MSG_1 = "aliyun oss code:";
+
+    /**
+     * MSG_2
+     */
+    private static final String MSG_2 = "未定义";
+
+    /**
+     * MAX_KEYS
+     */
+    private static final int MAX_KEYS = 100;
 
     /**
      * NUM_1000
@@ -47,6 +67,45 @@ public class OssWarpper {
     private AliyunOssProperties aliyunOssProperties;
 
     /**
+     * list
+     *
+     * @param code      code
+     * @param keyPrefix keyPrefix
+     * @return List<OSSObjectSummary>
+     */
+    public List<OSSObjectSummary> list(String code, String keyPrefix) {
+        //返回值
+        List<OSSObjectSummary> result = new ArrayList<>();
+        //判空
+        if (!aliyunOssProperties.getAuth().containsKey(code) || !aliyunOssProperties.getPath().containsKey(code)) {
+            throw new ParameterValidException(MSG_1 + code + MSG_2, null); //NOSONAR
+        }
+        //获得认证信息 和 路径信息
+        AliyunOssAccessMeta auth = aliyunOssProperties.getAuth().get(code);
+        AliyunOssPathMeta path = aliyunOssProperties.getPath().get(code);
+        //实例化oss对象
+        OSSClient client = new OSSClient(auth.getEndPoint(), auth.getAccessId(), auth.getAccessKey());
+        try {
+            //循环获取列表
+            String nextMarker = null;
+            ObjectListing objectListing;
+            do {
+                objectListing = client.listObjects(new ListObjectsRequest(path.getBucketName())
+                        .withMarker(nextMarker)
+                        .withPrefix(keyPrefix)
+                        .withMaxKeys(MAX_KEYS)
+                );
+                result.addAll(objectListing.getObjectSummaries());
+                nextMarker = objectListing.getNextMarker();
+            } while (objectListing.isTruncated());
+            //返回
+            return result;
+        } finally {
+            client.shutdown();
+        }
+    }
+
+    /**
      * getPolicy
      *
      * @param code code
@@ -56,7 +115,7 @@ public class OssWarpper {
     public PolicyResult getPolicy(String code) throws UnsupportedEncodingException {
         //判空
         if (!aliyunOssProperties.getAuth().containsKey(code) || !aliyunOssProperties.getPath().containsKey(code)) {
-            throw new ParameterValidException("aliyun oss code:" + code + "未定义", null); //NOSONAR
+            throw new ParameterValidException(MSG_1 + code + MSG_2, null); //NOSONAR
         }
         //获得认证信息 和 路径信息
         AliyunOssAccessMeta auth = aliyunOssProperties.getAuth().get(code);
@@ -98,7 +157,7 @@ public class OssWarpper {
     public String getPresignedUrl(String code, String objectKey) {
         //判空
         if (!aliyunOssProperties.getAuth().containsKey(code) || !aliyunOssProperties.getPath().containsKey(code)) {
-            throw new ParameterValidException("aliyun oss code:" + code + "未定义", null);
+            throw new ParameterValidException(MSG_1 + code + MSG_2, null);
         }
         //获得认证信息 和 路径信息
         AliyunOssAccessMeta auth = aliyunOssProperties.getAuth().get(code);
@@ -137,7 +196,7 @@ public class OssWarpper {
     public void delete(String code, String objectKey) {
         //判空
         if (!aliyunOssProperties.getAuth().containsKey(code) || !aliyunOssProperties.getPath().containsKey(code)) {
-            throw new ParameterValidException("aliyun oss code:" + code + "未定义", null);
+            throw new ParameterValidException(MSG_1 + code + MSG_2, null);
         }
         //获得认证信息 和 路径信息
         AliyunOssAccessMeta auth = aliyunOssProperties.getAuth().get(code);
@@ -164,7 +223,7 @@ public class OssWarpper {
     public boolean checkExist(String code, String objectKey) {
         //判空
         if (!aliyunOssProperties.getAuth().containsKey(code) || !aliyunOssProperties.getPath().containsKey(code)) {
-            throw new ParameterValidException("aliyun oss code:" + code + "未定义", null);
+            throw new ParameterValidException(MSG_1 + code + MSG_2, null);
         }
         //获得认证信息 和 路径信息
         AliyunOssAccessMeta auth = aliyunOssProperties.getAuth().get(code);
@@ -188,7 +247,7 @@ public class OssWarpper {
     public String uploadFile(String code, File file) {
         //判空
         if (!aliyunOssProperties.getAuth().containsKey(code) || !aliyunOssProperties.getPath().containsKey(code)) {
-            throw new ParameterValidException("aliyun oss code:" + code + "未定义", null);
+            throw new ParameterValidException(MSG_1 + code + MSG_2, null);
         }
         //获得认证信息 和 路径信息
         AliyunOssAccessMeta auth = aliyunOssProperties.getAuth().get(code);

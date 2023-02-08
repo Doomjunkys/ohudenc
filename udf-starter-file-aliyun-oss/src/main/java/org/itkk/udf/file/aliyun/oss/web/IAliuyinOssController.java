@@ -6,11 +6,13 @@
  */
 package org.itkk.udf.file.aliyun.oss.web;
 
+import com.aliyun.oss.model.OSSObjectSummary;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.itkk.udf.core.RestResponse;
+import org.itkk.udf.core.domain.aliyun.oss.OssListParam;
 import org.itkk.udf.core.domain.aliyun.oss.OssParam;
 import org.itkk.udf.file.aliyun.oss.api.domain.PolicyResult;
 import org.itkk.udf.file.aliyun.oss.api.download.DownloadInfo;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * 描述 : IAliuyinOssController
@@ -31,6 +34,21 @@ import java.io.IOException;
         protocols = "http")
 @RequestMapping(value = "/service/aliyun/oss")
 public interface IAliuyinOssController {
+
+    /**
+     * 描述 : 根据key前缀获得阿里云oss的对象列表(公网)
+     *
+     * @param ossListParam ossListParam
+     * @return 结果
+     */
+    @ApiOperation(value = "FILE_ALIYUN_OSS_LIST", notes = "根据key前缀获得阿里云oss的对象列表(公网)")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header", name = "rmsApplicationName", value = "rms应用名称", required = true, dataType = "string"),
+            @ApiImplicitParam(paramType = "header", name = "rmsSign", value = "rms认证秘钥", required = true, dataType = "string"),
+            @ApiImplicitParam(paramType = "header", name = "rmsServiceCode", value = "rms接口编号", required = true, dataType = "string")
+    })
+    @RequestMapping(value = "list", method = RequestMethod.POST)
+    RestResponse<List<OSSObjectSummary>> list(@RequestBody @Valid OssListParam ossListParam);
 
     /**
      * 描述 : 获得阿里云OSS的policy(公网)
