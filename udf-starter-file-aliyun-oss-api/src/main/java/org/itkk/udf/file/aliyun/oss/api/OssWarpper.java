@@ -40,6 +40,11 @@ public class OssWarpper {
     private static final String MSG_2 = "未定义";
 
     /**
+     * SEPARATOR
+     */
+    private static final String SEPARATOR = "/";
+
+    /**
      * MAX_KEYS
      */
     private static final int MAX_KEYS = 100;
@@ -91,6 +96,7 @@ public class OssWarpper {
             ObjectListing objectListing;
             do {
                 objectListing = client.listObjects(new ListObjectsRequest(path.getBucketName())
+                        .withDelimiter(SEPARATOR)
                         .withMarker(nextMarker)
                         .withPrefix(keyPrefix)
                         .withMaxKeys(MAX_KEYS)
