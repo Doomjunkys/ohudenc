@@ -8,10 +8,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import java.nio.charset.Charset;
+import java.util.List;
 
 /**
  * 描述 : 系统入口
@@ -55,5 +62,21 @@ public class BaseApplication {
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
         requestFactory.setBufferRequestBody(applicationConfig.getBufferRequestBody());
         return requestFactory;
+    }
+
+    /**
+     * utf8StringHttpMessageConverter
+     *
+     * @return WebMvcConfigurer
+     */
+    @Bean
+    public WebMvcConfigurer utf8StringHttpMessageConverter() {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+                converters.add(new StringHttpMessageConverter(Charset.forName(applicationConfig.getEncoding())));
+                super.configureMessageConverters(converters);
+            }
+        };
     }
 }
