@@ -6,13 +6,16 @@ import com.aliyun.oss.model.ListObjectsRequest;
 import com.aliyun.oss.model.OSSObjectSummary;
 import com.aliyun.oss.model.ObjectListing;
 import com.aliyun.oss.model.PolicyConditions;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.itkk.udf.cache.redis.CacheRedisProperties;
 import org.itkk.udf.core.ApplicationConfig;
 import org.itkk.udf.core.exception.ParameterValidException;
 import org.itkk.udf.file.aliyun.oss.api.domain.PolicyResult;
 import org.itkk.udf.file.aliyun.oss.api.meta.AliyunOssAccessMeta;
 import org.itkk.udf.file.aliyun.oss.api.meta.AliyunOssPathMeta;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -22,12 +25,19 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * OssWarpper
  */
 @Component
 public class OssWarpper {
+
+
+    /**
+     * UPLOAD_FILE_CACHE_KEY
+     */
+    private static final String UPLOAD_FILE_CACHE_KEY = ":upload_file";
 
     /**
      * MSG_1
@@ -65,6 +75,18 @@ public class OssWarpper {
      */
     @Autowired
     private AliyunOssProperties aliyunOssProperties;
+
+    /**
+     * redisTemplate
+     */
+    @Autowired
+    private RedisTemplate<Object, Object> redisTemplate;
+
+    /**
+     * cacheRedisProperties
+     */
+    @Autowired
+    private CacheRedisProperties cacheRedisProperties;
 
     /**
      * list
@@ -255,11 +277,32 @@ public class OssWarpper {
         //实例化oss对象
         OSSClient client = new OSSClient(auth.getEndPoint(), auth.getAccessId(), auth.getAccessKey());
         try {
+            //上传
             String objectKey = "upload/" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "/" + file.getName();
             client.putObject(path.getBucketName(), objectKey, file);
+            //记录
+            String key = code + UPLOAD_FILE_CACHE_KEY;
+            redisTemplate.opsForHash().put(key, objectKey, null);
+            //返回
             return objectKey;
         } finally {
             client.shutdown();
+        }
+    }
+
+    /**
+     * 清理文件
+     *
+     * @param code code
+     */
+    public void cleanUploadFile(String code) {
+        String key = code + UPLOAD_FILE_CACHE_KEY;
+        Set<Object> fileMap = redisTemplate.opsForHash().keys(key);
+        if (CollectionUtils.isNotEmpty(fileMap)) {
+            fileMap.forEach(objectKey -> {
+                this.delete(code, objectKey.toString());
+                redisTemplate.opsForHash().delete(key, objectKey);
+            });
         }
     }
 

@@ -42,14 +42,14 @@ public class DownLoadProcessAspect {
     public static final String DOWNLOAD_CACHE_PREFIX = "DOWNLOAD_CACHE:";
 
     /**
-     * DOWNLOAD_WAITING_CACHE_EXPIRATION(待执行,执行中,缓存过期时间为1天)
+     * DOWNLOAD_WAITING_CACHE_EXPIRATION(待执行,执行中,缓存过期时间为1小时)
      */
-    public static final long DOWNLOAD_WAITING_CACHE_EXPIRATION = 60L * 24L;
+    public static final long DOWNLOAD_WAITING_CACHE_EXPIRATION = 60L * 1L;
 
     /**
-     * DOWNLOAD_CACHE_EXPIRATION(执行完成,执行错误,缓存过期时间为10分钟)
+     * DOWNLOAD_CACHE_EXPIRATION(执行完成,执行错误,缓存过期时间为1分钟)
      */
-    public static final long DOWNLOAD_CACHE_EXPIRATION = 10;
+    public static final long DOWNLOAD_CACHE_EXPIRATION = 1;
 
     /**
      * redisTemplate
