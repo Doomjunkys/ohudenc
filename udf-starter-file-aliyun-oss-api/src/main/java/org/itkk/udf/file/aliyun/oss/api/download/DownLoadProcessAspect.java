@@ -42,9 +42,9 @@ public class DownLoadProcessAspect {
     public static final String DOWNLOAD_CACHE_PREFIX = "DOWNLOAD_CACHE:";
 
     /**
-     * DOWNLOAD_WAITING_CACHE_EXPIRATION(待执行,执行中,缓存过期时间为1小时)
+     * DOWNLOAD_WAITING_CACHE_EXPIRATION(待执行,执行中,缓存过期时间为30分钟)
      */
-    public static final long DOWNLOAD_WAITING_CACHE_EXPIRATION = 60L * 1L;
+    public static final long DOWNLOAD_WAITING_CACHE_EXPIRATION = 30L;
 
     /**
      * DOWNLOAD_CACHE_EXPIRATION(执行完成,执行错误,缓存过期时间为1分钟)
