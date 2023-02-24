@@ -38,7 +38,7 @@ public class CleanLogFile {
                 if (ArrayUtils.isNotEmpty(files)) {
                     Arrays.stream(files).filter(f -> !logFile.equals(f.getAbsolutePath())).forEach(f -> {
                         try {
-                            log.info("cleanLog : {}", f.getAbsolutePath());
+                            log.info("cleanLog delete : {}", f.getAbsolutePath());
                             Files.delete(f.toPath());
                         } catch (IOException e) {
                             log.warn("msg:", e);
