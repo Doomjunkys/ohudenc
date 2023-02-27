@@ -1,8 +1,8 @@
 package org.itkk.udf.cache.redis.lock;
 
 import lombok.extern.slf4j.Slf4j;
-import org.itkk.udf.cache.redis.CacheRedisProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -27,10 +27,10 @@ public class RedisBasedDistributedLock {
     private RedisTemplate<Object, Object> redisTemplate;
 
     /**
-     * cacheRedisProperties
+     * profiles
      */
-    @Autowired
-    private CacheRedisProperties cacheRedisProperties;
+    @Value("${spring.profiles.active}")
+    private String profiles;
 
     /**
      * lockAndGet
@@ -141,8 +141,8 @@ public class RedisBasedDistributedLock {
      * @param name name
      * @return String
      */
-    private String getKey(String name) {
-        return cacheRedisProperties.getPrefix() + DISTRIBUTED_LOCK_KEY_PREFIX + name;
+    public String getKey(String name) {
+        return profiles + DISTRIBUTED_LOCK_KEY_PREFIX + name;
     }
 
 }
