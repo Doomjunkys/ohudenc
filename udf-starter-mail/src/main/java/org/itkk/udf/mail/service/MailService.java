@@ -28,6 +28,8 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.net.IDN;
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -70,18 +72,18 @@ public class MailService {
         //构造消息
         MimeMessageHelper helper = new MimeMessageHelper(message, multipart);
         //必要字段
-        helper.setFrom(mailProperties.getFrom());
+        helper.setFrom(IDN.toASCII(mailProperties.getFrom()));
         helper.setSentDate(new Date());
-        helper.setTo(mailInfo.getTo());
+        helper.setTo(Arrays.stream(mailInfo.getTo()).map(to -> IDN.toASCII(to)).toArray(String[]::new));
         helper.setSubject(mailInfo.getSubject());
         helper.setText(mailInfo.getText(), mailInfo.getIsHtmlText());
         //秘密抄送
         if (ArrayUtils.isNotEmpty(mailInfo.getBcc())) {
-            helper.setBcc(mailInfo.getBcc());
+            helper.setBcc(Arrays.stream(mailInfo.getBcc()).map(to -> IDN.toASCII(to)).toArray(String[]::new));
         }
         //抄送
         if (ArrayUtils.isNotEmpty(mailInfo.getCc())) {
-            helper.setCc(mailInfo.getCc());
+            helper.setCc(Arrays.stream(mailInfo.getCc()).map(to -> IDN.toASCII(to)).toArray(String[]::new));
         }
         //优先级
         if (mailInfo.getPriority() != null) {
