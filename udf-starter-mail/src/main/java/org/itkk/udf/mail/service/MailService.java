@@ -74,16 +74,16 @@ public class MailService {
         //必要字段
         helper.setFrom(IDN.toASCII(mailProperties.getFrom()));
         helper.setSentDate(new Date());
-        helper.setTo(Arrays.stream(mailInfo.getTo()).map(to -> IDN.toASCII(to)).toArray(String[]::new));
+        helper.setTo(Arrays.stream(mailInfo.getTo()).map(IDN::toASCII).toArray(String[]::new));
         helper.setSubject(mailInfo.getSubject());
         helper.setText(mailInfo.getText(), mailInfo.getIsHtmlText());
         //秘密抄送
         if (ArrayUtils.isNotEmpty(mailInfo.getBcc())) {
-            helper.setBcc(Arrays.stream(mailInfo.getBcc()).map(to -> IDN.toASCII(to)).toArray(String[]::new));
+            helper.setBcc(Arrays.stream(mailInfo.getBcc()).map(IDN::toASCII).toArray(String[]::new));
         }
         //抄送
         if (ArrayUtils.isNotEmpty(mailInfo.getCc())) {
-            helper.setCc(Arrays.stream(mailInfo.getCc()).map(to -> IDN.toASCII(to)).toArray(String[]::new));
+            helper.setCc(Arrays.stream(mailInfo.getCc()).map(IDN::toASCII).toArray(String[]::new));
         }
         //优先级
         if (mailInfo.getPriority() != null) {
