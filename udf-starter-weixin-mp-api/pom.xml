@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <!-- maven坐标 -->
+    <artifactId>udf-starter-weixin-mp-api</artifactId>
+    <name>udf-starter-weixin-mp-api</name>
+    <packaging>jar</packaging>
+    <url>http://itkk.org:81</url>
+    <!-- 父依赖 -->
+    <parent>
+        <groupId>org.itkk.udf</groupId>
+        <artifactId>udf-starter</artifactId>
+        <version>1.0</version>
+    </parent>
+    <!-- 依赖 -->
+    <dependencies>
+        <dependency>
+            <groupId>org.itkk.udf</groupId>
+            <artifactId>udf-starter-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.itkk.udf</groupId>
+            <artifactId>udf-starter-amqp-rabbitmq</artifactId>
+        </dependency>
+        <!-- commons-codec -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
+        <!-- aes -->
+        <!-- mvn install:install-file -DgroupId=wx -DartifactId=aes -Dversion=1.0 -Dfile=D:/develop/aes-jre1.6.jar -Dpackaging=jar -DgeneratePom=true -->
+        <dependency>
+            <groupId>wx</groupId>
+            <artifactId>aes</artifactId>
+            <version>${aes.version}</version>
+        </dependency>
+    </dependencies>
+</project>
