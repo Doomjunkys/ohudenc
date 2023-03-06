@@ -30,6 +30,7 @@
         </dependency>
         <!-- aes -->
         <!-- mvn install:install-file -DgroupId=wx -DartifactId=aes -Dversion=1.0 -Dfile=D:/develop/aes-jre1.6.jar -Dpackaging=jar -DgeneratePom=true -->
+        <!-- mvn install:install-file -DgroupId=wx -DartifactId=aes -Dversion=1.0 -Dfile=/home/wangkang/aes-jre1.6.jar -Dpackaging=jar -DgeneratePom=true -->
         <dependency>
             <groupId>wx</groupId>
             <artifactId>aes</artifactId>
