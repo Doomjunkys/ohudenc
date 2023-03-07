@@ -72,54 +72,49 @@ public class WeixinMpCallbackService {
      * @return String
      * @throws Exception Exception
      */
-    public String callback(String businessCode, String signature, String timestamp, String nonce, String inputMessage) {
+    public String callback(String businessCode, String signature, String timestamp, String nonce, String inputMessage) throws Exception { //NOSONAR
         //常量
         final String defReturnMessage = "success";
         final String eventMessageType = "event";
-        //开始处理
-        try {
-            //获得身份认证元数据
-            WeixinMpApiAuthMeta weixinMpApiAuthMeta = weixinMpApiProperties.getAuth().get(businessCode);
-            //验证签名
-            this.check(weixinMpApiAuthMeta.getToken(), signature, timestamp, nonce);
+        //获得身份认证元数据
+        WeixinMpApiAuthMeta weixinMpApiAuthMeta = weixinMpApiProperties.getAuth().get(businessCode);
+        //验证签名
+        this.check(businessCode, signature, timestamp, nonce);
+        //获得输入参数
+        String inputXmlMessage = inputMessage;
+        //判断是否需要解密
+        if (weixinMpApiAuthMeta.getSafeModel()) {
             //实例化加密解密工具类
             WXBizMsgCrypt pc = new WXBizMsgCrypt(weixinMpApiAuthMeta.getToken(), weixinMpApiAuthMeta.getEncodingAesKey(), weixinMpApiAuthMeta.getAppId());
-            //获得输入参数
-            String inputXmlMessage = inputMessage;
-            //判断是否需要解密
-            if (weixinMpApiAuthMeta.getSafeModel()) {
-                //解析密文输入参数
-                Element root = WeixinMpConsont.formatInputMessage(inputXmlMessage);
-                String msgSignature = WeixinMpConsont.getXmlNodeValue(root, "MsgSignature");
-                inputXmlMessage = pc.decryptMsg(msgSignature, timestamp, nonce, inputXmlMessage);
-            }
-            //解析明文输入参数
+            //解析密文输入参数
             Element root = WeixinMpConsont.formatInputMessage(inputXmlMessage);
-            //获得消息类型
-            String msgType = WeixinMpConsont.getXmlNodeValue(root, "MsgType");
-            //定义MQ的交换机名称和路由键名称(默认是消息类型)
-            String exchange = WeixinMpApiConfig.EXCHANGE_WEIXIN_MP_MESSAGE;
-            String routingKey = msgType;
-            //判断处理
-            if (eventMessageType.equals(msgType)) { //事件
-                //更改为事件类型
-                exchange = WeixinMpApiConfig.EXCHANGE_WEIXIN_MP_EVENT;
-                routingKey = WeixinMpConsont.getXmlNodeValue(root, "Event");
-            }
-            //构造消息头
-            Map<String, String> header = new HashMap<>();
-            header.put("businessCode", businessCode);
-            //构造消息
-            RabbitmqMessage<String> message = new RabbitmqMessage<>(header, inputXmlMessage);
-            //发送消息
-            rabbitmq.convertAndSend(exchange, routingKey, message);
-            //日志输出
-            log.info("send weixin message ---> businessCode : {} , exchange : {} , routingKey : {} , body : {} ", businessCode, exchange, routingKey, inputXmlMessage);
-            //返回
-            return defReturnMessage;
-        } catch (Exception e) {
-            throw new WeixinMpException(e);
+            String msgSignature = WeixinMpConsont.getXmlNodeValue(root, "MsgSignature");
+            inputXmlMessage = pc.decryptMsg(msgSignature, timestamp, nonce, inputXmlMessage);
         }
+        //解析明文输入参数
+        Element root = WeixinMpConsont.formatInputMessage(inputXmlMessage);
+        //获得消息类型
+        String msgType = WeixinMpConsont.getXmlNodeValue(root, "MsgType");
+        //定义MQ的交换机名称和路由键名称(默认是消息类型)
+        String exchange = WeixinMpApiConfig.EXCHANGE_WEIXIN_MP_MESSAGE;
+        String routingKey = msgType;
+        //判断处理
+        if (eventMessageType.equals(msgType)) { //事件
+            //更改为事件类型
+            exchange = WeixinMpApiConfig.EXCHANGE_WEIXIN_MP_EVENT;
+            routingKey = WeixinMpConsont.getXmlNodeValue(root, "Event");
+        }
+        //构造消息头
+        Map<String, String> header = new HashMap<>();
+        header.put("businessCode", businessCode);
+        //构造消息
+        RabbitmqMessage<String> message = new RabbitmqMessage<>(header, inputXmlMessage);
+        //发送消息
+        rabbitmq.convertAndSend(exchange, routingKey, message);
+        //日志输出
+        log.info("send weixin message ---> businessCode : {} , exchange : {} , routingKey : {} , body : {} ", businessCode, exchange, routingKey, inputXmlMessage);
+        //返回
+        return defReturnMessage;
     }
 
 }

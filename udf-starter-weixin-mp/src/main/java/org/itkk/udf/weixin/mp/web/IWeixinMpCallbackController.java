@@ -19,9 +19,10 @@ public interface IWeixinMpCallbackController {
      * @param timestamp    时间戳
      * @param nonce        随机数
      * @param echostr      随机数
+     * @throws Exception Exception
      */
     @GetMapping
-    void check(@PathVariable String businessCode, String signature, String timestamp, String nonce, String echostr);
+    void check(@PathVariable String businessCode, String signature, String timestamp, String nonce, String echostr) throws Exception; //NOSONAR
 
     /**
      * 微信消息推送(POST)
@@ -31,8 +32,9 @@ public interface IWeixinMpCallbackController {
      * @param timestamp    时间戳
      * @param nonce        随机数
      * @param echostr      随机数
+     * @throws Exception Exception
      */
     @PostMapping
-    void callback(@PathVariable String businessCode, String signature, String timestamp, String nonce, String echostr);
+    void callback(@PathVariable String businessCode, String signature, String timestamp, String nonce, String echostr) throws Exception; //NOSONAR
 
 }
