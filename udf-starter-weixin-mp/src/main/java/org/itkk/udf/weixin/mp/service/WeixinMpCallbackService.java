@@ -47,6 +47,9 @@ public class WeixinMpCallbackService {
     public void check(String businessCode, String signature, String timestamp, String nonce) {
         final int num2 = 2;
         WeixinMpApiAuthMeta weixinMpApiAuthMeta = weixinMpApiProperties.getAuth().get(businessCode);
+        if (weixinMpApiAuthMeta == null) {
+            throw new WeixinMpException("不存在" + businessCode + "的身份认证元数据");
+        }
         List<String> params = new ArrayList<>();
         params.add(weixinMpApiAuthMeta.getToken());
         params.add(timestamp);
@@ -78,6 +81,10 @@ public class WeixinMpCallbackService {
         final String eventMessageType = "event";
         //获得身份认证元数据
         WeixinMpApiAuthMeta weixinMpApiAuthMeta = weixinMpApiProperties.getAuth().get(businessCode);
+        //判空
+        if (weixinMpApiAuthMeta == null) {
+            throw new WeixinMpException("不存在" + businessCode + "的身份认证元数据");
+        }
         //验证签名
         this.check(businessCode, signature, timestamp, nonce);
         //获得输入参数
