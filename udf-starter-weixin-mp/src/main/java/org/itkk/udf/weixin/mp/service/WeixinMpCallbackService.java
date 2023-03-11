@@ -11,6 +11,7 @@ import org.itkk.udf.weixin.mp.api.WeixinMpApiConfig;
 import org.itkk.udf.weixin.mp.api.WeixinMpApiProperties;
 import org.itkk.udf.weixin.mp.api.meta.WeixinMpApiAuthMeta;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Element;
 
@@ -75,9 +76,9 @@ public class WeixinMpCallbackService {
      * @return String
      * @throws Exception Exception
      */
-    public String callback(String businessCode, String signature, String timestamp, String nonce, String inputMessage) throws Exception { //NOSONAR
+    @Async
+    public void callback(String businessCode, String signature, String timestamp, String nonce, String inputMessage) throws Exception { //NOSONAR
         //常量
-        final String defReturnMessage = "success";
         final String eventMessageType = "event";
         //获得身份认证元数据
         WeixinMpApiAuthMeta weixinMpApiAuthMeta = weixinMpApiProperties.getAuth().get(businessCode);
@@ -120,8 +121,6 @@ public class WeixinMpCallbackService {
         rabbitmq.convertAndSend(exchange, routingKey, message);
         //日志输出
         log.info("send weixin message ---> businessCode : {} , exchange : {} , routingKey : {} , body : {} ", businessCode, exchange, routingKey, inputXmlMessage);
-        //返回
-        return defReturnMessage;
     }
 
 }
