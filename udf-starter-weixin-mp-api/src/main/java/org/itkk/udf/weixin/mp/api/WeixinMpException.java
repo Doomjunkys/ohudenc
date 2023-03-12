@@ -4,7 +4,7 @@
  * Created by wangkang
  * Copyright (C) 2016 itkk.org, All rights reserved.
  */
-package org.itkk.udf.weixin.mp;
+package org.itkk.udf.weixin.mp.api;
 
 /**
  * <p>

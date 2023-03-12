@@ -20,4 +20,9 @@ public class WeixinMpApiProperties {
      */
     private Map<String, WeixinMpApiAuthMeta> auth;
 
+    /**
+     * sns接口地址
+     */
+    private Map<String, String> snsPath;
+
 }

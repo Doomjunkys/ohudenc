@@ -4,8 +4,8 @@ import com.qq.weixin.mp.aes.WXBizMsgCrypt;
 import lombok.extern.slf4j.Slf4j;
 import org.itkk.udf.amqp.rabbitmq.Rabbitmq;
 import org.itkk.udf.amqp.rabbitmq.RabbitmqMessage;
-import org.itkk.udf.weixin.mp.WeixinMpConsont;
-import org.itkk.udf.weixin.mp.WeixinMpException;
+import org.itkk.udf.weixin.mp.api.WeixinMpConsont;
+import org.itkk.udf.weixin.mp.api.WeixinMpException;
 import org.itkk.udf.weixin.mp.api.ShaOne;
 import org.itkk.udf.weixin.mp.api.WeixinMpApiConfig;
 import org.itkk.udf.weixin.mp.api.WeixinMpApiProperties;
@@ -73,7 +73,6 @@ public class WeixinMpCallbackService {
      * @param timestamp    timestamp
      * @param nonce        nonce
      * @param inputMessage inputMessage
-     * @return String
      * @throws Exception Exception
      */
     @Async
