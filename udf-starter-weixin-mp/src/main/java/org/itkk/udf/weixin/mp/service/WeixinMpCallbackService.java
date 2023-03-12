@@ -4,11 +4,7 @@ import com.qq.weixin.mp.aes.WXBizMsgCrypt;
 import lombok.extern.slf4j.Slf4j;
 import org.itkk.udf.amqp.rabbitmq.Rabbitmq;
 import org.itkk.udf.amqp.rabbitmq.RabbitmqMessage;
-import org.itkk.udf.weixin.mp.api.WeixinMpConsont;
-import org.itkk.udf.weixin.mp.api.WeixinMpException;
-import org.itkk.udf.weixin.mp.api.ShaOne;
-import org.itkk.udf.weixin.mp.api.WeixinMpApiConfig;
-import org.itkk.udf.weixin.mp.api.WeixinMpApiProperties;
+import org.itkk.udf.weixin.mp.api.*;
 import org.itkk.udf.weixin.mp.api.meta.WeixinMpApiAuthMeta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -72,11 +68,12 @@ public class WeixinMpCallbackService {
      * @param signature    signature
      * @param timestamp    timestamp
      * @param nonce        nonce
+     * @param msgSignature msgSignature
      * @param inputMessage inputMessage
      * @throws Exception Exception
      */
     @Async
-    public void callback(String businessCode, String signature, String timestamp, String nonce, String inputMessage) throws Exception { //NOSONAR
+    public void callback(String businessCode, String signature, String timestamp, String nonce, String msgSignature, String inputMessage) throws Exception { //NOSONAR
         //常量
         final String eventMessageType = "event";
         //获得身份认证元数据
@@ -93,9 +90,6 @@ public class WeixinMpCallbackService {
         if (weixinMpApiAuthMeta.getSafeModel()) {
             //实例化加密解密工具类
             WXBizMsgCrypt pc = new WXBizMsgCrypt(weixinMpApiAuthMeta.getToken(), weixinMpApiAuthMeta.getEncodingAesKey(), weixinMpApiAuthMeta.getAppId());
-            //解析密文输入参数
-            Element root = WeixinMpConsont.formatInputMessage(inputXmlMessage);
-            String msgSignature = WeixinMpConsont.getXmlNodeValue(root, "MsgSignature");
             inputXmlMessage = pc.decryptMsg(msgSignature, timestamp, nonce, inputXmlMessage);
         }
         //解析明文输入参数

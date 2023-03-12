@@ -3,6 +3,7 @@ package org.itkk.udf.weixin.mp.web;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import springfox.documentation.annotations.ApiIgnore;
 
 /**
@@ -32,9 +33,10 @@ public interface IWeixinMpCallbackController {
      * @param timestamp    时间戳
      * @param nonce        随机数
      * @param echostr      随机数
+     * @param msgSignature 随机数
      * @throws Exception Exception
      */
     @PostMapping
-    void callback(@PathVariable String businessCode, String signature, String timestamp, String nonce, String echostr) throws Exception; //NOSONAR
+    void callback(@PathVariable String businessCode, String signature, String timestamp, String nonce, String echostr, @RequestParam("msg_signature") String msgSignature) throws Exception; //NOSONAR
 
 }
