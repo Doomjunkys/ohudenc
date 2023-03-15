@@ -25,4 +25,9 @@ public class WeixinMpApiProperties {
      */
     private Map<String, String> snsPath;
 
+    /**
+     * 接口地址
+     */
+    private Map<String, String> apiPath;
+
 }

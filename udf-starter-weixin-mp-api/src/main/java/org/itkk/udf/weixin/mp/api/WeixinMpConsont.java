@@ -26,6 +26,16 @@ public class WeixinMpConsont {
     }
 
     /**
+     * 描述 : 构建参数
+     *
+     * @param accessToken 令牌
+     * @return 参数
+     */
+    public static String appendAccessToken(String accessToken) {
+        return "?access_token=" + accessToken;
+    }
+
+    /**
      * <p>
      * 检查返回值
      * </p>

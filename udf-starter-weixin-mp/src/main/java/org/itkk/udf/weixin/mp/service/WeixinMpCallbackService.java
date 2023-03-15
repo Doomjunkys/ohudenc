@@ -6,6 +6,7 @@ import org.itkk.udf.amqp.rabbitmq.Rabbitmq;
 import org.itkk.udf.amqp.rabbitmq.RabbitmqMessage;
 import org.itkk.udf.weixin.mp.api.*;
 import org.itkk.udf.weixin.mp.api.meta.WeixinMpApiAuthMeta;
+import org.itkk.udf.weixin.mp.api.utils.ShaOne;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;

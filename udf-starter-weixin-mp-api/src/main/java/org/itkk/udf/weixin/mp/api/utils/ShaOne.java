@@ -4,7 +4,7 @@
  * Created by Administrator
  * Copyright (C) 2016 LLSFW, All rights reserved.
  */
-package org.itkk.udf.weixin.mp.api;
+package org.itkk.udf.weixin.mp.api.utils;
 
 
 import java.io.UnsupportedEncodingException;
