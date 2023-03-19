@@ -1,4 +1,4 @@
-package org.itkk.udf.file.aliyun.dysms.api;
+package org.itkk.udf.aliyun.dysms.api;
 
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;

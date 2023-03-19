@@ -4,7 +4,7 @@
  * Created by Administrator
  * Copyright (C) 2016 itkk.org, All rights reserved.
  */
-package org.itkk.udf.file.aliyun.dysms.api;
+package org.itkk.udf.aliyun.dysms.api;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -18,7 +18,7 @@ import java.io.Serializable;
  * @author Administrator
  */
 @Component
-@ConfigurationProperties(prefix = "org.itkk.file.aliyun.dysms.properties")
+@ConfigurationProperties(prefix = "org.itkk.aliyun.dysms.properties")
 @Data
 public class AliyunDysmsProperties implements Serializable {
 

@@ -3,8 +3,8 @@
          xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <!-- maven坐标 -->
-    <artifactId>udf-starter-file-aliyun-dysms-api</artifactId>
-    <name>udf-starter-file-aliyun-dysms-api</name>
+    <artifactId>udf-starter-aliyun-dysms-api</artifactId>
+    <name>udf-starter-aliyun-dysms-api</name>
     <packaging>jar</packaging>
     <url>http://itkk.org:81</url>
     <!-- 父依赖 -->
