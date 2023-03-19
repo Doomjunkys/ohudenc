@@ -26,14 +26,14 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * 描述 : IAliuyinOssController
+ * 描述 : IAliuyunOssController
  *
  * @author Administrator
  */
 @Api(value = "阿里云oss服务", consumes = "application/json", produces = "application/json",
         protocols = "http")
 @RequestMapping(value = "/service/aliyun/oss")
-public interface IAliuyinOssController {
+public interface IAliuyunOssController {
 
     /**
      * 描述 : 根据key前缀获得阿里云oss的对象列表(公网)

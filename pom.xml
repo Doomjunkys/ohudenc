@@ -45,6 +45,7 @@
         <module>udf-starter-file</module>
         <module>udf-starter-file-aliyun-oss</module>
         <module>udf-starter-file-aliyun-oss-api</module>
+        <module>udf-starter-aliyun-dysms</module>
         <module>udf-starter-aliyun-dysms-api</module>
         <module>udf-starter-mail</module>
         <module>udf-starter-scheduler</module>
@@ -131,6 +132,12 @@
             <dependency>
                 <groupId>org.itkk.udf</groupId>
                 <artifactId>udf-starter-file-aliyun-oss-api</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-aliyun-dysms -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-aliyun-dysms</artifactId>
                 <version>${udf-starter.version}</version>
             </dependency>
             <!-- udf-starter-aliyun-dysms-api -->

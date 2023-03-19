@@ -29,7 +29,7 @@ import java.util.List;
  * @author Administrator
  */
 @RestController
-public class AliyunOssController implements IAliuyinOssController {
+public class AliyunOssController implements IAliuyunOssController {
 
     /**
      * ossWarpper
