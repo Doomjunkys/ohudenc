@@ -8,6 +8,7 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,7 @@ import java.util.UUID;
  * DysmsWarpper
  */
 @Component
+@Slf4j
 public class DysmsWarpper {
 
     /**
@@ -73,6 +75,8 @@ public class DysmsWarpper {
         if (sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK")) {
             //请求成功
             result = true;
+        } else {
+            log.warn("send dysms failure ---> requestId : {} , bizId : {} , code : {} , message : {}", sendSmsResponse.getRequestId(), sendSmsResponse.getBizId(), sendSmsResponse.getCode(), sendSmsResponse.getMessage());
         }
         //返回
         return result;
