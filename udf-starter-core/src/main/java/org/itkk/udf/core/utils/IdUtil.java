@@ -34,7 +34,23 @@ public class IdUtil {
     }
 
     /**
-     * 生成6位随机字符串(0-9,A-Z)
+     * 生成随机字符串(0-9)
+     *
+     * @param length length
+     * @return String
+     */
+    public static String genRandomNumber(int length) {
+        final String source = "1234567890";
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            sb.append(source.charAt(random.nextInt(source.length() - 1)));
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 生成随机字符串(0-9,A-Z)
      *
      * @param length length
      * @return String

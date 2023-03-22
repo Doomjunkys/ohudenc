@@ -6,6 +6,8 @@
  */
 package org.itkk.udf.aliyun.dysms.web;
 
+import com.aliyuncs.exceptions.ClientException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -25,16 +27,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface IAliuyunDysmsController {
 
     /**
-     * 描述 : 发送短信验证码
+     * 发送短信验证码
      *
-     * @return RestResponse<Boolean>
+     * @return Boolean
+     * @throws JsonProcessingException JsonProcessingException
+     * @throws ClientException         ClientException
      */
     @ApiOperation(value = "ALIYUN_DYSMS_SEND_VERIFICATION_CODE", notes = "发送短信验证码")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "header", name = "phoneNumber", value = "手机号码", required = true, dataType = "string")
     })
     @RequestMapping(value = "send/verification/code", method = RequestMethod.POST)
-    RestResponse<Boolean> sendVerificationCode();
+    RestResponse<Boolean> sendVerificationCode() throws JsonProcessingException, ClientException;
 
     /**
      * 描述 : 验证短信验证码
@@ -43,6 +47,7 @@ public interface IAliuyunDysmsController {
      */
     @ApiOperation(value = "ALIYUN_DYSMS_CHECK_VERIFICATION_CODE", notes = "验证短信验证码")
     @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header", name = "phoneNumber", value = "手机号码", required = true, dataType = "string"),
             @ApiImplicitParam(paramType = "header", name = "verificationCode", value = "短信验证码", required = true, dataType = "string")
     })
     @RequestMapping(value = "check/verification/code", method = RequestMethod.POST)
