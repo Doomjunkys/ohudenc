@@ -8,11 +8,19 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * User
  */
 @Component
 public class User {
+
+
+    /**
+     * WEIXIN_MP_USER_INFO_KEY_PREFIX
+     */
+    private static final String WEIXIN_MP_USER_INFO_KEY_PREFIX = ":WEIXIN_MP_USER_INFO:";
 
     /**
      * token
@@ -54,6 +62,12 @@ public class User {
      * @return UserInfo
      */
     public UserInfo info(String businessCode, String openid, String lang) {
+        //生成缓存key
+        String key = profiles + WEIXIN_MP_USER_INFO_KEY_PREFIX + businessCode + ":" + openid + ":" + lang;
+        //检查缓存是否存在,如果存在,则直接返回
+        if (redisTemplate.hasKey(key)) {
+            return (UserInfo) redisTemplate.opsForValue().get(key);
+        }
         //获得接口地址
         String path = weixinMpApiProperties.getApiPath().get("user_info");
         //拼接url &openid=OPENID&lang=zh_CN
@@ -63,6 +77,9 @@ public class User {
         UserInfo result = externalRestTemplate.getForEntity(url.toString(), UserInfo.class).getBody();
         //验证
         WeixinMpConsont.checkResult(result);
+        //缓存(新增 & 更新)
+        final int num2 = 2;
+        redisTemplate.opsForValue().set(key, result, num2, TimeUnit.HOURS);
         //返回
         return result;
     }
