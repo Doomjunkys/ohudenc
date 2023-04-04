@@ -30,4 +30,9 @@ public class WeixinMpApiProperties {
      */
     private Map<String, String> apiPath;
 
+    /**
+     * 模板消息的模板ID
+     */
+    private Map<String, String> messageTemplateId;
+
 }
