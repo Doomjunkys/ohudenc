@@ -42,7 +42,7 @@ public class MessageTemplate {
      */
     public SendMessageTemplateResult send(String businessCode, String templateCode, SendMessageTemplateVo param) {
         //设置模板ID
-        param.setTemplate_id(weixinMpApiProperties.getMessageTemplateId().get(templateCode));
+        param.setTemplate_id(weixinMpApiProperties.getAuth().get(businessCode).getMessageTemplateId().get(templateCode));
         //获得接口地址
         String path = weixinMpApiProperties.getApiPath().get("message_template_send");
         //拼接url

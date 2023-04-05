@@ -3,6 +3,7 @@ package org.itkk.udf.weixin.mp.api.meta;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Map;
 
 /**
  * WeixinMpApiAuthMeta
@@ -39,5 +40,10 @@ public class WeixinMpApiAuthMeta implements Serializable {
      * 是否安全模式(密文消息)
      */
     private Boolean safeModel = true;
+
+    /**
+     * 模板消息的模板ID
+     */
+    private Map<String, String> messageTemplateId;
 
 }
