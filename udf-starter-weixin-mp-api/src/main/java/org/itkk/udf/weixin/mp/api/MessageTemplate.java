@@ -36,13 +36,13 @@ public class MessageTemplate {
      * SendMessageTemplateResult
      *
      * @param businessCode businessCode
-     * @param templateId   templateId
+     * @param templateCode templateCode
      * @param param        param
      * @return SendMessageTemplateResult
      */
-    public SendMessageTemplateResult send(String businessCode, String templateId, SendMessageTemplateVo param) {
+    public SendMessageTemplateResult send(String businessCode, String templateCode, SendMessageTemplateVo param) {
         //设置模板ID
-        param.setTemplate_id(weixinMpApiProperties.getMessageTemplateId().get(templateId));
+        param.setTemplate_id(weixinMpApiProperties.getMessageTemplateId().get(templateCode));
         //获得接口地址
         String path = weixinMpApiProperties.getApiPath().get("message_template_send");
         //拼接url
