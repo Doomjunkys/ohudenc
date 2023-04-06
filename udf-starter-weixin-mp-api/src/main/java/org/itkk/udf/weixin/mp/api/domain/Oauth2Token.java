@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.itkk.udf.core.domain.weixin.mp.BaseResult;
 
 /**
  * Oauth2Token

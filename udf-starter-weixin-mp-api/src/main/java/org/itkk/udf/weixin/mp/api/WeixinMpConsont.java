@@ -1,6 +1,6 @@
 package org.itkk.udf.weixin.mp.api;
 
-import org.itkk.udf.weixin.mp.api.domain.BaseResult;
+import org.itkk.udf.core.domain.weixin.mp.BaseResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;

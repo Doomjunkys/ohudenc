@@ -2,6 +2,7 @@ package org.itkk.udf.weixin.mp.api.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.itkk.udf.core.domain.weixin.mp.BaseResult;
 
 /**
  * AccessToken

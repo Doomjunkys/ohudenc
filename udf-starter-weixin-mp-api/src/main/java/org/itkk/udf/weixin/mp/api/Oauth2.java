@@ -1,7 +1,7 @@
 package org.itkk.udf.weixin.mp.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.itkk.udf.weixin.mp.api.domain.BaseResult;
+import org.itkk.udf.core.domain.weixin.mp.BaseResult;
 import org.itkk.udf.weixin.mp.api.domain.Oauth2Token;
 import org.itkk.udf.weixin.mp.api.domain.Oauth2UserInfo;
 import org.itkk.udf.weixin.mp.api.meta.WeixinMpApiAuthMeta;

@@ -1,6 +1,6 @@
 package org.itkk.udf.weixin.mp.api;
 
-import org.itkk.udf.weixin.mp.api.domain.BaseResult;
+import org.itkk.udf.core.domain.weixin.mp.BaseResult;
 import org.itkk.udf.weixin.mp.api.domain.MenuGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

@@ -1,4 +1,4 @@
-package org.itkk.udf.weixin.mp.api.domain;
+package org.itkk.udf.core.domain.weixin.mp;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

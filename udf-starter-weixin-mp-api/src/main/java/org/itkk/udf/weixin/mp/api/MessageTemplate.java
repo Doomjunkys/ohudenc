@@ -1,7 +1,7 @@
 package org.itkk.udf.weixin.mp.api;
 
-import org.itkk.udf.weixin.mp.api.domain.SendMessageTemplateResult;
-import org.itkk.udf.weixin.mp.api.domain.SendMessageTemplateVo;
+import org.itkk.udf.core.domain.weixin.mp.SendMessageTemplateResult;
+import org.itkk.udf.core.domain.weixin.mp.SendMessageTemplateVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
