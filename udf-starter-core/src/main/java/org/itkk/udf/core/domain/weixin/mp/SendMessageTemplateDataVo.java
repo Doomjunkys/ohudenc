@@ -2,6 +2,7 @@ package org.itkk.udf.core.domain.weixin.mp;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,6 +13,7 @@ import java.io.Serializable;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
 @ApiModel(description = "发送模板消息变量Data实体")
 public class SendMessageTemplateDataVo implements Serializable {
 
