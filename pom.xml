@@ -271,6 +271,7 @@
             <layout>default</layout>
             <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
         </repository>
+        <!--
         <repository>
             <id>maven</id>
             <name>maven</name>
@@ -282,6 +283,7 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+        -->
         <!-- 指定公司内网仓库 -->
         <!-- <repository> <id>egridcloud-nexus</id> <name>Nexus egridcloud</name> <layout>default</layout> <url>http://192.168.1.11:8081/nexus/content/groups/public/</url>
           </repository> -->
@@ -301,6 +303,7 @@
                 <enabled>true</enabled>
             </snapshots>
         </pluginRepository>
+        <!--
         <pluginRepository>
             <id>maven</id>
             <name>maven</name>
@@ -312,6 +315,7 @@
                 <enabled>true</enabled>
             </snapshots>
         </pluginRepository>
+        -->
         <!-- 指定公司内网仓库 -->
         <!-- <pluginRepository> <id>egridcloud-nexus</id> <name>Nexus egridcloud</name> <url>http://192.168.1.11:8081/nexus/content/groups/public/</url>
           <layout>default</layout> <releases> <enabled>true</enabled> </releases> <snapshots> <enabled>true</enabled> </snapshots>
