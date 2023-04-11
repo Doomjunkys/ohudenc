@@ -2,7 +2,6 @@ package org.itkk.udf.core.domain.weixin.mp;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,7 +12,6 @@ import java.io.Serializable;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@AllArgsConstructor
 @ApiModel(description = "发送模板消息变量Data实体")
 public class SendMessageTemplateDataVo implements Serializable {
 
@@ -33,5 +31,24 @@ public class SendMessageTemplateDataVo implements Serializable {
      */
     @ApiModelProperty(value = "模板内容字体颜色，不填默认为黑色", dataType = "string")
     private String color;
+
+    /**
+     * SendMessageTemplateDataVo
+     */
+    public SendMessageTemplateDataVo() {
+        super();
+    }
+
+    /**
+     * SendMessageTemplateDataVo
+     *
+     * @param value value
+     * @param color color
+     */
+    public SendMessageTemplateDataVo(String value, String color) {
+        super();
+        this.value = value;
+        this.color = color;
+    }
 
 }
