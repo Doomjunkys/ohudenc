@@ -13,7 +13,7 @@
     <properties>
         <udf-starter.version>1.0</udf-starter.version>
         <springboot.version>1.5.10.RELEASE</springboot.version>
-        <springcloud.version>Edgware.SR2</springcloud.version>
+        <springcloud.version>Edgware.SR3</springcloud.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
