@@ -62,9 +62,9 @@ public class ApplicationConfig {
     public static class ThreadPoolProperties {
 
         /**
-         * 描述 : 默认线程池大小(默认:1)
+         * 描述 : 默认线程池大小(默认:CPU数量+1)
          */
-        private Integer poolSize = 1;
+        private Integer poolSize = Runtime.getRuntime().availableProcessors() + 1;
 
         /**
          * 描述 : 线程优先级
