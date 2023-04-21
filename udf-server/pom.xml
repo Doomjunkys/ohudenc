@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <!-- mavne坐标 -->
+    <groupId>org.itkk.udf</groupId>
+    <artifactId>udf-server</artifactId>
+    <name>udf-server</name>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+    <url>http://itkk.org:81</url>
+    <!-- 公共参数 -->
+    <properties>
+        <project.build.date>${maven.build.timestamp}</project.build.date>
+        <udf-starter.version>1.0</udf-starter.version>
+        <ew.version>1.0</ew.version>
+        <springboot.version>1.5.10.RELEASE</springboot.version>
+        <springcloud.version>Edgware.SR3</springcloud.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+        <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+        <docker-maven-plugin.version>1.0.0</docker-maven-plugin.version>
+        <docker.java.base.image>192.168.1.10:5000/org.itkk/java:8</docker.java.base.image>
+        <docker.registry.host>192.168.1.10:5000</docker.registry.host>
+        <docker.maintainer>wangkangit@163.com</docker.maintainer>
+        <spring-boot-admin.version>1.5.6</spring-boot-admin.version>
+    </properties>
+    <!--子模块 -->
+    <modules>
+        <module>udf-eureka-config-server</module>
+    </modules>
+    <!-- 环境 -->
+    <profiles>
+        <!-- 开发 -->
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <profiles.activation>dev</profiles.activation>
+            </properties>
+        </profile>
+        <!-- qa -->
+        <profile>
+            <id>qa</id>
+            <properties>
+                <profiles.activation>qa</profiles.activation>
+            </properties>
+        </profile>
+        <!-- pe -->
+        <profile>
+            <id>pe</id>
+            <properties>
+                <profiles.activation>pe</profiles.activation>
+            </properties>
+        </profile>
+    </profiles>
+    <!-- 依赖管理 -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- spring boot -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${springboot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- spring cloud -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${springcloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- udf-starter-core -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-core</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-exception-alert -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-exception-alert</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-swagger2 -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-swagger2</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-rms -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-rms</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-cors -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-cors</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-amqp-rabbitmq -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-amqp-rabbitmq</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-file-aliyun-oss-api -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-file-aliyun-oss-api</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-file-aliyun-oss -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-file-aliyun-oss</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-aliyun-dysms -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-aliyun-dysms</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-aliyun-dysms-api -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-aliyun-dysms-api</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+
+            <!-- udf-starter-file -->
+            <!--
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-file</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            -->
+            <!-- udf-starter-mail -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-mail</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-scheduler -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-scheduler</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-scheduler-client -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-scheduler-client</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-id -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-id</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-datasource -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-datasource</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-connection-pool-druid -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-connection-pool-druid</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-qrcode -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-qrcode</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-auth -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-auth</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-dal-mybatis -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-dal-mybatis</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-cache-redis -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-cache-redis</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <!-- 构建 -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <!-- 分发管理 -->
+    <distributionManagement>
+        <!-- 公司内网仓库-snapshot -->
+        <!-- <snapshotRepository> <id>snapshot</id> <url>http://192.168.1.11:8081/nexus/content/repositories/snapshots/</url>
+          </snapshotRepository> -->
+        <!-- 公司内网仓库-release -->
+        <!-- <repository> <id>release</id> <url>http://192.168.1.11:8081/nexus/content/repositories/releases/</url> </repository> -->
+    </distributionManagement>
+    <!-- 依赖仓库 -->
+    <repositories>
+        <!-- 指定中央仓库(id为central,覆盖默认的中央库设置) -->
+        <repository>
+            <id>central</id>
+            <name>Nexus aliyun</name>
+            <layout>default</layout>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+    <!-- 插件仓库 -->
+    <pluginRepositories>
+        <!-- 指定中央仓库(id为central,覆盖默认的中央库设置) -->
+        <pluginRepository>
+            <id>central</id>
+            <name>Nexus aliyun</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+</project>
