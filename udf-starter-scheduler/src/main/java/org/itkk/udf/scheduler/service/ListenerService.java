@@ -194,7 +194,7 @@ public class ListenerService {
         String exceptionDetail = null;
         // 获得result
         Object o = context.getResult();
-        if (null != o && o instanceof Map) {
+        if (o instanceof Map) {
             Map<String, Object> result = (Map<String, Object>) o;
             status = result.get("status").toString();
             JobExecutionException jobException = (JobExecutionException) result.get("jobException");

@@ -169,7 +169,7 @@ public class ExceptionController extends AbstractErrorController {
             errorResult.setMessage(body.get("path").toString());
         } else { //非404处理
             Object object = request.getAttribute("javax.servlet.error.exception");
-            if (object != null && object instanceof Exception) { //上下文中能拿到异常的情况
+            if (object instanceof Exception) { //上下文中能拿到异常的情况
                 Exception exception = (Exception) object;
                 //ZuulException异常特殊处理,去除ZuulException的包裹 (不用instanceof的原因是不想因为这里的判断而引入zuul的依赖在core包中)
                 if (exception.getClass().getName().equals("com.netflix.zuul.exception.ZuulException")) { //NOSONAR

@@ -58,20 +58,14 @@ public class QrcodeController implements IQrcodeController {
         //常量
         final String contentType = "image/png";
         //输出流
-        OutputStream os = null;
-        try {
+        BufferedImage bufferedImage = this.qrcodeService.parseBufferedImage(qrCodeRequest);
+        response.setContentType(contentType);
+        response.setCharacterEncoding(applicationConfig.getEncoding());
+        try (OutputStream os = response.getOutputStream()) {
             //设置response
-            response.setCharacterEncoding(applicationConfig.getEncoding());
-            response.setContentType(contentType);
             //生成二维码
-            BufferedImage bufferedImage = this.qrcodeService.parseBufferedImage(qrCodeRequest);
             //输出
-            os = response.getOutputStream();
             ImageIO.write(bufferedImage, QrCodeOptions.DEF_PIC_TYPE, os);
-        } finally {
-            if (os != null) {
-                os.close();
-            }
         }
     }
 }

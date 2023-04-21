@@ -78,18 +78,12 @@ public class WeixinMpConsont {
      */
     public static Element formatInputMessage(String inputMsg) throws ParserConfigurationException, SAXException, IOException {
         //解析消息
-        StringReader sr = null;
-        try { //NOSONAR
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            sr = new StringReader(inputMsg);
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilder db = dbf.newDocumentBuilder();
+        try (StringReader sr = new StringReader(inputMsg)) { //NOSONAR
             InputSource is = new InputSource(sr);
             Document document = db.parse(is);
             return document.getDocumentElement();
-        } finally {
-            if (sr != null) {
-                sr.close();
-            }
         }
     }
 

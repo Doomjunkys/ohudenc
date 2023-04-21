@@ -107,23 +107,12 @@ public class FileController implements IFileController {
         //输出文件
         final int buffInt = 1024;
         byte[] buff = new byte[buffInt];
-        OutputStream os = null;
-        BufferedInputStream bis = null;
-        try { //NOSONAR
-            os = response.getOutputStream();
-            bis = new BufferedInputStream(fsr.getInputStream());
+        try (OutputStream os = response.getOutputStream(); BufferedInputStream bis = new BufferedInputStream(fsr.getInputStream())) { //NOSONAR
             int i = bis.read(buff);
             while (i != -1) {
                 os.write(buff, 0, buff.length);
                 os.flush();
                 i = bis.read(buff);
-            }
-        } finally {
-            if (bis != null) {
-                bis.close();
-            }
-            if (os != null) {
-                os.close();
             }
         }
     }

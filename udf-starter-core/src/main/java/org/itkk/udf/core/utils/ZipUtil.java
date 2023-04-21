@@ -82,11 +82,7 @@ public class ZipUtil {
      * @throws IOException 异常
      */
     private void decompressZip(File file, String saveFileDir) throws IOException {
-        InputStream is = null;
-        ZipArchiveInputStream zais = null;
-        try { //NOSONAR
-            is = new FileInputStream(file);
-            zais = new ZipArchiveInputStream(is, this.encoding);
+        try (InputStream is = new FileInputStream(file); ZipArchiveInputStream zais = new ZipArchiveInputStream(is, this.encoding)) { //NOSONAR
             ArchiveEntry archiveEntry;
 
             // 把zip包中的每个文件读取出来
@@ -108,13 +104,6 @@ public class ZipUtil {
                 this.decompressZip(saveFileDir, archiveEntry, zais);
 
             }
-        } finally {
-            if (zais != null) {
-                zais.close();
-            }
-            if (is != null) {
-                is.close();
-            }
         }
     }
 
@@ -132,20 +121,14 @@ public class ZipUtil {
             throws IOException {
         String entryFilePath = saveFileDir + archiveEntry.getName();
         byte[] content = new byte[BYTE_SIZE];
-        OutputStream os = null;
-        try {  //NOSONAR
+        File entryFile = new File(entryFilePath);
+        try (OutputStream os = new FileOutputStream(entryFile)) {  //NOSONAR
             // 把解压出来的文件写到指定路径
-            File entryFile = new File(entryFilePath);
-            os = new FileOutputStream(entryFile);
             int r;
             while ((r = zais.read(content)) > 0) {
                 os.write(content, 0, r);
             }
             os.flush();
-        } finally {
-            if (os != null) {
-                os.close();
-            }
         }
     }
 
@@ -160,10 +143,8 @@ public class ZipUtil {
      */
     public void compressFiles2Zip(File[] files, String zipFilePath) throws IOException {
         if (files != null && files.length > 0) {
-            ZipArchiveOutputStream zaos = null;
-            try {  //NOSONAR
-                File zipFile = new File(zipFilePath);
-                zaos = new ZipArchiveOutputStream(zipFile);
+            File zipFile = new File(zipFilePath);
+            try (ZipArchiveOutputStream zaos = new ZipArchiveOutputStream(zipFile)) {  //NOSONAR
 
                 // 将每个文件用ZipArchiveEntry封装
                 // 再用ZipArchiveOutputStream写到压缩文件中
@@ -171,10 +152,6 @@ public class ZipUtil {
                     this.compressFiles2Zip(file, zaos);
                 }
                 zaos.finish();
-            } finally {
-                if (zaos != null) {
-                    zaos.close();
-                }
             }
 
         }
@@ -195,19 +172,13 @@ public class ZipUtil {
         if (file != null) {
             ZipArchiveEntry zipArchiveEntry = new ZipArchiveEntry(file, file.getName());
             zaos.putArchiveEntry(zipArchiveEntry);
-            InputStream is = null;
-            try {  //NOSONAR
-                is = new BufferedInputStream(new FileInputStream(file), ioBuffered);
+            try (InputStream is = new BufferedInputStream(new FileInputStream(file), ioBuffered)) {  //NOSONAR
                 byte[] buffer = new byte[BYTE_SIZE];
                 int len;
                 while ((len = is.read(buffer)) != -1) {
                     zaos.write(buffer, 0, len);
                 }
                 zaos.closeArchiveEntry();
-            } finally {
-                if (is != null) {
-                    is.close();
-                }
             }
         }
     }
