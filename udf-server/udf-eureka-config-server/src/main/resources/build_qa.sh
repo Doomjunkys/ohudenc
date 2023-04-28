@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-base_path="udf-sample-api"
+base_path="udf-server"
 
 echo 'shutdown application begin'
 returnCode=`curl -I -s -X POST "http://127.0.0.1:${management.port}/shutdown"|head -1|cut -d" " -f2`

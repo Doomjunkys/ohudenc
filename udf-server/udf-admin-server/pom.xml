@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <!-- maven坐标 -->
+    <artifactId>udf-admin-server</artifactId>
+    <name>udf-admin-server</name>
+    <packaging>jar</packaging>
+    <url>http://itkk.org:81</url>
+    <!-- 父依赖 -->
+    <parent>
+        <groupId>org.itkk.udf</groupId>
+        <artifactId>udf-server</artifactId>
+        <version>1.0</version>
+    </parent>
+    <!-- 参数 -->
+    <properties>
+        <server.port>9002</server.port>
+        <management.port>8002</management.port>
+    </properties>
+    <!-- 依赖 -->
+    <dependencies>
+        <!-- udf-starter-mail -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+        <!-- spring-boot-admin-server 服务器监控 -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-server</artifactId>
+            <version>${spring-boot-admin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-server-ui</artifactId>
+            <version>${spring-boot-admin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-server-ui-turbine</artifactId>
+            <version>${spring-boot-admin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-server-ui-login</artifactId>
+            <version>${spring-boot-admin.version}</version>
+        </dependency>
+        <!-- spring-cloud-starter-hystrix-dashboard 断路器-监控面板 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-turbine</artifactId>
+        </dependency>
+        <!-- spring-boot-starter-security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <!-- udf-starter-core -->
+        <dependency>
+            <groupId>org.itkk.udf</groupId>
+            <artifactId>udf-starter-core</artifactId>
+        </dependency>
+        <!-- udf-starter-amqp-rabbitmq -->
+        <dependency>
+            <groupId>org.itkk.udf</groupId>
+            <artifactId>udf-starter-amqp-rabbitmq</artifactId>
+        </dependency>
+    </dependencies>
+    <!-- 构建 -->
+    <build>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources/</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <!-- package -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${springboot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- docker -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${docker-maven-plugin.version}</version>
+                <configuration>
+                    <imageName>${docker.registry.host}/${project.groupId}/${project.artifactId}:latest</imageName>
+                    <baseImage>${docker.java.base.image}</baseImage>
+                    <maintainer>${docker.maintainer}</maintainer>
+                    <exposes>${server.port}</exposes>
+                    <cmd></cmd>
+                    <entryPoint>["java","-jar","/${project.build.finalName}.jar"]</entryPoint>
+                    <resources>
+                        <resource>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

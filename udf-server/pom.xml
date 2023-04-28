@@ -24,11 +24,12 @@
         <docker.java.base.image>192.168.1.10:5000/org.itkk/java:8</docker.java.base.image>
         <docker.registry.host>192.168.1.10:5000</docker.registry.host>
         <docker.maintainer>wangkangit@163.com</docker.maintainer>
-        <spring-boot-admin.version>1.5.6</spring-boot-admin.version>
+        <spring-boot-admin.version>1.5.7</spring-boot-admin.version>
     </properties>
     <!--子模块 -->
     <modules>
         <module>udf-eureka-config-server</module>
+        <module>udf-admin-server</module>
     </modules>
     <!-- 环境 -->
     <profiles>
