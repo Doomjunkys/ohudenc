@@ -4,7 +4,7 @@
  * Created by wangkang
  * Copyright (C) 2016 itkk.org, All rights reserved.
  */
-package org.itkk.udf.admin.server.demo;
+package org.itkk.udf.admin.server;
 
 import org.itkk.udf.core.BaseApplication;
 import org.springframework.boot.SpringApplication;

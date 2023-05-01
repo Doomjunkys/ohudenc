@@ -1,4 +1,4 @@
-package org.itkk.udf.admin.server.demo;
+package org.itkk.udf.admin.server;
 
 import de.codecentric.boot.admin.notify.MailNotifier;
 import de.codecentric.boot.admin.notify.Notifier;
