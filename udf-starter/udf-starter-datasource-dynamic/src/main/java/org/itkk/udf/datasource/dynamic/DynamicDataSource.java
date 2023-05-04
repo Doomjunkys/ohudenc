@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 import javax.sql.DataSource;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 描述 : DynamicDataSource
@@ -22,13 +22,7 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
     /**
      * 描述 : 目标数据库
      */
-    private static Map<Object, Object> dyanmictargetDataSources;
-
-    static {
-        if (null == DynamicDataSource.dyanmictargetDataSources) {
-            DynamicDataSource.dyanmictargetDataSources = new HashMap<>();
-        }
-    }
+    private static Map<Object, Object> dyanmictargetDataSources = new ConcurrentHashMap<>();
 
     /**
      * dynamicDataSourceConfig
