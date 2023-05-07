@@ -30,6 +30,7 @@
     <modules>
         <module>udf-eureka-config-server</module>
         <module>udf-admin-server</module>
+        <module>udf-general-server</module>
     </modules>
     <!-- 环境 -->
     <profiles>
