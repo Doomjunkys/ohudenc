@@ -114,6 +114,11 @@
             <groupId>org.itkk.udf</groupId>
             <artifactId>udf-starter-cache-redis</artifactId>
         </dependency>
+        <!-- udf-starter-dal-mybatis -->
+        <dependency>
+            <groupId>org.itkk.udf</groupId>
+            <artifactId>udf-starter-dal-mybatis</artifactId>
+        </dependency>
     </dependencies>
     <!-- 构建 -->
     <build>

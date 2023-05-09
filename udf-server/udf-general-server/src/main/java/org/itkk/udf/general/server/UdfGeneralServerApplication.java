@@ -1,6 +1,8 @@
 package org.itkk.udf.general.server;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.itkk.udf.core.BaseApplication;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.context.annotation.ComponentScan;
@@ -12,6 +14,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @SpringCloudApplication
 @ComponentScan(basePackages = {"org.itkk"})
+@MapperScan(basePackages = {"org.itkk"}, annotationClass = Mapper.class)
 public class UdfGeneralServerApplication extends BaseApplication {
 
     /**
