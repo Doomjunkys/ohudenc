@@ -37,14 +37,14 @@ public class SchClientCallbackController implements ISchClientCallbackController
 
     @Override
     public RestResponse<String> callback(@RequestBody RmsJobResult result) {
+        //获得key
+        String name = AbstractBaseRmsJob.RMS_JOB_DISALLOW_CONCURRENT_PREFIX + result.getParam().getServiceCode() + "_" + result.getParam().getBeanName();
         try {
             if (rmsJobLog != null) {
                 rmsJobLog.save(null, result);
             }
             return new RestResponse<>();
         } finally {
-            //获得key
-            String name = AbstractBaseRmsJob.RMS_JOB_DISALLOW_CONCURRENT_PREFIX + result.getParam().getServiceCode() + "_" + result.getParam().getBeanName();
             //解锁
             redisBasedDistributedLock.unlock(name);
         }
