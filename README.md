@@ -1,4 +1,6 @@
-# UDF
+# 如果各位在构建spring boot / cloud应用的时候遇到什么问题 , 可以加我微信 (kkll0902)沟通
+
+# UDF 
 
 基于spring boot / spring cloud 的基础项目,脚手架,主要用于学习和实践
 
