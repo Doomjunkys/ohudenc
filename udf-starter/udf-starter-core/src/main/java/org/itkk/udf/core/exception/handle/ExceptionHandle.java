@@ -69,7 +69,7 @@ public class ExceptionHandle extends ResponseEntityExceptionHandler {
      * @return ResponseEntity<Object>
      */
     @ExceptionHandler(value = Exception.class)
-    public ResponseEntity<Object> exception(Exception ex, WebRequest request) {
+    public ResponseEntity<Object> exception(Exception ex, WebRequest request) throws Exception {
         //异常处理
         ResponseEntity<Object> objectResponseEntity = this.handleException(ex, request);
         return this.handleExceptionInternal(ex, null, objectResponseEntity.getHeaders(), objectResponseEntity.getStatusCode(), request);
