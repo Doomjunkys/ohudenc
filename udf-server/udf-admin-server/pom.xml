@@ -49,7 +49,7 @@
         <!-- spring-cloud-starter-hystrix-dashboard 断路器-监控面板 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-turbine</artifactId>
+            <artifactId>spring-cloud-starter-netflix-turbine</artifactId>
         </dependency>
         <!-- spring-boot-starter-security -->
         <dependency>

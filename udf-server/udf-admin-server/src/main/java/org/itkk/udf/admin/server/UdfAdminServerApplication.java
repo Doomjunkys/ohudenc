@@ -6,6 +6,7 @@
  */
 package org.itkk.udf.admin.server;
 
+import de.codecentric.boot.admin.config.EnableAdminServer;
 import org.itkk.udf.core.BaseApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
@@ -13,8 +14,6 @@ import org.springframework.cloud.netflix.turbine.EnableTurbine;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-
-import de.codecentric.boot.admin.config.EnableAdminServer;
 
 /**
  * 描述 : 系统入口
