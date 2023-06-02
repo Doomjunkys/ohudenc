@@ -21,10 +21,10 @@
     <!-- 依赖 -->
     <dependencies>
         <!-- spring-boot-starter-security -->
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
+        </dependency>-->
         <!-- spring cloud starter eureka server -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
