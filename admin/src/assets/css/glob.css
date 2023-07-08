@@ -1,0 +1,9 @@
+#app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Microsoft yahei';
+  font-size: 13px;
+  font-weight: 400;
+}
