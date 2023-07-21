@@ -7,3 +7,13 @@
   font-size: 13px;
   font-weight: 400;
 }
+
+body .el-scrollbar__wrap {
+  overflow-x: hidden;
+}
+
+#nprogress .bar {
+  background: #62caff !important;
+}
+
+
