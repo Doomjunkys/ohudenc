@@ -9,7 +9,6 @@ import VueAxios from 'vue-axios';
 import Glob from './assets/js/glob.js';
 import 'element-ui/lib/theme-chalk/index.css';
 import './assets/css/reset.css';
-import './assets/css/glob.css';
 import './assets/scss/glob.scss';
 import './assets/scss/element-variables.scss';
 

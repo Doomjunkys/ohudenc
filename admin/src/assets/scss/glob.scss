@@ -1,19 +1,101 @@
+#app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Microsoft yahei';
+  font-size: 13px;
+  font-weight: 400;
+}
+
+body .el-scrollbar__wrap {
+  overflow-x: hidden;
+}
+
+#nprogress .bar {
+  background: #62caff !important;
+}
+
+
 .el-container {
 
-  .el-aside {
-    color: #333;
-  }
-
   .el-header {
-    background-color: #B3C0D1;
-    color: #333;
-    line-height: 60px;
-    text-align: right;
-    font-size: 12px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 4px 0px;
+    height: 50px;
+    margin: 0;
+    padding: 0;
+
+    .mainMenuBtn {
+      width: 50px;
+      height: 50px;
+      border-radius: 0px !important;
+      box-sizing: border-box;
+      line-height: inherit;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: inherit;
+      display: inline-block;
+      vertical-align: middle;
+      text-align: center;
+      white-space: nowrap;
+      padding: 0px;
+      outline: medium;
+      text-decoration: none;
+      transition: all 0.3s ease-out;
+      border-width: initial;
+      border-style: none;
+      border-color: initial;
+      border-image: initial;
+      overflow: hidden;
+      font-size: 20px;
+    }
+
+    .mainLogoBtn {
+      height: 50px;
+      padding: 0px 12px;
+      cursor: pointer;
+
+      span {
+        font-size: 15px;
+        font-family: inherit;
+        display: inline-block;
+        vertical-align: middle;
+        text-align: center;
+
+        .appLogo {
+          font-size: 15px;
+        }
+      }
+    }
+
+    .mainMenuRightDiv {
+      float: right;
+      height: 50px;
+
+      .avatarDiv {
+        height: 50px;
+        padding-right: 12px;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        cursor: pointer;
+      }
+
+      .bellDiv {
+        height: 50px;
+        padding-right: 25px;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        font-size: 18px;
+        cursor: pointer;
+      }
+    }
   }
 
   .el-main {
-
+    margin: 0;
+    padding: 0;
   }
 
 }
