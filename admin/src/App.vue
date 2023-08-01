@@ -44,7 +44,7 @@
           background: "#F2F2F2"
         },
         mainLogo: {
-          appLogoName: 'UDF',
+          appLogoName: 'ITKK',
           appName: 'ADMIN',
         },
         mainElContainerStyle: {
