@@ -61,10 +61,23 @@
       }
     },
     created() {
-      window.addEventListener('resize', this.getMainElContainerStyleHeight);
-      this.getMainElContainerStyleHeight();
+      //初始化
+      this.init();
     },
     methods: {
+      //初始化
+      init() {
+        //初始化(异步)
+        this.initAsync();
+      },
+      //初始化(异步)
+      async initAsync() {
+        //注册浏览器resize监听
+        window.addEventListener('resize', this.getMainElContainerStyleHeight);
+        //获得容器高度
+        this.getMainElContainerStyleHeight();
+      },
+      //获得容器高度
       getMainElContainerStyleHeight() {
         this.mainElContainerStyle.height = window.innerHeight + 'px';
       }
