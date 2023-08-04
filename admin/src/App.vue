@@ -5,7 +5,7 @@
         <el-button class="mainMenuBtn" :style="mainMenuBtnStyle" type="text">
           <i class="el-icon-menu"></i>
         </el-button>
-        <a class="mainLogoBtn">
+        <a class="mainLogoBtn" :style="mainLogoBtnStyle">
           <span>
             <i>{{mainLogo.appLogoName}}</i>
             <i>{{mainLogo.appName}}</i>
@@ -57,6 +57,9 @@
         mainMenuBtnStyle: {
           background: "none rgb(255, 106, 0)",
           color: "rgb(255, 255, 255)"
+        },
+        mainLogoBtnStyle: {
+          color: "rgb(255, 106, 0)"
         }
       }
     },
