@@ -4,23 +4,77 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="lib/bootstrap-4.4.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/glob.css">
     <title>itkk.org</title>
 </head>
 <body>
+<div class="topbar">
+    <div class="topbar-header">
+        <div class="topbar-element logo">
+            <a class="logo-link">
+                <span class="logo-text">ITKK ADMIN</span>
+                <!--<img class="logo-image">-->
+            </a>
+        </div>
+        <div class="topbar-element ability-topbar">
+            <a class="ace-link ace-link-primary ability-element-topbar" href="#" style="margin-right: 20px;">
+                后台管理
+            </a>
+            <div class="ability-element-topbar">
+                <a class="ace-link ability-element-topbar ability-element-item" href="#" style="margin-right: 20px;">
+                    登录
+                </a>
+                <a class="ability-element-topbar ability-element-item" href="#">
+                    <button type="button" class="ace-btn ace-medium ability-login-button">
+                        注册
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="topbar-content">
+        <div class="page-slot page-slot-1">
+            <div style="height: auto; display: block; min-height: 0px;">
+                <div class="ace-common-floor" style="padding: 0px; background-color: transparent;">
+                    <div class="ace-common-floor-row" style="padding: 0px;">
+                        <div class="componenet-wrap" style="position: relative;">
+                            <div class="ace-common-menu-wrap">
+                                <div class="ace-common-menu">
+                                    <a class="ace-link ace-common-menu-list" href="/admin/" target="_self">
+                                        <span style="vertical-align: middle;">admin(公网)</span>
+                                    </a>
+                                    <a class="ace-link ace-common-menu-list" href="/jenkins/" target="_self">
+                                        <span style="vertical-align: middle;">jenkins(公网)</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <center>
+    <br/>
     <h1>网站正在建设中</h1>
     <h2>
         admin
-        <a href="https://www.itkk.org/admin/">(公网)</a>
-        <a href="http://web.itkk.org:81/admin/">(公网-备用)</a>
-        <a href="http://192.168.1.100/admin/">(内网)</a>
+        <a class="ace-link" href="/admin/">(公网)</a>
+        <a class="ace-link" href="http://web.itkk.org:81/admin/">(公网-备用)</a>
+        <a class="ace-link" href="http://192.168.1.100/admin/">(内网)</a>
     </h2>
     <h2>
         jenkins
-        <a href="https://www.itkk.org/jenkins/">(公网)</a>
-        <a href="http://web.itkk.org:81/jenkins/">(公网-备用)</a>
-        <a href="http://192.168.1.100/jenkins/">(内网)</a>
+        <a class="ace-link" href="/jenkins/">(公网)</a>
+        <a class="ace-link" href="http://web.itkk.org:81/jenkins/">(公网-备用)</a>
+        <a class="ace-link" href="http://192.168.1.100/jenkins/">(内网)</a>
     </h2>
 </center>
+<script src="lib/jquery-3.5.0.min.js"></script>
+<script src="lib/popper.min.js"></script>
+<script src="lib/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+<script src="js/glob.js"></script>
 </body>
 </html>

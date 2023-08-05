@@ -1,0 +1,177 @@
+html, body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Microsoft yahei';
+    font-size: 13px;
+    font-weight: 400;
+    background: #F2F2F2;
+}
+
+a, a:hover, a:active, a:focus {
+    text-decoration: none;
+    -webkit-user-drag: none;
+    outline: none;
+    color: #000;
+}
+
+.ace-link {
+    text-decoration: none;
+    transition: color .3s;
+    transition-property: color;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+}
+
+.ace-link:hover {
+    color: #ff6a00;
+}
+
+.ace-btn {
+    position: relative;
+    display: inline-block;
+    box-shadow: none;
+    text-decoration: none;
+    text-align: center;
+    text-transform: none;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    transition: all .1s linear;
+    cursor: pointer;
+}
+
+.ace-medium {
+    border-radius: 0;
+    padding: 0 24px;
+    height: 32px;
+    line-height: 30px;
+    font-size: 14px;
+    border-width: 1px;
+}
+
+.ace-common-floor {
+    position: relative;
+}
+
+.ace-common-floor-row {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ace-common-menu-wrap {
+    height: 50px;
+    width: 1200px;
+    position: relative;
+    z-index: 111;
+    background: #fff;
+}
+
+.ace-common-menu {
+    line-height: 50px;
+    position: relative;
+    z-index: 999;
+    box-sizing: border-box;
+}
+
+.ace-common-menu-list {
+    padding: 0 16px;
+    color: #181818;
+    font-size: 14px;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.topbar {
+    background: #fff;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
+    box-sizing: border-box;
+    padding-top: 20px;
+    width: 100%;
+    position: relative;
+    z-index: 1000;
+    display: block;
+}
+
+.topbar-header {
+    height: 80px;
+    margin: 0 auto;
+    max-width: 1200px;
+    height: 80px;
+    position: relative;
+    z-index: 1000;
+}
+
+.topbar-element {
+    float: left;
+    line-height: 40px;
+    height: 40px;
+    vertical-align: middle;
+}
+
+.topbar-element.logo {
+    width: 119px;
+}
+
+.logo-link {
+    display: inline-block;
+    width: 100%;
+    height: 27px;
+    margin-top: 2px;
+}
+
+.logo-text {
+    width: 100%;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: inherit;
+    color: #ff6a00;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    /*margin-left: 20px;*/
+}
+
+.logo-image {
+    width: 100%;
+    height: 27px;
+    margin-top: 6.5px;
+}
+
+.ability-topbar {
+    position: relative;
+    float: right;
+}
+
+.ability-element-topbar {
+    overflow: hidden;
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 20px;
+    font-size: 14px;
+    color: #181818;
+}
+
+.ability-element-item {
+    display: inline;
+}
+
+.ability-login-button {
+    width: 80px;
+    height: 36px;
+    outline: none;
+    border: none;
+    color: #fff;
+    background-color: #ff6a00;
+    font-size: 14px;
+    margin-top: -6px;
+}
+
+.topbar-content {
+    margin: 0 auto;
+    max-width: 1200px;
+    height: 50px;
+}
