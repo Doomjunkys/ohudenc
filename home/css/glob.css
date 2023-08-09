@@ -175,3 +175,7 @@ a, a:hover, a:active, a:focus {
     max-width: 1200px;
     height: 50px;
 }
+
+#app {
+    min-height: 100vh;
+}
