@@ -97,10 +97,9 @@ a, a:hover, a:active, a:focus {
 }
 
 .topbar-header {
-    height: 80px;
+    height: 60px;
     margin: 0 auto;
     max-width: 1200px;
-    height: 80px;
     position: relative;
     z-index: 1000;
 }
@@ -131,8 +130,7 @@ a, a:hover, a:active, a:focus {
     color: #ff6a00;
     display: inline-block;
     vertical-align: middle;
-    text-align: center;
-    /*margin-left: 20px;*/
+    margin-left: 5px;
 }
 
 .logo-image {
@@ -150,7 +148,7 @@ a, a:hover, a:active, a:focus {
     overflow: hidden;
     text-decoration: none;
     display: inline-block;
-    margin-right: 20px;
+    margin-right: 5px;
     font-size: 14px;
     color: #181818;
 }
