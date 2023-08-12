@@ -35,45 +35,43 @@
             </div>
         </div>
     </div>
-<!--    <div class="topbar-content">-->
-<!--        <div class="page-slot page-slot-1">-->
-<!--            <div style="height: auto; display: block; min-height: 0px;">-->
-<!--                <div class="ace-common-floor" style="padding: 0px; background-color: transparent;">-->
-<!--                    <div class="ace-common-floor-row" style="padding: 0px;">-->
-<!--                        <div class="componenet-wrap" style="position: relative;">-->
-<!--                            <div class="ace-common-menu-wrap">-->
-<!--                                <div class="ace-common-menu">-->
-<!--                                    <a class="ace-link ace-common-menu-list" href="/admin/" target="_self">-->
-<!--                                        <span style="vertical-align: middle;">admin(公网)</span>-->
-<!--                                    </a>-->
-<!--                                    <a class="ace-link ace-common-menu-list" href="/jenkins/" target="_self">-->
-<!--                                        <span style="vertical-align: middle;">jenkins(公网)</span>-->
-<!--                                    </a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+    <div class="topbar-content">
+        <div class="page-slot page-slot-1">
+            <div style="height: auto; display: block; min-height: 0px;">
+                <div class="ace-common-floor" style="padding: 0px; background-color: transparent;">
+                    <div class="ace-common-floor-row" style="padding: 0px;">
+                        <div class="componenet-wrap" style="position: relative;">
+                            <div class="ace-common-menu-wrap">
+                                <div class="ace-common-menu">
+                                    <div class="btn-group" role="jenkinsGroup">
+                                        <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">构建流水线</button>
+                                        <div class="dropdown-menu" aria-labelledby="jenkinsGroup">
+                                            <a class="dropdown-item" href="/admin/">公网</a>
+                                            <a class="dropdown-item" href="http://web.itkk.org:81/admin/">公网-备用</a>
+                                            <a class="dropdown-item" href="http://192.168.1.100/admin/">内网</a>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">控制台</button>
+                                        <div class="dropdown-menu" aria-labelledby="jenkinsGroup">
+                                            <a class="dropdown-item" href="/jenkins/">公网</a>
+                                            <a class="dropdown-item" href="http://web.itkk.org:81/jenkins/">公网-备用</a>
+                                            <a class="dropdown-item" href="http://192.168.1.100/jenkins/">内网</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div id="app">
     <center>
         <br/>
         <h1>网站正在建设中</h1>
-        <h2>
-            admin
-            <a class="ace-link" href="/admin/">(公网)</a>
-            <a class="ace-link" href="http://web.itkk.org:81/admin/">(公网-备用)</a>
-            <a class="ace-link" href="http://192.168.1.100/admin/">(内网)</a>
-        </h2>
-        <h2>
-            jenkins
-            <a class="ace-link" href="/jenkins/">(公网)</a>
-            <a class="ace-link" href="http://web.itkk.org:81/jenkins/">(公网-备用)</a>
-            <a class="ace-link" href="http://192.168.1.100/jenkins/">(内网)</a>
-        </h2>
     </center>
 </div>
 <script src="lib/jquery-3.5.0.min.js"></script>
