@@ -8,7 +8,7 @@
         <a class="mainLogoBtn" :style="mainLogoBtnStyle">
           <span>
             <i>{{mainLogo.appLogoName}}</i>
-            <i>{{mainLogo.appName}}</i>
+            <!--<i>{{mainLogo.appName}}</i>-->
           </span>
         </a>
         <div class="mainMenuRightDiv">
