@@ -4,17 +4,22 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import ElementUI from 'element-ui';
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import axios from 'axios';
 import VueAxios from 'vue-axios';
-import Glob from './assets/js/glob.js';
-import 'element-ui/lib/theme-chalk/index.css';
 import './assets/css/reset.css';
+import 'element-ui/lib/theme-chalk/index.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
 import './assets/scss/glob.scss';
 import './assets/scss/element-variables.scss';
+import Glob from './assets/js/glob.js';
 
 //use
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
+Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
 Vue.use(VueAxios, axios);
 //init
 Glob.inti();
