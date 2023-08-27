@@ -2,6 +2,13 @@ body .el-scrollbar__wrap {
   overflow-x: hidden;
 }
 
+a, a:hover, a:active, a:focus {
+  text-decoration: none;
+  -webkit-user-drag: none;
+  outline: none;
+  //color: #000;
+}
+
 #nprogress .bar {
   background: #62caff !important;
 }

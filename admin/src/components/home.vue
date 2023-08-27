@@ -16,6 +16,6 @@
   .home {
     padding-top: 20px;
     max-width: 1200px;
-    margin: auto!important;
+    margin: auto !important;
   }
 </style>

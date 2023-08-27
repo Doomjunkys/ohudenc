@@ -7,7 +7,7 @@ import ElementUI from 'element-ui';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import './assets/css/reset.css';
-import './assets/css/bootstrap.min.css';
+import './assets/css/bootstrap.css';
 import './assets/scss/glob.scss';
 import 'element-ui/lib/theme-chalk/index.css';
 import './assets/scss/element-variables.scss';

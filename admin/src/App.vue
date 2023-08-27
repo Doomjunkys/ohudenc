@@ -11,6 +11,21 @@
           </span>
         </a>
         <div class="mainMenuRightDiv">
+          <div class="toolDiv">
+            <el-dropdown>
+              <span class="el-dropdown-link">
+                <i class="el-icon-s-tools"></i>
+              </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>
+                  构建流水线
+                  <a href="/jenkins/" target="view_window">(公网)</a>
+                  <a href="http://web.itkk.org:81/jenkins/" target="view_window">(公网-备用)</a>
+                  <a href="http://192.168.1.100/jenkins/" target="view_window">(内网)</a>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </div>
           <div class="login-registered-div">
             <el-button type="text">登陆</el-button>
             <el-button type="text">注册</el-button>
@@ -159,12 +174,23 @@
           float: right;
           height: 50px;
 
-          .mainMenuRightItemDiv {
+          .toolDiv {
             height: 50px;
-            padding-right: 12px;
+            padding-right: 15px;
             display: table-cell;
             vertical-align: middle;
             text-align: center;
+            font-size: 18px;
+            cursor: pointer;
+          }
+
+          .login-registered-div {
+            height: 50px;
+            padding-right: 15px;
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+            font-size: 18px;
             cursor: pointer;
           }
 
@@ -178,16 +204,6 @@
           }
 
           .bellDiv {
-            height: 50px;
-            padding-right: 25px;
-            display: table-cell;
-            vertical-align: middle;
-            text-align: center;
-            font-size: 18px;
-            cursor: pointer;
-          }
-
-          .login-registered-div {
             height: 50px;
             padding-right: 25px;
             display: table-cell;
