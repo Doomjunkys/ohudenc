@@ -13,9 +13,7 @@
         <div class="mainMenuRightDiv">
           <div class="toolDiv">
             <el-dropdown>
-              <span class="el-dropdown-link">
-                <i class="el-icon-s-tools"></i>
-              </span>
+              <el-button icon="el-icon-s-tools" size="small" circle></el-button>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>
                   构建流水线
@@ -27,8 +25,8 @@
             </el-dropdown>
           </div>
           <div class="login-registered-div">
-            <el-button type="text">登陆</el-button>
-            <el-button type="text">注册</el-button>
+            <el-button type="warning" size="small" round>登陆</el-button>
+            <el-button type="warning" size="small" round>注册</el-button>
           </div>
           <!--
           <div class="bellDiv">
@@ -176,7 +174,7 @@
 
           .toolDiv {
             height: 50px;
-            padding-right: 15px;
+            padding-right: 20px;
             display: table-cell;
             vertical-align: middle;
             text-align: center;
