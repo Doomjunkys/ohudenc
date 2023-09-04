@@ -26,19 +26,19 @@
           </div>
           <div class="login-registered-div">
             <el-button type="warning" size="small" round>登陆</el-button>
+          </div>
+          <div class="login-registered-div">
             <el-button type="warning" size="small" round>注册</el-button>
           </div>
-          <!--
-          <div class="bellDiv">
-            <el-badge is-dot>
-              <i class="el-icon-bell"></i>
-            </el-badge>
-          </div>
-          <div class="avatarDiv">
-            <el-avatar shape="square" size="large" icon="el-icon-user-solid">
-            </el-avatar>
-          </div>
-          -->
+<!--          <div class="bellDiv">-->
+<!--            <el-badge is-dot>-->
+<!--              <el-button icon="el-icon-bell" size="small" circle></el-button>-->
+<!--            </el-badge>-->
+<!--          </div>-->
+<!--          <div class="avatarDiv">-->
+<!--            <el-avatar shape="square" size="large" icon="el-icon-user-solid">-->
+<!--            </el-avatar>-->
+<!--          </div>-->
         </div>
       </el-header>
       <el-scrollbar style="height:100%">
@@ -174,7 +174,7 @@
 
           .toolDiv {
             height: 50px;
-            padding-right: 20px;
+            padding-right: 10px;
             display: table-cell;
             vertical-align: middle;
             text-align: center;
@@ -184,7 +184,7 @@
 
           .login-registered-div {
             height: 50px;
-            padding-right: 15px;
+            padding-right: 5px;
             display: table-cell;
             vertical-align: middle;
             text-align: center;
