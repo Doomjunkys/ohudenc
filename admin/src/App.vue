@@ -11,7 +11,16 @@
           </span>
         </a>
         <div class="mainMenuRightDiv">
-          <div class="toolDiv">
+          <div class="searchDiv">
+            <el-button icon="el-icon-search" size="small" circle
+                       @click="searchInputDivShowHidden"></el-button>
+          </div>
+          <div v-show="showSearchInput" class="searchInputDiv">
+            <el-input ref="searchInput" v-model="searchInputText" :style="searchInputStyle" clearable
+                      placeholder="请输入要搜索的内容">
+            </el-input>
+          </div>
+          <div v-show="!showSearchInput" class="toolDiv">
             <el-dropdown>
               <el-button icon="el-icon-s-tools" size="small" circle></el-button>
               <el-dropdown-menu slot="dropdown">
@@ -24,21 +33,21 @@
               </el-dropdown-menu>
             </el-dropdown>
           </div>
-          <div class="login-registered-div">
+          <div v-show="!showSearchInput" v-if="!logged" class="login-registered-div">
             <el-button type="warning" size="small" round>登陆</el-button>
           </div>
-          <div class="login-registered-div">
+          <div v-show="!showSearchInput" v-if="!logged" class="login-registered-div">
             <el-button type="warning" size="small" round>注册</el-button>
           </div>
-<!--          <div class="bellDiv">-->
-<!--            <el-badge is-dot>-->
-<!--              <el-button icon="el-icon-bell" size="small" circle></el-button>-->
-<!--            </el-badge>-->
-<!--          </div>-->
-<!--          <div class="avatarDiv">-->
-<!--            <el-avatar shape="square" size="large" icon="el-icon-user-solid">-->
-<!--            </el-avatar>-->
-<!--          </div>-->
+          <div v-show="!showSearchInput" v-if="logged" class="bellDiv">
+            <el-badge is-dot>
+              <el-button icon="el-icon-bell" size="small" circle></el-button>
+            </el-badge>
+          </div>
+          <div v-show="!showSearchInput" v-if="logged" class="avatarDiv">
+            <el-avatar shape="square" size="large" icon="el-icon-user-solid">
+            </el-avatar>
+          </div>
         </div>
       </el-header>
       <el-scrollbar style="height:100%">
@@ -82,7 +91,14 @@
         },
         mainLogoBtnStyle: {
           color: "rgb(255, 106, 0)"
-        }
+        },
+        searchInputStyle: {
+          "max-width": "400px",
+          width: "150px"
+        },
+        logged: false,
+        showSearchInput: false,
+        searchInputText: null
       }
     },
     created() {
@@ -98,13 +114,19 @@
       //初始化(异步)
       async initAsync() {
         //注册浏览器resize监听
-        window.addEventListener('resize', this.getMainElContainerStyleHeight);
-        //获得容器高度
-        this.getMainElContainerStyleHeight();
+        window.addEventListener('resize', this.resizeListener);
+        this.resizeListener();
       },
-      //获得容器高度
-      getMainElContainerStyleHeight() {
+      //resize监听器
+      resizeListener() {
+        //设定容器高度
         this.mainElContainerStyle.height = window.innerHeight + 'px';
+        //设定框宽度
+        this.searchInputStyle.width = window.innerWidth - 200 - 10 + 'px';
+      },
+      //搜索输入框显示和隐藏
+      searchInputDivShowHidden() {
+        this.showSearchInput = !this.showSearchInput;
       }
     }
   }
@@ -171,6 +193,26 @@
         .mainMenuRightDiv {
           float: right;
           height: 50px;
+
+          .searchDiv {
+            height: 50px;
+            padding-right: 10px;
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+            font-size: 18px;
+            cursor: pointer;
+          }
+
+          .searchInputDiv {
+            height: 50px;
+            padding-right: 10px;
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+            font-size: 18px;
+            cursor: pointer;
+          }
 
           .toolDiv {
             height: 50px;
