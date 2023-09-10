@@ -17,5 +17,9 @@
     padding-top: 20px;
     max-width: 1200px;
     margin: auto !important;
+
+    .el-card {
+      border-radius: 0px;
+    }
   }
 </style>
