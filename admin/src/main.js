@@ -6,6 +6,7 @@ import router from './router'
 import ElementUI from 'element-ui';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
+import "babel-polyfill";
 import './assets/css/reset.css';
 import './assets/css/bootstrap.css';
 import './assets/scss/glob.scss';

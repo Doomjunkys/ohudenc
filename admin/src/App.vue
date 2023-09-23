@@ -7,12 +7,12 @@
         </el-button>
         <a class="mainLogoBtn" :style="mainLogoBtnStyle">
           <span>
-            <i>{{mainLogo.appLogoName}}</i>
+            <i>{{golbSetting.appLogoName}}</i>
           </span>
         </a>
         <div class="mainMenuRightDiv">
           <div class="searchDiv">
-            <el-button icon="el-icon-search" size="small" circle
+            <el-button :style="searchBtnStyle" icon="el-icon-search" size="small" circle
                        @click="searchInputDivShowHidden"></el-button>
           </div>
           <div v-show="showSearchInput" class="searchInputDiv">
@@ -22,7 +22,7 @@
           </div>
           <div v-show="!showSearchInput" class="toolDiv">
             <el-dropdown>
-              <el-button icon="el-icon-s-tools" size="small" circle></el-button>
+              <el-button :style="toolBtnStyle" icon="el-icon-s-tools" size="small" circle></el-button>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>
                   构建流水线
@@ -34,10 +34,10 @@
             </el-dropdown>
           </div>
           <div v-show="!showSearchInput" v-if="!logged" class="login-registered-div">
-            <el-button type="warning" size="small" round>登陆</el-button>
+            <el-button :style="loginBtnStyle" type="warning" size="small" round>登陆</el-button>
           </div>
           <div v-show="!showSearchInput" v-if="!logged" class="login-registered-div">
-            <el-button type="warning" size="small" round>注册</el-button>
+            <el-button :style="registeredBtnStyle" type="warning" size="small" round>注册</el-button>
           </div>
           <div v-show="!showSearchInput" v-if="logged" class="bellDiv">
             <el-badge is-dot>
@@ -51,7 +51,7 @@
         </div>
       </el-header>
       <el-scrollbar style="height:100%">
-        <el-backtop target=".el-scrollbar__wrap">
+        <el-backtop :style="backtopStyle" target=".el-scrollbar__wrap">
           <i class="el-icon-caret-top"></i>
         </el-backtop>
         <el-main>
@@ -61,6 +61,14 @@
             </keep-alive>
           </transition>
         </el-main>
+        <el-footer :style="mainFoterStyle">
+          <div class="footer">
+            <el-divider></el-divider>
+            <div class="copyRight text-center">
+              <span>{{golbSetting.copyRight}}</span>
+            </div>
+          </div>
+        </el-footer>
       </el-scrollbar>
     </el-container>
   </div>
@@ -71,27 +79,38 @@
     name: 'App',
     data() {
       return {
-        appStyle: {
-          background: "#F2F2F2"
-        },
-        mainLogo: {
+        golbSetting: {
           appLogoName: 'ITKK',
-          appName: 'ADMIN',
+          copyRight: '© 2019-2020 itkk.org',
+          appBackground: "#F2F2F2",
+          headerBackground: "#FFFFFF",
+          menuBtnColor: "#FFFFFF",
+          themeBackground: "#FF6A00",
+          themeColor: "#FFFFFF",
         },
+        appStyle: {},
+        mainMenuBtnStyle: {},
+        mainLogoBtnStyle: {},
+        searchBtnStyle: {
+          outline: "none"
+        },
+        toolBtnStyle: {
+          outline: "none"
+        },
+        loginBtnStyle: {
+          outline: "none"
+        },
+        registeredBtnStyle: {
+          outline: "none"
+        },
+        backtopStyle: {},
         mainElContainerStyle: {
           height: 0
         },
         mainElHeaderStyle: {
-          height: "50",
-          background: "rgb(255, 255, 255)"
+          height: "50px",
         },
-        mainMenuBtnStyle: {
-          background: "none rgb(255, 106, 0)",
-          color: "rgb(255, 255, 255)"
-        },
-        mainLogoBtnStyle: {
-          color: "rgb(255, 106, 0)"
-        },
+        mainFoterStyle: {},
         searchInputStyle: {
           "max-width": "400px",
           width: "150px"
@@ -113,9 +132,24 @@
       },
       //初始化(异步)
       async initAsync() {
+        //重设主题属性
+        this.resetTheme();
         //注册浏览器resize监听
         window.addEventListener('resize', this.resizeListener);
+        //主动调用一次resize监听
         this.resizeListener();
+      },
+      //重设主题属性
+      resetTheme() {
+        this.appStyle.background = this.golbSetting.appBackground;
+        this.mainElHeaderStyle.background = this.golbSetting.headerBackground;
+        this.mainMenuBtnStyle.background = "none " + this.golbSetting.themeBackground;
+        this.loginBtnStyle.background = this.golbSetting.themeBackground;
+        this.registeredBtnStyle.background = this.golbSetting.themeBackground;
+        this.mainMenuBtnStyle.color = this.golbSetting.menuBtnColor;
+        this.mainLogoBtnStyle.color = this.golbSetting.themeBackground;
+        this.backtopStyle.background = this.golbSetting.themeBackground;
+        this.backtopStyle.color = this.golbSetting.themeColor;
       },
       //resize监听器
       resizeListener() {
@@ -259,6 +293,26 @@
         margin: 0;
         padding: 0;
         overflow: hidden;
+      }
+
+      .el-footer {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+
+        .footer {
+          margin-top: 20px;
+
+          .el-divider--horizontal {
+            margin: 0px 0px 10px 0px;
+            box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 4px 0px;
+          }
+
+          .copyRight {
+            max-width: 1200px;
+            margin: auto !important;
+          }
+        }
       }
     }
   }
