@@ -2,3 +2,5 @@
 /.idea/
 /admin/package-lock.json
 /udf-starter/udf-starter.iml
+/udf-starter/udf-starter-core/target/
+/udf-starter/udf-starter-core/udf-starter-core.iml

@@ -6,9 +6,9 @@
     <groupId>org.itkk.udf</groupId>
     <artifactId>udf-starter</artifactId>
     <name>udf-starter</name>
-    <version>1.0.5</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
-    <url>https://dev-cv.saicmotor.com/</url>
+    <url>https://itkk.org/</url>
     <!-- 公共参数 -->
     <properties>
         <udf-starter.version>1.0.5</udf-starter.version>
@@ -29,7 +29,7 @@
     </properties>
     <!--子模块 -->
     <modules>
-        <!--        <module>udf-starter-core</module>-->
+        <module>udf-starter-core</module>
         <!--        <module>udf-starter-datasource-dynamic</module>-->
         <!--        <module>udf-starter-process-activiti</module>-->
         <!--        <module>udf-starter-cache-redis</module>-->
@@ -50,11 +50,11 @@
                 <scope>import</scope>
             </dependency>
             <!-- udf-starter-core -->
-            <!--            <dependency>-->
-            <!--                <groupId>org.itkk.udf</groupId>-->
-            <!--                <artifactId>udf-starter-core</artifactId>-->
-            <!--                <version>${udf-starter.version}</version>-->
-            <!--            </dependency>-->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-core</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
             <!-- udf-starter-cache-db -->
             <!--            <dependency>-->
             <!--                <groupId>org.itkk.udf</groupId>-->
