@@ -11,7 +11,7 @@
     <url>https://itkk.org/</url>
     <!-- 公共参数 -->
     <properties>
-        <udf-starter.version>1.0.5</udf-starter.version>
+        <udf-starter.version>1.0.0</udf-starter.version>
         <springboot.version>2.2.5.RELEASE</springboot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
@@ -30,7 +30,7 @@
     <!--子模块 -->
     <modules>
         <module>udf-starter-core</module>
-        <!--        <module>udf-starter-datasource-dynamic</module>-->
+        <module>udf-starter-datasource-dynamic</module>
         <!--        <module>udf-starter-process-activiti</module>-->
         <!--        <module>udf-starter-cache-redis</module>-->
         <!--        <module>udf-starter-cache-db</module>-->
