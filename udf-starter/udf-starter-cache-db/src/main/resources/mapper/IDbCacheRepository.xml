@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.itkk.udf.starter.cache.db.repository.IDbCacheRepository">
+    <delete id="clearExpireCahce">
+        DELETE
+        FROM TF_DB_CACHE A
+        WHERE A.EXPIRE_TIME <![CDATA[ < ]]> (TO_NUMBER(SYSDATE - TO_DATE('1970-01-01 8:0:0', 'YYYY-MM-DD HH24:MI:SS')) * 24 * 60 * 60 * 1000)
+    </delete>
+</mapper>
