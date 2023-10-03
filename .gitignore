@@ -10,3 +10,7 @@
 /udf-starter/udf-starter-process-activiti/target/
 /udf-starter/udf-starter-cache-db/udf-starter-cache-db.iml
 /udf-starter/udf-starter-cache-db/target/
+/udf-starter/udf-starter-file-db/target/
+/udf-starter/udf-starter-file-db/udf-starter-file-db.iml
+/udf-starter/udf-starter-queue-db/target/
+/udf-starter/udf-starter-ws/udf-starter-ws.iml

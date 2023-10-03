@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.itkk.udf.starter.queue.db.repository.IDbQueueRepository">
+    <delete id="clearDbQueue">
+        DELETE
+        FROM TF_DB_QUEUE A
+        WHERE A.APPLICATION_NAME = #{applicationName}
+          AND A.PROFILES_ACTIVE = #{profilesActive}
+          AND A.STATUS = 2
+    </delete>
+    <select id="loadPendingConsumptionList" resultType="java.lang.String">
+        SELECT *
+        FROM (
+                 SELECT ID
+                 FROM TF_DB_QUEUE A
+                 WHERE A.APPLICATION_NAME = #{applicationName}
+                   AND A.PROFILES_ACTIVE = #{profilesActive}
+                   AND A.QUEUE_NAME = #{queueName}
+                   AND A.STATUS = 1
+                 ORDER BY A.SEND_DATE ASC
+             )
+        WHERE ROWNUM <![CDATA[ <= ]]> #{limit}
+    </select>
+</mapper>

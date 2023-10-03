@@ -8,7 +8,7 @@
     <name>udf-starter</name>
     <version>1.0.0</version>
     <packaging>pom</packaging>
-    <url>https://itkk.org/</url>
+    <url>https://www.itkk.org/</url>
     <!-- 公共参数 -->
     <properties>
         <udf-starter.version>1.0.0</udf-starter.version>
@@ -33,10 +33,9 @@
         <module>udf-starter-datasource-dynamic</module>
         <module>udf-starter-cache-db</module>
         <module>udf-starter-process-activiti</module>
-        <!--        <module>udf-starter-cache-redis</module>-->
-        <!--        <module>udf-starter-queue-db</module>-->
-        <!--        <module>udf-starter-file-db</module>-->
-        <!--        <module>udf-starter-ws</module>-->
+        <module>udf-starter-queue-db</module>
+        <module>udf-starter-file-db</module>
+        <module>udf-starter-ws</module>
     </modules>
     <!-- 依赖管理 -->
     <dependencyManagement>

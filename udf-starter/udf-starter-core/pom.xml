@@ -6,7 +6,7 @@
     <artifactId>udf-starter-core</artifactId>
     <name>udf-starter-core</name>
     <packaging>jar</packaging>
-    <url>https://itkk.org/</url>
+    <url>https://www.itkk.org/</url>
     <!-- 父依赖 -->
     <parent>
         <groupId>org.itkk.udf</groupId>
