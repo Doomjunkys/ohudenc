@@ -13,7 +13,7 @@ public class WsProperties {
     /**
      * 配置文件前缀
      */
-    protected static final String WS_PROPERTIES_PRE_FIX = "com.imaxus.ws.properties";
+    protected static final String WS_PROPERTIES_PRE_FIX = "org.itkk.udf.starter.ws.properties";
 
     /**
      * ws根url

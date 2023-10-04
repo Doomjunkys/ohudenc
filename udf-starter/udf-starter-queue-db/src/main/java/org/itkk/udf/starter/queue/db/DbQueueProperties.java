@@ -16,7 +16,7 @@ public class DbQueueProperties {
     /**
      * 配置文件前缀
      */
-    protected static final String DB_QUEUE_PROPERTIES_PRE_FIX = "com.imaxus.db.queue.properties";
+    protected static final String DB_QUEUE_PROPERTIES_PRE_FIX = "org.itkk.udf.starter.db.queue.properties";
 
     /**
      * TOPIC定义(topic名称.queue名称.hanledBean名称)
