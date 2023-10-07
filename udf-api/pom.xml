@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <!-- mavne坐标 -->
+    <groupId>org.itkk.udf</groupId>
+    <artifactId>udf-api</artifactId>
+    <name>udf-api</name>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+    <url>https://www.itkk.org/</url>
+    <!-- 公共参数 -->
+    <properties>
+        <project.build.date>${maven.build.timestamp}</project.build.date>
+        <udf-api.version>1.0</udf-api.version>
+        <udf-starter.version>1.0.0</udf-starter.version>
+        <springboot.version>2.2.5.RELEASE</springboot.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+        <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
+        <itext7.version>7.1.10</itext7.version>
+    </properties>
+    <!--子模块 -->
+    <modules>
+        <!--        <module>udf-api-server</module>-->
+        <!--        <module>udf-api-common</module>-->
+        <!--        <module>udf-api-eit</module>-->
+        <!--        <module>udf-api-eit-gbom</module>-->
+        <!--        <module>udf-api-pm-common</module>-->
+        <!--        <module>udf-api-pm-pqrr</module>-->
+        <!--        <module>udf-api-windows-server</module>-->
+        <!--        <module>udf-api-crdn</module>-->
+        <!--        <module>udf-api-general</module>-->
+        <!--        <module>udf-api-esb-migration</module>-->
+        <!--        <module>udf-api-main-data</module>-->
+        <!--        <module>udf-api-part-base-adv</module>-->
+        <!--        <module>udf-api-sor</module>-->
+        <!--        <module>udf-api-rbac</module>-->
+        <!--        <module>udf-api-pm</module>-->
+    </modules>
+    <!-- 依赖管理 -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- spring boot -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${springboot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--            &lt;!&ndash; udf-api-part-base-adv &ndash;&gt;-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.itkk.udf</groupId>-->
+            <!--                <artifactId>udf-api-part-base-adv</artifactId>-->
+            <!--                <version>${udf-api.version}</version>-->
+            <!--            </dependency>-->
+            <!--            &lt;!&ndash; udf-api-sor &ndash;&gt;-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.itkk.udf</groupId>-->
+            <!--                <artifactId>udf-api-sor</artifactId>-->
+            <!--                <version>${udf-api.version}</version>-->
+            <!--            </dependency>-->
+            <!--            &lt;!&ndash; udf-api-pm &ndash;&gt;-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.itkk.udf</groupId>-->
+            <!--                <artifactId>udf-api-pm</artifactId>-->
+            <!--                <version>${udf-api.version}</version>-->
+            <!--            </dependency>-->
+            <!--            &lt;!&ndash; udf-api-rbac &ndash;&gt;-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.itkk.udf</groupId>-->
+            <!--                <artifactId>udf-api-rbac</artifactId>-->
+            <!--                <version>${udf-api.version}</version>-->
+            <!--            </dependency>-->
+            <!--            &lt;!&ndash; udf-api-main-data &ndash;&gt;-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.itkk.udf</groupId>-->
+            <!--                <artifactId>udf-api-main-data</artifactId>-->
+            <!--                <version>${udf-api.version}</version>-->
+            <!--            </dependency>-->
+            <!--            &lt;!&ndash; udf-api-crdn &ndash;&gt;-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.itkk.udf</groupId>-->
+            <!--                <artifactId>udf-api-crdn</artifactId>-->
+            <!--                <version>${udf-api.version}</version>-->
+            <!--            </dependency>-->
+            <!--            &lt;!&ndash; udf-api-pm-pqrr &ndash;&gt;-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.itkk.udf</groupId>-->
+            <!--                <artifactId>udf-api-pm-pqrr</artifactId>-->
+            <!--                <version>${udf-api.version}</version>-->
+            <!--            </dependency>-->
+            <!--            &lt;!&ndash; udf-api-general &ndash;&gt;-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.itkk.udf</groupId>-->
+            <!--                <artifactId>udf-api-general</artifactId>-->
+            <!--                <version>${udf-api.version}</version>-->
+            <!--            </dependency>-->
+            <!--            &lt;!&ndash; udf-api-pm-common &ndash;&gt;-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.itkk.udf</groupId>-->
+            <!--                <artifactId>udf-api-pm-common</artifactId>-->
+            <!--                <version>${udf-api.version}</version>-->
+            <!--            </dependency>-->
+            <!--            &lt;!&ndash; udf-api-esb-migration &ndash;&gt;-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.itkk.udf</groupId>-->
+            <!--                <artifactId>udf-api-esb-migration</artifactId>-->
+            <!--                <version>${udf-api.version}</version>-->
+            <!--            </dependency>-->
+            <!--            &lt;!&ndash; udf-api-eit-gbom &ndash;&gt;-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.itkk.udf</groupId>-->
+            <!--                <artifactId>udf-api-eit-gbom</artifactId>-->
+            <!--                <version>${udf-api.version}</version>-->
+            <!--            </dependency>-->
+            <!--            &lt;!&ndash; udf-api-eit &ndash;&gt;-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.itkk.udf</groupId>-->
+            <!--                <artifactId>udf-api-eit</artifactId>-->
+            <!--                <version>${udf-api.version}</version>-->
+            <!--            </dependency>-->
+            <!--            &lt;!&ndash; udf-api-common &ndash;&gt;-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.itkk.udf</groupId>-->
+            <!--                <artifactId>udf-api-common</artifactId>-->
+            <!--                <version>${udf-api.version}</version>-->
+            <!--            </dependency>-->
+            <!-- udf-starter-core -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-core</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-datasource-dynamic -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-datasource-dynamic</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-processes-activiti -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-process-activiti</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-cache-db -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-cache-db</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-queue-db -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-queue-db</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-file-db -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-file-db</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+            <!-- udf-starter-ws -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-starter-ws</artifactId>
+                <version>${udf-starter.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <!-- 构建 -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <!-- 依赖仓库 -->
+    <repositories>
+        <!-- 阿里云仓库 -->
+        <repository>
+            <id>central</id>
+            <name>aliyun maven</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+    <!-- 插件仓库 -->
+    <pluginRepositories>
+        <!-- 阿里云仓库 -->
+        <pluginRepository>
+            <id>central</id>
+            <name>aliyun maven</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+</project>
