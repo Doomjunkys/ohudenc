@@ -4,5 +4,6 @@
 /udf-starter/*.iml
 /udf-starter/*/target/
 /udf-starter/*/*.iml
-/udf-starter/udf-starter-ws/target/
-/udf-api/udf-api.iml
+/udf-api/*.iml
+/udf-api/*/target/
+/udf-api/*/*.iml
