@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <!-- maven坐标 -->
+    <artifactId>udf-api-server</artifactId>
+    <name>udf-api-server</name>
+    <packaging>jar</packaging>
+    <url>https://www.itkk.org/</url>
+    <!-- 父依赖 -->
+    <parent>
+        <groupId>org.itkk.udf</groupId>
+        <artifactId>udf-api</artifactId>
+        <version>1.0</version>
+    </parent>
+    <!-- 参数 -->
+    <properties>
+        <server.port>9000</server.port>
+        <management.port>8000</management.port>
+    </properties>
+    <!-- 依赖 -->
+    <dependencies>
+        <!-- udf-api-common -->
+        <dependency>
+            <groupId>org.itkk.udf</groupId>
+            <artifactId>udf-api-common</artifactId>
+        </dependency>
+    </dependencies>
+    <!-- 构建 -->
+    <build>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources/</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <!-- package -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${springboot.version}</version>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven-resources-plugin.version}</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <nonFilteredFileExtensions>
+                        <nonFilteredFileExtension>xlsx</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>xls</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

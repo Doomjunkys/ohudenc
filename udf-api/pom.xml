@@ -24,21 +24,8 @@
     </properties>
     <!--子模块 -->
     <modules>
-        <!--        <module>udf-api-server</module>-->
-        <!--        <module>udf-api-common</module>-->
-        <!--        <module>udf-api-eit</module>-->
-        <!--        <module>udf-api-eit-gbom</module>-->
-        <!--        <module>udf-api-pm-common</module>-->
-        <!--        <module>udf-api-pm-pqrr</module>-->
-        <!--        <module>udf-api-windows-server</module>-->
-        <!--        <module>udf-api-crdn</module>-->
-        <!--        <module>udf-api-general</module>-->
-        <!--        <module>udf-api-esb-migration</module>-->
-        <!--        <module>udf-api-main-data</module>-->
-        <!--        <module>udf-api-part-base-adv</module>-->
-        <!--        <module>udf-api-sor</module>-->
-        <!--        <module>udf-api-rbac</module>-->
-        <!--        <module>udf-api-pm</module>-->
+        <module>udf-api-server</module>
+        <module>udf-api-common</module>
     </modules>
     <!-- 依赖管理 -->
     <dependencyManagement>
@@ -51,84 +38,12 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!--            &lt;!&ndash; udf-api-part-base-adv &ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>org.itkk.udf</groupId>-->
-            <!--                <artifactId>udf-api-part-base-adv</artifactId>-->
-            <!--                <version>${udf-api.version}</version>-->
-            <!--            </dependency>-->
-            <!--            &lt;!&ndash; udf-api-sor &ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>org.itkk.udf</groupId>-->
-            <!--                <artifactId>udf-api-sor</artifactId>-->
-            <!--                <version>${udf-api.version}</version>-->
-            <!--            </dependency>-->
-            <!--            &lt;!&ndash; udf-api-pm &ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>org.itkk.udf</groupId>-->
-            <!--                <artifactId>udf-api-pm</artifactId>-->
-            <!--                <version>${udf-api.version}</version>-->
-            <!--            </dependency>-->
-            <!--            &lt;!&ndash; udf-api-rbac &ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>org.itkk.udf</groupId>-->
-            <!--                <artifactId>udf-api-rbac</artifactId>-->
-            <!--                <version>${udf-api.version}</version>-->
-            <!--            </dependency>-->
-            <!--            &lt;!&ndash; udf-api-main-data &ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>org.itkk.udf</groupId>-->
-            <!--                <artifactId>udf-api-main-data</artifactId>-->
-            <!--                <version>${udf-api.version}</version>-->
-            <!--            </dependency>-->
-            <!--            &lt;!&ndash; udf-api-crdn &ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>org.itkk.udf</groupId>-->
-            <!--                <artifactId>udf-api-crdn</artifactId>-->
-            <!--                <version>${udf-api.version}</version>-->
-            <!--            </dependency>-->
-            <!--            &lt;!&ndash; udf-api-pm-pqrr &ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>org.itkk.udf</groupId>-->
-            <!--                <artifactId>udf-api-pm-pqrr</artifactId>-->
-            <!--                <version>${udf-api.version}</version>-->
-            <!--            </dependency>-->
-            <!--            &lt;!&ndash; udf-api-general &ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>org.itkk.udf</groupId>-->
-            <!--                <artifactId>udf-api-general</artifactId>-->
-            <!--                <version>${udf-api.version}</version>-->
-            <!--            </dependency>-->
-            <!--            &lt;!&ndash; udf-api-pm-common &ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>org.itkk.udf</groupId>-->
-            <!--                <artifactId>udf-api-pm-common</artifactId>-->
-            <!--                <version>${udf-api.version}</version>-->
-            <!--            </dependency>-->
-            <!--            &lt;!&ndash; udf-api-esb-migration &ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>org.itkk.udf</groupId>-->
-            <!--                <artifactId>udf-api-esb-migration</artifactId>-->
-            <!--                <version>${udf-api.version}</version>-->
-            <!--            </dependency>-->
-            <!--            &lt;!&ndash; udf-api-eit-gbom &ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>org.itkk.udf</groupId>-->
-            <!--                <artifactId>udf-api-eit-gbom</artifactId>-->
-            <!--                <version>${udf-api.version}</version>-->
-            <!--            </dependency>-->
-            <!--            &lt;!&ndash; udf-api-eit &ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>org.itkk.udf</groupId>-->
-            <!--                <artifactId>udf-api-eit</artifactId>-->
-            <!--                <version>${udf-api.version}</version>-->
-            <!--            </dependency>-->
-            <!--            &lt;!&ndash; udf-api-common &ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>org.itkk.udf</groupId>-->
-            <!--                <artifactId>udf-api-common</artifactId>-->
-            <!--                <version>${udf-api.version}</version>-->
-            <!--            </dependency>-->
+            <!-- udf-api-common -->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-api-common</artifactId>
+                <version>${udf-api.version}</version>
+            </dependency>
             <!-- udf-starter-core -->
             <dependency>
                 <groupId>org.itkk.udf</groupId>

@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <!-- maven坐标 -->
+    <artifactId>udf-api-common</artifactId>
+    <name>udf-api-common</name>
+    <packaging>jar</packaging>
+    <url>https://www.itkk.org/</url>
+    <!-- 父依赖 -->
+    <parent>
+        <groupId>org.itkk.udf</groupId>
+        <artifactId>udf-api</artifactId>
+        <version>1.0</version>
+    </parent>
+    <!-- 依赖 -->
+    <dependencies>
+        <!-- udf-starter-core -->
+        <dependency>
+            <groupId>org.itkk.udf</groupId>
+            <artifactId>udf-starter-core</artifactId>
+        </dependency>
+        <!-- mysql -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <!-- udf-starter-datasource-dynamic -->
+        <dependency>
+            <groupId>org.itkk.udf</groupId>
+            <artifactId>udf-starter-datasource-dynamic</artifactId>
+        </dependency>
+        <!-- thymeleaf -->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-thymeleaf</artifactId>-->
+        <!--        </dependency>-->
+        <!-- itext7 -->
+        <!--        <dependency>-->
+        <!--            <groupId>com.itextpdf</groupId>-->
+        <!--            <artifactId>itext7-core</artifactId>-->
+        <!--            <version>${itext7.version}</version>-->
+        <!--            <type>pom</type>-->
+        <!--        </dependency>-->
+        <!-- udf-starter-cache-db -->
+        <!--        <dependency>-->
+        <!--            <groupId>org.itkk.udf</groupId>-->
+        <!--            <artifactId>udf-starter-cache-db</artifactId>-->
+        <!--        </dependency>-->
+        <!-- udf-starter-queue-db -->
+        <!--        <dependency>-->
+        <!--            <groupId>org.itkk.udf</groupId>-->
+        <!--            <artifactId>udf-starter-queue-db</artifactId>-->
+        <!--        </dependency>-->
+        <!-- udf-starter-file-db -->
+        <!--        <dependency>-->
+        <!--            <groupId>org.itkk.udf</groupId>-->
+        <!--            <artifactId>udf-starter-file-db</artifactId>-->
+        <!--        </dependency>-->
+        <!-- udf-starter-process-activiti -->
+        <!--        <dependency>-->
+        <!--            <groupId>org.itkk.udf</groupId>-->
+        <!--            <artifactId>udf-starter-process-activiti</artifactId>-->
+        <!--        </dependency>-->
+    </dependencies>
+    <!-- 构建 -->
+    <build>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources/</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>**/*.jar</exclude>
+                </excludes>
+            </resource>
+        </resources>
+    </build>
+</project>
