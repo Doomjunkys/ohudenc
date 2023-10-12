@@ -19,13 +19,13 @@ echo 'stop application end'
 
 echo 'bak and copy application begin'
     datestr=$(date +%Y_%m_%d_%H_%M_%S)
-    mv /usr/local/share/${spring.application.name}/app/${project.name}/${project.name}-${project.version}.jar /usr/local/share/${spring.application.name}/app/${project.name}/${project.name}-${project.version}.jar.${datestr}
-    cp ${project.name}-${project.version}.jar /usr/local/share/${spring.application.name}/app/${project.name}/${project.name}-${project.version}.jar
+    mv /usr/local/share/app/${project.name}/${project.name}-${project.version}.jar /usr/local/share/app/${project.name}/${project.name}-${project.version}.jar.${datestr}
+    cp ${project.name}-${project.version}.jar /usr/local/share/app/${project.name}/${project.name}-${project.version}.jar
 echo 'bak and copy application end'
 
 echo 'start application begin'
     rm -rf nohup.out
-    nohup java -server -Xms1024m -Xmx1024m -XX:+UseG1GC -jar /usr/local/share/${spring.application.name}/app/${project.name}/${project.name}-${project.version}.jar --spring.profiles.active=prod &
+    nohup java -server -Xms1024m -Xmx1024m -XX:+UseG1GC -jar /usr/local/share/app/${project.name}/${project.name}-${project.version}.jar --spring.profiles.active=prod &
 echo 'start application end'
 
 echo 'check service begin'
