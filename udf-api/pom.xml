@@ -56,12 +56,6 @@
                 <artifactId>udf-starter-datasource-dynamic</artifactId>
                 <version>${udf-starter.version}</version>
             </dependency>
-            <!-- udf-starter-processes-activiti -->
-            <dependency>
-                <groupId>org.itkk.udf</groupId>
-                <artifactId>udf-starter-process-activiti</artifactId>
-                <version>${udf-starter.version}</version>
-            </dependency>
             <!-- udf-starter-cache-db -->
             <dependency>
                 <groupId>org.itkk.udf</groupId>

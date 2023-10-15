@@ -23,7 +23,6 @@
         <druid-spring-boot-starter.version>1.1.20</druid-spring-boot-starter.version>
         <mybatis-spring-boot-starter.version>2.1.2</mybatis-spring-boot-starter.version>
         <mybatis-plus-boot-starter.version>3.3.1.tmp</mybatis-plus-boot-starter.version>
-        <activiti-spring-boot-starter-basic.version>6.0.0</activiti-spring-boot-starter-basic.version>
         <guava.version>28.2-jre</guava.version>
         <poi.version>4.1.2</poi.version>
     </properties>
@@ -32,7 +31,6 @@
         <module>udf-starter-core</module>
         <module>udf-starter-datasource-dynamic</module>
         <module>udf-starter-cache-db</module>
-        <module>udf-starter-process-activiti</module>
         <module>udf-starter-queue-db</module>
         <module>udf-starter-file-db</module>
         <module>udf-starter-ws</module>
