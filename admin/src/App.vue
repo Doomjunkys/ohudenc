@@ -5,7 +5,7 @@
         <el-button class="mainMenuBtn" :style="mainMenuBtnStyle" type="text">
           <i class="el-icon-menu"></i>
         </el-button>
-        <a class="mainLogoBtn" :style="mainLogoBtnStyle">
+        <a class="mainLogoBtn" href="/" :style="mainLogoBtnStyle">
           <span>
             <i>{{golbSetting.appLogoName}}</i>
           </span>
