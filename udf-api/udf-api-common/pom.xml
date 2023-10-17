@@ -30,6 +30,16 @@
             <groupId>org.itkk.udf</groupId>
             <artifactId>udf-starter-datasource-dynamic</artifactId>
         </dependency>
+        <!-- udf-starter-cache-db -->
+        <dependency>
+            <groupId>org.itkk.udf</groupId>
+            <artifactId>udf-starter-cache-db</artifactId>
+        </dependency>
+        <!-- udf-starter-queue-db -->
+        <dependency>
+            <groupId>org.itkk.udf</groupId>
+            <artifactId>udf-starter-queue-db</artifactId>
+        </dependency>
         <!-- thymeleaf -->
         <!--        <dependency>-->
         <!--            <groupId>org.springframework.boot</groupId>-->
@@ -42,16 +52,7 @@
         <!--            <version>${itext7.version}</version>-->
         <!--            <type>pom</type>-->
         <!--        </dependency>-->
-        <!-- udf-starter-cache-db -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.itkk.udf</groupId>-->
-        <!--            <artifactId>udf-starter-cache-db</artifactId>-->
-        <!--        </dependency>-->
-        <!-- udf-starter-queue-db -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.itkk.udf</groupId>-->
-        <!--            <artifactId>udf-starter-queue-db</artifactId>-->
-        <!--        </dependency>-->
+
         <!-- udf-starter-file-db -->
         <!--        <dependency>-->
         <!--            <groupId>org.itkk.udf</groupId>-->

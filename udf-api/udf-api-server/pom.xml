@@ -20,10 +20,10 @@
     </properties>
     <!-- 依赖 -->
     <dependencies>
-        <!-- udf-api-common -->
+        <!--udf-api-general-->
         <dependency>
             <groupId>org.itkk.udf</groupId>
-            <artifactId>udf-api-common</artifactId>
+            <artifactId>udf-api-general</artifactId>
         </dependency>
     </dependencies>
     <!-- 构建 -->
