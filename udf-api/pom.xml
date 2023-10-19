@@ -27,6 +27,7 @@
         <module>udf-api-server</module>
         <module>udf-api-common</module>
         <module>udf-api-general</module>
+        <module>udf-api-rbac</module>
     </modules>
     <!-- 依赖管理 -->
     <dependencyManagement>
@@ -38,6 +39,12 @@
                 <version>${springboot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <!--udf-api-rbac-->
+            <dependency>
+                <groupId>org.itkk.udf</groupId>
+                <artifactId>udf-api-rbac</artifactId>
+                <version>${udf-api.version}</version>
             </dependency>
             <!--udf-api-general-->
             <dependency>

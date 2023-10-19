@@ -2,13 +2,13 @@ package org.itkk.udf.starter.core;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.itkk.udf.starter.core.exception.AuthException;
-import org.itkk.udf.starter.core.exception.ParameterValidException;
-import org.itkk.udf.starter.core.exception.SystemRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.itkk.udf.starter.core.exception.AuthException;
+import org.itkk.udf.starter.core.exception.ParameterValidException;
+import org.itkk.udf.starter.core.exception.SystemRuntimeException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
@@ -428,6 +428,29 @@ public class CoreUtil {
             return servletRequestAttributes.getResponse();
         }
         return null;
+    }
+
+    /**
+     * 获得参数(先从问号后面取,如果为空,再从header里取,如果为空,从作用域中取,如果都为空,则返回null)
+     *
+     * @param request       request
+     * @param parameterName parameterName
+     * @return String
+     */
+    public static String getParameter(HttpServletRequest request, String parameterName) {
+        //获得token
+        String token = request.getParameter(parameterName);
+        if (StringUtils.isBlank(token)) {
+            token = request.getHeader(parameterName);
+            if (StringUtils.isBlank(token)) {
+                Object tokenObj = request.getAttribute(parameterName);
+                if (tokenObj != null) {
+                    token = tokenObj.toString();
+                }
+            }
+        }
+        //返回
+        return token;
     }
 
 

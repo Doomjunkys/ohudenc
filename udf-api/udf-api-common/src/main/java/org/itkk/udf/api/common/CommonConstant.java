@@ -13,12 +13,12 @@ public class CommonConstant {
     /**
      * 需认证的web根路径
      */
-    public static final String URL_ROOT_WEB_PRIVATE = URL_ROOT_WEB + "/private";
+    public static final String URL_ROOT_WEB_PRIVATE = URL_ROOT_WEB + "/private/";
 
     /**
      * 无需认证的web根路径
      */
-    public static final String URL_ROOT_WEB_PUBLIC = URL_ROOT_WEB + "/public";
+    public static final String URL_ROOT_WEB_PUBLIC = URL_ROOT_WEB + "/public/";
 
     /**
      * 默认时间格式
@@ -64,6 +64,33 @@ public class CommonConstant {
      * 发送邮件队列处理器
      */
     public static final String SEND_EMAIL_QUEUE_HANDLE = "SEND_EMAIL_QUEUE_HANDLE";
+
+    /**
+     * 数据状态(正常,删除)
+     */
+    public enum DATA_STATUS {
+
+        /**
+         * 删除
+         */
+        STATUS_F1(-1),
+
+        /**
+         * 正常
+         */
+        STATUS_1(1);
+
+        private Integer value;
+
+        DATA_STATUS(Integer value) {
+            this.value = value;
+        }
+
+        public Integer value() {
+            return this.value;
+        }
+
+    }
 
     /**
      * 私有化构造函数

@@ -25,6 +25,11 @@
             <groupId>org.itkk.udf</groupId>
             <artifactId>udf-api-general</artifactId>
         </dependency>
+        <!--udf-api-rbac-->
+        <dependency>
+            <groupId>org.itkk.udf</groupId>
+            <artifactId>udf-api-rbac</artifactId>
+        </dependency>
     </dependencies>
     <!-- 构建 -->
     <build>
