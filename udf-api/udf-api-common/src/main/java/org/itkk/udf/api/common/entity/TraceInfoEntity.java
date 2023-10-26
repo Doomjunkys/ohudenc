@@ -14,7 +14,7 @@ import java.util.Date;
 @Accessors(chain = true)
 @ToString
 @EqualsAndHashCode(callSuper = false)
-@TableName("TF_TRACE_INFO")
+@TableName("TM_COMMON_TRACE_INFO")
 public class TraceInfoEntity {
     /**
      * 主键

@@ -14,55 +14,41 @@ import java.util.Date;
 @Accessors(chain = true)
 @ToString
 @EqualsAndHashCode(callSuper = false)
-@TableName("TM_COMMON_PARAMETER")
-public class ParameterEntity {
-
+@TableName("TM_COMMON_DATA_HIS")
+public class DataHisEntity {
     /**
-     * 代码
+     * 主键
      */
-    @TableId("CODE")
-    private String code;
-
+    @TableId("ID")
+    private String id;
     /**
-     * 类别
+     * 追踪ID
      */
-    @TableField("TYPE")
-    private String type;
-
+    @TableField("TRACE_ID")
+    private String traceId;
     /**
-     * 名称
+     * 表名
      */
-    @TableField("NAME")
-    private String name;
-
+    @TableField("TABLE_NAME")
+    private String TABLE_NAME;
     /**
-     * 内容
+     * 表主键
+     */
+    @TableField("TABLE_PK")
+    private String TABLE_PK;
+    /**
+     * 表内容
      */
     @TableField("CONTENT")
     private String content;
-
-    /**
-     * 创建人
-     */
-    @TableField("CREATE_BY")
-    private String createBy;
-
     /**
      * 创建时间
      */
     @TableField("CREATE_DATE")
     private Date createDate;
-
     /**
-     * 更新人
+     * 创建人
      */
-    @TableField("UPDATE_BY")
-    private String updateBy;
-
-    /**
-     * 更新时间
-     */
-    @TableField("UPDATE_DATE")
-    private Date updateDate;
-
+    @TableField("CREATE_BY")
+    private String createBy;
 }
