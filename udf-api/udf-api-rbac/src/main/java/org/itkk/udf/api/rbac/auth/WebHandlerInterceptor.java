@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.itkk.udf.api.common.CommonConstant;
 import org.itkk.udf.api.common.CommonProperties;
+import org.itkk.udf.starter.cache.db.dto.DbCacheDto;
 import org.itkk.udf.starter.cache.db.service.DbCacheService;
 import org.itkk.udf.starter.core.CoreUtil;
 import org.itkk.udf.starter.core.exception.AuthException;
@@ -40,6 +41,12 @@ public class WebHandlerInterceptor implements HandlerInterceptor {
             //判空
             if (StringUtils.isBlank(token)) {
                 throw new AuthException("缺少必要参数token");
+            }
+            //获得token信息
+            DbCacheDto dbCacheDto = dbCacheService.getDto(token);
+            //判空
+            if (dbCacheDto == null) {
+                throw new AuthException("token不存在");
             }
         }
         //正常返回
