@@ -180,7 +180,7 @@ public class DbFileService {
                 .setBusinessPath(businessPath)
                 .setPreviewPdfFileId(previewPdfFileId)
                 .setCreateBy(userId)
-                .setCreteDate(new Date())
+                .setCreateDate(new Date())
                 .setUpdateBy(userId)
                 .setUpdateDate(new Date());
         iDbFileInfoRepository.insert(dbFileInfoEntity);

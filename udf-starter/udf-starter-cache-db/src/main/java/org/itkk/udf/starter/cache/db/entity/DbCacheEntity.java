@@ -19,13 +19,13 @@ public class DbCacheEntity {
     /**
      * 键(主键)
      */
-    @TableId("KEY")
-    private String key;
+    @TableId("K")
+    private String k;
     /**
      * 值
      */
-    @TableField("VALUE")
-    private String value;
+    @TableField("V")
+    private String v;
     /**
      * 过期时长(毫秒)
      */

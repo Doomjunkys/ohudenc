@@ -72,7 +72,7 @@ public class DbCacheService {
         //判空
         if (entity != null) {
             entity = new DbCacheEntity();
-            entity.setKey(key);
+            entity.setK(key);
             entity.setCreateTime(System.currentTimeMillis());
             entity.setExpire(expire);
             entity.setExpireTime(entity.getCreateTime() + entity.getExpire());
@@ -122,8 +122,8 @@ public class DbCacheService {
         if (entity == null) {
             //新增缓存
             entity = new DbCacheEntity();
-            entity.setKey(key);
-            entity.setValue(value);
+            entity.setK(key);
+            entity.setV(value);
             entity.setCreateTime(System.currentTimeMillis());
             entity.setExpire(expire);
             entity.setExpireTime(entity.getCreateTime() + entity.getExpire());
@@ -175,8 +175,8 @@ public class DbCacheService {
         if (entity == null) {
             //新增缓存
             entity = new DbCacheEntity();
-            entity.setKey(key);
-            entity.setValue(value);
+            entity.setK(key);
+            entity.setV(value);
             entity.setCreateTime(System.currentTimeMillis());
             entity.setExpire(expire);
             entity.setExpireTime(entity.getCreateTime() + entity.getExpire());
@@ -185,7 +185,7 @@ public class DbCacheService {
             iDbCacheRepository.insert(entity);
         } else {
             //更新缓存
-            entity.setValue(value);
+            entity.setV(value);
             entity.setCreateTime(System.currentTimeMillis());
             entity.setExpire(expire);
             entity.setExpireTime(entity.getCreateTime() + entity.getExpire());
@@ -215,7 +215,7 @@ public class DbCacheService {
         //构造key
         keyPrefix = getKey(keyPrefix) + "%";
         //删除
-        iDbCacheRepository.delete(new QueryWrapper<DbCacheEntity>().lambda().like(DbCacheEntity::getKey, keyPrefix));
+        iDbCacheRepository.delete(new QueryWrapper<DbCacheEntity>().lambda().like(DbCacheEntity::getK, keyPrefix));
     }
 
     /**
@@ -230,7 +230,7 @@ public class DbCacheService {
         //构造key
         keyPrefix = getKey(keyPrefix) + "%";
         //获得key清单
-        List<DbCacheEntity> dbCacheEntityList = iDbCacheRepository.selectList(new QueryWrapper<DbCacheEntity>().lambda().select(DbCacheEntity::getKey).like(DbCacheEntity::getKey, keyPrefix));
+        List<DbCacheEntity> dbCacheEntityList = iDbCacheRepository.selectList(new QueryWrapper<DbCacheEntity>().lambda().select(DbCacheEntity::getK).like(DbCacheEntity::getK, keyPrefix));
         //判空
         if (CollectionUtils.isNotEmpty(dbCacheEntityList)) {
             //初始化
@@ -238,11 +238,11 @@ public class DbCacheService {
             //遍历
             for (DbCacheEntity dbCacheEntity : dbCacheEntityList) {
                 //获得缓存实体
-                DbCacheEntity entity = getEntity(dbCacheEntity.getKey());
+                DbCacheEntity entity = getEntity(dbCacheEntity.getK());
                 //判空
                 if (entity != null) {
                     //放入结果集
-                    rv.add(new DbCacheDto().setValue(entity.getValue()).setExpireTime(entity.getExpireTime()));
+                    rv.add(new DbCacheDto().setValue(entity.getV()).setExpireTime(entity.getExpireTime()));
                 }
             }
         }
@@ -262,7 +262,7 @@ public class DbCacheService {
         //获得缓存实体
         DbCacheEntity entity = getEntity(key);
         //返回
-        return entity == null ? null : new DbCacheDto().setValue(entity.getValue()).setExpireTime(entity.getExpireTime());
+        return entity == null ? null : new DbCacheDto().setValue(entity.getV()).setExpireTime(entity.getExpireTime());
     }
 
     /**
@@ -277,7 +277,7 @@ public class DbCacheService {
         //构造key
         keyPrefix = getKey(keyPrefix) + "%";
         //获得key清单
-        List<DbCacheEntity> dbCacheEntityList = iDbCacheRepository.selectList(new QueryWrapper<DbCacheEntity>().lambda().select(DbCacheEntity::getKey).like(DbCacheEntity::getKey, keyPrefix));
+        List<DbCacheEntity> dbCacheEntityList = iDbCacheRepository.selectList(new QueryWrapper<DbCacheEntity>().lambda().select(DbCacheEntity::getK).like(DbCacheEntity::getK, keyPrefix));
         //判空
         if (CollectionUtils.isNotEmpty(dbCacheEntityList)) {
             //初始化
@@ -285,11 +285,11 @@ public class DbCacheService {
             //遍历
             for (DbCacheEntity dbCacheEntity : dbCacheEntityList) {
                 //获得缓存实体
-                DbCacheEntity entity = getEntity(dbCacheEntity.getKey());
+                DbCacheEntity entity = getEntity(dbCacheEntity.getK());
                 //判空
                 if (entity != null) {
                     //放入结果集
-                    rv.add(entity.getValue());
+                    rv.add(entity.getV());
                 }
             }
         }
@@ -309,7 +309,7 @@ public class DbCacheService {
         //获得缓存实体
         DbCacheEntity entity = getEntity(key);
         //返回
-        return entity == null ? null : entity.getValue();
+        return entity == null ? null : entity.getV();
     }
 
     /**

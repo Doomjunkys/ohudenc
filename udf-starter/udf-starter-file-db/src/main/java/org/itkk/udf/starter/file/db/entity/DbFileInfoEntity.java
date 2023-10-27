@@ -97,8 +97,8 @@ public class DbFileInfoEntity {
     /**
      * 创建时间(这里单词写错,多多包涵)
      */
-    @TableField("CRETE_DATE")
-    private Date creteDate;
+    @TableField("CREATE_DATE")
+    private Date createDate;
 
     /**
      * 更新人

@@ -3,7 +3,7 @@
 <mapper namespace="org.itkk.udf.api.common.repository.ITraceInfoRepository">
     <delete id="clearTraceInfo">
         DELETE
-        FROM TF_TRACE_INFO A
-        WHERE A.CREATE_DATE <![CDATA[ <= ]]> (SYSDATE - #{traceLogKeepDays})
+        FROM TM_COMMON_TRACE_INFO A
+        WHERE A.CREATE_DATE <![CDATA[ <= ]]>  date_sub(now(), INTERVAL #{traceLogKeepDays} day)
     </delete>
 </mapper>

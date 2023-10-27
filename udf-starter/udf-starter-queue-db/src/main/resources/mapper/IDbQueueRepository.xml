@@ -9,16 +9,13 @@
           AND A.STATUS = 2
     </delete>
     <select id="loadPendingConsumptionList" resultType="java.lang.String">
-        SELECT *
-        FROM (
-                 SELECT ID
-                 FROM TF_DB_QUEUE A
-                 WHERE A.APPLICATION_NAME = #{applicationName}
-                   AND A.PROFILES_ACTIVE = #{profilesActive}
-                   AND A.QUEUE_NAME = #{queueName}
-                   AND A.STATUS = 1
-                 ORDER BY A.SEND_DATE ASC
-             )
-        WHERE ROWNUM <![CDATA[ <= ]]> #{limit}
+        SELECT ID
+        FROM TF_DB_QUEUE A
+        WHERE A.APPLICATION_NAME = #{applicationName}
+          AND A.PROFILES_ACTIVE = #{profilesActive}
+          AND A.QUEUE_NAME = #{queueName}
+          AND A.STATUS = 1
+        ORDER BY A.SEND_DATE,A.ID ASC
+        LIMIT #{limit}
     </select>
 </mapper>
