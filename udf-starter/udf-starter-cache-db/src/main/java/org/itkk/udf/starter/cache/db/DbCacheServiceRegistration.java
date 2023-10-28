@@ -123,7 +123,7 @@ public class DbCacheServiceRegistration implements IServiceRegistration {
     public void refresh() throws JsonProcessingException {
         //更新缓存
         dbCacheService.set(getKey(), internalObjectMapper.writeValueAsString(new ServiceDto().setApplicationName(this.applicationName).setIp(this.ip).setPort(this.port).setManagementPort(this.managementPort)), DbCacheServiceRegistration.EXPIRE);
-        log.debug("续订服务状态:{}", getKey());
+        log.info("续订服务状态:{}", getKey());
     }
 
     @Override

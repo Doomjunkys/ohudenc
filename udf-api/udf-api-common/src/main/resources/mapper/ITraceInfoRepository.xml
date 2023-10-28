@@ -4,6 +4,6 @@
     <delete id="clearTraceInfo">
         DELETE
         FROM TM_COMMON_TRACE_INFO A
-        WHERE A.CREATE_DATE <![CDATA[ <= ]]>  date_sub(now(), INTERVAL #{traceLogKeepDays} day)
+        WHERE A.CREATE_DATE <![CDATA[ <= ]]>  date_sub(current_timestamp, INTERVAL #{traceLogKeepDays} day)
     </delete>
 </mapper>
