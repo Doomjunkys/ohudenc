@@ -2,12 +2,13 @@ package org.itkk.udf.starter.cache.db;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.itkk.udf.starter.cache.db.service.DbCacheService;
-import org.itkk.udf.starter.core.CoreConstant;
-import org.itkk.udf.starter.core.registration.IServiceRegistration;
-import org.itkk.udf.starter.core.registration.ServiceDto;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.itkk.udf.starter.cache.db.service.DbCacheService;
+import org.itkk.udf.starter.core.CoreConstant;
+import org.itkk.udf.starter.core.CoreUtil;
+import org.itkk.udf.starter.core.registration.IServiceRegistration;
+import org.itkk.udf.starter.core.registration.ServiceDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.env.Environment;
@@ -15,7 +16,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
@@ -96,7 +96,7 @@ public class DbCacheServiceRegistration implements IServiceRegistration {
     public void init() throws UnknownHostException, JsonProcessingException {
         //获得IP和端口
         this.applicationName = env.getProperty("spring.application.name");
-        this.ip = InetAddress.getLocalHost().getHostAddress();
+        this.ip = CoreUtil.getIpAddress();
         this.port = env.getProperty("server.port");
         this.managementPort = env.getProperty("management.server.port");
         //放入缓存
@@ -123,7 +123,7 @@ public class DbCacheServiceRegistration implements IServiceRegistration {
     public void refresh() throws JsonProcessingException {
         //更新缓存
         dbCacheService.set(getKey(), internalObjectMapper.writeValueAsString(new ServiceDto().setApplicationName(this.applicationName).setIp(this.ip).setPort(this.port).setManagementPort(this.managementPort)), DbCacheServiceRegistration.EXPIRE);
-        log.info("续订服务状态:{}", getKey());
+        log.debug("续订服务状态:{}", getKey());
     }
 
     @Override
