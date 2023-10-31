@@ -96,7 +96,7 @@ public class DbCacheServiceRegistration implements IServiceRegistration {
     public void init() throws UnknownHostException, JsonProcessingException {
         //获得IP和端口
         this.applicationName = env.getProperty("spring.application.name");
-        this.ip = CoreUtil.getIpAddress();
+        this.ip = CoreUtil.getLocalHostLANAddress().getHostAddress();
         this.port = env.getProperty("server.port");
         this.managementPort = env.getProperty("management.server.port");
         //放入缓存
