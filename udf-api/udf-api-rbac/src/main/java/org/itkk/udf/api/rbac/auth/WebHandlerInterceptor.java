@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.itkk.udf.api.common.CommonConstant;
 import org.itkk.udf.api.common.CommonProperties;
+import org.itkk.udf.api.common.dto.UserDto;
+import org.itkk.udf.api.rbac.service.UserService;
 import org.itkk.udf.starter.cache.db.dto.DbCacheDto;
 import org.itkk.udf.starter.cache.db.service.DbCacheService;
 import org.itkk.udf.starter.core.CoreUtil;
@@ -32,6 +34,12 @@ public class WebHandlerInterceptor implements HandlerInterceptor {
     @Autowired
     private CommonProperties commonProperties;
 
+    /**
+     * userService
+     */
+    @Autowired
+    private UserService userService;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //排除options
@@ -48,6 +56,12 @@ public class WebHandlerInterceptor implements HandlerInterceptor {
             if (dbCacheDto == null) {
                 throw new AuthException("token不存在");
             }
+            //获得tokenInfo
+            UserDto userDto = userService.info(token, dbCacheDto.getValue());
+            //放入请求作用域
+            request.setAttribute(CommonConstant.PARAMETER_NAME_TOKEN_INFO, userDto);
+            //刷新token ttl
+            dbCacheService.setTtl(token, CommonConstant.TOKEN_CACHE_TTL);
         }
         //正常返回
         return true;
