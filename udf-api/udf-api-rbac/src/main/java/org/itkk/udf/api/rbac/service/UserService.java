@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.google.common.cache.Cache;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.itkk.udf.api.common.CommonConstant;
 import org.itkk.udf.api.common.dto.UserDto;
 import org.itkk.udf.api.common.service.IUserService;
@@ -123,6 +124,19 @@ public class UserService implements IUserService {
         }
         //登陆 & 返回
         return this.login(new LoginDto().setUserId(registeredDto.getUserId()).setPswd(registeredDto.getPswd()));
+    }
+
+    /**
+     * 登出
+     *
+     * @param token token
+     */
+    public void logout(String token) {
+        //判空
+        if (StringUtils.isNotBlank(token)) {
+            //删除缓存
+            dbCacheService.delete(token);
+        }
     }
 
     /**

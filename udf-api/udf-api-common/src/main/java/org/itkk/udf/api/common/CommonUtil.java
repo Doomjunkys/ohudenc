@@ -27,6 +27,20 @@ public class CommonUtil {
     }
 
     /**
+     * 获得token
+     *
+     * @param request request
+     * @return String
+     */
+    public static String getToken(HttpServletRequest request) {
+        Object tokenObj = request.getAttribute(CommonConstant.PARAMETER_NAME_TOKEN);
+        if (tokenObj != null) {
+            return (String) tokenObj;
+        }
+        return null;
+    }
+
+    /**
      * 私有化构造函数
      */
     private CommonUtil() {

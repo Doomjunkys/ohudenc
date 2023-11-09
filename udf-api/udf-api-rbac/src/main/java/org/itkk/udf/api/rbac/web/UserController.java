@@ -30,6 +30,17 @@ public class UserController {
     private UserService userService;
 
     /**
+     * 登出
+     *
+     * @return RestResponse<String>
+     */
+    @DeleteMapping("logout")
+    public RestResponse<String> logout() {
+        userService.logout(CommonUtil.getToken(httpServletRequest));
+        return RestResponse.success();
+    }
+
+    /**
      * 更改密码
      *
      * @param changePswdDto changePswdDto
