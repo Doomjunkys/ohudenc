@@ -456,6 +456,10 @@ public class CoreUtil {
         return token;
     }
 
+    public static void main(String[] args) throws UnknownHostException {
+        System.out.println(getLocalHostLANAddress().getHostAddress());
+    }
+
     /**
      * 获得局域网IP地址
      *
@@ -468,6 +472,7 @@ public class CoreUtil {
             // 遍历所有的网络接口
             for (Enumeration ifaces = NetworkInterface.getNetworkInterfaces(); ifaces.hasMoreElements(); ) {
                 NetworkInterface iface = (NetworkInterface) ifaces.nextElement();
+                log.info("{} , {}", iface.getName(), iface.getDisplayName());
                 // 在所有的接口下再遍历IP
                 for (Enumeration inetAddrs = iface.getInetAddresses(); inetAddrs.hasMoreElements(); ) {
                     InetAddress inetAddr = (InetAddress) inetAddrs.nextElement();
