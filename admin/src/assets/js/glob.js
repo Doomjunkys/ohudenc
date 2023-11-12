@@ -53,11 +53,15 @@ const glob = {
     axios.interceptors.response.use(response => {
         if (response.status == 200) {
           return Promise.resolve(response);
+        } else {
+          if (response.status == 403) {
+            //TODO 认证错误,需要跳转到首页
+          } else {
+            this.message(error);
+          }
+          return Promise.reject(response);
         }
-        this.message(error);
-        return Promise.reject(response);
-      },
-      error => {
+      }, error => {
         this.message(error);
         return Promise.reject(error.response);
       }
@@ -65,14 +69,12 @@ const glob = {
   },
   // 错误面板
   message(error) {
-    // 默认400错误给警告框，其他为错误框
-    const type = error.status === 400 ? 'warning' : 'error';
     //弹出消息框
     Message({
       dangerouslyUseHTMLString: false, // 设置HTML显示
       showClose: true, // 显示关闭按钮
       duration: this.ERROR_MESSAGE_DURATION * 1000, // 默认3秒后关闭
-      type,
+      type: error.status === 400 ? 'warning' : 'error',
       message: this.getErrorMessage(error)
     });
   },

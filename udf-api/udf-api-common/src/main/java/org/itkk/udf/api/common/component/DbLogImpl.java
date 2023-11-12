@@ -13,6 +13,7 @@ import org.itkk.udf.starter.core.trace.ITraceAlert;
 import org.itkk.udf.starter.core.trace.TraceDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpMethod;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -63,8 +64,13 @@ public class DbLogImpl implements ITraceAlert, IExceptionAlert, IDataHis {
     @Async
     public void alert(TraceDto traceDto) {
         try {
+            //定义常量
             final String type = "ITraceAlert";
-            traceInfoService.save(traceDto.getTraceId(), type, internalObjectMapper.writeValueAsString(traceDto));
+            //排除OPTIONS请求
+            if (!HttpMethod.OPTIONS.toString().toUpperCase().equals(traceDto.getMethod().toUpperCase())) {
+                //保存
+                traceInfoService.save(traceDto.getTraceId(), type, internalObjectMapper.writeValueAsString(traceDto));
+            }
         } catch (JsonProcessingException e) {
             log.warn(traceDto.getTraceId() + " (ITraceAlert)记录trace日志失败,错误信息为 : " + e.getMessage());
         }
