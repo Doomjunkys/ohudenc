@@ -76,6 +76,8 @@
 
 <script>
 
+  import api_user from "./api/user";
+
   export default {
     name: 'App',
     data() {
@@ -139,6 +141,10 @@
         window.addEventListener('resize', this.resizeListener);
         //主动调用一次resize监听
         this.resizeListener();
+        //
+        api_user.logout().then(response => {
+          console.log(response);
+        });
       },
       //重设主题属性
       resetTheme() {
