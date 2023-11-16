@@ -1,9 +1,5 @@
-import Vue from 'vue'
-import NProgress from 'nprogress';
-import 'nprogress/nprogress.css';
 import router from "../../router";
-import axios from 'axios';
-import {Message} from 'element-ui';
+import { Message } from 'element-ui';
 
 const glob = {
   //token名称

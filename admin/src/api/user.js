@@ -1,4 +1,3 @@
-import axios from 'axios'
 import glob from '../assets/js/glob.js';
 
 const api_user = {

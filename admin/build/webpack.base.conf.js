@@ -24,6 +24,14 @@ module.exports = {
   entry: {
     app: ['babel-polyfill','./src/main.js']
   },
+  // 在这个位置添加externals设置：
+  externals: {
+    'vue': 'Vue',
+    'vue-router': 'VueRouter',
+    'element-ui': 'ELEMENT',
+    'axios': 'Axios',
+    'nprogress':'NProgress'
+  },
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
