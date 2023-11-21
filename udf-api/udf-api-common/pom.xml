@@ -41,10 +41,10 @@
             <artifactId>udf-starter-queue-db</artifactId>
         </dependency>
         <!-- thymeleaf -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.boot</groupId>-->
-        <!--            <artifactId>spring-boot-starter-thymeleaf</artifactId>-->
-        <!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
         <!-- itext7 -->
         <!--        <dependency>-->
         <!--            <groupId>com.itextpdf</groupId>-->

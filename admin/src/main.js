@@ -3,8 +3,6 @@
 import App from './App'
 import router from './router'
 import "babel-polyfill";
-import './assets/css/reset.css';
-import './assets/css/bootstrap.css';
 import './assets/scss/glob.scss';
 import glob from './assets/js/glob.js';
 
