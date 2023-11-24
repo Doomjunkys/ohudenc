@@ -40,9 +40,14 @@
             integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
     <!-- common script -->
     <script type="text/javascript">
-        //入口
+        //显示加载进度条
+        NProgress.configure({easing: 'ease', speed: 500, showSpinner: false});
+        NProgress.inc(0.2);
+        NProgress.start();
+        //页面加载完成
         $(document).ready(function () {
-
+            //结束加载进度条
+            NProgress.done();
         });
     </script>
 </div>
