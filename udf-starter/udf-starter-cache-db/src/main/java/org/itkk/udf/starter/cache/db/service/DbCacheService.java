@@ -1,6 +1,7 @@
 package org.itkk.udf.starter.cache.db.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import org.itkk.udf.starter.cache.db.dto.DbCacheDto;
 import org.itkk.udf.starter.cache.db.entity.DbCacheEntity;
 import org.itkk.udf.starter.cache.db.repository.IDbCacheRepository;
@@ -316,7 +317,7 @@ public class DbCacheService {
      * 清理过期的缓存
      */
     public void clearExpireCahce() {
-        iDbCacheRepository.clearExpireCahce();
+        iDbCacheRepository.delete(new UpdateWrapper<DbCacheEntity>().lambda().lt(DbCacheEntity::getExpireTime, System.currentTimeMillis()));
     }
 
     /**
