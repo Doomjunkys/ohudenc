@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.itkk.udf.api.common.repository.ITraceInfoRepository">
-    <delete id="clearTraceInfo">
-        DELETE
-        FROM TM_COMMON_TRACE_INFO A
-        WHERE A.CREATE_DATE <![CDATA[ <= ]]>  date_sub(current_timestamp, INTERVAL #{traceLogKeepDays} day)
-    </delete>
 </mapper>

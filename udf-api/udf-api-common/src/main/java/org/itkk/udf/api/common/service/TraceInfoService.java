@@ -1,6 +1,7 @@
 package org.itkk.udf.api.common.service;
 
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.itkk.udf.api.common.CommonProperties;
 import org.itkk.udf.api.common.entity.TraceInfoEntity;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.UUID;
 
@@ -40,7 +43,9 @@ public class TraceInfoService {
      * 定时清理追踪日志
      */
     public void clearTraceInfo() {
-        iTraceInfoRepository.clearTraceInfo(commonProperties.getTraceLogKeepDays());
+        LocalDate nextDay = LocalDate.now().minusDays(commonProperties.getTraceLogKeepDays());
+        Date date = Date.from(nextDay.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        iTraceInfoRepository.delete(new UpdateWrapper<TraceInfoEntity>().lambda().le(TraceInfoEntity::getCreateDate, date));
     }
 
     /**
