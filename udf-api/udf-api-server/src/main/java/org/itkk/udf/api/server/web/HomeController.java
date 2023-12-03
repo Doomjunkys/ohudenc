@@ -12,7 +12,7 @@ public class HomeController {
      * @param map map
      * @return String
      */
-    @GetMapping(value = {"/", "/index"})
+    @GetMapping(value = {"/", "/index.html"})
     public String index(Model map) {
         //放入作用域参数
         map.addAttribute("title", "ITKK");
