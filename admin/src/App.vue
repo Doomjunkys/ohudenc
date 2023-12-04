@@ -33,18 +33,12 @@
               </el-dropdown-menu>
             </el-dropdown>
           </div>
-          <div v-show="!showSearchInput" v-if="!logged" class="login-registered-div">
-            <el-button :style="loginBtnStyle" type="warning" size="small" round>登陆</el-button>
-          </div>
-          <div v-show="!showSearchInput" v-if="!logged" class="login-registered-div">
-            <el-button :style="registeredBtnStyle" type="warning" size="small" round>注册</el-button>
-          </div>
-          <div v-show="!showSearchInput" v-if="logged" class="bellDiv">
+          <div v-show="!showSearchInput" class="bellDiv">
             <el-badge is-dot>
               <el-button icon="el-icon-bell" size="small" circle></el-button>
             </el-badge>
           </div>
-          <div v-show="!showSearchInput" v-if="logged" class="avatarDiv">
+          <div v-show="!showSearchInput" class="avatarDiv">
             <el-avatar shape="square" size="large" icon="el-icon-user-solid">
             </el-avatar>
           </div>
@@ -116,7 +110,6 @@
           "max-width": "400px",
           width: "150px"
         },
-        logged: false,
         showSearchInput: false,
         searchInputText: null
       }
