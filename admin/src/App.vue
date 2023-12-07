@@ -35,7 +35,7 @@
           </div>
           <div v-show="!showSearchInput" class="bellDiv">
             <el-badge is-dot>
-              <el-button icon="el-icon-bell" size="small" circle></el-button>
+              <el-button :style="bellBtnStyle" icon="el-icon-bell" size="small" circle></el-button>
             </el-badge>
           </div>
           <div v-show="!showSearchInput" class="avatarDiv">
@@ -96,6 +96,9 @@
           outline: "none"
         },
         registeredBtnStyle: {
+          outline: "none"
+        },
+        bellBtnStyle: {
           outline: "none"
         },
         backtopStyle: {},
@@ -224,7 +227,7 @@
 
           .searchDiv {
             height: 50px;
-            padding-right: 10px;
+            padding-right: 8px;
             display: table-cell;
             vertical-align: middle;
             text-align: center;
@@ -234,7 +237,7 @@
 
           .searchInputDiv {
             height: 50px;
-            padding-right: 10px;
+            padding-right: 8px;
             display: table-cell;
             vertical-align: middle;
             text-align: center;
@@ -244,7 +247,7 @@
 
           .toolDiv {
             height: 50px;
-            padding-right: 10px;
+            padding-right: 8px;
             display: table-cell;
             vertical-align: middle;
             text-align: center;
@@ -252,9 +255,9 @@
             cursor: pointer;
           }
 
-          .login-registered-div {
+          .bellDiv {
             height: 50px;
-            padding-right: 5px;
+            padding-right: 8px;
             display: table-cell;
             vertical-align: middle;
             text-align: center;
@@ -264,20 +267,11 @@
 
           .avatarDiv {
             height: 50px;
-            padding-right: 12px;
+            padding-right: 10px;
+            padding-top: 4px;
             display: table-cell;
             vertical-align: middle;
             text-align: center;
-            cursor: pointer;
-          }
-
-          .bellDiv {
-            height: 50px;
-            padding-right: 25px;
-            display: table-cell;
-            vertical-align: middle;
-            text-align: center;
-            font-size: 18px;
             cursor: pointer;
           }
         }
@@ -295,7 +289,7 @@
         overflow: hidden;
 
         .footer {
-          margin-top: 20px;
+          margin-top: 10px;
 
           .el-divider--horizontal {
             margin: 0px 0px 10px 0px;

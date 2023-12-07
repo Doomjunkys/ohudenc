@@ -14,7 +14,7 @@
 
 <style lang="scss" scoped>
   .home {
-    padding-top: 20px;
+    padding: 10px 10px 10px 10px;
     max-width: 1200px;
     margin: auto !important;
 
