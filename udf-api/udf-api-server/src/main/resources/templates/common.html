@@ -263,11 +263,41 @@
             line-height: 1;
             vertical-align: baseline;
         }
+
+        .custom-loadding .mask {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            background: rgba(0, 0, 0, 0.4);
+            width: 100%;
+            height: 100%;
+            filter: alpha(opacity=60);
+            opacity: 0.6;
+            z-Index: 999;
+        }
+
+        .custom-loadding .content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 60px;
+            z-Index: 9999;
+        }
+
+        .toastBox {
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            z-index: 999999;
+            padding-top: 5px;
+        }
     </style>
     <title>[(${title})]</title>
 </head>
 <body>
 <div th:fragment="top">
+    <div class="toastBox d-flex justify-content-center"></div>
     <div class="top top-fixed">
         <nav class="navbar navbar-expand-lg navbar-light">
             <a class="navbar-brand-custm align-middle" href="#">ITKK</a>
@@ -327,18 +357,20 @@
             crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
             integrity="sha256-WqU1JavFxSAMcLP2WIOI+GB2zWmShMI82mTpLDcqFUg=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-toasts-js@1.1.4/dist/js/bootstrap-toasts-js.min.js"
+            integrity="sha256-8eA/hiFNtfHeSl0SbSynWCaqa6DeEzsLD1lxsS8JnzM=" crossorigin="anonymous"></script>
     <script type="text/javascript">
         //页面加载完成
         $(document).ready(function () {
             //设置main的高度
-            {
+            $(function () {
                 $('.main').css('max-height', window.innerHeight - 50);
                 $('.main').css('height', window.innerHeight - 50);
                 $(window).on('resize', function () {
                     $('.main').css('max-height', window.innerHeight - 50);
                     $('.main').css('height', window.innerHeight - 50);
                 });
-            }
+            });
             //搜索效果
             $('.header-right-bar-search-div button').on('click', function () {
                 var v1;
@@ -364,7 +396,7 @@
                 $('.header-right-bar-registered-div').css('display', v2);
             });
             // 返回顶部处理
-            {
+            $(function () {
                 $('.main').on('scroll', function () {
                     if ($(this).scrollTop() > 20) {
                         $('.btnTop').css('display', 'block');
@@ -375,8 +407,64 @@
                 $('.btnTop').on('click', function () {
                     $('.main').scrollTop(0);
                 });
-            }
+            });
         });
+
+        //设置(全局)的AJAX请求默认选项
+        $(function () {
+            $.ajaxSetup({
+                cache: false,
+                beforeSend: function () {
+                    //显示Loading
+                    openLoading();
+                },
+                complete: function () {
+                    //隐藏Loading
+                    closeLoading();
+                },
+                error: function (xhr) {
+                    $('.toastBox').addToast({
+                        showTimeLabel: false,
+                        title: '消息',
+                        content: '服务器开小差了,请稍后再试',
+                        autoHide: true,
+                        type: 'info',
+                        progress: {show: false},
+                        displayTime: 4000
+                    });
+                }
+            });
+        });
+
+        /**
+         * 打开Loading (最好和关闭成对出现)
+         */
+        function openLoading() {
+            //构造组件
+            var html = '';
+            html += '<div class="custom-loadding">';
+            html += ' <div class="mask">';
+            html += ' </div>';
+            html += ' <div class="content">';
+            html += '     <div class="d-flex justify-content-center">';
+            html += '         <div class="spinner-grow text-primary" role="status">';
+            html += '             <span class="sr-only">Loading...</span>';
+            html += '         </div>';
+            html += '     </div>';
+            html += ' </div>';
+            html += '</div>';
+            //添加到body中
+            $('body').append(html);
+        }
+
+        /**
+         * 关闭loading (最好和打开关闭成对出现)
+         */
+        function closeLoading() {
+            if ($('.custom-loadding')) {
+                $('.custom-loadding')[0].remove();
+            }
+        }
     </script>
 </div>
 </body>
