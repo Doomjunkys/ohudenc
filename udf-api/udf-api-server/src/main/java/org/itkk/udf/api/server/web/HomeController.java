@@ -14,8 +14,6 @@ public class HomeController {
      */
     @GetMapping(value = {"/", "/index.html"})
     public String index(Model map) {
-        //放入作用域参数
-        map.addAttribute("title", "ITKK");
         //跳转到首页
         return "index";
     }

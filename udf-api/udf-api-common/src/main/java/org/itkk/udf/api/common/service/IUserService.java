@@ -12,4 +12,12 @@ public interface IUserService {
      */
     UserDto info(String userId);
 
+    /**
+     * 获得用户信息
+     *
+     * @param token token
+     * @return UserDto
+     */
+    UserDto infoByToken(String token);
+
 }

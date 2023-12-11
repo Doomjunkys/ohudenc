@@ -293,7 +293,7 @@
             padding-top: 5px;
         }
     </style>
-    <title>[(${title})]</title>
+    <title>ITKK</title>
 </head>
 <body>
 <div th:fragment="top">
@@ -319,18 +319,16 @@
                         <sup class="el-badge__content el-badge__content--undefined is-fixed is-dot"></sup>
                     </div>
                 </div>
-                <!--
-                <div class="item header-right-bar-user-div">
-                    <button type="button" class="btn btn-info btn-custom3">
+                <div th:if="${userDto!=null}" class="item header-right-bar-user-div">
+                    <button th:if="${userDto.avatarFilePath==null}" type="button" class="btn btn-info btn-custom3 user-head-img-def">
                         <i class="fa fa-user" aria-hidden="true"></i>
                     </button>
-                    &lt;!&ndash;<img width="40px" height="40px" src="https://getbootstrap.com/docs/4.4/assets/img/favicons/apple-touch-icon.png" class="img-rounded" alt="头像">&ndash;&gt;
+                    <img th:if="${userDto.avatarFilePath!=null}" width="40px" height="40px" th:src="${userDto.avatarFilePath}" class="img-rounded user-head-img" alt="头像">
                 </div>
-                -->
-                <div class="item header-right-bar-login-div">
+                <div th:if="${userDto==null}" class="item header-right-bar-login-div">
                     <button type="button" class="btn btn-custom rounded-pill">登陆</button>
                 </div>
-                <div class="item header-right-bar-registered-div">
+                <div th:if="${userDto==null}" class="item header-right-bar-registered-div">
                     <button type="button" class="btn btn-custom rounded-pill">注册</button>
                 </div>
             </div>
@@ -360,6 +358,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-toasts-js@1.1.4/dist/js/bootstrap-toasts-js.min.js"
             integrity="sha256-8eA/hiFNtfHeSl0SbSynWCaqa6DeEzsLD1lxsS8JnzM=" crossorigin="anonymous"></script>
     <script type="text/javascript">
+        //token名称
+        var TOKEN_NAME = 'udf_token';
+        //错误消息持续时间
+        var ERROR_MESSAGE_DURATION = 3;
+        //默认提示语
+        var DEF_ERROR_INFO_MESSAGE = '服务器开小差了 , 请稍后再试';
         //页面加载完成
         $(document).ready(function () {
             //设置main的高度
@@ -426,11 +430,11 @@
                     $('.toastBox').addToast({
                         showTimeLabel: false,
                         title: '消息',
-                        content: '服务器开小差了,请稍后再试',
+                        content: DEF_ERROR_INFO_MESSAGE,
                         autoHide: true,
                         type: 'info',
                         progress: {show: false},
-                        displayTime: 4000
+                        displayTime: ERROR_MESSAGE_DURATION * 1000
                     });
                 }
             });

@@ -36,9 +36,14 @@ public class UserDto implements Serializable {
     private String nickName;
 
     /**
-     * 用户头像文件ID(非空)
+     * 用户头像文件ID
      */
     private String avatarFileId;
+
+    /**
+     * 用户头像路径
+     */
+    private String avatarFilePath;
 
     /**
      * 用户状态 (1:正常)

@@ -15,6 +15,7 @@ import org.itkk.udf.api.rbac.dto.RegisteredDto;
 import org.itkk.udf.api.rbac.dto.UserSaveDto;
 import org.itkk.udf.api.rbac.entity.UserEntity;
 import org.itkk.udf.api.rbac.repository.IUserRepository;
+import org.itkk.udf.starter.cache.db.dto.DbCacheDto;
 import org.itkk.udf.starter.cache.db.service.DbCacheService;
 import org.itkk.udf.starter.core.CoreUtil;
 import org.itkk.udf.starter.core.exception.AuthException;
@@ -250,6 +251,21 @@ public class UserService implements IUserService {
         cache.put(cacheKey, userDto);
         //返回
         return userDto;
+    }
+
+    @Override
+    public UserDto infoByToken(String token) {
+        //判空
+        if (StringUtils.isBlank(token)) {
+            //获得token信息
+            DbCacheDto dbCacheDto = dbCacheService.getDto(token);
+            //判空
+            if (dbCacheDto != null) {
+                this.info(token, dbCacheDto.getValue());
+            }
+        }
+        //返回
+        return null;
     }
 
     @Override
