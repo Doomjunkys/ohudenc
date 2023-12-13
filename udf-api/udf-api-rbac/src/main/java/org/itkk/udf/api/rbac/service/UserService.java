@@ -221,6 +221,38 @@ public class UserService implements IUserService {
         }
     }
 
+    @Override
+    public UserDto infoByToken(String token) {
+        //判空
+        if (StringUtils.isBlank(token)) {
+            //获得token信息
+            DbCacheDto dbCacheDto = dbCacheService.getDto(token);
+            //判空
+            if (dbCacheDto != null) {
+                return this.info(token, dbCacheDto.getValue());
+            }
+        }
+        //返回
+        return null;
+    }
+
+    @Override
+    public UserDto info(String userId) {
+        //定义返回值
+        UserDto userDto = null;
+        //获得数据
+        UserEntity userEntity = iUserRepository.selectOne(new QueryWrapper<UserEntity>().lambda().eq(UserEntity::getUserId, userId));
+        //判空
+        if (userEntity != null) {
+            //实例化
+            userDto = new UserDto();
+            //转换
+            CoreUtil.copyPropertiesIgnoreNull(userEntity, userDto);
+        }
+        //返回
+        return userDto;
+    }
+
     /**
      * 返回用户信息
      *
@@ -228,7 +260,7 @@ public class UserService implements IUserService {
      * @param userId userId
      * @return UserDto
      */
-    public UserDto info(String token, String userId) {
+    private UserDto info(String token, String userId) {
         //构造缓存key
         final String cacheKey = "userDto_" + token;
         //抓取缓存信息
@@ -249,38 +281,6 @@ public class UserService implements IUserService {
         }
         //放入缓存
         cache.put(cacheKey, userDto);
-        //返回
-        return userDto;
-    }
-
-    @Override
-    public UserDto infoByToken(String token) {
-        //判空
-        if (StringUtils.isBlank(token)) {
-            //获得token信息
-            DbCacheDto dbCacheDto = dbCacheService.getDto(token);
-            //判空
-            if (dbCacheDto != null) {
-                this.info(token, dbCacheDto.getValue());
-            }
-        }
-        //返回
-        return null;
-    }
-
-    @Override
-    public UserDto info(String userId) {
-        //定义返回值
-        UserDto userDto = null;
-        //获得数据
-        UserEntity userEntity = iUserRepository.selectOne(new QueryWrapper<UserEntity>().lambda().eq(UserEntity::getUserId, userId));
-        //判空
-        if (userEntity != null) {
-            //实例化
-            userDto = new UserDto();
-            //转换
-            CoreUtil.copyPropertiesIgnoreNull(userEntity, userDto);
-        }
         //返回
         return userDto;
     }
