@@ -70,6 +70,8 @@
 
 <script>
 
+  import glob from "./assets/js/glob";
+
   export default {
     name: 'App',
     data() {
@@ -135,6 +137,8 @@
         window.addEventListener('resize', this.resizeListener);
         //主动调用一次resize监听
         this.resizeListener();
+        //检查登陆
+        glob.checkLogin();
       },
       //重设主题属性
       resetTheme() {

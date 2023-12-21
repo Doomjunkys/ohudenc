@@ -30,7 +30,8 @@ module.exports = {
     'vue-router': 'VueRouter',
     'element-ui': 'ELEMENT',
     'axios': 'Axios',
-    'nprogress':'NProgress'
+    'nprogress':'NProgress',
+    'vue-cookies':'VueCookies',
   },
   output: {
     path: config.build.assetsRoot,

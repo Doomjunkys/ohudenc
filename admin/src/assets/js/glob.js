@@ -1,21 +1,47 @@
 import router from "../../router";
-import { Message } from 'element-ui';
+import {Message} from 'element-ui';
 
 const glob = {
-  //token名称
-  TOKEN_NAME: 'udf_token',
-  //API根路径
-  URL_ROOT_WEB: '/api/udf/web',
-  //错误消息持续时间
-  ERROR_MESSAGE_DURATION: 3,
-  //默认提示语
-  DEF_ERROR_INFO_MESSAGE: '服务器开小差了 , 请稍后再试',
   //初始化
   inti() {
     //初始化NProgress
     this.initNProgress();
     //初始化Axios
     this.intiAxios();
+  },
+  //返回token
+  getToken() {
+    //token名称
+    const TOKEN_NAME = 'token';
+    //返回TOKEN
+    return $cookies.get(this.TOKEN_NAME);
+  },
+  //检查是否登陆
+  checkLogin() {
+    //检查是否有token
+    if (!this.getToken()) {
+      //跳转到登陆页
+      this.jumpLoginPage();
+    }
+  },
+  //跳转到登陆页
+  jumpLoginPage() {
+    //弹出提示
+    Message({
+      dangerouslyUseHTMLString: false,
+      showClose: true,
+      duration: 2000,
+      type: 'info',
+      message: '认证过期,请重新登陆,正在跳转',
+      onClose: () => {
+        //TODO 没有TOKEN,需要跳转到登陆页(登陆页还未做,先跳转到首页)(考虑实现"重定向特性")
+        if (process.env.NODE_ENV === 'production') {
+          window.location.href = '/';
+        } else {
+          window.location.href = 'http://127.0.0.1:9000';
+        }
+      }
+    });
   },
   //初始化NProgress
   initNProgress() {
@@ -36,8 +62,16 @@ const glob = {
   intiAxios() {
     // 添加请求拦截器(从session存储中拿token)
     axios.interceptors.request.use(config => {
+        //设置请求根路径
+        if (process.env.NODE_ENV === 'production') {
+          config.baseURL = '/api/udf/web';
+        } else {
+          config.baseURL = 'http://127.0.0.1:9000/api/udf/web';
+        }
         //添加token到header中
-        config.headers.token = sessionStorage.getItem(this.TOKEN_NAME) ? sessionStorage.getItem(this.TOKEN_NAME) : '';
+        config.headers.token = this.getToken() ? this.getToken() : '';
+        //设置请求超时时间
+        config.timeout = 5000;
         //返回
         return config;
       },
@@ -47,43 +81,45 @@ const glob = {
     axios.interceptors.response.use(response => {
         if (response.status == 200) {
           return Promise.resolve(response);
-        } else {
-          if (response.status == 403) {
-            //TODO 认证错误,需要跳转到首页
-          } else {
-            this.message(error);
-          }
-          return Promise.reject(response);
         }
+        return this.errorHandle(response);
       }, error => {
-        this.message(error);
-        return Promise.reject(error.response);
+        return this.errorHandle(error.response);
       }
     );
   },
+  //展示错误信息
+  errorHandle(response) {
+    if (response.status == 403) {
+      this.jumpLoginPage();
+    } else {
+      this.message(response);
+    }
+    return Promise.reject(response);
+  },
   // 错误面板
-  message(error) {
+  message(response) {
     //弹出消息框
     Message({
       dangerouslyUseHTMLString: false, // 设置HTML显示
       showClose: true, // 显示关闭按钮
-      duration: this.ERROR_MESSAGE_DURATION * 1000, // 默认3秒后关闭
-      type: error.status === 400 ? 'warning' : 'error',
-      message: this.getErrorMessage(error)
+      duration: 3000, // 默认3秒后关闭
+      type: response.status === 400 ? 'warning' : 'error',
+      message: this.getErrorMessage(response)
     });
   },
   // 3.获取错误详情
-  getErrorMessage(error) {
+  getErrorMessage(response) {
     //默认提示语
-    let msg = this.DEF_ERROR_INFO_MESSAGE;
+    let msg = '服务器开小差了 , 请稍后再试';
     //判断是否有响应消息体
-    if (error.data && rror.data.errorDetail) {
+    if (response.data && response.data.errorDetail) {
       //判断错误类型
-      if (error.data.errorDetail.type === 'org.springframework.web.bind.MethodArgumentNotValidException') {
+      if (response.data.errorDetail.type === 'org.springframework.web.bind.MethodArgumentNotValidException') {
         //参数校验错误
         let obj = [];
         try {
-          const msgData = error.data.errorDetail.message.replace(/＂/g, '"');
+          const msgData = response.data.errorDetail.message.replace(/＂/g, '"');
           obj = JSON.parse(msgData);
         } catch (e) {
           obj = [];
@@ -97,7 +133,7 @@ const glob = {
         msg = message;
       } else {
         //其他错误
-        msg = error.data.errorDetail.message;
+        msg = response.data.errorDetail.message;
       }
     }
     return msg;
