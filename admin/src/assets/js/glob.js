@@ -36,7 +36,7 @@ const glob = {
       onClose: () => {
         //TODO 没有TOKEN,需要跳转到登陆页(登陆页还未做,先跳转到首页)(考虑实现"重定向特性")
         if (process.env.NODE_ENV === 'production') {
-          window.location.href = '/';
+          window.location = '/';
         } else {
           window.location.href = 'http://127.0.0.1:9000';
         }
