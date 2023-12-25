@@ -1,7 +1,6 @@
-package org.itkk.udf.api.rbac;
+package org.itkk.udf.api.page;
 
-import org.itkk.udf.api.common.CommonConstant;
-import org.itkk.udf.api.rbac.auth.WebHandlerInterceptor;
+import org.itkk.udf.api.page.auth.CommonHandlerInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -11,12 +10,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * 配置类
  */
 @Configuration
-public class RbacConfiguration implements WebMvcConfigurer {
+public class PageConfiguration implements WebMvcConfigurer {
     /**
-     * webHandlerInterceptor
+     * commonHandlerInterceptor
      */
     @Autowired
-    private WebHandlerInterceptor webHandlerInterceptor;
+    private CommonHandlerInterceptor commonHandlerInterceptor;
 
     /**
      * 添加拦截器
@@ -25,6 +24,6 @@ public class RbacConfiguration implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(webHandlerInterceptor).order(1).addPathPatterns(CommonConstant.URL_ROOT_WEB_PRIVATE + "**");
+        registry.addInterceptor(commonHandlerInterceptor).order(1).addPathPatterns("/**");
     }
 }

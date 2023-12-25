@@ -1,4 +1,4 @@
-package org.itkk.udf.api.rbac.auth;
+package org.itkk.udf.api.page.auth;
 
 
 import lombok.extern.slf4j.Slf4j;
