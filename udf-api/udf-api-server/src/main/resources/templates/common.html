@@ -299,6 +299,10 @@
             z-index: 999999;
             padding-top: 5px;
         }
+
+        .card {
+            position: inherit;
+        }
     </style>
     <title>ITKK</title>
 </head>
@@ -318,7 +322,7 @@
                 <div class="item header-right-bar-search-input-div" style="display:none;">
                     <input type="text" class="form-control form-control-lg" placeholder="请输入要搜索的内容">
                 </div>
-                <div class="item header-right-bar-bell-div">
+                <div th:if="${userDto!=null}" class="item header-right-bar-bell-div">
                     <div class="el-badge">
                         <button type="button" class="btn btn-custom2">
                             <i class="fa fa-bell-o" aria-hidden="true"></i>
@@ -327,10 +331,12 @@
                     </div>
                 </div>
                 <div th:if="${userDto!=null}" class="item header-right-bar-user-div">
-                    <button th:if="${userDto.avatarFilePath==null}" type="button" class="btn btn-info btn-custom3 user-head-img-def">
+                    <button th:if="${userDto.avatarFilePath==null}" type="button"
+                            class="btn btn-info btn-custom3 user-head-img-def">
                         <i class="fa fa-user" aria-hidden="true"></i>
                     </button>
-                    <img th:if="${userDto.avatarFilePath!=null}" width="40px" height="40px" th:src="${userDto.avatarFilePath}" class="img-rounded user-head-img" alt="头像">
+                    <img th:if="${userDto.avatarFilePath!=null}" width="40px" height="40px"
+                         th:src="${userDto.avatarFilePath}" class="img-rounded user-head-img" alt="头像">
                 </div>
                 <div th:if="${userDto==null}" class="item header-right-bar-login-div">
                     <button type="button" class="btn btn-custom rounded-pill">登陆</button>
@@ -364,13 +370,9 @@
             integrity="sha256-WqU1JavFxSAMcLP2WIOI+GB2zWmShMI82mTpLDcqFUg=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-toasts-js@1.1.4/dist/js/bootstrap-toasts-js.min.js"
             integrity="sha256-8eA/hiFNtfHeSl0SbSynWCaqa6DeEzsLD1lxsS8JnzM=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pulltorefreshjs@0.1.20/dist/index.umd.min.js"
+            integrity="sha256-plfyATLvpJutooJZODIP/uMaXvn8TK229Xa2FVMP/Ks=" crossorigin="anonymous"></script>
     <script type="text/javascript">
-        //token名称
-        var TOKEN_NAME = 'udf_token';
-        //错误消息持续时间
-        var ERROR_MESSAGE_DURATION = 3;
-        //默认提示语
-        var DEF_ERROR_INFO_MESSAGE = '服务器开小差了 , 请稍后再试';
         //页面加载完成
         $(document).ready(function () {
             //设置main的高度
@@ -419,6 +421,18 @@
                     $('.main').scrollTop(0);
                 });
             });
+            //下拉刷新
+            $(function () {
+                PullToRefresh.init({
+                    mainElement: 'body',
+                    instructionsReleaseToRefresh: '<i class="fa fa-arrow-up btnTop-custom-fa" aria-hidden="true">',
+                    instructionsRefreshing: '<i class="fa fa-spinner" aria-hidden="true"></i>',
+                    onRefresh: function () {
+                        openLoading();
+                        window.location.reload();
+                    }
+                });
+            });
         });
 
         //设置(全局)的AJAX请求默认选项
@@ -437,11 +451,11 @@
                     $('.toastBox').addToast({
                         showTimeLabel: false,
                         title: '消息',
-                        content: DEF_ERROR_INFO_MESSAGE,
+                        content: '服务器开小差了 , 请稍后再试',
                         autoHide: true,
                         type: 'info',
                         progress: {show: false},
-                        displayTime: ERROR_MESSAGE_DURATION * 1000
+                        displayTime: 3000
                     });
                 }
             });
