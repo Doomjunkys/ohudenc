@@ -426,7 +426,7 @@
                 PullToRefresh.init({
                     mainElement: 'body',
                     instructionsReleaseToRefresh: '<i class="fa fa-arrow-up btnTop-custom-fa" aria-hidden="true">',
-                    instructionsRefreshing: '<i class="fa fa-spinner" aria-hidden="true"></i>',
+                    instructionsRefreshing: '刷新中',
                     onRefresh: function () {
                         openLoading();
                         window.location.reload();
@@ -465,6 +465,13 @@
          * 打开Loading (最好和关闭成对出现)
          */
         function openLoading() {
+            $('body').append(openLoadingHtml);
+        }
+
+        /**
+         * 返回loading的html
+         */
+        function openLoadingHtml() {
             //构造组件
             var html = '';
             html += '<div class="custom-loadding">';
@@ -472,14 +479,14 @@
             html += ' </div>';
             html += ' <div class="content">';
             html += '     <div class="d-flex justify-content-center">';
-            html += '         <div class="spinner-grow text-primary" role="status">';
+            html += '         <div class="spinner-border text-success" role="status">';
             html += '             <span class="sr-only">Loading...</span>';
             html += '         </div>';
             html += '     </div>';
             html += ' </div>';
             html += '</div>';
-            //添加到body中
-            $('body').append(html);
+            //返回
+            return html;
         }
 
         /**
