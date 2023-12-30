@@ -7,6 +7,7 @@ import org.itkk.udf.starter.core.exception.AuthException;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -60,6 +61,18 @@ public class CommonUtil {
         return null;
     }
 
+    /**
+     * 设置cookie
+     *
+     * @param httpServletResponse httpServletResponse
+     * @param name                name
+     * @param value               value
+     */
+    public static void setCookie(HttpServletResponse httpServletResponse, String name, String value) {
+        Cookie cookie = new Cookie(name, value);
+        cookie.setPath("/");
+        httpServletResponse.addCookie(cookie);
+    }
 
     /**
      * 私有化构造函数

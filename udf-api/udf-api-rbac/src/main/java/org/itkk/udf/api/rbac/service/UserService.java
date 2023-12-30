@@ -18,7 +18,6 @@ import org.itkk.udf.api.rbac.repository.IUserRepository;
 import org.itkk.udf.starter.cache.db.dto.DbCacheDto;
 import org.itkk.udf.starter.cache.db.service.DbCacheService;
 import org.itkk.udf.starter.core.CoreUtil;
-import org.itkk.udf.starter.core.exception.AuthException;
 import org.itkk.udf.starter.core.exception.ParameterValidException;
 import org.itkk.udf.starter.core.id.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,7 +89,7 @@ public class UserService implements IUserService {
         if (registeredDto == null) {
             throw new ParameterValidException("注册信息为空");
         }
-        if (registeredDto.getPswd().equals(registeredDto.getPswdConfim())) {
+        if (!registeredDto.getPswd().equals(registeredDto.getPswdConfim())) {
             throw new ParameterValidException("两次密码输入不一致");
         }
         if (iUserRepository.selectCount(new QueryWrapper<UserEntity>().lambda().eq(UserEntity::getUserId, registeredDto.getUserId())) > 0) {
@@ -224,7 +223,7 @@ public class UserService implements IUserService {
     @Override
     public UserDto infoByToken(String token) {
         //判空
-        if (StringUtils.isBlank(token)) {
+        if (StringUtils.isNotBlank(token)) {
             //获得token信息
             DbCacheDto dbCacheDto = dbCacheService.getDto(token);
             //判空
@@ -271,18 +270,15 @@ public class UserService implements IUserService {
         }
         //获得用户信息
         UserDto userDto = this.info(userId);
-        //判空
-        if (userDto == null) {
-            throw new AuthException("用户不存在");
+        //判空 (status = 1 为正常 , 其它为不正常)
+        if (userDto != null && Integer.valueOf(1).equals(userDto.getStatus())) {
+            //放入缓存
+            cache.put(cacheKey, userDto);
+            //返回
+            return userDto;
         }
-        //判定状态(status = 1 为正常 , 其它为不正常)
-        if (!Integer.valueOf(1).equals(userDto.getStatus())) {
-            throw new AuthException("用户为非可用状态");
-        }
-        //放入缓存
-        cache.put(cacheKey, userDto);
         //返回
-        return userDto;
+        return null;
     }
 
     /**

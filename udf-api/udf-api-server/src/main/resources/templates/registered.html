@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<header th:replace="common::head(title='ITKK注册')"></header>
+<style lang="css">
+    .registered-card {
+        min-width: 300px;
+        max-width: 400px;
+        margin: auto !important;
+    }
+</style>
+<body>
+<div th:include="common::top"></div>
+<div class="main pre-scrollable">
+    <div class="card registered-card">
+        <div class="card-body">
+            <form class="registered-form">
+                <div class="form-group">
+                    <label for="userId">用户名</label>
+                    <input type="text" class="form-control form-control-lg" id="userId" aria-describedby="userIdHelp">
+                    <small id="userIdHelp" class="form-text text-muted">需全站唯一</small>
+                </div>
+                <div class="form-group">
+                    <label for="pswd">密码</label>
+                    <input type="password" class="form-control form-control-lg" id="pswd" aria-describedby="pswdHelp">
+                    <small id="pswdHelp" class="form-text text-muted">至少6位</small>
+                </div>
+                <div class="form-group">
+                    <label for="pswdConfim">密码确认</label>
+                    <input type="password" class="form-control form-control-lg" id="pswdConfim"
+                           aria-describedby="pswdConfimHelp">
+                    <small id="pswdConfimHelp" class="form-text text-muted">需和密码一致</small>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-success registered-btn float-left">注册</button>
+                    <button type="button" class="btn btn-link login-btn float-right">已有账号? 请直接登陆</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div th:include="common::bottom"></div>
+<div th:include="common::footer"></div>
+</body>
+<script type="text/javascript">
+    //页面加载完成
+    $(document).ready(function () {
+        //注册按钮点击事件
+        $('.registered-btn').on('click', function () {
+            //构造参数
+            var param = {
+                userId: $('#userId').val(),
+                pswd: $('#pswd').val(),
+                pswdConfim: $('#pswdConfim').val(),
+            };
+            //请求
+            $.ajax({
+                url: '/api/udf/web/public/rbac/user/registered',
+                type: 'POST',
+                async: true,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(param),
+                success: function (data) {
+                    if (data.result) {
+                        if ('[(${redirectUrl})]') {
+                            window.location.href = '[(${redirectUrl})]';
+                        } else {
+                            window.location.href = '/';
+                        }
+                    }
+                }
+            });
+        });
+    });
+</script>
+</html>

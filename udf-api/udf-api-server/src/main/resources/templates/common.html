@@ -1,6 +1,6 @@
 <!doctype html>
 <html>
-<head th:fragment="head">
+<head th:fragment="head(title)">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
@@ -304,7 +304,7 @@
             position: inherit;
         }
     </style>
-    <title>ITKK</title>
+    <title>[(${title})]</title>
 </head>
 <body>
 <div th:fragment="top">
@@ -433,8 +433,16 @@
                     }
                 });
             });
+            //注册按钮点击事件
+            $('.header-right-bar-registered-div button').on('click', function () {
+                //跳转到注册页面
+                openLoading();
+                //获得重定向地址
+                var redirectUrl = escape(window.location.href);
+                //跳转登陆界面
+                window.location.href = '/registered.html?redirectUrl=' + redirectUrl;
+            });
         });
-
         //设置(全局)的AJAX请求默认选项
         $(function () {
             $.ajaxSetup({
@@ -448,10 +456,28 @@
                     closeLoading();
                 },
                 error: function (xhr) {
+                    var content = '服务器开小差了 , 请稍后再试';
+                    try {
+                        var errorResult = xhr.responseJSON;
+                        if (errorResult) {
+                            if ('org.springframework.web.bind.MethodArgumentNotValidException' === errorResult.errorDetail.type) {
+                                var message = JSON.parse(errorResult.errorDetail.message.replace(/＂/g, '"'));
+                                var msgBody = '';
+                                $.each(message, function (i, item) {
+                                    msgBody += (i + 1) + ' . ' + item.defaultMessage + '<br />';
+                                });
+                                content = msgBody;
+                            } else {
+                                content = errorResult.errorDetail.message;
+                            }
+                        }
+                    } catch (e) {
+                        console.log(e);
+                    }
                     $('.toastBox').addToast({
                         showTimeLabel: false,
                         title: '消息',
-                        content: '服务器开小差了 , 请稍后再试',
+                        content: content,
                         autoHide: true,
                         type: 'info',
                         progress: {show: false},
@@ -495,6 +521,34 @@
         function closeLoading() {
             if ($('.custom-loadding')) {
                 $('.custom-loadding')[0].remove();
+            }
+        }
+
+        //写cookies
+        function setCookie(name, value) {
+            var Days = 30;
+            var exp = new Date();
+            exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+            document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+        }
+
+        //读取cookies
+        function getCookie(name) {
+            var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+            if (arr === document.cookie.match(reg)) {
+                return unescape(arr[2]);
+            } else {
+                return null;
+            }
+        }
+
+        //删除cookies
+        function delCookie(name) {
+            var exp = new Date();
+            exp.setTime(exp.getTime() - 1);
+            var cval = getCookie(name);
+            if (cval != null) {
+                document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
             }
         }
     </script>
