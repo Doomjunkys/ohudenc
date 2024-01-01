@@ -1,6 +1,6 @@
 package org.itkk.udf.api.page.web;
 
-import org.itkk.udf.api.common.CommonConstant;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +26,24 @@ public class HomeController {
      * @return String
      */
     @GetMapping("/registered.html")
-    public String registered(@RequestParam("redirectUrl") String redirectUrl, Model map) {
-        map.addAttribute("redirectUrl", redirectUrl);
-        map.addAttribute("tokenName", CommonConstant.PARAMETER_NAME_TOKEN);
+    public String registered(@RequestParam(required = false) String redirectUrl, Model map) {
+        if (StringUtils.isNotBlank(redirectUrl)) {
+            map.addAttribute("redirectUrl", redirectUrl);
+        }
         return "registered";
+    }
+
+    /**
+     * 登陆页
+     *
+     * @param map map
+     * @return String
+     */
+    @GetMapping("/login.html")
+    public String login(@RequestParam(required = false) String redirectUrl, Model map) {
+        if (StringUtils.isNotBlank(redirectUrl)) {
+            map.addAttribute("redirectUrl", redirectUrl);
+        }
+        return "login";
     }
 }

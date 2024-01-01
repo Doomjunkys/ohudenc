@@ -34,11 +34,11 @@ const glob = {
       type: 'info',
       message: '认证过期,请重新登陆,正在跳转',
       onClose: () => {
-        //TODO 没有TOKEN,需要跳转到登陆页(登陆页还未做,先跳转到首页)(考虑实现"重定向特性")
+        const redirectUrl = escape(window.location.href);
         if (process.env.NODE_ENV === 'production') {
-          window.location = '/';
+          window.location = '/registered.html?redirectUrl=' + redirectUrl;
         } else {
-          window.location.href = 'http://127.0.0.1:9000';
+          window.location.href = 'http://127.0.0.1:9000/registered.html?redirectUrl=' + redirectUrl;
         }
       }
     });

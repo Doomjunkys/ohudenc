@@ -1,6 +1,6 @@
 <!doctype html>
 <html>
-<header th:replace="common::head(title='ITKK注册')"></header>
+<header th:replace="common::head(title='ITKK登陆')"></header>
 <style lang="css">
     .registered-card {
         min-width: 300px;
@@ -16,23 +16,15 @@
             <form class="registered-form">
                 <div class="form-group">
                     <label for="userId">用户名</label>
-                    <input type="text" class="form-control form-control-lg" id="userId" aria-describedby="userIdHelp">
-                    <small id="userIdHelp" class="form-text text-muted">需全站唯一</small>
+                    <input type="text" class="form-control form-control-lg" id="userId">
                 </div>
                 <div class="form-group">
                     <label for="pswd">密码</label>
-                    <input type="password" class="form-control form-control-lg" id="pswd" aria-describedby="pswdHelp">
-                    <small id="pswdHelp" class="form-text text-muted">至少6位</small>
+                    <input type="password" class="form-control form-control-lg" id="pswd">
                 </div>
                 <div class="form-group">
-                    <label for="pswdConfim">密码确认</label>
-                    <input type="password" class="form-control form-control-lg" id="pswdConfim"
-                           aria-describedby="pswdConfimHelp">
-                    <small id="pswdConfimHelp" class="form-text text-muted">需和密码一致</small>
-                </div>
-                <div class="form-group">
-                    <button type="button" class="btn btn-success registered-btn float-left">注册</button>
-                    <button type="button" class="btn btn-link login-btn float-right">已有账号? 点这里登陆</button>
+                    <button type="button" class="btn btn-success login-btn float-left">登陆</button>
+                    <button type="button" class="btn btn-link registered-btn float-right">还没有账号? 点这里注册</button>
                 </div>
             </form>
         </div>
@@ -44,22 +36,21 @@
 <script type="text/javascript">
     //页面加载完成
     $(document).ready(function () {
-        //登陆按钮点击事件
-        $('.login-btn').on('click', function () {
-            //跳转到登陆
-            window.location.href = '/login.html';
-        });
         //注册按钮点击事件
         $('.registered-btn').on('click', function () {
+            //跳转到注册
+            window.location.href = '/registered.html';
+        });
+        //注册按钮点击事件
+        $('.login-btn').on('click', function () {
             //构造参数
             var param = {
                 userId: $('#userId').val(),
-                pswd: $('#pswd').val(),
-                pswdConfim: $('#pswdConfim').val(),
+                pswd: $('#pswd').val()
             };
             //请求
             $.ajax({
-                url: '/api/udf/web/public/rbac/user/registered',
+                url: '/api/udf/web/public/rbac/user/login',
                 type: 'POST',
                 async: true,
                 contentType: "application/json;charset=utf-8",

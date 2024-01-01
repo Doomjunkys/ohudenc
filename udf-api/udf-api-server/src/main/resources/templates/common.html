@@ -435,12 +435,17 @@
             });
             //注册按钮点击事件
             $('.header-right-bar-registered-div button').on('click', function () {
-                //跳转到注册页面
+                //打开loading
                 openLoading();
-                //获得重定向地址
-                var redirectUrl = escape(window.location.href);
+                //跳转注册界面
+                window.location.href = '/registered.html';
+            });
+            //登陆按钮点击事件
+            $('.header-right-bar-login-div button').on('click', function () {
+                //打开loading
+                openLoading();
                 //跳转登陆界面
-                window.location.href = '/registered.html?redirectUrl=' + redirectUrl;
+                window.location.href = '/login.html';
             });
         });
         //设置(全局)的AJAX请求默认选项
