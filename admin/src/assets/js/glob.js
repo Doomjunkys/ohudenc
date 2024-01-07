@@ -13,6 +13,7 @@ const glob = {
   getToken() {
     //token名称
     const TOKEN_NAME = 'token';
+    console.log(TOKEN_NAME, $cookies.get(this.TOKEN_NAME));
     //返回TOKEN
     return $cookies.get(this.TOKEN_NAME);
   },
@@ -36,9 +37,9 @@ const glob = {
       onClose: () => {
         const redirectUrl = escape(window.location.href);
         if (process.env.NODE_ENV === 'production') {
-          window.location = '/registered.html?redirectUrl=' + redirectUrl;
+          window.location = '/login.html?redirectUrl=' + redirectUrl;
         } else {
-          window.location.href = 'http://127.0.0.1:9000/registered.html?redirectUrl=' + redirectUrl;
+          window.location.href = 'http://127.0.0.1:9000/login.html?redirectUrl=' + redirectUrl;
         }
       }
     });
