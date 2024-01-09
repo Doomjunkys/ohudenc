@@ -71,6 +71,7 @@ public class CommonUtil {
     public static void setCookie(HttpServletResponse httpServletResponse, String name, String value) {
         Cookie cookie = new Cookie(name, value);
         cookie.setPath("/");
+        cookie.setHttpOnly(false);
         httpServletResponse.addCookie(cookie);
     }
 

@@ -13,7 +13,6 @@ const glob = {
   getToken() {
     //token名称
     const TOKEN_NAME = 'token';
-    console.log(TOKEN_NAME, $cookies.get(this.TOKEN_NAME));
     //返回TOKEN
     return $cookies.get(this.TOKEN_NAME);
   },
