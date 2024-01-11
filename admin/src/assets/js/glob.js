@@ -9,12 +9,21 @@ const glob = {
     //初始化Axios
     this.intiAxios();
   },
+  //读取cookies
+  getCookie(name) {
+    var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+    if (arr === document.cookie.match(reg)) {
+      return unescape(arr[2]);
+    } else {
+      return null;
+    }
+  },
   //返回token
   getToken() {
     //token名称
     const TOKEN_NAME = 'token';
     //返回TOKEN
-    return $cookies.get(this.TOKEN_NAME);
+    return this.getCookie(this.TOKEN_NAME);
   },
   //检查是否登陆
   checkLogin() {
