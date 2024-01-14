@@ -123,6 +123,10 @@
       //初始化
       this.init();
     },
+    mounted() {
+      //检查登陆
+      glob.checkLogin();
+    },
     methods: {
       //初始化
       init() {
@@ -137,8 +141,6 @@
         window.addEventListener('resize', this.resizeListener);
         //主动调用一次resize监听
         this.resizeListener();
-        //检查登陆
-        glob.checkLogin();
       },
       //重设主题属性
       resetTheme() {
