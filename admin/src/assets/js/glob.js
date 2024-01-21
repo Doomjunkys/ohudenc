@@ -21,7 +21,7 @@ const glob = {
     //检查是否有token
     if (!this.getToken()) {
       //跳转到登陆页
-      //this.jumpLoginPage();
+      this.jumpLoginPage();
     }
   },
   //跳转到登陆页
