@@ -4,5 +4,5 @@ const prodEnv = require('./prod.env')
 
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
-  VUE_APP_TITLE: '"ITKK"'
+  VUE_APP_TITLE: '"ITKK控制台"'
 })

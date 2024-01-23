@@ -1,5 +1,5 @@
 'use strict'
 module.exports = {
   NODE_ENV: '"production"',
-  VUE_APP_TITLE: '"ITKK"'
+  VUE_APP_TITLE: '"ITKK控制台"'
 }

@@ -4,5 +4,5 @@ const devEnv = require('./dev.env')
 
 module.exports = merge(devEnv, {
   NODE_ENV: '"testing"',
-  VUE_APP_TITLE: '"ITKK"'
+  VUE_APP_TITLE: '"ITKK控制台"'
 })
