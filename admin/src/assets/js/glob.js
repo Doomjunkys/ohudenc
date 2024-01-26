@@ -35,11 +35,7 @@ const glob = {
       message: '认证过期,请重新登陆,正在跳转',
       onClose: () => {
         const redirectUrl = escape(window.location.href);
-        if (process.env.NODE_ENV === 'production') {
-          window.location = '/login.html?redirectUrl=' + redirectUrl;
-        } else {
-          window.location.href = 'http://127.0.0.1:9000/login.html?redirectUrl=' + redirectUrl;
-        }
+        window.location = process.env.VUE_APP_BASE_URL + 'login.html?redirectUrl=' + redirectUrl;
       }
     });
   },
@@ -63,11 +59,7 @@ const glob = {
     // 添加请求拦截器(从session存储中拿token)
     axios.interceptors.request.use(config => {
         //设置请求根路径
-        if (process.env.NODE_ENV === 'production') {
-          config.baseURL = '/api/udf/web';
-        } else {
-          config.baseURL = 'http://127.0.0.1:9000/api/udf/web';
-        }
+        config.baseURL = process.env.VUE_APP_BASE_URL + 'api/udf/web';
         //添加token到header中
         config.headers.token = this.getToken() ? this.getToken() : '';
         //设置请求超时时间
