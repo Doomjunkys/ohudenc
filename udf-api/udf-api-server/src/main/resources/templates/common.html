@@ -452,6 +452,13 @@
                 //跳转登陆界面
                 window.location.href = '/login.html';
             });
+            //头像按钮点击事件
+            $('.header-right-bar-user-div').on('click', function () {
+                //打开loading
+                openLoading();
+                //跳转控制台
+                window.location.href = '/admin';
+            });
         });
         //设置(全局)的AJAX请求默认选项
         $(function () {
