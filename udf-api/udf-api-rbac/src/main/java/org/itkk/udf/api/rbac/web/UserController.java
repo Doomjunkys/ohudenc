@@ -76,4 +76,15 @@ public class UserController {
         return new RestResponse<>(userService.info(userId));
     }
 
+    /**
+     * 获得用户信息
+     *
+     * @param token token
+     * @return RestResponse<UserDto>
+     */
+    @GetMapping("info/by/token/{token}")
+    public RestResponse<UserDto> infoByToken(@PathVariable String token) {
+        return new RestResponse<>(userService.infoByToken(token));
+    }
+
 }

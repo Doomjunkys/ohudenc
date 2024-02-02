@@ -39,8 +39,29 @@
             </el-badge>
           </div>
           <div v-show="!showSearchInput" class="avatarDiv">
-            <el-avatar shape="square" size="large" icon="el-icon-user-solid">
-            </el-avatar>
+            <el-popover
+              placement="top-start"
+              trigger="hover">
+              <div class="userPanel">
+                <el-row>
+                  <el-col :span="24">
+                    <el-avatar shape="square" size="small" icon="el-icon-user-solid" style="vertical-align: middle;">
+                    </el-avatar>
+                    <span>{{userDto.nickName}}</span>
+                    <el-divider></el-divider>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="24">
+                    <span><el-button type="text" :style="userDtoBtnStyle">基本资料</el-button></span>
+                    <el-divider direction="vertical"></el-divider>
+                    <span><el-button type="text" :style="logoutBtnStyle">退出登录</el-button></span>
+                  </el-col>
+                </el-row>
+              </div>
+              <el-avatar slot="reference" shape="square" size="large" icon="el-icon-user-solid">
+              </el-avatar>
+            </el-popover>
           </div>
         </div>
       </el-header>
@@ -71,6 +92,7 @@
 <script>
 
   import glob from "./assets/js/glob";
+  import api_user from "./api/user";
 
   export default {
     name: 'App',
@@ -115,17 +137,16 @@
           "max-width": "400px",
           width: "150px"
         },
+        userDtoBtnStyle: {},
+        logoutBtnStyle: {},
         showSearchInput: false,
-        searchInputText: null
+        searchInputText: null,
+        userDto: {}
       }
     },
-    created() {
+    mounted() {
       //初始化
       this.init();
-    },
-    mounted() {
-      //检查登陆
-      glob.checkLogin();
     },
     methods: {
       //初始化
@@ -141,6 +162,11 @@
         window.addEventListener('resize', this.resizeListener);
         //主动调用一次resize监听
         this.resizeListener();
+        //检查登陆
+        glob.checkLogin();
+        //获得用户信息
+        const userDtoResponse = await api_user.infoByToken(glob.getToken());
+        this.userDto = userDtoResponse.data.result;
       },
       //重设主题属性
       resetTheme() {
@@ -153,6 +179,8 @@
         this.mainLogoBtnStyle.color = this.golbSetting.themeBackground;
         this.backtopStyle.background = this.golbSetting.themeBackground;
         this.backtopStyle.color = this.golbSetting.themeColor;
+        this.userDtoBtnStyle.color = this.golbSetting.themeBackground;
+        this.logoutBtnStyle.color = this.golbSetting.themeBackground;
       },
       //resize监听器
       resizeListener() {
@@ -308,6 +336,17 @@
           }
         }
       }
+    }
+  }
+
+  .userPanel {
+    .el-divider--horizontal {
+      margin: 10px 0px;
+    }
+
+    .el-button {
+      padding-top: 0px;
+      padding-bottom: 0px;
     }
   }
 </style>
