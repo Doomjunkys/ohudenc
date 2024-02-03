@@ -55,7 +55,8 @@
                   <el-col :span="24">
                     <span><el-button type="text" :style="userDtoBtnStyle">基本资料</el-button></span>
                     <el-divider direction="vertical"></el-divider>
-                    <span><el-button type="text" :style="logoutBtnStyle">退出登录</el-button></span>
+                    <span><el-button type="text" :style="logoutBtnStyle"
+                                     @click="logoutBtnClick">退出登录</el-button></span>
                   </el-col>
                 </el-row>
               </div>
@@ -192,6 +193,11 @@
       //搜索输入框显示和隐藏
       searchInputDivShowHidden() {
         this.showSearchInput = !this.showSearchInput;
+      },
+      //退出登录按钮事件
+      logoutBtnClick() {
+        const loading = this.$loading({lock: true, text: '操作中'});
+        api_user.logout().then(response => window.location.href = '/').finally(() => loading.close());
       }
     }
   }

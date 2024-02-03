@@ -26,18 +26,8 @@ const glob = {
   },
   //跳转到登陆页
   jumpLoginPage() {
-    //弹出提示
-    Message({
-      dangerouslyUseHTMLString: false,
-      showClose: true,
-      duration: 2000,
-      type: 'info',
-      message: '认证过期,请重新登陆,正在跳转',
-      onClose: () => {
-        const redirectUrl = escape(window.location.href);
-        window.location = process.env.VUE_APP_BASE_URL + 'login.html?redirectUrl=' + redirectUrl;
-      }
-    });
+    const redirectUrl = escape(window.location.href);
+    window.location = process.env.VUE_APP_BASE_URL + 'login.html?redirectUrl=' + redirectUrl;
   },
   //初始化NProgress
   initNProgress() {

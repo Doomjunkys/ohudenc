@@ -52,6 +52,7 @@ public class WebHandlerInterceptor implements HandlerInterceptor {
             }
             //放入请求作用域
             request.setAttribute(CommonConstant.PARAMETER_NAME_TOKEN_INFO, userDto);
+            request.setAttribute(CommonConstant.PARAMETER_NAME_TOKEN, token);
             //刷新token ttl
             dbCacheService.setTtl(token, CommonConstant.TOKEN_CACHE_TTL);
         }
