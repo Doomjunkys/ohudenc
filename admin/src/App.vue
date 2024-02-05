@@ -2,8 +2,9 @@
   <div id="app" class="app" :style="appStyle">
     <el-container :style="mainElContainerStyle">
       <el-header :style="mainElHeaderStyle" :height="mainElHeaderStyle.height">
-        <el-button class="mainMenuBtn" :style="mainMenuBtnStyle" type="text">
-          <i class="el-icon-menu"></i>
+        <el-button class="mainMenuBtn" :style="mainMenuBtnStyle" type="text"
+                   @click="mainMenuBtnClick">
+          <i class="el-icon-menu" @click="mainMenuBtnClick" @mouseover="mainMenuBtnClick"></i>
         </el-button>
         <a class="mainLogoBtn" href="./" :style="mainLogoBtnStyle">
           <span>
@@ -67,7 +68,11 @@
         </div>
       </el-header>
       <el-container :style="mainChildElContainerStyle">
-        <!--<el-aside v-show="elAsideShow" width="200px">Aside</el-aside>-->
+        <el-aside v-show="elAsideShow" width="240px">
+          <el-scrollbar style="height:100%;">
+            <left-menu></left-menu>
+          </el-scrollbar>
+        </el-aside>
         <el-container :style="mainChildElContainerStyle">
           <el-scrollbar style="height:100%;width: 100%;">
             <el-backtop :style="backtopStyle" target=".el-scrollbar__wrap">
@@ -92,6 +97,18 @@
         </el-container>
       </el-container>
     </el-container>
+    <el-drawer
+      size="250px"
+      :with-header="false"
+      :show-close="false"
+      :visible.sync="leftMenuDrawerShow"
+      direction="ltr">
+      <div :style="leftMenuDrawerStyle">
+        <el-scrollbar style="height:100%;">
+          <left-menu></left-menu>
+        </el-scrollbar>
+      </div>
+    </el-drawer>
   </div>
 </template>
 
@@ -99,15 +116,19 @@
 
   import glob from "./assets/js/glob";
   import api_user from "./api/user";
+  import leftMenu from "./components/leftMenu";
 
   export default {
     name: 'App',
+    components: {
+      leftMenu
+    },
     data() {
       return {
         golbSetting: {
           appLogoName: 'ITKK',
           copyRight: '© 2019-2020 itkk.org',
-          appBackground: "#F2F2F2",
+          appBackground: "#FAFAFA",
           headerBackground: "#FFFFFF",
           menuBtnColor: "#FFFFFF",
           themeBackground: "#FF6A00",
@@ -151,7 +172,9 @@
         showSearchInput: false,
         searchInputText: null,
         userDto: {},
-        elAsideShow: true
+        elAsideShow: true,
+        leftMenuDrawerShow: false,
+        leftMenuDrawerStyle: {}
       }
     },
     mounted() {
@@ -191,12 +214,15 @@
         this.backtopStyle.color = this.golbSetting.themeColor;
         this.userDtoBtnStyle.color = this.golbSetting.themeBackground;
         this.logoutBtnStyle.color = this.golbSetting.themeBackground;
+        this.logoutBtnStyle.background = this.golbSetting.appBackground;
       },
       //resize监听器
       resizeListener() {
         //设定容器高度
+        this.appStyle.height = window.innerHeight + 'px';
         this.mainElContainerStyle.height = window.innerHeight + 'px';
         this.mainChildElContainerStyle.height = (window.innerHeight - 50) + 'px';
+        this.leftMenuDrawerStyle.height = window.innerHeight + 'px';
         //设定框宽度
         this.searchInputStyle.width = window.innerWidth - 200 - 10 + 'px';
         //判断是否显示菜单栏
@@ -210,11 +236,19 @@
       logoutBtnClick() {
         const loading = this.$loading({lock: true, text: '操作中'});
         api_user.logout().then(response => window.location.href = '/').finally(() => loading.close());
+      },
+      //菜单按钮点击
+      mainMenuBtnClick() {
+        this.leftMenuDrawerShow = !this.leftMenuDrawerShow;
       }
     }
   }
 </script>
-
+<style lang="scss">
+  .el-drawer {
+    background-color: #F5F5F5;
+  }
+</style>
 <style lang="scss" scoped>
   .app {
     position: relative;
@@ -326,6 +360,20 @@
             text-align: center;
             cursor: pointer;
           }
+        }
+      }
+
+      .el-aside {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        border-right: solid 1px #e6e6e6;
+        background: #F5F5F5;
+        box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 4px 0px;
+
+        .el-menu {
+          border-right: solid 0px #e6e6e6 !important;
+          height: 100% !important;
         }
       }
 

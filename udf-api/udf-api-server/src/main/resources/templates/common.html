@@ -17,7 +17,7 @@
             font-family: 'Microsoft yahei';
             font-size: 13px;
             font-weight: 400;
-            background-color: #F2F2F2;
+            background-color: #FAFAFA;
         }
 
         a, a:hover, a:active, a:focus {
@@ -440,22 +440,16 @@
             });
             //注册按钮点击事件
             $('.header-right-bar-registered-div button').on('click', function () {
-                //打开loading
-                openLoading();
                 //跳转注册界面
                 window.location.href = '/registered.html';
             });
             //登陆按钮点击事件
             $('.header-right-bar-login-div button').on('click', function () {
-                //打开loading
-                openLoading();
                 //跳转登陆界面
                 window.location.href = '/login.html';
             });
             //头像按钮点击事件
             $('.header-right-bar-user-div').on('click', function () {
-                //打开loading
-                openLoading();
                 //跳转控制台
                 window.location.href = '/admin';
             });
