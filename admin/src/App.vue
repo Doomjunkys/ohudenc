@@ -66,26 +66,31 @@
           </div>
         </div>
       </el-header>
-      <el-scrollbar style="height:100%">
-        <el-backtop :style="backtopStyle" target=".el-scrollbar__wrap">
-          <i class="el-icon-caret-top"></i>
-        </el-backtop>
-        <el-main>
-          <transition name="el-zoom-in-center">
-            <keep-alive>
-              <router-view/>
-            </keep-alive>
-          </transition>
-        </el-main>
-        <el-footer :style="mainFoterStyle">
-          <div class="footer">
-            <el-divider></el-divider>
-            <div class="copyRight text-center">
-              <span>{{golbSetting.copyRight}}</span>
-            </div>
-          </div>
-        </el-footer>
-      </el-scrollbar>
+      <el-container :style="mainChildElContainerStyle">
+        <!--<el-aside v-show="elAsideShow" width="200px">Aside</el-aside>-->
+        <el-container :style="mainChildElContainerStyle">
+          <el-scrollbar style="height:100%;width: 100%;">
+            <el-backtop :style="backtopStyle" target=".el-scrollbar__wrap">
+              <i class="el-icon-caret-top"></i>
+            </el-backtop>
+            <el-main>
+              <transition name="el-zoom-in-center">
+                <keep-alive>
+                  <router-view/>
+                </keep-alive>
+              </transition>
+            </el-main>
+            <el-footer :style="mainFoterStyle">
+              <div class="footer">
+                <el-divider></el-divider>
+                <div class="copyRight text-center">
+                  <span>{{golbSetting.copyRight}}</span>
+                </div>
+              </div>
+            </el-footer>
+          </el-scrollbar>
+        </el-container>
+      </el-container>
     </el-container>
   </div>
 </template>
@@ -130,6 +135,9 @@
         mainElContainerStyle: {
           height: 0
         },
+        mainChildElContainerStyle: {
+          height: 0
+        },
         mainElHeaderStyle: {
           height: "50px",
         },
@@ -142,7 +150,8 @@
         logoutBtnStyle: {},
         showSearchInput: false,
         searchInputText: null,
-        userDto: {}
+        userDto: {},
+        elAsideShow: true
       }
     },
     mounted() {
@@ -187,8 +196,11 @@
       resizeListener() {
         //设定容器高度
         this.mainElContainerStyle.height = window.innerHeight + 'px';
+        this.mainChildElContainerStyle.height = (window.innerHeight - 50) + 'px';
         //设定框宽度
         this.searchInputStyle.width = window.innerWidth - 200 - 10 + 'px';
+        //判断是否显示菜单栏
+        this.elAsideShow = window.innerWidth > 1366 ? true : false;
       },
       //搜索输入框显示和隐藏
       searchInputDivShowHidden() {
@@ -329,7 +341,6 @@
         overflow: hidden;
 
         .footer {
-          margin-top: 10px;
 
           .el-divider--horizontal {
             margin: 0px 0px 10px 0px;

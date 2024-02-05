@@ -15,8 +15,6 @@
 <style lang="scss" scoped>
   .home {
     padding: 10px 10px 10px 10px;
-    max-width: 1200px;
-    margin: auto !important;
 
     .el-card {
       border-radius: 0px;
