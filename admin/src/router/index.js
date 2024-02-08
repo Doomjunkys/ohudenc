@@ -6,11 +6,6 @@ export default new VueRouter({
       path: '/',
       name: 'home',
       component: () => import('../components/home'),
-    },
-    {
-      path: '/a/b/c',
-      name: 'homeabc',
-      component: () => import('../components/home'),
     }
   ]
 });

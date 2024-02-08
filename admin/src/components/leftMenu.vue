@@ -1,7 +1,7 @@
 <template>
   <div class="leftMenu">
     <el-menu background-color="#F5F5F5" @select="leftMenuSelect">
-      <el-menu-item index="homeabc">
+      <el-menu-item index="home">
         <i class="el-icon-menu"></i>
         <span slot="title">首页</span>
       </el-menu-item>
