@@ -6,7 +6,7 @@
                    @click="mainMenuBtnClick">
           <i class="el-icon-menu" @click="mainMenuBtnClick" @mouseover="mainMenuBtnClick"></i>
         </el-button>
-        <a class="mainLogoBtn" href="./" :style="mainLogoBtnStyle">
+        <a class="mainLogoBtn" @click="mainLogoBtnClick" :style="mainLogoBtnStyle">
           <span>
             <i>{{golbSetting.appLogoName}}</i>
           </span>
@@ -70,7 +70,7 @@
       <el-container :style="mainChildElContainerStyle">
         <el-aside v-show="elAsideShow" width="240px">
           <el-scrollbar style="height:100%;">
-            <left-menu></left-menu>
+            <left-menu :data="menu"></left-menu>
           </el-scrollbar>
         </el-aside>
         <el-container :style="mainChildElContainerStyle">
@@ -105,7 +105,7 @@
       direction="ltr">
       <div :style="leftMenuDrawerStyle">
         <el-scrollbar style="height:100%;">
-          <left-menu></left-menu>
+          <left-menu :data="menu"></left-menu>
         </el-scrollbar>
       </div>
     </el-drawer>
@@ -114,8 +114,8 @@
 
 <script>
 
+  import api_rbac from "./api/rbac";
   import glob from "./assets/js/glob";
-  import api_user from "./api/user";
   import leftMenu from "./components/leftMenu";
 
   export default {
@@ -172,6 +172,7 @@
         showSearchInput: false,
         searchInputText: null,
         userDto: {},
+        menu: [],
         elAsideShow: true,
         leftMenuDrawerShow: false,
         leftMenuDrawerStyle: {}
@@ -196,10 +197,14 @@
         //主动调用一次resize监听
         this.resizeListener();
         //检查登陆
+        glob
         glob.checkLogin();
         //获得用户信息
-        const userDtoResponse = await api_user.infoByToken(glob.getToken());
+        const userDtoResponse = await api_rbac.infoByToken(glob.getToken());
         this.userDto = userDtoResponse.data.result;
+        //获得菜单
+        const menuResponse = await api_rbac.menu();
+        this.menu = menuResponse.data.result;
       },
       //重设主题属性
       resetTheme() {
@@ -228,6 +233,10 @@
         //判断是否显示菜单栏
         this.elAsideShow = window.innerWidth > 1366 ? true : false;
       },
+      //log点击事件
+      mainLogoBtnClick() {
+        window.location.href = `${process.env.VUE_APP_ADMIN_BASE_URL}`;
+      },
       //搜索输入框显示和隐藏
       searchInputDivShowHidden() {
         this.showSearchInput = !this.showSearchInput;
@@ -235,7 +244,7 @@
       //退出登录按钮事件
       logoutBtnClick() {
         const loading = this.$loading({lock: true, text: '操作中'});
-        api_user.logout().then(response => window.location.href = '/').finally(() => loading.close());
+        api_rbac.logout().then(response => window.location.href = '/').finally(() => loading.close());
       },
       //菜单按钮点击
       mainMenuBtnClick() {
