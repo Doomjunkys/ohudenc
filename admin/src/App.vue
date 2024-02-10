@@ -26,6 +26,12 @@
               <el-button :style="toolBtnStyle" icon="el-icon-s-tools" size="small" circle></el-button>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>
+                  首页
+                  <a href="/" target="view_window">(公网)</a>
+                  <a href="http://web.itkk.org:81/" target="view_window">(公网-备用)</a>
+                  <a href="http://192.168.1.100/" target="view_window">(内网)</a>
+                </el-dropdown-item>
+                <el-dropdown-item>
                   构建流水线
                   <a href="/jenkins/" target="view_window">(公网)</a>
                   <a href="http://web.itkk.org:81/jenkins/" target="view_window">(公网-备用)</a>
@@ -54,7 +60,7 @@
                 </el-row>
                 <el-row>
                   <el-col :span="24">
-                    <span><el-button type="text" :style="userDtoBtnStyle">基本资料</el-button></span>
+                    <span><el-button type="text" :style="userDtoBtnStyle">个人中心</el-button></span>
                     <el-divider direction="vertical"></el-divider>
                     <span><el-button type="text" :style="logoutBtnStyle"
                                      @click="logoutBtnClick">退出登录</el-button></span>
@@ -105,6 +111,11 @@
       direction="ltr">
       <div :style="leftMenuDrawerStyle">
         <el-scrollbar style="height:100%;">
+          <div class="leftMenuDrawerHeader">
+            <i class="el-icon-s-grid"></i>
+            <span slot="title">功能菜单</span>
+            <el-divider></el-divider>
+          </div>
           <left-menu :data="menu"></left-menu>
         </el-scrollbar>
       </div>
@@ -421,6 +432,16 @@
     .el-button {
       padding-top: 0px;
       padding-bottom: 0px;
+    }
+  }
+
+  .leftMenuDrawerHeader {
+    padding: 10px 20px;
+    text-align: left;
+    font-size: 20px;
+
+    .el-divider--horizontal {
+      margin: 10px 0px 0px 0px;
     }
   }
 </style>
