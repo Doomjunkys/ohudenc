@@ -207,15 +207,15 @@ public class RbacService {
         //判断
         if (MapUtils.isEmpty(api)) {
             log.warn("该用户无任何权限 : traceId -> {} , userId -> {} , URI -> {} , METHOD -> {}", CoreUtil.getTraceId(), userId, uri, method);
-            throw new ParameterValidException("无权限访问此接口");
+            throw new ParameterValidException("无请求权限");
         }
         if (!api.containsKey(uri)) {
             log.warn("无URI权限 : traceId -> {} , userId -> {} , URI -> {} , METHOD -> {}", CoreUtil.getTraceId(), userId, uri, method);
-            throw new ParameterValidException("无权限访问此接口");
+            throw new ParameterValidException("无请求权限");
         }
         if (!api.get(uri).contains(method.toUpperCase())) {
             log.warn("无METHOD权限 : traceId -> {} , userId -> {} , URI -> {} , METHOD -> {}", CoreUtil.getTraceId(), userId, uri, method);
-            throw new ParameterValidException("无权限访问此接口");
+            throw new ParameterValidException("无请求权限");
         }
     }
 

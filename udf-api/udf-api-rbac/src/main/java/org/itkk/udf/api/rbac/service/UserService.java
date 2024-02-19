@@ -20,6 +20,8 @@ import org.itkk.udf.starter.cache.db.service.DbCacheService;
 import org.itkk.udf.starter.core.CoreUtil;
 import org.itkk.udf.starter.core.exception.ParameterValidException;
 import org.itkk.udf.starter.core.id.IdWorker;
+import org.itkk.udf.starter.file.db.dto.DbFileInfoDto;
+import org.itkk.udf.starter.file.db.service.DbFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,6 +55,12 @@ public class UserService implements IUserService {
      */
     @Autowired
     private DbCacheService dbCacheService;
+
+    /**
+     * dbFileService
+     */
+    @Autowired
+    private DbFileService dbFileService;
 
     /**
      * 登陆
@@ -184,17 +192,18 @@ public class UserService implements IUserService {
      * 用户信息更新
      *
      * @param userSaveDto userSaveDto
+     * @param token       token
      * @param userId      userId
      */
     @Transactional
-    public void save(UserSaveDto userSaveDto, String userId) {
+    public void save(UserSaveDto userSaveDto, String token, String userId) {
         //获得用户信息
         UserDto userDto = this.info(userSaveDto.getUserId());
         //校验
         if (userDto == null) {
             throw new ParameterValidException("用户不存在");
         }
-        if (iUserRepository.selectCount(new QueryWrapper<UserEntity>().lambda().eq(UserEntity::getNickName, userSaveDto.getNickName())) > 0) {
+        if (iUserRepository.selectCount(new QueryWrapper<UserEntity>().lambda().ne(UserEntity::getUserId, userDto.getUserId()).eq(UserEntity::getNickName, userSaveDto.getNickName())) > 0) {
             throw new ParameterValidException("昵称已经存在,请重新输入");
         }
         //定义锁
@@ -210,6 +219,9 @@ public class UserService implements IUserService {
                         .set(UserEntity::getUpdateDate, new Date())
                         .eq(UserEntity::getUserId, userSaveDto.getUserId())
                 );
+                //淘汰缓存
+                final String cacheKey = "userDto_" + token;
+                cache.invalidate(cacheKey);
             } finally {
                 //释放锁
                 dbCacheService.delete(key);
@@ -247,6 +259,13 @@ public class UserService implements IUserService {
             userDto = new UserDto();
             //转换
             CoreUtil.copyPropertiesIgnoreNull(userEntity, userDto);
+            //获得头像路径
+            if (StringUtils.isNotBlank(userDto.getAvatarFileId())) {
+                DbFileInfoDto dbFileInfoDto = dbFileService.get(userDto.getAvatarFileId());
+                if (dbFileInfoDto != null) {
+                    userDto.setAvatarFilePath("/file/" + dbFileInfoDto.getRootPathCode() + "/" + dbFileInfoDto.getPhysicalRelativePath() + "/" + dbFileInfoDto.getPhysicalFileName());
+                }
+            }
         }
         //返回
         return userDto;

@@ -52,7 +52,7 @@
               <div class="userPanel">
                 <el-row>
                   <el-col :span="24">
-                    <el-avatar shape="square" size="small" icon="el-icon-user-solid" style="vertical-align: middle;">
+                    <el-avatar :src="userDto.avatarFilePath" shape="square" size="small" icon="el-icon-user-solid" style="vertical-align: middle;">
                     </el-avatar>
                     <span>{{userDto.nickName}}</span>
                     <el-divider></el-divider>
@@ -60,14 +60,15 @@
                 </el-row>
                 <el-row>
                   <el-col :span="24">
-                    <span><el-button type="text" :style="userDtoBtnStyle">个人中心</el-button></span>
+                    <span><el-button type="text" :style="userDtoBtnStyle"
+                                     @click="userCenterBtnClick">个人中心</el-button></span>
                     <el-divider direction="vertical"></el-divider>
                     <span><el-button type="text" :style="logoutBtnStyle"
                                      @click="logoutBtnClick">退出登录</el-button></span>
                   </el-col>
                 </el-row>
               </div>
-              <el-avatar slot="reference" shape="square" size="large" icon="el-icon-user-solid">
+              <el-avatar :src="userDto.avatarFilePath" slot="reference" shape="square" size="large" icon="el-icon-user-solid">
               </el-avatar>
             </el-popover>
           </div>
@@ -109,14 +110,31 @@
       :show-close="false"
       :visible.sync="leftMenuDrawerShow"
       direction="ltr">
-      <div :style="leftMenuDrawerStyle">
+      <div :style="drawerStyle">
         <el-scrollbar style="height:100%;">
-          <div class="leftMenuDrawerHeader">
+          <div class="drawerHeader">
             <i class="el-icon-s-grid"></i>
             <span slot="title">功能菜单</span>
             <el-divider></el-divider>
           </div>
           <left-menu :data="menu"></left-menu>
+        </el-scrollbar>
+      </div>
+    </el-drawer>
+    <el-drawer
+      size="250px"
+      :with-header="false"
+      :show-close="false"
+      :visible.sync="rightUserCenterDrawerShow"
+      direction="rtl">
+      <div :style="drawerStyle">
+        <el-scrollbar style="height:100%;">
+          <div class="drawerHeader">
+            <i class="el-icon-s-grid"></i>
+            <span slot="title">个人中心</span>
+            <el-divider></el-divider>
+          </div>
+          <user-center ref="userCenter"></user-center>
         </el-scrollbar>
       </div>
     </el-drawer>
@@ -128,10 +146,12 @@
   import api_rbac from "./api/rbac";
   import glob from "./assets/js/glob";
   import leftMenu from "./components/leftMenu";
+  import userCenter from "./components/userCenter";
 
   export default {
     name: 'App',
     components: {
+      userCenter,
       leftMenu
     },
     data() {
@@ -186,7 +206,8 @@
         menu: [],
         elAsideShow: true,
         leftMenuDrawerShow: false,
-        leftMenuDrawerStyle: {}
+        drawerStyle: {},
+        rightUserCenterDrawerShow: false
       }
     },
     mounted() {
@@ -208,7 +229,6 @@
         //主动调用一次resize监听
         this.resizeListener();
         //检查登陆
-        glob
         glob.checkLogin();
         //获得用户信息
         const userDtoResponse = await api_rbac.infoByToken(glob.getToken());
@@ -238,7 +258,7 @@
         this.appStyle.height = window.innerHeight + 'px';
         this.mainElContainerStyle.height = window.innerHeight + 'px';
         this.mainChildElContainerStyle.height = (window.innerHeight - 50) + 'px';
-        this.leftMenuDrawerStyle.height = window.innerHeight + 'px';
+        this.drawerStyle.height = window.innerHeight + 'px';
         //设定框宽度
         this.searchInputStyle.width = window.innerWidth - 200 - 10 + 'px';
         //判断是否显示菜单栏
@@ -257,9 +277,16 @@
         const loading = this.$loading({lock: true, text: '操作中'});
         api_rbac.logout().then(response => window.location.href = '/').finally(() => loading.close());
       },
+      //个人中心按钮点击事件
+      userCenterBtnClick() {
+        this.rightUserCenterDrawerShow = true;
+        this.$nextTick(() => {
+          this.$refs.userCenter.init();
+        });
+      },
       //菜单按钮点击
       mainMenuBtnClick() {
-        this.leftMenuDrawerShow = !this.leftMenuDrawerShow;
+        this.leftMenuDrawerShow = true;
       }
     }
   }
@@ -267,6 +294,48 @@
 <style lang="scss">
   .el-drawer {
     background-color: #F5F5F5;
+  }
+
+  .drawerHeader {
+    padding: 10px 20px;
+    text-align: left;
+    font-size: 20px;
+
+    .el-divider--horizontal {
+      margin: 10px 0px 0px 0px;
+    }
+  }
+
+  .top-form {
+    .el-form {
+      .el-form-item {
+        margin-bottom: 0px !important;
+
+        label {
+          margin-bottom: 0px !important;
+        }
+
+        .el-form-item__label {
+          padding: 0 0 0px !important;
+        }
+
+        .el-button {
+          margin-top: 15px;
+        }
+      }
+    }
+  }
+
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
   }
 </style>
 <style lang="scss" scoped>
@@ -432,16 +501,6 @@
     .el-button {
       padding-top: 0px;
       padding-bottom: 0px;
-    }
-  }
-
-  .leftMenuDrawerHeader {
-    padding: 10px 20px;
-    text-align: left;
-    font-size: 20px;
-
-    .el-divider--horizontal {
-      margin: 10px 0px 0px 0px;
     }
   }
 </style>

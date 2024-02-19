@@ -61,7 +61,7 @@ public class UserController {
      */
     @PutMapping("save")
     public RestResponse<String> save(@RequestBody @Valid UserSaveDto userSaveDto, String userId) {
-        userService.save(userSaveDto, CommonUtil.getUser(httpServletRequest).getUserId());
+        userService.save(userSaveDto, CommonUtil.getToken(httpServletRequest), CommonUtil.getUser(httpServletRequest).getUserId());
         return RestResponse.success();
     }
 
