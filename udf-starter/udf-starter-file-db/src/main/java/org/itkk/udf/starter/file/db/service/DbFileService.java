@@ -1,19 +1,22 @@
 package org.itkk.udf.starter.file.db.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import lombok.extern.slf4j.Slf4j;
+import net.coobird.thumbnailator.Thumbnails;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.itkk.udf.starter.core.CoreConstant;
 import org.itkk.udf.starter.core.CoreProperties;
 import org.itkk.udf.starter.core.CoreUtil;
 import org.itkk.udf.starter.core.exception.ParameterValidException;
 import org.itkk.udf.starter.core.exception.SystemRuntimeException;
+import org.itkk.udf.starter.file.db.DbFileConstant;
 import org.itkk.udf.starter.file.db.DbFileProperties;
 import org.itkk.udf.starter.file.db.IGenPreviewPdf;
 import org.itkk.udf.starter.file.db.dto.DbFileInfoDto;
 import org.itkk.udf.starter.file.db.entity.DbFileInfoEntity;
 import org.itkk.udf.starter.file.db.repository.IDbFileInfoRepository;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.MapUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -27,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
+@Slf4j
 public class DbFileService {
 
     /**
@@ -191,11 +195,13 @@ public class DbFileService {
     /**
      * 下载
      *
-     * @param id 文件ID
-     * @param os 输出流
+     * @param id     文件ID
+     * @param width  宽度
+     * @param height 高度
+     * @param os     输出流
      * @throws IOException IOException
      */
-    public void download(String id, OutputStream os) throws IOException {
+    public void download(String id, Integer width, Integer height, OutputStream os) throws IOException {
         //获得文件信息
         DbFileInfoEntity fileInfo = this.getEntity(id);
         //判空
@@ -204,6 +210,22 @@ public class DbFileService {
         }
         //获得文件路径
         Path path = Paths.get(dbFileProperties.getMapping().get(fileInfo.getRootPathCode()) + fileInfo.getPhysicalRelativePath() + fileInfo.getPhysicalFileName());
+        //缩略图处理
+        if (DbFileConstant.CONTENT_TYPE_JPEG.equals(fileInfo.getContentType()) || DbFileConstant.CONTENT_TYPE_PNG.equals(fileInfo.getContentType())) {
+            if (width != null && height != null) {
+                Path thumbnailsPath = Paths.get(path.getParent().toString() + "/" + width + "x" + height + "/" + fileInfo.getPhysicalFileName());
+                if (!Files.exists(thumbnailsPath)) {
+                    try {
+                        Files.createDirectories(thumbnailsPath.getParent());
+                    } catch (Exception e) {
+                        log.warn("{} --> {} 创建文件目录失败,错误类型为 : {}", CoreUtil.getTraceId(), thumbnailsPath.getParent(), e.getClass().getName());
+                    }
+                    Files.createFile(thumbnailsPath);
+                    Thumbnails.of(path.toFile()).size(width, height).keepAspectRatio(false).toFile(thumbnailsPath.toFile());
+                }
+                path = thumbnailsPath;
+            }
+        }
         //输出文件
         try (
                 OutputStream osi = new BufferedOutputStream(os);

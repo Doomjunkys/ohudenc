@@ -1,5 +1,7 @@
 package org.itkk.udf.starter.file.db.web;
 
+import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.itkk.udf.starter.core.CoreConstant;
 import org.itkk.udf.starter.core.CoreProperties;
 import org.itkk.udf.starter.core.RestResponse;
@@ -7,8 +9,6 @@ import org.itkk.udf.starter.core.exception.ParameterValidException;
 import org.itkk.udf.starter.file.db.DbFileProperties;
 import org.itkk.udf.starter.file.db.dto.DbFileInfoDto;
 import org.itkk.udf.starter.file.db.service.DbFileService;
-import org.apache.commons.collections4.MapUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -105,15 +105,17 @@ public abstract class DbFileBaseController {
     /**
      * 文件预览
      *
-     * @param id id
+     * @param id     id
+     * @param width  width
+     * @param height height
      * @throws IOException IOException
      */
     @GetMapping("preview/{id}")
-    public void preview(@PathVariable String id) throws IOException {
+    public void preview(@PathVariable String id, @RequestParam(name = "width", required = false) Integer width, @RequestParam(name = "height", required = false) Integer height) throws IOException {
         //设置头信息
         this.setResponseHeader(id, true);
         //下载
-        dbFileService.download(id, response.getOutputStream());
+        dbFileService.download(id, width, height, response.getOutputStream());
     }
 
     /**
@@ -127,7 +129,7 @@ public abstract class DbFileBaseController {
         //设置头信息
         this.setResponseHeader(id, false);
         //下载
-        dbFileService.download(id, response.getOutputStream());
+        dbFileService.download(id, null, null, response.getOutputStream());
     }
 
     /**

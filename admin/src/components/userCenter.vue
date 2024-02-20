@@ -14,7 +14,7 @@
           :show-file-list="false"
           :before-upload="beforeAvatarFileUpload"
           :http-request="avatarFileUpload">
-          <img v-if="form.avatarFilePath" :src="form.avatarFilePath" class="avatar">
+          <img v-if="avatarFilePath" :src="avatarFilePath" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
@@ -35,7 +35,8 @@
     data() {
       return {
         elUserCenter: {},
-        form: {}
+        form: {},
+        avatarFilePath: null
       }
     },
     methods: {
@@ -50,12 +51,14 @@
         const loading = this.$loading({target: this.elUserCenter, lock: true,});
         api_rbac.infoByToken(glob.getToken()).then(response => {
           this.form = response.data.result;
+          this.avatarFilePath = api_file.preview(this.form.avatarFileId);
         }).finally(() => loading.close());
       },
       //重置
       reset() {
         this.elUserCenter = document.getElementsByClassName('userCenter')[0];
         this.form = {};
+        this.avatarFilePath = null;
       },
       //保存按钮点击事件
       saveBtnClick() {
@@ -89,7 +92,7 @@
         api_file.upload(data).then(response => {
           const fileInfo = response.data.result;
           this.form.avatarFileId = fileInfo.id;
-          this.form.avatarFilePath = '/file/' + fileInfo.rootPathCode + '/' + fileInfo.physicalRelativePath + '/' + fileInfo.physicalFileName;
+          this.avatarFilePath = api_file.preview(this.form.avatarFileId);
         }).finally(() => loading.close());
       }
     }

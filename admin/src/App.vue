@@ -52,7 +52,8 @@
               <div class="userPanel">
                 <el-row>
                   <el-col :span="24">
-                    <el-avatar :src="userDto.avatarFilePath" fit="fill" shape="square" size="small" icon="el-icon-user-solid" style="vertical-align: middle;">
+                    <el-avatar :src="avatarFilePath" fit="fill" shape="square" size="small" icon="el-icon-user-solid"
+                               style="vertical-align: middle;">
                     </el-avatar>
                     <span>{{userDto.nickName}}</span>
                     <el-divider></el-divider>
@@ -68,7 +69,8 @@
                   </el-col>
                 </el-row>
               </div>
-              <el-avatar :src="userDto.avatarFilePath" fit="fill" slot="reference" shape="square" size="large" icon="el-icon-user-solid">
+              <el-avatar :src="avatarFilePath" fit="fill" slot="reference" shape="square" size="large"
+                         icon="el-icon-user-solid">
               </el-avatar>
             </el-popover>
           </div>
@@ -147,6 +149,7 @@
   import glob from "./assets/js/glob";
   import leftMenu from "./components/leftMenu";
   import userCenter from "./components/userCenter";
+  import api_file from "./api/file";
 
   export default {
     name: 'App',
@@ -203,6 +206,7 @@
         showSearchInput: false,
         searchInputText: null,
         userDto: {},
+        avatarFilePath: null,
         menu: [],
         elAsideShow: true,
         leftMenuDrawerShow: false,
@@ -233,6 +237,7 @@
         //获得用户信息
         const userDtoResponse = await api_rbac.infoByToken(glob.getToken());
         this.userDto = userDtoResponse.data.result;
+        this.avatarFilePath = api_file.preview(this.userDto.avatarFileId, 40, 40);
         //获得菜单
         const menuResponse = await api_rbac.menu();
         this.menu = menuResponse.data.result;

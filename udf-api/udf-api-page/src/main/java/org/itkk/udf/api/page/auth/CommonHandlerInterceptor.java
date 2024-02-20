@@ -2,6 +2,7 @@ package org.itkk.udf.api.page.auth;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.itkk.udf.api.common.CommonConstant;
 import org.itkk.udf.api.common.CommonUtil;
 import org.itkk.udf.api.common.dto.UserDto;
 import org.itkk.udf.api.common.service.IUserService;
@@ -30,8 +31,10 @@ public class CommonHandlerInterceptor implements HandlerInterceptor {
             UserDto userDto = iUserService.infoByToken(CommonUtil.getTokenByCookie(request));
             //判断是否登陆
             if (userDto != null) {
+                //放入token
+                modelAndView.addObject(CommonConstant.PARAMETER_NAME_TOKEN, CommonUtil.getTokenByCookie(request));
                 //放入用户信息
-                modelAndView.addObject("userDto", userDto);
+                modelAndView.addObject(CommonConstant.PARAMETER_NAME_TOKEN_INFO, userDto);
             }
         }
     }

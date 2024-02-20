@@ -25,6 +25,7 @@
         <mybatis-plus-boot-starter.version>3.3.1.tmp</mybatis-plus-boot-starter.version>
         <guava.version>28.2-jre</guava.version>
         <poi.version>4.1.2</poi.version>
+        <thumbnailator.version>0.4.11</thumbnailator.version>
     </properties>
     <!--子模块 -->
     <modules>

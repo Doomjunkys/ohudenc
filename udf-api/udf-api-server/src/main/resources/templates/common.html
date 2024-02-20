@@ -328,7 +328,7 @@
                 <div class="item header-right-bar-search-input-div" style="display:none;">
                     <input type="text" class="form-control form-control-lg" placeholder="请输入要搜索的内容">
                 </div>
-                <div th:if="${userDto!=null}" class="item header-right-bar-bell-div">
+                <div th:if="${tokenInfo!=null}" class="item header-right-bar-bell-div">
                     <div class="el-badge">
                         <button type="button" class="btn btn-custom2">
                             <i class="fa fa-bell-o" aria-hidden="true"></i>
@@ -336,18 +336,19 @@
                         <sup class="el-badge__content el-badge__content--undefined is-fixed is-dot"></sup>
                     </div>
                 </div>
-                <div th:if="${userDto!=null}" class="item header-right-bar-user-div">
-                    <button th:if="${userDto.avatarFilePath==null}" type="button"
+                <div th:if="${tokenInfo!=null}" class="item header-right-bar-user-div">
+                    <button th:if="${tokenInfo.avatarFileId==null}" type="button"
                             class="btn btn-info btn-custom3 user-head-img-def">
                         <i class="fa fa-user" aria-hidden="true"></i>
                     </button>
-                    <img th:if="${userDto.avatarFilePath!=null}" width="40px" height="40px"
-                         th:src="${userDto.avatarFilePath}" class="img-rounded user-head-img" alt="头像">
+                    <img th:if="${tokenInfo.avatarFileId!=null}" width="40px" height="40px"
+                         th:src="@{/api/udf/web/private/file/preview/{fileId}?token={token}&width=40&height=40(fileId=${tokenInfo.avatarFileId},token=${token})}"
+                         class="img-rounded user-head-img" alt="头像">
                 </div>
-                <div th:if="${userDto==null}" class="item header-right-bar-login-div">
+                <div th:if="${tokenInfo==null}" class="item header-right-bar-login-div">
                     <button type="button" class="btn btn-custom rounded-pill">登陆</button>
                 </div>
-                <div th:if="${userDto==null}" class="item header-right-bar-registered-div">
+                <div th:if="${tokenInfo==null}" class="item header-right-bar-registered-div">
                     <button type="button" class="btn btn-custom rounded-pill">注册</button>
                 </div>
             </div>

@@ -20,7 +20,6 @@ import org.itkk.udf.starter.cache.db.service.DbCacheService;
 import org.itkk.udf.starter.core.CoreUtil;
 import org.itkk.udf.starter.core.exception.ParameterValidException;
 import org.itkk.udf.starter.core.id.IdWorker;
-import org.itkk.udf.starter.file.db.dto.DbFileInfoDto;
 import org.itkk.udf.starter.file.db.service.DbFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -259,13 +258,6 @@ public class UserService implements IUserService {
             userDto = new UserDto();
             //转换
             CoreUtil.copyPropertiesIgnoreNull(userEntity, userDto);
-            //获得头像路径
-            if (StringUtils.isNotBlank(userDto.getAvatarFileId())) {
-                DbFileInfoDto dbFileInfoDto = dbFileService.get(userDto.getAvatarFileId());
-                if (dbFileInfoDto != null) {
-                    userDto.setAvatarFilePath("/file/" + dbFileInfoDto.getRootPathCode() + "/" + dbFileInfoDto.getPhysicalRelativePath() + "/" + dbFileInfoDto.getPhysicalFileName());
-                }
-            }
         }
         //返回
         return userDto;
