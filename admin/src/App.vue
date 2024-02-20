@@ -52,7 +52,7 @@
               <div class="userPanel">
                 <el-row>
                   <el-col :span="24">
-                    <el-avatar :src="userDto.avatarFilePath" shape="square" size="small" icon="el-icon-user-solid" style="vertical-align: middle;">
+                    <el-avatar :src="userDto.avatarFilePath" fit="fill" shape="square" size="small" icon="el-icon-user-solid" style="vertical-align: middle;">
                     </el-avatar>
                     <span>{{userDto.nickName}}</span>
                     <el-divider></el-divider>
@@ -68,7 +68,7 @@
                   </el-col>
                 </el-row>
               </div>
-              <el-avatar :src="userDto.avatarFilePath" slot="reference" shape="square" size="large" icon="el-icon-user-solid">
+              <el-avatar :src="userDto.avatarFilePath" fit="fill" slot="reference" shape="square" size="large" icon="el-icon-user-solid">
               </el-avatar>
             </el-popover>
           </div>
