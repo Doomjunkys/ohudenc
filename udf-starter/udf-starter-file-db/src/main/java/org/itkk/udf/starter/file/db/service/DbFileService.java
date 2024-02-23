@@ -221,7 +221,7 @@ public class DbFileService {
                         log.warn("{} --> {} 创建文件目录失败,错误类型为 : {}", CoreUtil.getTraceId(), thumbnailsPath.getParent(), e.getClass().getName());
                     }
                     Files.createFile(thumbnailsPath);
-                    Thumbnails.of(path.toFile()).size(width, height).keepAspectRatio(false).toFile(thumbnailsPath.toFile());
+                    Thumbnails.of(path.toFile()).size(width, height).keepAspectRatio(false).outputQuality(1).toFile(thumbnailsPath.toFile());
                 }
                 path = thumbnailsPath;
             }
