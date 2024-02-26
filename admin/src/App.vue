@@ -271,7 +271,7 @@
       },
       //log点击事件
       mainLogoBtnClick() {
-        window.location.href = `${process.env.VUE_APP_ADMIN_BASE_URL}`;
+        window.location.href = '/';
       },
       //搜索输入框显示和隐藏
       searchInputDivShowHidden() {
