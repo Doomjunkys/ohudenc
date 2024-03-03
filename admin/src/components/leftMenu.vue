@@ -5,6 +5,10 @@
         <i class="el-icon-menu"></i>
         <span slot="title">首页</span>
       </el-menu-item>
+      <el-menu-item index="article">
+        <i class="el-icon-edit-outline"></i>
+        <span slot="title">文章</span>
+      </el-menu-item>
       <div v-if="data">
         <left-menu-item :data="data"></left-menu-item>
       </div>
@@ -33,6 +37,7 @@
         if (this.$route.name !== index) {
           this.$router.push({name: index});
         }
+        this.$emit('leftMenuSelect', index);
       }
     }
   }

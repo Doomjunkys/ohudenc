@@ -79,12 +79,12 @@
       <el-container :style="mainChildElContainerStyle">
         <el-aside v-show="elAsideShow" width="240px">
           <el-scrollbar style="height:100%;">
-            <left-menu :data="menu"></left-menu>
+            <left-menu :data="menu" @leftMenuSelect="leftMenuSelectHandle"></left-menu>
           </el-scrollbar>
         </el-aside>
         <el-container :style="mainChildElContainerStyle">
-          <el-scrollbar style="height:100%;width: 100%;">
-            <el-backtop :style="backtopStyle" target=".el-scrollbar__wrap">
+          <el-scrollbar class="main-el-scrollbar" style="height:100%;width: 100%;">
+            <el-backtop :style="backtopStyle" target=".main-el-scrollbar .el-scrollbar__wrap">
               <i class="el-icon-caret-top"></i>
             </el-backtop>
             <el-main>
@@ -119,7 +119,7 @@
             <span slot="title">功能菜单</span>
             <el-divider></el-divider>
           </div>
-          <left-menu :data="menu"></left-menu>
+          <left-menu :data="menu" @leftMenuSelect="leftMenuSelectHandle"></left-menu>
         </el-scrollbar>
       </div>
     </el-drawer>
@@ -292,6 +292,12 @@
       //菜单按钮点击
       mainMenuBtnClick() {
         this.leftMenuDrawerShow = true;
+      },
+      //左边的菜单选择
+      leftMenuSelectHandle() {
+        if (this.leftMenuDrawerShow) {
+          this.leftMenuDrawerShow = false;
+        }
       }
     }
   }
