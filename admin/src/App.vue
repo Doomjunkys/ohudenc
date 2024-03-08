@@ -18,7 +18,7 @@
           </div>
           <div v-show="showSearchInput" class="searchInputDiv">
             <el-input ref="searchInput" v-model="searchInputText" :style="searchInputStyle" clearable
-                      placeholder="请输入要搜索的内容">
+                      placeholder="请输入要搜索的内容" @keyup.enter.native="searchInputHandle">
             </el-input>
           </div>
           <div v-show="!showSearchInput" class="toolDiv">
@@ -267,7 +267,7 @@
         //设定框宽度
         this.searchInputStyle.width = window.innerWidth - 200 - 10 + 'px';
         //判断是否显示菜单栏
-        this.elAsideShow = window.innerWidth > 1366 ? true : false;
+        this.elAsideShow = window.innerWidth > glob.minWidth ? true : false;
       },
       //log点击事件
       mainLogoBtnClick() {
@@ -298,6 +298,10 @@
         if (this.leftMenuDrawerShow) {
           this.leftMenuDrawerShow = false;
         }
+      },
+      //搜索框输入
+      searchInputHandle() {
+        this.$EventBus.$emit(glob.eventNames.globSearchEventName, this.searchInputText);
       }
     }
   }

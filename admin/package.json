@@ -13,7 +13,8 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "babel-polyfill": "^6.26.0"
+    "babel-polyfill": "^6.26.0",
+    "mavon-editor": "^2.9.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

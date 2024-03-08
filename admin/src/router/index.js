@@ -9,8 +9,13 @@ export default new VueRouter({
     },
     {
       path: '/article',
-      name: 'article',
-      component: () => import('../components/article'),
+      name: 'article-main',
+      component: () => import('../components/artice/main'),
+    },
+    {
+      path: '/article/add',
+      name: 'article-add',
+      component: () => import('../components/artice/add'),
     }
   ]
 });

@@ -2,6 +2,13 @@ import router from "../../router";
 import {Message} from 'element-ui';
 
 const glob = {
+  //最小宽度
+  minWidth: 1366,
+  //事件名称
+  eventNames: {
+    //全局搜索事件名称
+    globSearchEventName: 'globSearch',
+  },
   //初始化
   inti() {
     //初始化NProgress

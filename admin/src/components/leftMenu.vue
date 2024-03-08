@@ -5,7 +5,7 @@
         <i class="el-icon-menu"></i>
         <span slot="title">首页</span>
       </el-menu-item>
-      <el-menu-item index="article">
+      <el-menu-item index="article-main">
         <i class="el-icon-edit-outline"></i>
         <span slot="title">文章</span>
       </el-menu-item>
