@@ -10,6 +10,7 @@
                         :subfield="false"
                         :toolbarsFlag="true"
                         :toolbars="toolbars"
+                        :autofocus="false"
                         style="min-height: 600px;z-index: 0;"
           />
         </el-form-item>
