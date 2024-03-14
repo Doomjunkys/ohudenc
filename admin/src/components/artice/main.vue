@@ -34,7 +34,7 @@
       },
       //写文章点击事件
       addArticeClickHandle() {
-        this.$router.push({name: 'article-add'});
+        this.$router.push({name: '/article/add'});
       },
       //加载数据
       loadData() {

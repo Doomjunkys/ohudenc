@@ -9,12 +9,12 @@ export default new VueRouter({
     },
     {
       path: '/article',
-      name: 'article-main',
+      name: '/article',
       component: () => import('../components/artice/main'),
     },
     {
       path: '/article/add',
-      name: 'article-add',
+      name: '/article/add',
       component: () => import('../components/artice/add'),
     }
   ]
