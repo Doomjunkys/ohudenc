@@ -1,5 +1,5 @@
 export default new VueRouter({
-  mode: 'history',
+  // mode: 'history',
   base: `${process.env.VUE_APP_ADMIN_BASE_URL}`,
   routes: [
     {
