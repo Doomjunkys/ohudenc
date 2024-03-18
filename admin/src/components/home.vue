@@ -13,11 +13,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .home {
-    padding: 10px 10px 10px 10px;
-
-    .el-card {
-      border-radius: 0px;
-    }
+  .el-card {
+    border-radius: 0px;
   }
 </style>

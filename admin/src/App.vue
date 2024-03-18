@@ -87,13 +87,24 @@
             <el-backtop :style="backtopStyle" target=".main-el-scrollbar .el-scrollbar__wrap">
               <i class="el-icon-caret-top"></i>
             </el-backtop>
-            <el-main>
-              <transition name="el-zoom-in-center">
-                <keep-alive>
-                  <router-view/>
-                </keep-alive>
-              </transition>
-            </el-main>
+            <div
+              class="mainDiv"
+              @touchstart="touchStart"
+              @touchmove="touchMove"
+              @touchend="touchEnd"
+            >
+              <el-main>
+                <div v-if="moveState > 0">
+                  <div v-if="moveState === 1" class="text-center">释放即可刷新...</div>
+                  <div v-else-if="moveState === 2" class="text-center">加载中...</div>
+                </div>
+                <transition name="el-zoom-in-center">
+                  <keep-alive>
+                    <router-view/>
+                  </keep-alive>
+                </transition>
+              </el-main>
+            </div>
             <el-footer :style="mainFoterStyle">
               <div class="footer">
                 <el-divider></el-divider>
@@ -211,7 +222,10 @@
         elAsideShow: true,
         leftMenuDrawerShow: false,
         drawerStyle: {},
-        rightUserCenterDrawerShow: false
+        rightUserCenterDrawerShow: false,
+        startY: '',
+        moveDistance: 0,
+        moveState: 0
       }
     },
     mounted() {
@@ -219,6 +233,41 @@
       this.init();
     },
     methods: {
+      //开始拖拽
+      touchStart(e) {
+        console.log('touchStart');
+        this.moveDistance = 0;
+        this.startY = e.targetTouches[0].clientY;
+      },
+      //拖拽中
+      touchMove(e) {
+        console.log('touchMove');
+        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        if (scrollTop > 0) return;
+        let move = e.targetTouches[0].clientY - this.startY;
+        if (move > 0) {
+          e.preventDefault();
+          this.moveDistance = Math.pow(move, 0.8);
+          if (this.moveDistance > 50) {
+            if (this.moveState === 1) return;
+            this.moveState = 1;
+          } else {
+            if (this.moveState === 0) return;
+            this.moveState = 0;
+          }
+        }
+      },
+      //结束拖拽
+      touchEnd(e) {
+        console.log('touchEnd');
+        if (this.moveDistance > 50) {
+          this.moveState = 2;
+          this.moveDistance = 50;
+          window.location.reload();
+        } else {
+          this.moveDistance = 0;
+        }
+      },
       //初始化
       init() {
         //初始化(异步)
@@ -307,6 +356,10 @@
   }
 </script>
 <style lang="scss">
+  .mainDiv {
+    padding: 10px 10px 10px 10px;
+  }
+
   .el-drawer {
     background-color: #F5F5F5;
   }

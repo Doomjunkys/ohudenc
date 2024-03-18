@@ -1,5 +1,5 @@
 <template>
-  <div class="main top-form">
+  <div class="top-form">
     <el-form ref="form" :model="form" label-position="top" size="medium">
       <el-card class="contentBar">
         <el-form-item label="* 文章标题">
@@ -107,15 +107,11 @@
 </script>
 
 <style lang="scss" scoped>
-  .main {
-    padding: 10px 10px 10px 10px;
+  .el-card {
+    border-radius: 0px;
+  }
 
-    .el-card {
-      border-radius: 0px;
-    }
+  .contentBar {
 
-    .contentBar {
-
-    }
   }
 </style>

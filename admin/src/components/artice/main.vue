@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div>
     <el-card class="searcBar">
       <el-button type="success" icon="el-icon-edit-outline" @click="addArticeClickHandle">写文章</el-button>
     </el-card>
@@ -48,19 +48,15 @@
 </script>
 
 <style lang="scss" scoped>
-  .main {
-    padding: 10px 10px 10px 10px;
+  .el-card {
+    border-radius: 0px;
+  }
 
-    .el-card {
-      border-radius: 0px;
-    }
+  .searcBar {
 
-    .searcBar {
+  }
 
-    }
-
-    .listBar {
-      margin-top: 10px;
-    }
+  .listBar {
+    margin-top: 10px;
   }
 </style>
