@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div>
     <el-card>
       <h1 class="text-center">网站正在建设中</h1>
     </el-card>
