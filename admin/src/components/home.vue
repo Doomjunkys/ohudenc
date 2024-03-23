@@ -7,8 +7,22 @@
 </template>
 
 <script>
+  import glob from "../assets/js/glob";
+
   export default {
-    name: "home"
+    name: "home",
+    activated() {
+      this.$EventBus.$on(glob.eventNames.globRefreshEventName, this.globRefreshHandle);
+    },
+    deactivated() {
+      this.$EventBus.$off(glob.eventNames.globRefreshEventName);
+    },
+    methods: {
+      //全局刷新
+      globRefreshHandle() {
+        window.location.reload();
+      }
+    }
   }
 </script>
 

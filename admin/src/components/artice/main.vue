@@ -23,11 +23,17 @@
     },
     activated() {
       this.$EventBus.$on(glob.eventNames.globSearchEventName, this.globSearchHandle);
+      this.$EventBus.$on(glob.eventNames.globRefreshEventName, this.globRefreshHandle);
     },
     deactivated() {
       this.$EventBus.$off(glob.eventNames.globSearchEventName);
+      this.$EventBus.$off(glob.eventNames.globRefreshEventName);
     },
     methods: {
+      //全局刷新
+      globRefreshHandle() {
+        window.location.reload();
+      },
       //全局搜索事件处理器
       globSearchHandle(searchText) {
         console.log(searchText);

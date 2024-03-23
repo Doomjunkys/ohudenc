@@ -8,6 +8,8 @@ const glob = {
   eventNames: {
     //全局搜索事件名称
     globSearchEventName: 'globSearch',
+    //全局刷新事件名称
+    globRefreshEventName: 'globRefresh',
   },
   //初始化
   inti() {

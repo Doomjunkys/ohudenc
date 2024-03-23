@@ -94,7 +94,6 @@
             <div class="mainDiv">
               <div v-if="moveState > 0">
                 <div v-if="moveState === 1" class="text-center">释放即可刷新...</div>
-                <div v-else-if="moveState === 2" class="text-center">加载中...</div>
               </div>
               <el-main>
                 <transition name="el-zoom-in-center">
@@ -249,7 +248,7 @@
           let move = e.targetTouches[0].clientY - this.startY;
           if (move > 0) {
             e.preventDefault();
-            this.moveDistance = Math.pow(move, 0.8);
+            this.moveDistance = Math.pow(move, 0.7);
             if (this.moveDistance > 50) {
               if (this.moveState === 1) return;
               this.moveState = 1;
@@ -265,9 +264,9 @@
         //下拉刷新逻辑
         {
           if (this.moveDistance > 50) {
-            this.moveState = 2;
             this.moveDistance = 50;
-            window.location.reload();
+            this.$EventBus.$emit(glob.eventNames.globRefreshEventName);
+            this.moveState = 0;
           } else {
             this.moveDistance = 0;
           }
