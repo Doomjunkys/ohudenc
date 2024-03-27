@@ -248,7 +248,7 @@
           let move = e.targetTouches[0].clientY - this.startY;
           if (move > 0) {
             e.preventDefault();
-            this.moveDistance = Math.pow(move, 0.7);
+            this.moveDistance = Math.pow(move, 0.8);
             if (this.moveDistance > 50) {
               if (this.moveState === 1) return;
               this.moveState = 1;
