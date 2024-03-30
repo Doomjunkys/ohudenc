@@ -236,7 +236,7 @@
         //下拉刷新逻辑
         {
           this.moveDistance = 0;
-          this.startY = e.targetTouches[0].clientY;
+          this.startY = 0;
         }
       },
       //拖拽中
@@ -244,12 +244,20 @@
         //下拉刷新逻辑
         {
           let scrollTop = document.getElementsByClassName('el-scrollbar__wrap')[1].scrollTop;
-          if (scrollTop > 0) return;
-          let move = e.targetTouches[0].clientY - this.startY;
+          if (scrollTop > 0) {
+            return;
+          } else {
+            if (this.startY === 0) {
+              this.startY = e.targetTouches[0].clientY;
+            }
+          }
+          let y = e.targetTouches[0].clientY > window.innerHeight ? window.innerHeight : e.targetTouches[0].clientY;
+          let move = y - this.startY;
           if (move > 0) {
             e.preventDefault();
             this.moveDistance = Math.pow(move, 0.8);
-            if (this.moveDistance > 50) {
+            // console.log(window.innerHeight, scrollTop, e.targetTouches[0].clientY, y, this.startY, move, this.moveDistance);
+            if (this.moveDistance > 100) {
               if (this.moveState === 1) return;
               this.moveState = 1;
             } else {
@@ -263,8 +271,8 @@
       touchEnd(e) {
         //下拉刷新逻辑
         {
-          if (this.moveDistance > 50) {
-            this.moveDistance = 50;
+          if (this.moveDistance > 100) {
+            this.moveDistance = 100;
             this.$EventBus.$emit(glob.eventNames.globRefreshEventName);
             this.moveState = 0;
           } else {
