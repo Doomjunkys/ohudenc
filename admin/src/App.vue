@@ -257,7 +257,7 @@
             e.preventDefault();
             this.moveDistance = Math.pow(move, 0.8);
             // console.log(window.innerHeight, scrollTop, e.targetTouches[0].clientY, y, this.startY, move, this.moveDistance);
-            if (this.moveDistance > 100) {
+            if (this.moveDistance > 80) {
               if (this.moveState === 1) return;
               this.moveState = 1;
             } else {
@@ -271,8 +271,8 @@
       touchEnd(e) {
         //下拉刷新逻辑
         {
-          if (this.moveDistance > 100) {
-            this.moveDistance = 100;
+          if (this.moveDistance > 80) {
+            this.moveDistance = 80;
             this.$EventBus.$emit(glob.eventNames.globRefreshEventName);
             this.moveState = 0;
           } else {
