@@ -4,6 +4,16 @@
        @touchmove="touchMove"
        @touchend="touchEnd"
   >
+    <div v-if="this.moveDistance > 0" :style="mainDivLoadingStyle">
+      <div v-if="moveState === 0" class="text-center">
+        <i class="el-icon-arrow-down" style="font-weight: bold;font-size: 25px;color: #FF6A00;"></i>
+      </div>
+      <div v-if="moveState === 1" class="text-center">
+        <div class="spinner-grow text-success" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
     <el-container :style="mainElContainerStyle">
       <el-header :style="mainElHeaderStyle" :height="mainElHeaderStyle.height">
         <el-button class="mainMenuBtn" :style="mainMenuBtnStyle" type="text"
@@ -92,9 +102,6 @@
               <i class="el-icon-caret-top"></i>
             </el-backtop>
             <div class="mainDiv">
-              <div v-if="moveState > 0">
-                <div v-if="moveState === 1" class="text-center">释放即可刷新...</div>
-              </div>
               <el-main>
                 <transition name="el-zoom-in-center">
                   <keep-alive>
@@ -223,7 +230,12 @@
         rightUserCenterDrawerShow: false,
         startY: '',
         moveDistance: 0,
-        moveState: 0
+        moveState: 0,
+        mainDivLoadingStyle: {
+          "position": "absolute",
+          "width": "100%",
+          "z-index": "2000"
+        }
       }
     },
     mounted() {
@@ -256,6 +268,7 @@
           if (move > 0) {
             e.preventDefault();
             this.moveDistance = Math.pow(move, 0.8);
+            this.mainDivLoadingStyle.top = (this.moveDistance > 70 ? 70 : this.moveDistance) + 'px';
             // console.log(window.innerHeight, scrollTop, e.targetTouches[0].clientY, y, this.startY, move, this.moveDistance);
             if (this.moveDistance > 70) {
               if (this.moveState === 1) return;
@@ -272,8 +285,8 @@
         //下拉刷新逻辑
         {
           if (this.moveDistance > 70) {
-            this.moveDistance = 70;
             this.$EventBus.$emit(glob.eventNames.globRefreshEventName);
+            this.moveDistance = 0;
             this.moveState = 0;
           } else {
             this.moveDistance = 0;
