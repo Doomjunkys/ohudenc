@@ -4,7 +4,7 @@
        @touchmove="touchMove"
        @touchend="touchEnd"
   >
-    <div v-if="this.moveDistance > 0" :style="mainDivLoadingStyle">
+    <div class="loadDiv" v-if="this.moveDistance > 0">
       <div v-if="moveState === 0" class="text-center">
         <i class="el-icon-arrow-down" style="font-weight: bold;font-size: 25px;color: #FF6A00;"></i>
       </div>
@@ -231,11 +231,6 @@
         startY: '',
         moveDistance: 0,
         moveState: 0,
-        mainDivLoadingStyle: {
-          "position": "absolute",
-          "width": "100%",
-          "z-index": "2000"
-        }
       }
     },
     mounted() {
@@ -268,7 +263,7 @@
           if (move > 0) {
             e.preventDefault();
             this.moveDistance = Math.pow(move, 0.8);
-            this.mainDivLoadingStyle.top = (this.moveDistance > 70 ? 70 : this.moveDistance) + 'px';
+            document.getElementsByClassName('loadDiv')[0].style.top = (this.moveDistance > 70 ? 70 : this.moveDistance) + 'px';
             // console.log(window.innerHeight, scrollTop, e.targetTouches[0].clientY, y, this.startY, move, this.moveDistance);
             if (this.moveDistance > 70) {
               if (this.moveState === 1) return;
@@ -381,6 +376,12 @@
   }
 </script>
 <style lang="scss">
+  .loadDiv {
+    position: absolute;
+    width: 100%;
+    z-index: 2000;
+  }
+
   .mainDiv {
     padding: 10px 10px 10px 10px;
   }
