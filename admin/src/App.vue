@@ -263,7 +263,8 @@
           if (move > 0) {
             e.preventDefault();
             this.moveDistance = Math.pow(move, 0.8);
-            document.getElementsByClassName('loadDiv')[0].style.top = (this.moveDistance > 70 ? 70 : this.moveDistance) + 'px';
+            // document.getElementsByClassName('loadDiv')[0].style.top = (this.moveDistance > 70 ? 70 : parseInt(this.moveDistance)) + 'px';
+            document.getElementsByClassName('loadDiv')[0].style.transform = "translate3d(0," + (this.moveDistance > 70 ? 70 : parseInt(this.moveDistance)) + 'px' + ",0)";
             // console.log(window.innerHeight, scrollTop, e.targetTouches[0].clientY, y, this.startY, move, this.moveDistance);
             if (this.moveDistance > 70) {
               if (this.moveState === 1) return;
