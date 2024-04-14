@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="app" :style="appStyle"
+  <div id="app" class="app scroll" :style="appStyle"
        @touchstart="touchStart"
        @touchmove="touchMove"
        @touchend="touchEnd"
@@ -233,6 +233,34 @@
         moveState: 0,
       }
     },
+    created() {
+      {
+        var overscroll = function (el) {
+          el.addEventListener('touchstart', function () {
+            console.log('touchstart');
+            var top = el.scrollTop, totalScroll = el.scrollHeight, currentScroll = top + el.offsetHeight;
+            if (top === 0) {
+              el.scrollTop = 1;
+            } else if (currentScroll === totalScroll) {
+              el.scrollTop = top - 1;
+            }
+          });
+          el.addEventListener('touchmove', function (evt) {
+            console.log('touchmove');
+            if (el.offsetHeight < el.scrollHeight) {
+              evt._isScroller = true;
+            }
+          });
+        }
+        overscroll(document.querySelector('.scroll'));
+        document.body.addEventListener('touchmove', function (evt) {
+          console.log('touchmove');
+          if (!evt._isScroller) {
+            evt.preventDefault();
+          }
+        });
+      }
+    },
     mounted() {
       //初始化
       this.init();
@@ -263,9 +291,7 @@
           if (move > 0) {
             e.preventDefault();
             this.moveDistance = Math.pow(move, 0.8);
-            // document.getElementsByClassName('loadDiv')[0].style.top = (this.moveDistance > 70 ? 70 : parseInt(this.moveDistance)) + 'px';
             document.getElementsByClassName('loadDiv')[0].style.transform = "translate3d(0," + (this.moveDistance > 70 ? 70 : parseInt(this.moveDistance)) + 'px' + ",0)";
-            // console.log(window.innerHeight, scrollTop, e.targetTouches[0].clientY, y, this.startY, move, this.moveDistance);
             if (this.moveDistance > 70) {
               if (this.moveState === 1) return;
               this.moveState = 1;
