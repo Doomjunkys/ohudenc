@@ -5,7 +5,7 @@
        @touchend="touchEnd">
     <div class="loadDiv" v-if="this.moveDistance > 0">
       <div v-if="moveState === 0" class="text-center">
-        <i class="el-icon-arrow-down" style="font-weight: bold;font-size: 25px;color: #FF6A00;"></i>
+        <el-button icon="el-icon-arrow-down" circle></el-button>
       </div>
       <div v-if="moveState === 1" class="text-center">
         <div class="spinner-grow text-success" role="status">
@@ -270,6 +270,9 @@
               if (this.moveState === 0) return;
               this.moveState = 0;
             }
+          } else {
+            this.moveDistance = 0;
+            this.moveState = 0;
           }
         }
       },
