@@ -249,7 +249,7 @@
       touchMove(e) {
         //下拉刷新逻辑
         {
-          let scrollTop = document.getElementsByClassName('el-scrollbar__wrap')[1].scrollTop;
+          let scrollTop = document.documentElement.scrollTop || document.body.scrollTop || document.getElementsByClassName('el-scrollbar__wrap')[1].scrollTop;
           if (scrollTop > 0) {
             return;
           } else {
