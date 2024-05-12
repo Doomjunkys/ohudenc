@@ -249,7 +249,7 @@
       touchMove(e) {
         //下拉刷新逻辑
         {
-          let scrollTop = document.documentElement.scrollTop || document.body.scrollTop || document.getElementsByClassName('el-scrollbar__wrap')[1].scrollTop;
+          let scrollTop = document.getElementsByClassName('el-scrollbar__wrap')[1].scrollTop;
           if (scrollTop > 0) {
             return;
           } else {
@@ -260,9 +260,11 @@
           let y = e.targetTouches[0].clientY > window.innerHeight ? window.innerHeight : e.targetTouches[0].clientY;
           let move = y - this.startY;
           if (move > 0) {
-            e.preventDefault();
             this.moveDistance = Math.pow(move, 0.8);
-            document.getElementsByClassName('loadDiv')[0].style.transform = "translate3d(0," + (this.moveDistance > 70 ? 70 : parseInt(this.moveDistance)) + 'px' + ",0)";
+            let loadDivDoms = document.getElementsByClassName('loadDiv');
+            if (loadDivDoms && loadDivDoms[0]) {
+              loadDivDoms[0].style.transform = "translate3d(0," + (this.moveDistance > 70 ? 70 : parseInt(this.moveDistance)) + 'px' + ",0)";
+            }
             if (this.moveDistance > 70) {
               if (this.moveState === 1) return;
               this.moveState = 1;
