@@ -146,19 +146,4 @@
   </div>
 </div>
 </body>
-<script type="text/javascript">
-  var lastY;
-  document.body.addEventListener('touchmove', function (event) {
-    lastY = event.changedTouches[0].clientY;
-  });
-  document.body.addEventListener('touchmove', function (event) {
-    var y = event.changedTouches[0].clientY;
-    var st = this.scrollTop;
-    if (y >= lastY && st <= 10) {
-      lastY = y;
-      event.preventDefault();
-    }
-    lastY = y;
-  });
-</script>
 </html>

@@ -1,8 +1,5 @@
 <template>
-  <div id="app" class="app" :style="appStyle"
-       @touchstart="touchStart"
-       @touchmove="touchMove"
-       @touchend="touchEnd">
+  <div id="app" class="app" :style="appStyle">
     <div class="loadDiv" v-if="this.moveDistance > 0">
       <div v-if="moveState === 0" class="text-center">
         <el-button icon="el-icon-arrow-down" circle></el-button>
@@ -100,7 +97,10 @@
             <el-backtop :style="backtopStyle" target=".main-el-scrollbar .el-scrollbar__wrap">
               <i class="el-icon-caret-top"></i>
             </el-backtop>
-            <div class="mainDiv">
+            <div class="mainDiv"
+                 @touchstart="touchStart"
+                 @touchmove="touchMove"
+                 @touchend="touchEnd">
               <el-main>
                 <transition name="el-zoom-in-center">
                   <keep-alive>
