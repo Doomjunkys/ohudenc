@@ -254,7 +254,7 @@
           if (!evt._isScroller) {
             evt.preventDefault()
           }
-        });
+        }, {passive: true});
       }
       //初始化
       this.init();
