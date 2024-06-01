@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="app" :style="appStyle"
+  <div id="app" class="app scrollEle" :style="appStyle"
        @touchstart="touchStart"
        @touchmove="touchMove"
        @touchend="touchEnd">
@@ -233,6 +233,28 @@
       }
     },
     mounted() {
+      {
+        var startY = 0;
+        document.addEventListener('touchstart', function (e) {
+          startY = Number(e.touches[0].pageY);
+        });
+        let ele = document.querySelector('.scrollEle');
+        ele.ontouchmove = function (e) {
+          let scrollbarDom = document.getElementsByClassName('el-scrollbar__wrap')[1];
+          let point = e.touches[0];
+          let eleTop = scrollbarDom.scrollTop;
+          let eleTouchBottom = scrollbarDom.scrollHeight - scrollbarDom.offsetHeight;
+          if (eleTop === 0) {
+            if (point.clientY > startY) {
+              e.preventDefault();
+            }
+          } else if (eleTop === eleTouchBottom) {
+            if (point.clientY < startY) {
+              e.preventDefault()
+            }
+          }
+        };
+      }
       //初始化
       this.init();
     },
