@@ -434,33 +434,6 @@ public class CoreUtil {
     }
 
     /**
-     * 获得参数(先从问号后面取,如果为空,再从header里取,如果为空,从作用域中取,如果都为空,则返回null)
-     *
-     * @param request       request
-     * @param parameterName parameterName
-     * @return String
-     */
-    public static String getParameter(HttpServletRequest request, String parameterName) {
-        //获得token
-        String token = request.getParameter(parameterName);
-        if (StringUtils.isBlank(token)) {
-            token = request.getHeader(parameterName);
-            if (StringUtils.isBlank(token)) {
-                Object tokenObj = request.getAttribute(parameterName);
-                if (tokenObj != null) {
-                    token = tokenObj.toString();
-                }
-            }
-        }
-        //返回
-        return token;
-    }
-
-    public static void main(String[] args) throws UnknownHostException {
-        System.out.println(getLocalHostLANAddress().getHostAddress());
-    }
-
-    /**
      * 获得局域网IP地址
      *
      * @return InetAddress

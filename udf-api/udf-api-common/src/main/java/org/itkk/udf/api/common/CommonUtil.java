@@ -2,6 +2,7 @@ package org.itkk.udf.api.common;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.itkk.udf.api.common.dto.UserDto;
 import org.itkk.udf.starter.core.exception.AuthException;
 
@@ -9,7 +10,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
-import java.util.Optional;
 
 /**
  * 工具类
@@ -38,27 +38,26 @@ public class CommonUtil {
      * @return String
      */
     public static String getToken(HttpServletRequest request) {
-        Object tokenObj = request.getAttribute(CommonConstant.PARAMETER_NAME_TOKEN);
-        if (tokenObj == null) {
-            throw new AuthException("token信息不存在");
-        }
-        return (String) tokenObj;
-    }
-
-    /**
-     * 从cookie中获得token
-     *
-     * @param request request
-     * @return String
-     */
-    public static String getTokenByCookie(HttpServletRequest request) {
-        if (ArrayUtils.isNotEmpty(request.getCookies())) {
-            Optional<Cookie> cookie = Arrays.stream(request.getCookies()).filter(a -> a.getName().equals(CommonConstant.PARAMETER_NAME_TOKEN)).findFirst();
-            if (cookie.isPresent()) {
-                return cookie.get().getValue();
+        //从url参数获得
+        String token = request.getParameter(CommonConstant.PARAMETER_NAME_TOKEN);
+        if (StringUtils.isBlank(token)) {
+            //从header获得
+            token = request.getHeader(CommonConstant.PARAMETER_NAME_TOKEN);
+            //从作用域中获得
+            if (StringUtils.isBlank(token)) {
+                token = request.getAttribute(CommonConstant.PARAMETER_NAME_TOKEN) == null ? null : request.getAttribute(CommonConstant.PARAMETER_NAME_TOKEN).toString();
+                //从cookie中获得
+                if (StringUtils.isBlank(token)) {
+                    token = ArrayUtils.isEmpty(request.getCookies()) ? null : Arrays.stream(request.getCookies()).filter(a -> a.getName().equals(CommonConstant.PARAMETER_NAME_TOKEN)).map(Cookie::getValue).findFirst().orElse(null);
+                    //从其他地方获得
+                    if (StringUtils.isBlank(token)) {
+                        //从其他地方获得
+                    }
+                }
             }
         }
-        return null;
+        //返回
+        return token;
     }
 
     /**
@@ -80,5 +79,10 @@ public class CommonUtil {
      */
     private CommonUtil() {
 
+    }
+
+    public static void main(String[] args) {
+        String[] a = null;
+        Arrays.stream(a);
     }
 }

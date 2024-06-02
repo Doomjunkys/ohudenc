@@ -28,11 +28,11 @@ public class CommonHandlerInterceptor implements HandlerInterceptor {
         //判空
         if (modelAndView != null) {
             //获得用户信息
-            UserDto userDto = iUserService.infoByToken(CommonUtil.getTokenByCookie(request));
+            UserDto userDto = iUserService.infoByToken(CommonUtil.getToken(request));
             //判断是否登陆
             if (userDto != null) {
                 //放入token
-                modelAndView.addObject(CommonConstant.PARAMETER_NAME_TOKEN, CommonUtil.getTokenByCookie(request));
+                modelAndView.addObject(CommonConstant.PARAMETER_NAME_TOKEN, CommonUtil.getToken(request));
                 //放入用户信息
                 modelAndView.addObject(CommonConstant.PARAMETER_NAME_TOKEN_INFO, userDto);
             }

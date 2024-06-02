@@ -4,10 +4,10 @@ package org.itkk.udf.api.rbac.auth;
 import lombok.extern.slf4j.Slf4j;
 import org.itkk.udf.api.common.CommonConstant;
 import org.itkk.udf.api.common.CommonProperties;
+import org.itkk.udf.api.common.CommonUtil;
 import org.itkk.udf.api.common.dto.UserDto;
 import org.itkk.udf.api.common.service.IUserService;
 import org.itkk.udf.starter.cache.db.service.DbCacheService;
-import org.itkk.udf.starter.core.CoreUtil;
 import org.itkk.udf.starter.core.exception.AuthException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -43,7 +43,7 @@ public class WebHandlerInterceptor implements HandlerInterceptor {
         //排除options
         if (!HttpMethod.OPTIONS.toString().equals(request.getMethod())) {
             //获得token
-            final String token = CoreUtil.getParameter(request, CommonConstant.PARAMETER_NAME_TOKEN);
+            final String token = CommonUtil.getToken(request);
             //获得tokenInfo
             UserDto userDto = iUserService.infoByToken(token);
             //判空
