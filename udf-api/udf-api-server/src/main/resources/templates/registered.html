@@ -44,6 +44,11 @@
 <script type="text/javascript">
     //页面加载完成
     $(document).ready(function () {
+        //下拉刷新
+        $('body').on('pullReload', function (e) {
+            openLoading();
+            window.location.reload();
+        });
         //登陆按钮点击事件
         $('.login-btn').on('click', function () {
             //跳转到登陆

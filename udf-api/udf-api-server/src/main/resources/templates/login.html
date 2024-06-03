@@ -36,6 +36,11 @@
 <script type="text/javascript">
     //页面加载完成
     $(document).ready(function () {
+        //下拉刷新
+        $('body').on('pullReload', function (e) {
+            openLoading();
+            window.location.reload();
+        });
         //注册按钮点击事件
         $('.registered-btn').on('click', function () {
             //跳转到注册

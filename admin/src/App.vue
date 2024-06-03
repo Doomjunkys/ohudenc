@@ -233,7 +233,14 @@
       }
     },
     mounted() {
-      {
+      //微信禁止下拉
+      this.wxStopPull();
+      //初始化
+      this.init();
+    },
+    methods: {
+      //微信禁止下拉
+      wxStopPull() {
         var startY = 0;
         document.addEventListener('touchstart', function (e) {
           startY = Number(e.touches[0].pageY);
@@ -254,11 +261,7 @@
             }
           }
         };
-      }
-      //初始化
-      this.init();
-    },
-    methods: {
+      },
       //开始拖拽
       touchStart(e) {
         //下拉刷新逻辑
@@ -306,11 +309,9 @@
         {
           if (this.moveDistance > 70) {
             this.$EventBus.$emit(glob.eventNames.globRefreshEventName);
-            this.moveDistance = 0;
-            this.moveState = 0;
-          } else {
-            this.moveDistance = 0;
           }
+          this.moveDistance = 0;
+          this.moveState = 0;
         }
       },
       //初始化
