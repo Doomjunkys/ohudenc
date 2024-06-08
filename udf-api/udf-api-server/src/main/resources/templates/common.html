@@ -432,6 +432,18 @@
                     $('.main').scrollTop(0);
                 });
             });
+            //滚动条刷新
+            $(function () {
+                //滚动条刷新
+                $('.pre-scrollable').scroll(function () {
+                    var scrollHeight = document.getElementsByClassName('pre-scrollable')[0].scrollHeight;
+                    var scrollTop = document.getElementsByClassName('pre-scrollable')[0].scrollTop;
+                    var clientHeight = document.getElementsByClassName('pre-scrollable')[0].clientHeight;
+                    if ((scrollHeight - scrollTop) == clientHeight) {
+                        $('body').trigger('scrollReload');
+                    }
+                });
+            });
             //下拉刷新
             $(function () {
                 //下拉刷新
@@ -453,7 +465,6 @@
                                 startY = e.targetTouches[0].clientY;
                             }
                         }
-                        console.log(e.targetTouches[0].clientY, window.innerHeight);
                         var y = e.targetTouches[0].clientY > window.innerHeight ? window.innerHeight : e.targetTouches[0].clientY;
                         var move = y - startY;
                         if (move > 0) {
