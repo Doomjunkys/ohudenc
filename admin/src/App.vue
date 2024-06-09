@@ -109,18 +109,15 @@
                 </transition>
               </el-main>
             </div>
-            <el-footer :style="mainFoterStyle">
-              <div class="footer">
-                <el-divider></el-divider>
-                <div class="copyRight text-center">
-                  <span>{{golbSetting.copyRight}}</span>
-                </div>
-              </div>
-            </el-footer>
           </el-scrollbar>
         </el-container>
       </el-container>
     </el-container>
+    <div class="bottom" :style="mainBottomStyle">
+      <div class="copyRight text-center">
+        <span>{{golbSetting.copyRight}}</span>
+      </div>
+    </div>
     <el-drawer
       size="250px"
       :with-header="false"
@@ -178,14 +175,22 @@
           appLogoName: 'ITKK',
           copyRight: '© 2019-2020 itkk.org',
           appBackground: "#FAFAFA",
-          headerBackground: "#FFFFFF",
-          menuBtnColor: "#FFFFFF",
           themeBackground: "#FF6A00",
-          themeColor: "#FFFFFF",
+          themeColor: "#FFF",
+          headerHieght: 50,
+          bottomHeight: 50
         },
         appStyle: {},
+        mainElHeaderStyle: {},
+        mainBottomStyle: {},
         mainMenuBtnStyle: {},
         mainLogoBtnStyle: {},
+        mainElContainerStyle: {
+          height: 0
+        },
+        mainChildElContainerStyle: {
+          height: 0
+        },
         searchBtnStyle: {
           outline: "none"
         },
@@ -202,16 +207,6 @@
           outline: "none"
         },
         backtopStyle: {},
-        mainElContainerStyle: {
-          height: 0
-        },
-        mainChildElContainerStyle: {
-          height: 0
-        },
-        mainElHeaderStyle: {
-          height: "50px",
-        },
-        mainFoterStyle: {},
         searchInputStyle: {
           "max-width": "400px",
           width: "150px"
@@ -229,7 +224,7 @@
         rightUserCenterDrawerShow: false,
         startY: '',
         moveDistance: 0,
-        moveState: 0,
+        moveState: 0
       }
     },
     mounted() {
@@ -340,11 +335,12 @@
       //重设主题属性
       resetTheme() {
         this.appStyle.background = this.golbSetting.appBackground;
-        this.mainElHeaderStyle.background = this.golbSetting.headerBackground;
+        this.mainElHeaderStyle.background = this.golbSetting.themeColor;
+        this.mainBottomStyle.background = this.golbSetting.themeColor;
         this.mainMenuBtnStyle.background = "none " + this.golbSetting.themeBackground;
         this.loginBtnStyle.background = this.golbSetting.themeBackground;
         this.registeredBtnStyle.background = this.golbSetting.themeBackground;
-        this.mainMenuBtnStyle.color = this.golbSetting.menuBtnColor;
+        this.mainMenuBtnStyle.color = this.golbSetting.themeColor;
         this.mainLogoBtnStyle.color = this.golbSetting.themeBackground;
         this.backtopStyle.background = this.golbSetting.themeBackground;
         this.backtopStyle.color = this.golbSetting.themeColor;
@@ -356,9 +352,11 @@
       resizeListener() {
         //设定容器高度
         this.appStyle.height = window.innerHeight + 'px';
-        this.mainElContainerStyle.height = window.innerHeight + 'px';
-        this.mainChildElContainerStyle.height = (window.innerHeight - 50) + 'px';
         this.drawerStyle.height = window.innerHeight + 'px';
+        this.mainElHeaderStyle.height = this.golbSetting.headerHieght + 'px';
+        this.mainBottomStyle.height = this.golbSetting.bottomHeight + 'px';
+        this.mainElContainerStyle.height = (window.innerHeight - this.golbSetting.headerHieght) + 'px';
+        this.mainChildElContainerStyle.height = (window.innerHeight - this.golbSetting.headerHieght - this.golbSetting.bottomHeight) + 'px';
         //设定框宽度
         this.searchInputStyle.width = window.innerWidth - 200 - 10 + 'px';
         //判断是否显示菜单栏
@@ -402,6 +400,20 @@
   }
 </script>
 <style lang="scss">
+  .bottom {
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 5px 0px;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+    position: relative;
+
+    .copyRight {
+      padding: 5px 0px 0px 0px;
+      max-width: 1200px;
+      margin: auto !important;
+    }
+  }
+
   .loadDiv {
     position: absolute;
     width: 100%;
@@ -590,25 +602,6 @@
         margin: 0;
         padding: 0;
         overflow: hidden;
-      }
-
-      .el-footer {
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-
-        .footer {
-
-          .el-divider--horizontal {
-            margin: 0px 0px 10px 0px;
-            box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 4px 0px;
-          }
-
-          .copyRight {
-            max-width: 1200px;
-            margin: auto !important;
-          }
-        }
       }
     }
   }
