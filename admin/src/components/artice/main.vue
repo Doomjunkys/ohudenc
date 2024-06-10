@@ -32,6 +32,7 @@
     methods: {
       //全局刷新
       globRefreshHandle() {
+        this.$loading({lock: true});
         window.location.reload();
       },
       //全局搜索事件处理器
