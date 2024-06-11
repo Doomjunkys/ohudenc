@@ -1,21 +1,20 @@
-export default new VueRouter({
-  // mode: 'history',
-  base: `${process.env.VUE_APP_ADMIN_BASE_URL}`,
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: () => import('../components/home'),
-    },
-    {
-      path: '/article',
-      name: '/article',
-      component: () => import('../components/artice/main'),
-    },
-    {
-      path: '/article/add',
-      name: '/article/add',
-      component: () => import('../components/artice/add'),
+import article from "./article";
+import home from "./home";
+
+const routes = (() => {
+  let routes = [];
+  [
+    home,
+    article
+  ].forEach(item => {
+    if (Array.isArray(item)) {
+      routes = routes.concat(item);
     }
-  ]
+  });
+  return routes;
+})();
+
+export default new VueRouter({
+  base: `${process.env.VUE_APP_ADMIN_BASE_URL}`,
+  routes: routes
 });
