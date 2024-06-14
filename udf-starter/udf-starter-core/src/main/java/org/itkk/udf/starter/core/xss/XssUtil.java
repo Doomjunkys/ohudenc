@@ -18,8 +18,6 @@ public class XssUtil {
     public static String xssEncode(String s) {
         if (s == null || s.isEmpty()) {
             return s;
-        } else {
-            s = stripXSSAndSql(s);
         }
         StringBuilder sb = new StringBuilder(s.length() + 16);
         for (int i = 0; i < s.length(); i++) {
@@ -31,13 +29,13 @@ public class XssUtil {
                 case '<':
                     sb.append("＜");// 转义小于号
                     break;
-                case '\'':
+                /*case '\'':
                     sb.append("＇");// 转义单引号
                     break;
                 case '\"':
                     sb.append("＂");// 转义双引号
                     break;
-                /*case '&':
+                case '&':
                     sb.append("＆");// 转义&
                     break;
                 case '#':
@@ -48,7 +46,7 @@ public class XssUtil {
                     break;
             }
         }
-        return sb.toString();
+        return stripXSSAndSql(sb.toString());
     }
 
     /**
@@ -64,7 +62,7 @@ public class XssUtil {
             scriptPattern7 = Pattern.compile("javascript[\r\n| | ]*:[\r\n| | ]*", Pattern.CASE_INSENSITIVE),
             scriptPattern8 = Pattern.compile("vbscript[\r\n| | ]*:[\r\n| | ]*", Pattern.CASE_INSENSITIVE),
             scriptPattern9 = Pattern.compile("onload(.*?)=", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL),
-            scriptPattern10 = Pattern.compile("(?:')|(?:--)|(/\\*(?:.|[\\n\\r])*?\\*/)|(\\b(select|and|or|insert|trancate|char|into|substr|ascii|declare|exec|count|master|into|drop|execute|union|where|limit|group by|hex|set)\\b)", Pattern.CASE_INSENSITIVE),
+            scriptPattern10 = Pattern.compile("(?:--)|(/\\*(?:.|[\\n\\r])*?\\*/)|(\\b(update|delete|select|insert|trancate|char|into|substr|ascii|declare|exec|count|master|drop|execute|union|where|limit|group by|hex)\\b)", Pattern.CASE_INSENSITIVE),
             scriptPattern11 = Pattern.compile("\\*\\/(\\s|.)*?\\/\\*", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
 
     private static String stripXSSAndSql(String value) {
@@ -88,7 +86,7 @@ public class XssUtil {
             // Avoid onload= expressions
             value = scriptPattern9.matcher(value).replaceAll(REPLACE_STRING);
             // Avoid sql= expressions
-            value = scriptPattern10.matcher(value).replaceAll(REPLACE_STRING);
+            //value = scriptPattern10.matcher(value).replaceAll(REPLACE_STRING);
             // Avoid */xxx/*(...) expressions
             value = scriptPattern11.matcher(value).replaceAll(REPLACE_STRING);
         }

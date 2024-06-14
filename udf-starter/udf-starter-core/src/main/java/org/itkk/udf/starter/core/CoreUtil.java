@@ -90,8 +90,12 @@ public class CoreUtil {
      * @return 包含中文标点 true , 不包含中文标点 false
      */
     public static boolean isChinesePunctuation(String s) {
+        final char[] skipArr = new char[]{'＞', '＜'};
         boolean rv = false;
         for (char c : s.toCharArray()) {
+            if (ArrayUtils.contains(skipArr, c)) {
+                continue;
+            }
             if (isChinesePunctuation(c)) {
                 rv = true;
                 break;
