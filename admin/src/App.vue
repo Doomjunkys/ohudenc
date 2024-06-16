@@ -30,8 +30,13 @@
                        @click="searchInputDivShowHidden"></el-button>
           </div>
           <div v-show="showSearchInput" class="searchInputDiv">
-            <el-input ref="searchInput" v-model="searchInputText" :style="searchInputStyle" clearable
-                      placeholder="请输入要搜索的内容" @keyup.enter.native="searchInputHandle">
+            <el-input ref="searchInput" v-model="searchInputText"
+                      :style="searchInputStyle" clearable
+                      v-focus="showSearchInput"
+                      placeholder="请输入要搜索的内容"
+                      @keyup.enter.native="searchInputHandle"
+                      @blur="searchInputBlur"
+            >
             </el-input>
           </div>
           <div v-show="!showSearchInput" class="toolDiv">
@@ -369,6 +374,7 @@
       //搜索输入框显示和隐藏
       searchInputDivShowHidden() {
         this.showSearchInput = !this.showSearchInput;
+        this.searchInputText = '';
       },
       //退出登录按钮事件
       logoutBtnClick() {
@@ -395,6 +401,19 @@
       //搜索框输入
       searchInputHandle() {
         this.$EventBus.$emit(glob.eventNames.globSearchEventName, this.searchInputText);
+      },
+      //输入框失去焦点
+      searchInputBlur() {
+        this.searchInputDivShowHidden();
+      }
+    },
+    directives: {
+      focus: {
+        update: function (el, {value}) {
+          if (value) {
+            el.getElementsByTagName('input')[0].focus();
+          }
+        }
       }
     }
   }

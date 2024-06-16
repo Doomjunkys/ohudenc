@@ -332,7 +332,7 @@
                     </button>
                 </div>
                 <div class="item header-right-bar-search-input-div" style="display:none;">
-                    <input type="text" class="form-control form-control-lg" placeholder="请输入要搜索的内容">
+                    <input type="text" class="form-control form-control-lg glob-search-input" placeholder="请输入要搜索的内容">
                 </div>
                 <div th:if="${tokenInfo!=null}" class="item header-right-bar-bell-div">
                     <div class="el-badge">
@@ -396,28 +396,54 @@
                 });
             });
             //搜索效果
-            $('.header-right-bar-search-div button').on('click', function () {
-                var v1;
-                var v2;
-                if ($('.header-right-bar-search-input-div').css('display')) {
-                    if ($('.header-right-bar-search-input-div').css('display') === 'none') {
-                        v1 = 'table-cell';
-                        v2 = 'none';
+            $(function () {
+                $('.header-right-bar-search-div button').on('click', function () {
+                    var v1;
+                    var v2;
+                    if ($('.header-right-bar-search-input-div').css('display')) {
+                        if ($('.header-right-bar-search-input-div').css('display') === 'none') {
+                            v1 = 'table-cell';
+                            v2 = 'none';
+                        } else {
+                            v1 = 'none';
+                            v2 = 'table-cell';
+                        }
                     } else {
                         v1 = 'none';
                         v2 = 'table-cell';
                     }
-                } else {
-                    v1 = 'none';
-                    v2 = 'table-cell';
-                }
-                $('.header-right-bar-search-input-div').css('display', v1);
-                $('.header-right-bar-search-input-div').css('width', window.innerWidth - 200 - 10 + 'px');
-                $('.header-right-bar-search-input-div').css('max-width', '400px');
-                $('.header-right-bar-bell-div').css('display', v2);
-                $('.header-right-bar-user-div').css('display', v2);
-                $('.header-right-bar-login-div').css('display', v2);
-                $('.header-right-bar-registered-div').css('display', v2);
+                    $('.header-right-bar-search-input-div').css('display', v1);
+                    $('.header-right-bar-search-input-div').css('width', window.innerWidth - 200 - 10 + 'px');
+                    $('.header-right-bar-search-input-div').css('max-width', '400px');
+                    $('.header-right-bar-bell-div').css('display', v2);
+                    $('.header-right-bar-user-div').css('display', v2);
+                    $('.header-right-bar-login-div').css('display', v2);
+                    $('.header-right-bar-registered-div').css('display', v2);
+                    if (v1 == 'table-cell') {
+                        $('.glob-search-input').focus();
+                    } else {
+                        $('.glob-search-input').val(null);
+                    }
+                });
+                //失去焦点后隐藏
+                $('.glob-search-input').on('blur', function () {
+                    var v1 = 'none';
+                    var v2 = 'table-cell';
+                    $('.header-right-bar-search-input-div').css('display', v1);
+                    $('.header-right-bar-search-input-div').css('width', window.innerWidth - 200 - 10 + 'px');
+                    $('.header-right-bar-search-input-div').css('max-width', '400px');
+                    $('.header-right-bar-bell-div').css('display', v2);
+                    $('.header-right-bar-user-div').css('display', v2);
+                    $('.header-right-bar-login-div').css('display', v2);
+                    $('.header-right-bar-registered-div').css('display', v2);
+                    $('.glob-search-input').val(null);
+                });
+                //回车搜索
+                $('.glob-search-input').on('keydown', function () {
+                    if (event.keyCode == 13) {
+                        $('body').trigger('globSearch', $('.glob-search-input').val());
+                    }
+                });
             });
             // 返回顶部处理
             $(function () {
