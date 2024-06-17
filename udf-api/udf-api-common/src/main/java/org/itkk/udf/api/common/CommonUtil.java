@@ -81,8 +81,4 @@ public class CommonUtil {
 
     }
 
-    public static void main(String[] args) {
-        String[] a = null;
-        Arrays.stream(a);
-    }
 }

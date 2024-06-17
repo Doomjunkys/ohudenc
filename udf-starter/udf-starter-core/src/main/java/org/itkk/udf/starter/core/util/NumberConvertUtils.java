@@ -74,16 +74,6 @@ public class NumberConvertUtils {
         return result;
     }
 
-    //public static void main(String[] args) {
-    //    final String CODE34 = "0123456789ABCDEFGHJKLMNPQRSTUVWXYZ";
-    //    long number = 100000;
-    //    for (long i = 0; i <= number; i++) {
-    //        String str = NumberConvertUtils.tenToN(i, CODE34);
-    //        System.out.println(i + " -> " + str + " -> " + NumberConvertUtils.nToTen(str, CODE34));
-    //    }
-    //}
-
-
     /**
      * 私有化构造函数
      */
