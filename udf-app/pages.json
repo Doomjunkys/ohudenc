@@ -1,4 +1,11 @@
 {
+	"easycom": {
+		// 下载安装的方式需要前面的"@/"，npm安装的方式无需"@/"
+		// 下载安装方式
+		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
+		// npm安装方式
+		// "^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	},
 	"pages": [{
 		"path": "pages/index/index",
 		"style": {
@@ -6,9 +13,10 @@
 		}
 	}],
 	"globalStyle": {
-		"navigationBarTextStyle": "white",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#007AFF",
-		"backgroundColor": "#FFFFF1"
+		"navigationStyle": "custom"
+		// "navigationBarTextStyle": "white",
+		// "navigationBarTitleText": "uni-app",
+		// "navigationBarBackgroundColor": "#007AFF",
+		// "backgroundColor": "white"
 	}
 }
