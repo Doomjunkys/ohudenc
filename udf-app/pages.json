@@ -9,14 +9,12 @@
 	"pages": [{
 		"path": "pages/index/index",
 		"style": {
-			"navigationBarTitleText": "UDF-APP"
+			"app-plus": { //仅APP端生效
+				"scrollIndicator": "none" //不显示滚动条
+			}
 		}
 	}],
 	"globalStyle": {
 		"navigationStyle": "custom"
-		// "navigationBarTextStyle": "white",
-		// "navigationBarTitleText": "uni-app",
-		// "navigationBarBackgroundColor": "#007AFF",
-		// "backgroundColor": "white"
 	}
 }
