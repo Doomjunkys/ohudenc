@@ -7,4 +7,5 @@
 /udf-api/*.iml
 /udf-api/*/target/
 /udf-api/*/*.iml
-/udf-app/unpackage/
+/udf-app/unpackage/dist/
+/udf-app/unpackage/resources/
