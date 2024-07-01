@@ -1,10 +1,11 @@
 package org.itkk.udf.starter.core;
 
+import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
-import com.baomidou.mybatisplus.core.parser.ISqlParser;
 import com.baomidou.mybatisplus.extension.MybatisMapWrapperFactory;
-import com.baomidou.mybatisplus.extension.parsers.BlockAttackSqlParser;
-import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.google.common.cache.Cache;
@@ -22,6 +23,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
@@ -32,7 +34,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -54,7 +55,10 @@ public class CoreConfiguration {
      */
     @Bean
     public List<ConfigurationCustomizer> configurationCustomizersProvider() {
-        return Lists.newArrayList(configuration -> configuration.setObjectWrapperFactory(new MybatisMapWrapperFactory()));
+        return Lists.newArrayList(
+                configuration -> configuration.setObjectWrapperFactory(new MybatisMapWrapperFactory()),
+                configuration -> configuration.setUseDeprecatedExecutor(false)
+        );
     }
 
     /**
@@ -132,18 +136,14 @@ public class CoreConfiguration {
     }
 
     /**
-     * 分页插件
-     *
-     * @return
+     * 新的分页插件,一缓和二缓遵循mybatis的规则,需要设置 MybatisConfiguration#useDeprecatedExecutor = false 避免缓存出现问题(该属性会在旧插件移除后一同移除)
      */
     @Bean
-    public PaginationInterceptor paginationInterceptor() {
-        PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
-        List<ISqlParser> sqlParserList = new ArrayList<>();
-        // 攻击 SQL 阻断解析器、加入解析链
-        sqlParserList.add(new BlockAttackSqlParser());
-        paginationInterceptor.setSqlParserList(sqlParserList);
-        return paginationInterceptor;
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        interceptor.addInnerInterceptor(new BlockAttackInnerInterceptor());
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
+        return interceptor;
     }
 
     /**
@@ -219,9 +219,9 @@ public class CoreConfiguration {
     public ClientHttpRequestFactory requestFactory() {
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
         requestFactory.setConnectTimeout(coreProperties.getHttpConnectTimeout());
-        //requestFactory.setReadTimeout(coreProperties.getHttpReadTimeout());
+        requestFactory.setReadTimeout(coreProperties.getHttpReadTimeout());
         requestFactory.setBufferRequestBody(coreProperties.getBufferRequestBody());
-        return requestFactory;
+        return new BufferingClientHttpRequestFactory(requestFactory);
     }
 
     /**

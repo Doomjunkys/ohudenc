@@ -174,16 +174,29 @@ public class DbCacheService {
         DbCacheEntity entity = getEntity(key);
         //判空
         if (entity == null) {
-            //新增缓存
+            //实例化
             entity = new DbCacheEntity();
-            entity.setK(key);
-            entity.setV(value);
-            entity.setCreateTime(System.currentTimeMillis());
-            entity.setExpire(expire);
-            entity.setExpireTime(entity.getCreateTime() + entity.getExpire());
-            entity.setCreateDate(new Date());
-            entity.setUpdateDate(new Date());
-            iDbCacheRepository.insert(entity);
+            //新增缓存
+            try {
+                entity.setK(key);
+                entity.setV(value);
+                entity.setCreateTime(System.currentTimeMillis());
+                entity.setExpire(expire);
+                entity.setExpireTime(entity.getCreateTime() + entity.getExpire());
+                entity.setCreateDate(new Date());
+                entity.setUpdateDate(new Date());
+                iDbCacheRepository.insert(entity);
+            } catch (Exception e) {
+                log.warn("添加缓存失败,转为更新缓存");
+                //更新缓存
+                entity.setK(key);
+                entity.setV(value);
+                entity.setCreateTime(System.currentTimeMillis());
+                entity.setExpire(expire);
+                entity.setExpireTime(entity.getCreateTime() + entity.getExpire());
+                entity.setUpdateDate(new Date());
+                iDbCacheRepository.updateById(entity);
+            }
         } else {
             //更新缓存
             entity.setV(value);

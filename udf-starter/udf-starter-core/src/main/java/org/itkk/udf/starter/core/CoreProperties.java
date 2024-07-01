@@ -77,8 +77,8 @@ public class CoreProperties implements ApplicationContextAware {
     /**
      * http读取超时时间
      */
-    //@NotNull(message = CORE_PROPERTIES_PRE_FIX + ".httpReadTimeout不能为空")
-    //private Integer httpReadTimeout = 5000;
+    @NotNull(message = CORE_PROPERTIES_PRE_FIX + ".httpReadTimeout不能为空")
+    private Integer httpReadTimeout = 5000;
 
     /**
      * RestTemplate是否允许大消息体

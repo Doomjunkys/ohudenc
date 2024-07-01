@@ -14,7 +14,7 @@
         <project.build.date>${maven.build.timestamp}</project.build.date>
         <udf-api.version>1.0</udf-api.version>
         <udf-starter.version>1.0.0</udf-starter.version>
-        <springboot.version>2.3.0.RELEASE</springboot.version>
+        <springboot.version>2.4.3</springboot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
