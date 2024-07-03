@@ -55,4 +55,14 @@ public class HomeController {
         }
         return "login";
     }
+
+    /**
+     * 跳转/admin/
+     *
+     * @return String
+     */
+    @GetMapping("/admin")
+    public String admin() {
+        return "redirect:/admin/";
+    }
 }
